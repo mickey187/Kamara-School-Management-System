@@ -15,10 +15,10 @@ class CreateTrainingInstitutionInfosTable extends Migration
     {
         Schema::create('training_institution_infos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('teacher_traning_program') ->nullable(false);
             $table->date('teacher_traning_year') ->nullable(false);
             $table->string('teacher_traning_institute') ->nullable(false);
+            $table->timestamps();
         });
     }
 

@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class payment_type extends Model
 {
-    use HasFactory;
+       protected $fillabl = [
+                                'id',
+                                'payment_type'
+                            ];
+
 }

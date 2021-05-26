@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class stream extends Model
 {
-    use HasFactory;
+    protected $fillable=[
+                            'id',
+                            'stream_type'
+                        ];
 }

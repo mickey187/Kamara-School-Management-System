@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class semister extends Model
 {
-    use HasFactory;
+    protected $fillable = ['id','semister','term'];
 }

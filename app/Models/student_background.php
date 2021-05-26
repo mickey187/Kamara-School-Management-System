@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class student_background extends Model
 {
     protected $fillable=[
+                            'id',
                             'previous_school',
                             'transfer_reason',
                             'suspension_status',
@@ -15,5 +16,6 @@ class student_background extends Model
                             'previous_special_education',
                             'citizenship',
                             'previous_school',
-                            'native_tongue'];
+                            'native_tongue'
+                        ];
 }

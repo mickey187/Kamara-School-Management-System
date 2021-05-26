@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class student_enrolment extends Model
 {
-    use HasFactory;
+    protected $fillable=[
+                            'id',
+                            'acadamic_year',
+                            'class',
+                            'student',
+                            'student_class_transfer'
+                        ];
 }

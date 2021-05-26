@@ -15,10 +15,10 @@ class CreateAcademicBackgroundInfosTable extends Migration
     {
         Schema::create('academic_background_infos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('field_of_study') ->nullable(false);
             $table->string('place_of_study') ->nullable(false);
             $table->date('date_of_study') ->nullable(false);
+            $table->timestamps();
         });
     }
 

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class student_class_transfer extends Model
 {
     protected $fillable=[
+                            'id',
                             'yearly_average',
                             'transfered_to',
                             'pass_fail_status',

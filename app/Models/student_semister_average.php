@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class student_semister_average extends Model
 {
-    use HasFactory;
+    protected $fillable=[
+                            'id',
+                            'semister',
+                            'student'
+                        ];
 }

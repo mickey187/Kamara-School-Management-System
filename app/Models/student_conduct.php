@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class student_conduct extends Model
 {
-    use HasFactory;
+    protected $fillable = ['id','conduct','student'];
 }

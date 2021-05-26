@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class payment extends Model
 {
-    use HasFactory;
+       protected $fillabl = [
+                                'id',
+                                'amount',
+                                'payment_date',
+                                'payment_type',
+                                'student'
+                    ];
 }

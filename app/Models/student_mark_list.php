@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class student_mark_list extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+                            'id',
+                            'academic_year',
+                            'assasment_type',
+                            'subject',
+                            'class',
+                            'teacher',
+                            'semister',
+                            'student'
+                        ];
 }

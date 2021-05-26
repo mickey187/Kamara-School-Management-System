@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class assasment_type extends Model
 {
-    use HasFactory;
+    protected $fillable = ['id','assasment_type'];
 }
