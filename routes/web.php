@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\ClassController;
+use App\Http\Controllers\StreamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('/layouts/master');
 });
+
+Route::get('/subject', [SubjectController::class, 'openView']);
+
+Route::post('addsubject', [SubjectController::class, 'addSubject']);
+
+Route::get('/class', [ClassController::class, 'showSubjectList']);
+
+Route::post('addClass', [ClassController::class, 'addClass']);
+
+Route::get('/addStream', [StreamController::class, 'openView']);
+
+Route::post('addStream', [StreamController::class, 'addStream']);

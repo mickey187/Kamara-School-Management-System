@@ -15,13 +15,18 @@ class CreateClassesTable extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects');
-            $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('classes');
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('student_class_transfers');
+
+            $table->unsignedBigInteger('stream_id');
+            $table->foreign('stream_id')->references('id')->on('streams');
+
+            $table->unsignedBigInteger('section_id');
+            $table->foreign('section_id')->references('id')->on('sections');
+
             $table->string('class_label')->nullable(false);
+            
             $table->timestamps();
         });
     }

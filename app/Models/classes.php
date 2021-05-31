@@ -9,9 +9,10 @@ class classes extends Model
 {
    protected $fillable = [
                             'id',
-                            'class_label',
-                            'subject',
-                            'class',
-                            'student'
+                            'subject_id',
+                            'stream_id',                            
+                            'section_id',
+                            'class_label'
+                            
                         ];
 }

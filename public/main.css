@@ -1,0 +1,75 @@
+
+.brand-links{
+   display: block;
+   font-size: 1.25rem;
+   line-height: 1.5;
+   padding: .8125rem .2rem;
+   transition: width .3s ease-in-out;
+   white-space: nowrap;
+   
+}
+.brand-images{
+   line-height: .8;
+   margin-left: .8rem;
+   margin-right: .5rem;
+   margin-top: 1px;
+   max-height: 130px;
+   width: auto;  
+   opacity: .9;
+}
+/* scrollable list view */
+.list-group{
+   max-height: 400px;
+   margin-bottom: 10px;
+   overflow:scroll;
+   scroll-behavior: smooth;
+   overflow-x: hidden;
+   -webkit-overflow-scrolling: touch;
+}
+
+/* width */
+::-webkit-scrollbar {
+   width: 2px;
+ }
+ 
+ /* Track */
+ ::-webkit-scrollbar-track {
+   background: #f1f1f1;
+ }
+ 
+ /* Handle */
+ ::-webkit-scrollbar-thumb {
+   background: rgba(207, 207, 207, 0.664);
+ }
+ 
+ /* Handle on hover */
+ ::-webkit-scrollbar-thumb:hover {
+   background: rgb(131, 131, 131);
+ }
+
+.logo-login{
+width: 150px;
+}
+.text-md-custom{
+   font-size: 25px;
+}
+
+.announes:hover{
+   background: rgba(230, 230, 230, 0.644);
+}
+.text-title-anu{
+   font-weight: 500;
+}
+
+.background_master{
+
+   background-size: auto;
+   
+   background-image: url('img/kamaralogo.png');
+  /* Full height */
+  background-size: 50%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
