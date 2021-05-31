@@ -15,9 +15,15 @@ class StreamController extends Controller
 
     function addStream(Request $req){
         $stream = new stream;
+        $streams = stream::all();
         $stream->stream_type = $req->streamname;
         $stream->save();
-        return view('add_stream');
+        return view('view_stream')->with('streams',$streams);
         
+    }
+
+    function viewStream(){
+        $streams = stream::all();
+        return view('view_stream')->with('streams',$streams);
     }
 }

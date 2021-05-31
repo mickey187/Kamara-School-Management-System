@@ -30,6 +30,7 @@ class ClassController extends Controller
 
         $data =subject::all();
         $stream_data = stream::all();
+        $classes = classes::all();
 
         $classes = new classes;
         $classes->subject_id = $req->select_subject;
@@ -37,9 +38,17 @@ class ClassController extends Controller
         $classes->section_id = $req->select_section;
         $classes->class_label = $req->class_label;
                        
-        $classes->save();
+        if($classes->save()){
+            return redirect()->route('/viewClass')->with('classes',$classes);
+        }
        
-        return view('add_class')->with('stream_data',$stream_data)->with('data',$data);
+        //return view('add_class')->with('stream_data',$stream_data)->with('data',$data);
+
         
+    }
+
+    function viewClass(){
+        $classes = classes::all();
+        return view('view_class')->with('classes',$classes);
     }
 }

@@ -18,13 +18,21 @@ class SubjectController extends Controller
     }
     function addSubject(Request $req)
     {
-        $subject = new Subject;
+        $subject_list = subject::all();
+
+        $subject = new subject;
         $subject->stream_id = $req->stream_id; 
         $subject->subject_group = $req->subjectgroup;
         $subject->subject_name = $req->subjectname;
         
         
         $subject->save();
-        return redirect('subject');
+        return redirect('/viewSubject')->with('subject_list',$subject_list);;
+    }
+
+    function viewsubject(){
+        $subject_list = subject::all();
+        
+        return view('view_subjects')->with('subject_list',$subject_list);
     }
 }
