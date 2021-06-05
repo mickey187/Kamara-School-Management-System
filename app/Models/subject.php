@@ -13,4 +13,7 @@ class subject extends Model
                             'subject_name',
                             'stream'
                         ];
+
+                       
+                        
 }

@@ -1,11 +1,13 @@
 @extends('layouts.master')
 @section('content')
 
-<section class="content">
-    <div class="container-fluid mt-3">
-      <!-- SELECT2 EXAMPLE -->
-      
-       
+<div class="card card-orange">
+  <div class="card-header">
+    <h3 class="card-title"> <i class="fas fa-tachometer-alt"></i> Add Stream</h3>
+</div>
+<div class="card-body">
+  <section class="content">
+    <div class="container-fluid mt-3">                 
         <form action="addStream" method="post">
           @csrf      
           <div class="row">
@@ -17,15 +19,11 @@
               <button type="submit" class="btn btn-primary btn-md">Submit</button>
             </div>
           </div>
-        </form>
-            
-         
-       
-       
-        
-      
-      
-    </div>
-    
+        </form>                                                  
+    </div>    
   </section>
+</div>
+</div>
+
+
 @endsection

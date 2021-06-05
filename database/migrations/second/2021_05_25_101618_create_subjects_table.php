@@ -17,7 +17,8 @@ class CreateSubjectsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('stream_id');
             $table->foreign('stream_id')->references('id')->on('streams');
-            $table->string('subject_group')->nullable(false);
+            $table->unsignedBigInteger('subject_group_id');
+            $table->foreign('subject_group_id')->references('id')->on('subject_groups');
             $table->string('subject_name')->nullable(false);
             $table->timestamps();
         });

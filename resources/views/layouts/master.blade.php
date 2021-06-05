@@ -33,10 +33,10 @@
 
     <link rel="stylesheet" href="{{ asset('main.css') }}">
 
-     <!-- DataTables -->
-  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -44,8 +44,8 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60"
-                width="60">
+            <img class="animation__shake" src="{{ asset('img/logo.png') }}" alt="AdminLTELogo"
+                height="150" width="150">
         </div>
 
         <!-- Navbar -->
@@ -72,7 +72,7 @@
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="{{ asset('img/default_picture.png')}}" alt="User Avatar"
+                                <img src="{{ asset('img/default_picture.png') }}" alt="User Avatar"
                                     class="img-size-50 mr-3 img-circle">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
@@ -100,7 +100,7 @@
                     <ul class="mt-2 dropdown-menu">
                         <!-- User image -->
                         <li class="user-header bg-orange">
-                            <img src="{{asset('img/default_picture.png')}}" class="img-circle" alt="User Image">
+                            <img src="{{ asset('img/default_picture.png') }}" class="img-circle" alt="User Image">
 
                             <p class="mt-0"> <span class="text-bold">Yohannes kassa</span> <br>
                                 grade <br>
@@ -132,7 +132,7 @@
 
             <div class="brand-links text-center m-0 p-0 ">
                 <a href="#">
-                    <img src="{{ asset('img/logo.png')}}" alt="AdminLTE Logo"
+                    <img src="{{ asset('img/logo.png') }}" alt="AdminLTE Logo"
                         class="brand-images  mt-2 mb-1 img-circle elevation-1" />
                 </a>
             </div>
@@ -159,7 +159,7 @@
 
 
 
-                  
+
                         <li class="nav-item">
                             <a href="../index.html" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -168,11 +168,11 @@
                                 </p>
                             </a>
                         </li>
-                      
+
 
 
                         <!-- student -->
-                        
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
@@ -281,6 +281,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a href="/addsubjectgroup" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Subject Group</p>
+                                    </a>
+                                </li>
+                                
+                                    <li class="nav-item">
+                                        <a href="/viewsubjectgroup" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>View Subject Group</p>
+                                        </a>
+                                    </li>
+                                <li class="nav-item">
                                     <a href="/subject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Subject</p>
@@ -332,16 +345,16 @@
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                              <i class="nav-icon far fa-circle text-green"></i>
-                              <p>Profile</p>
+                                <i class="nav-icon far fa-circle text-green"></i>
+                                <p>Profile</p>
                             </a>
-                          </li>
-                          <li class="nav-item">
-                          <a href="#" class="nav-link">
-                            <i class="nav-icon far fa-circle text-danger"></i>
-                            <p>log-out</p>
-                          </a>
-                        </li>                                           
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-circle text-danger"></i>
+                                <p>log-out</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -365,27 +378,13 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <!-- Default box -->
-                            <div class="card card-orange ">
-                                <div class="card-header">
-                                    <h3 class="card-title"> <i class="fas fa-tachometer-alt"></i> Dashboard</h3>
-                                </div>
-                                <div class="card-body ">
-
-
-                                    @yield('content')
-
-
-
-                                </div>
-                            </div>
-                            <!-- /.card-body -->
+                            @yield('content')
                         </div>
-                        <!-- /.card -->
                     </div>
                 </div>
+            </section>
         </div>
-        </section>
+        
 
     </div>
     <!-- /.content-wrapper -->
@@ -408,7 +407,7 @@
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js')}}plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -427,55 +426,71 @@
     <script src=" {{ asset('plugins/jquery-knob/jquery.knob.min.js') }} "></script>
     <!-- daterangepicker -->
     <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <!-- Summernote -->
-    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
+    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('dist/js/adminlte.js')}}"></script>
+    <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('dist/js/demo.js')}}"></script>
+    <script src="{{ asset('dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('dist/js/pages/dashboard.js')}}"></script>
+    <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 
 
 
     <!-- DataTables  & Plugins -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="../../plugins/jszip/jszip.min.js"></script>
-<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="../../plugins/jszip/jszip.min.js"></script>
+    <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 
-<!-- Page specific script -->
-<script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+
+
+        $('#modal-default').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal 
+  var detail = button.data('detail')
+  // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+//   modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body p').text(detail)
+  modal.find('.modal-footer button').val(detail)
+})
+
+    </script>
 </body>
 
 </html>

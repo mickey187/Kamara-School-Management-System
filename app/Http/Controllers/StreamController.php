@@ -8,22 +8,28 @@ use App\Models\stream;
 class StreamController extends Controller
 {
     //
-    function openView(){
+    function index(){
         
-        return view('add_stream');
+        return view('admin/curriculum/add_stream');
     }
 
     function addStream(Request $req){
         $stream = new stream;
         $streams = stream::all();
         $stream->stream_type = $req->streamname;
-        $stream->save();
-        return view('view_stream')->with('streams',$streams);
+
+        if( $stream->save()){
+            
+            return redirect()->route('/viewStream')->with('streams',$streams);
+        }
+       
+        
+      
         
     }
 
     function viewStream(){
-        $streams = stream::all();
-        return view('view_stream')->with('streams',$streams);
+        $streams = stream::select('id','stream_type')->get();        
+        return view('admin/curriculum/view_stream')->with('streams',$streams);
     }
 }

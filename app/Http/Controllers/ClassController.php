@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\subject;
 use App\Models\classes;
 use App\Models\stream;
+use DB;
 
 class ClassController extends Controller
 {
@@ -13,14 +14,14 @@ class ClassController extends Controller
     
    
 
-   public function showSubjectList(){
+   public function index(){
         $data =subject::all();
         $stream_data = stream::all();
         // echo $stream_data;
 
     
         // $stream_data = array('amaharic' =>$stream_data);
-        return view('add_class')->with('stream_data',$stream_data)->with('data',$data);
+        return view('admin/curriculum/add_class')->with('stream_data',$stream_data)->with('data',$data);
         // ->with('data'=>$data, 'stream_data'=>$stream_data);
      //  return view('add_class', array('data'=>$data, 'stream_data'=>$stream_data));
     }
@@ -28,7 +29,7 @@ class ClassController extends Controller
 
     function addClass(Request $req){
 
-        $data =subject::all();
+        $data = subject::all();
         $stream_data = stream::all();
         $classes = classes::all();
 
@@ -48,7 +49,16 @@ class ClassController extends Controller
     }
 
     function viewClass(){
-        $classes = classes::all();
-        return view('view_class')->with('classes',$classes);
+        
+        $classes = classes::select('id','subject_id','stream_id','section_id','class_label')->get();
+    
+        $class_detail = DB::table('classes')
+        ->join('subjects', 'classes.subject_id', '=', 'subjects.id')
+        ->join('streams', 'classes.stream_id', '=', 'streams.id')
+        ->join('sections', 'classes.section_id', '=', 'sections.id')->get(['subject_name','stream_type','section','class_label']);
+
+        //echo $class_detail;
+        
+      return view('admin/curriculum/view_class')->with('class_detail',$class_detail);
     }
 }
