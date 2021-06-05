@@ -286,7 +286,7 @@
                                         <p>Add Subject Group</p>
                                     </a>
                                 </li>
-                                
+
                                     <li class="nav-item">
                                         <a href="/viewsubjectgroup" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
@@ -378,13 +378,14 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
+                            @include('sweetalert::alert')
                             @yield('content')
                         </div>
                     </div>
                 </div>
             </section>
         </div>
-        
+
 
     </div>
     <!-- /.content-wrapper -->
@@ -479,7 +480,7 @@
 
 
         $('#modal-default').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal 
+  var button = $(event.relatedTarget) // Button that triggered the modal
   var detail = button.data('detail')
   // Extract info from data-* attributes
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
