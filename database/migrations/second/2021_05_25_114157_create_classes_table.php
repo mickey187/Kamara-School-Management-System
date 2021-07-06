@@ -15,20 +15,16 @@ class CreateClassesTable extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('subject_id');
-            $table->foreign('subject_id')->references('id')->on('subjects');
-
-            $table->unsignedBigInteger('stream_id');
-            $table->foreign('stream_id')->references('id')->on('streams');
-
-            $table->unsignedBigInteger('section_id');
-            $table->foreign('section_id')->references('id')->on('sections');
-
+            
+            // $table->unsignedBigInteger('stream_id');
+            // $table->foreign('stream_id')->references('id')->on('streams');
+           
             $table->string('class_label')->nullable(false);
             
             $table->timestamps();
         });
+
+        
     }
 
     /**

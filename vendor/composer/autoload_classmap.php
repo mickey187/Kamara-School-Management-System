@@ -28,6 +28,7 @@ return array(
     'App\\Models\\address' => $baseDir . '/app/Models/address.php',
     'App\\Models\\assasment_type' => $baseDir . '/app/Models/assasment_type.php',
     'App\\Models\\attendance' => $baseDir . '/app/Models/attendance.php',
+    'App\\Models\\class_subject' => $baseDir . '/app/Models/class_subject.php',
     'App\\Models\\classes' => $baseDir . '/app/Models/classes.php',
     'App\\Models\\employee' => $baseDir . '/app/Models/employee.php',
     'App\\Models\\employee_emergency_contact' => $baseDir . '/app/Models/employee_emergency_contact.php',

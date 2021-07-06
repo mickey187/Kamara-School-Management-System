@@ -22,8 +22,15 @@
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
+
+    <!-- select2  --> 
+  <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
+  
+  
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
@@ -32,6 +39,7 @@
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
     <link rel="stylesheet" href="{{ asset('main.css') }}">
+    <link rel="stylesheet" href="{{ asset('addclass.css') }}">
 
     <!-- DataTables -->
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -281,16 +289,16 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/addsubjectgroup" class="nav-link">
+                                    <a href="/addclasslabel" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Subject Group</p>
+                                        <p>Add Class Label</p>
                                     </a>
                                 </li>
                                 
                                     <li class="nav-item">
-                                        <a href="/viewsubjectgroup" class="nav-link">
+                                        <a href="/viewclasslabel" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>View Subject Group</p>
+                                            <p>View Class Label</p>
                                         </a>
                                     </li>
                                 <li class="nav-item">
@@ -306,15 +314,15 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/class" class="nav-link">
+                                    <a href="/indexAddClassSubject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Class</p>
+                                        <p>Add Class Subject</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/viewClass" class="nav-link">
+                                    <a href="/viewClassSubject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>View Class</p>
+                                        <p>View Class Subject</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -337,6 +345,19 @@
                                     </a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a href="/indexaddrole" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Role </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="/viewrole" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Role </p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -389,7 +410,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2021 <a href="https://hawisoftware.com.et">hawisoftware.com.et</a>.</strong>
+        <strong>Copyright &copy; 2014-2021 <a href="https://hawisoftware.com.et">hawisoftware.com.et</a></strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 3.1.0
@@ -407,7 +428,7 @@
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -416,6 +437,15 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
+        <!-- select 2 --> 
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script>
+    $(function() {
+
+        $('.select2').select2()
+    });
+    </script>
+
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->
     <script src="plugins/sparklines/sparkline.js"></script>
@@ -435,10 +465,29 @@
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+
+    <!-- view class js -->
+    <script src="{{ asset('view_subject.js') }}"></script>
+
+    <!-- view role js -->
+    <script src="{{ asset('view_role.js') }}"></script>
+
+    <!-- view class label js -->
+    <script src="{{ asset('view_class_label.js') }}"></script>
+
+     <!-- view_class_subject js -->
+     <script src="{{ asset('view_class_subject.js') }}"></script>
+
+     <!-- view stream js -->
+     <script src="{{ asset('view_stream.js') }}"></script>
+
+
+    
 
 
 
@@ -455,11 +504,15 @@
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="{{asset('dist/js/addclass.js')}}"></script>
 
 
     <!-- Page specific script -->
     <script>
         $(function() {
+
+           
+
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -478,17 +531,26 @@
         });
 
 
-        $('#modal-default').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal 
-  var detail = button.data('detail')
-  // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-//   modal.find('.modal-title').text('New message to ' + recipient)
-  modal.find('.modal-body p').text(detail)
-  modal.find('.modal-footer button').val(detail)
-})
+       //  $('#modal_view').on('show.bs.modal', function (event) {
+//   var button = $(event.relatedTarget) // Button that triggered the modal 
+//   var detail = button.data('view')
+//   // Extract info from data-* attributes
+//   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+//   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+//   var modal = $(this)
+// //   modal.find('.modal-title').text('New message to ' + recipient)
+//             var spit = detail.split(",");
+
+// //var table = ('#example1').DataTable();
+//   //modal.find('.modal-body p').text(detail)
+//   modal.find('.modal-body #subjectid_view').text("subject id: "+spit[0]);
+//   modal.find('.modal-body #stream_view').text("stream: "+spit[1]);
+//   modal.find('.modal-body #subjectgroup_view').text("subject group: "+spit[2]);
+//   modal.find('.modal-body #subjectname_view').text("subject name: "+spit[3]);
+//   modal.find('.modal-footer button').val(spit[0])
+ 
+ });
+
 
     </script>
 </body>

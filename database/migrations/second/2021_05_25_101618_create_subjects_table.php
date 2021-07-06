@@ -15,10 +15,9 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('stream_id');
-            $table->foreign('stream_id')->references('id')->on('streams');
-            $table->unsignedBigInteger('subject_group_id');
-            $table->foreign('subject_group_id')->references('id')->on('subject_groups');
+            // $table->unsignedBigInteger('stream_id');
+            // $table->foreign('stream_id')->references('id')->on('streams')->onUpdate('cascade')->onDelete('cascade');
+            
             $table->string('subject_name')->nullable(false);
             $table->timestamps();
         });

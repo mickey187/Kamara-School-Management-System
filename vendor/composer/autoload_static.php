@@ -522,6 +522,7 @@ class ComposerStaticInit09b82281131ae13f303a3dc3b42e93a2
         'App\\Models\\address' => __DIR__ . '/../..' . '/app/Models/address.php',
         'App\\Models\\assasment_type' => __DIR__ . '/../..' . '/app/Models/assasment_type.php',
         'App\\Models\\attendance' => __DIR__ . '/../..' . '/app/Models/attendance.php',
+        'App\\Models\\class_subject' => __DIR__ . '/../..' . '/app/Models/class_subject.php',
         'App\\Models\\classes' => __DIR__ . '/../..' . '/app/Models/classes.php',
         'App\\Models\\employee' => __DIR__ . '/../..' . '/app/Models/employee.php',
         'App\\Models\\employee_emergency_contact' => __DIR__ . '/../..' . '/app/Models/employee_emergency_contact.php',

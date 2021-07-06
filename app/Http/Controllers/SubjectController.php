@@ -15,46 +15,37 @@ class SubjectController extends Controller
 
     function index(){
 
-        $stream_data = stream::all();
-        $subject_group = subject_group::all();
-        return view('admin/curriculum/add_subject')->with('stream_data',$stream_data)
-                    ->with('subject_group',$subject_group);
+        $stream_data = stream::all();       
+        return view('admin/curriculum/add_subject');
     }
 
-    function indexSubjectGroup(){
+    
 
-        return view('admin/curriculum/add_subject_group');
-    }
+    // function addSubjectGroup(Request $req){
+        
+    //     $subject_group = new subject_group;
+    //     $subject_group->subject_group = $req->subjectgroup;
+    //     $subject_group->save();
+    //     $subject_group = subject_group::all();
 
-    function addSubjectGroup(Request $req){
-        $subject_group = new subject_group;
-        $subject_group->subject_group = $req->subjectgroup;
-        $subject_group->save();
-
-        $result = subject_group::all();
-        echo $result;
-    }
+    //    // $result = subject_group::all();
+    //    return redirect()->route('viewsubjectgroup')->with('subject_group',$subject_group);
+    // }
     function addSubject(Request $req)
     {
-        $subject_list = subject::all();
-
-        $subject = new subject;
-        $subject->stream_id = $req->stream_id; 
-        $subject->subject_group_id = $req->subjectgroup;
+               
+        $subject = new subject;            
         $subject->subject_name = $req->subjectname;
         
         
         $subject->save();
+        $subject_list = subject::all();
         return redirect('/viewSubject')->with('subject_list',$subject_list);;
     }
 
     function viewsubject(){
       // $subject_list = subject::all();
-      $subject_list = DB::table('subjects')
-                                ->join('streams', 'subjects.stream_id', '=' ,'streams.id')
-                                ->join('subject_groups','subjects.subject_group_id', '=', 'subject_groups.id')
-                                ->get(['subjects.id','stream_type','subject_groups.subject_group',
-                                'subject_name','subjects.id']);
+      $subject_list = subject::all();
        
         
         return view('admin/curriculum/view_subjects')->with('subject_list',$subject_list);
@@ -64,9 +55,9 @@ class SubjectController extends Controller
        
         $editSubject = subject::where('id',$id)->first();
         $stream_data = stream::all();
-        $subject_group = subject_group::all();
-        return view('admin/curriculum/add_subject')->with('stream_data',$stream_data)
-                    ->with('subject_group',$subject_group)->with('editSubject',$editSubject);
+        
+        return view('admin/curriculum/add_subject')
+                    ->with('editSubject',$editSubject);
 
         
 
@@ -76,21 +67,34 @@ class SubjectController extends Controller
     function editSubjectValue(Request $req, $id){
         //return $req->subjectname;
         $edit = subject::find($id);
-        $sub =array();
-        $sub['stream_id']=$req->stream_id;
-        $sub['subject_name']=$req->subjectname;
-        $sub['subject_group_id']=$req->subjectgroup;
+      //  echo $edit;
+        
+       // $sub =array();
+        $edit->stream_id = $req->stream_id;
+        $edit->subject_name = $req->subjectname;
+        
     
-        $edit->update($sub);
+        
 
         if($edit->save()){
-            echo " 1 row affected";
-  //          return redirect()->route('/viewSubject');
+            $subject_list = subject::all();
+            
+          return redirect()->route('/viewSubject')->with('subject_list',$subject_list);
         }
         
     }
 
     function deleteSubject(Request $req){
-        echo $req;
+        //echo $id;
+       // $id = (int)$req;
+        
+        if(subject::destroy($req->delete)){
+            $subject_list = subject::all();
+            return redirect()->route('/viewSubject')->with('subject_list',$subject_list);
+        }
+        else{
+            echo "failed";
+        }
+     
     }
 }
