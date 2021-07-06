@@ -35,7 +35,7 @@ class ClassController extends Controller
 
     public function indexClassLabel(){
         $stream_data = stream::all();
-        
+        echo 'Come on man';
         return view('admin/curriculum/add_class_label')->with('stream_data',$stream_data);
     }
 
