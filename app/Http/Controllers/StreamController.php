@@ -28,6 +28,24 @@ class StreamController extends Controller
 
     }
 
+    public function editStream($id){
+
+        $stream = stream::find($id);
+        //return $stream->stream_type;
+        return view('admin.curriculum.add_stream')->with('stream', $stream);
+    }
+
+    public function editStreamValue(Request $req, $id){
+
+        $stream_edit = stream::find($id);
+        $stream_edit->stream_type = $req->streamname;
+        if ($stream_edit->update()) {
+            $streams = stream::all();
+            return redirect()->route('/viewStream')->with('streams',$streams);
+        }
+
+    }
+
     function viewStream(){
         $streams = stream::select('id','stream_type')->get();
         return view('admin.curriculum.view_stream')->with('streams',$streams);

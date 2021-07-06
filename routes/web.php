@@ -66,13 +66,20 @@ Route::get('/editClassSubject/{id}', [ClassController::class, 'editClassSubject'
 Route::post('/editClassSubjectValue/{id_cls}', [ClassController::class, 'editClassSubjectValue']);
 
 //stream
-Route::get('/addStream', [StreamController::class, 'index']);
+Route::get('/addStream', [StreamController::class, 'index'])->name('/addStream');
 
 Route::get('/viewStream', [StreamController::class, 'viewStream'])->name('/viewStream');
 
 Route::post('addStream', [StreamController::class, 'addStream']);
 
 Route::post('/deletestream', [StreamController::class, 'deleteStream']);
+
+Route::get('/editstream/{id}', [StreamController::class, 'editStream'])->name('/editstream');
+
+Route::post('/editstreamvalue/{id}', [StreamController::class, 'editStreamValue']);
+
+
+
 
 
 
