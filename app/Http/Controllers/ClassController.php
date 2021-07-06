@@ -6,20 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\subject;
 use App\Models\classes;
 use App\Models\stream;
-<<<<<<< HEAD
 use App\Models\section;
 use App\Models\class_subject;
 use App\Models\subject_group;
-=======
 use RealRashid\SweetAlert\Facades\Alert;
->>>>>>> a82c77211e9ff1e0d2d63a4446a6984cb029d61c
 use DB;
 use Arr;
 use Carbon\Carbon;
 
 class ClassController extends Controller
 {
-<<<<<<< HEAD
     
     
    
@@ -38,16 +34,6 @@ class ClassController extends Controller
     }
 
     public function indexClassLabel(){
-=======
-    //
-
-
-
-   public function index(){
-    Alert::success('Success Title', 'Success Message');
-
-        $data =subject::all();
->>>>>>> a82c77211e9ff1e0d2d63a4446a6984cb029d61c
         $stream_data = stream::all();
         
         return view('admin/curriculum/add_class_label')->with('stream_data',$stream_data);
@@ -55,17 +41,9 @@ class ClassController extends Controller
 
    public function viewclasslabel(){
 
-<<<<<<< HEAD
     $class_label = classes::all();
     
     return view('admin/curriculum/view_class_label')->with('class_label',$class_label);
-=======
-
-        // $stream_data = array('amaharic' =>$stream_data);
-        return view('admin/curriculum/add_class')->with('stream_data',$stream_data)->with('data',$data);
-        // ->with('data'=>$data, 'stream_data'=>$stream_data);
-     //  return view('add_class', array('data'=>$data, 'stream_data'=>$stream_data));
->>>>>>> a82c77211e9ff1e0d2d63a4446a6984cb029d61c
     }
 
    public function addClassLabel(Request $req){
@@ -80,7 +58,6 @@ class ClassController extends Controller
        else echo "Failed to add class please try again";
    }
 
-<<<<<<< HEAD
    public function deleteClassLabel(Request $req){
     $class_label_id = $req->delete_btn;
     $class_label = classes::find($class_label_id);
@@ -297,38 +274,5 @@ return redirect()->route('/viewClassSubject')->with('class_data',$class_data);
 
         $subject = subject::where('subject_group_id',$class_group)->get();
         return response()->json($subject);
-=======
-        $data = subject::all();
-        $stream_data = stream::all();
-        $classes = classes::all();
-
-        $classes = new classes;
-        $classes->subject_id = $req->select_subject;
-        $classes->stream_id = $req->stream_id;
-        $classes->section_id = $req->select_section;
-        $classes->class_label = $req->class_label;
-
-        if($classes->save()){
-            return redirect()->route('/viewClass')->with('classes',$classes);
-        }
-
-        //return view('add_class')->with('stream_data',$stream_data)->with('data',$data);
-
-
-    }
-
-    function viewClass(){
-
-        $classes = classes::select('id','subject_id','stream_id','section_id','class_label')->get();
-
-        $class_detail = DB::table('classes')
-        ->join('subjects', 'classes.subject_id', '=', 'subjects.id')
-        ->join('streams', 'classes.stream_id', '=', 'streams.id')
-        ->join('sections', 'classes.section_id', '=', 'sections.id')->get(['subject_name','stream_type','section','class_label']);
-
-        //echo $class_detail;
-
-      return view('admin/curriculum/view_class')->with('class_detail',$class_detail);
->>>>>>> a82c77211e9ff1e0d2d63a4446a6984cb029d61c
     }
 }
