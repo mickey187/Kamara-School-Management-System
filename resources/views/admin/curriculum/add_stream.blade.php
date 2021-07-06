@@ -8,13 +8,24 @@
 <div class="card-body">
   <section class="content">
     <div class="container-fluid mt-3">                 
-        <form action="addStream" method="post">
+        <form action="
+        @if (isset($stream))
+          {{url('/editstreamvalue/'.$stream->id)}}
+
+          @else 
+          {{url('/addStream')}}
+        @endif
+        " method="post">
           @csrf      
           <div class="row">
             <div class="col-6">
               <div class="form-group">
                 <label for="exampleFormControlInput1">Stream Name</label>
-                <input type="text" name ="streamname" class="form-control" id="exampleFormControlInput1" placeholder="Stream Name">
+                <input type="text" name ="streamname" class="form-control" id="exampleFormControlInput1" 
+                placeholder="Stream Name"
+                @if (isset($stream))
+                  value="{{$stream->stream_type}}"
+                @endif>
               </div>
               <button type="submit" class="btn btn-primary btn-md">Submit</button>
             </div>

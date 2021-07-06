@@ -35,7 +35,7 @@
                    
                    </button>
                    
-                   <a name="edit_ubject" id="" class="btn btn-info btn-sm" href="{{ url('editsubject/'.$row->id) }}" role="button"> 
+                   <a name="edit_ubject" id="" class="btn btn-info btn-sm" href="{{ url('editstream/'.$row->id) }}" role="button"> 
                    <i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
 
                    <button class="btn btn-danger btn-sm" data-toggle="modal" 
@@ -62,7 +62,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">View Class Labels  git is a monster</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">View Class Labels </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
