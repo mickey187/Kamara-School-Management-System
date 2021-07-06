@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kamara School Management System | Dashboard</title>
-
+    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
@@ -22,15 +22,10 @@
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
-
-    <!-- select2  --> 
+    <!-- select2  -->
   <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
-
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-
-  
-  
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
@@ -45,6 +40,8 @@
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -191,15 +188,15 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="../pages/add_students.html" class="nav-link">
+                                    <a href="{{ url('add_student')  }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Student</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../pages/student_list.html" class="nav-link">
+                                    <a href="{{ url('view_student')  }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Student List</p>
+                                        <p>List Student</p>
                                     </a>
                                 </li>
 
@@ -438,7 +435,7 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
-        <!-- select 2 --> 
+        <!-- select 2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
     $(function() {
@@ -487,8 +484,9 @@
      <!-- view stream js -->
      <script src="{{ asset('view_stream.js') }}"></script>
 
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    
+
 
 
 
@@ -507,12 +505,14 @@
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script src="{{asset('dist/js/addclass.js')}}"></script>
 
-
+    <script src="{{ asset('dist/js/script.js') }}"></script>
+    <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
+    <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <!-- Page specific script -->
     <script>
         $(function() {
 
-           
+
 
             $("#example1").DataTable({
                 "responsive": true,
@@ -533,7 +533,7 @@
 
 
        //  $('#modal_view').on('show.bs.modal', function (event) {
-//   var button = $(event.relatedTarget) // Button that triggered the modal 
+//   var button = $(event.relatedTarget) // Button that triggered the modal
 //   var detail = button.data('view')
 //   // Extract info from data-* attributes
 //   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -549,11 +549,25 @@
 //   modal.find('.modal-body #subjectgroup_view').text("subject group: "+spit[2]);
 //   modal.find('.modal-body #subjectname_view').text("subject name: "+spit[3]);
 //   modal.find('.modal-footer button').val(spit[0])
- 
+
  });
 
 
     </script>
+    <script>
+        $(function () {
+          $("#img-pro").change(function(){
+            var reader = new FileReader();
+            reader.onload = function(image){
+              $("#dsp-pro").attr('src',image.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+          });
+          $("#dsp-pro").click(function () {
+            $("#img-pro").click();
+          });
+        })
+      </script>
 </body>
 
 </html>

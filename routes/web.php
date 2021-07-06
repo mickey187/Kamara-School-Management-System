@@ -6,6 +6,8 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StreamController;
 use App\Http\Controllers\SubjectGroupController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ParentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,7 +98,7 @@ Route::get('editclasslabelvalue/{id}', [ClassController::class, 'editClassLabelV
 
 
 
-//Role 
+//Role
 
 Route::get('indexaddrole', [RoleController::class, 'indexAddRole']);
 
@@ -109,3 +111,21 @@ Route::get('editrole/{id}', [RoleController::class, 'editRole'])->name('editrole
 Route::post('editrolevalue/{id}', [RoleController::class, 'editRoleValue']);
 
 Route::post('/deleterole', [RoleController::class, 'deleteRole']);
+
+
+// Student
+
+Route::post('newStudent', [StudentController::class, 'insert']);
+Route::get('add_student', [StudentController::class, 'index']);
+Route::get('view_student',[StudentController::class, 'retriveAll']);
+Route::get('edit_student_form/{id}',[StudentController::class, 'retrive']);
+Route::post('edit_student_value/{id}',[StudentController::class, 'update']);
+
+
+// parent
+
+Route::get('newParent/{id}',[ParentController::class, 'addMore']);
+Route::get('studentParentList/{id}',[ParentController::class, 'retrive']);
+Route::get('addNewParent/{id}',[ParentController::class, 'insertParent']);
+Route::get('updateParent/{id}',[ParentController::class, 'editPage']);
+

@@ -10,6 +10,7 @@ class student_class_transfer extends Model
     protected $fillable=[
                             'id',
                             'yearly_average',
+                            'transfered_from',
                             'transfered_to',
                             'pass_fail_status',
                             'student_semister_average'

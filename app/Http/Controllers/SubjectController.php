@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\subject;
 use App\Models\stream;
 use App\Models\subject_group;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 
 class SubjectController extends Controller
@@ -15,14 +15,14 @@ class SubjectController extends Controller
 
     function index(){
 
-        $stream_data = stream::all();       
+        $stream_data = stream::all();
         return view('admin/curriculum/add_subject');
     }
 
-    
+
 
     // function addSubjectGroup(Request $req){
-        
+
     //     $subject_group = new subject_group;
     //     $subject_group->subject_group = $req->subjectgroup;
     //     $subject_group->save();
@@ -33,11 +33,11 @@ class SubjectController extends Controller
     // }
     function addSubject(Request $req)
     {
-               
-        $subject = new subject;            
+
+        $subject = new subject;
         $subject->subject_name = $req->subjectname;
-        
-        
+
+
         $subject->save();
         $subject_list = subject::all();
         return redirect('/viewSubject')->with('subject_list',$subject_list);;
@@ -46,20 +46,20 @@ class SubjectController extends Controller
     function viewsubject(){
       // $subject_list = subject::all();
       $subject_list = subject::all();
-       
-        
+
+
         return view('admin/curriculum/view_subjects')->with('subject_list',$subject_list);
     }
 
     function editSubject($id){
-       
+
         $editSubject = subject::where('id',$id)->first();
         $stream_data = stream::all();
-        
+
         return view('admin/curriculum/add_subject')
                     ->with('editSubject',$editSubject);
 
-        
+
 
 
     }
@@ -68,26 +68,26 @@ class SubjectController extends Controller
         //return $req->subjectname;
         $edit = subject::find($id);
       //  echo $edit;
-        
+
        // $sub =array();
         $edit->stream_id = $req->stream_id;
         $edit->subject_name = $req->subjectname;
-        
-    
-        
+
+
+
 
         if($edit->save()){
             $subject_list = subject::all();
-            
+
           return redirect()->route('/viewSubject')->with('subject_list',$subject_list);
         }
-        
+
     }
 
     function deleteSubject(Request $req){
         //echo $id;
        // $id = (int)$req;
-        
+
         if(subject::destroy($req->delete)){
             $subject_list = subject::all();
             return redirect()->route('/viewSubject')->with('subject_list',$subject_list);
@@ -95,6 +95,6 @@ class SubjectController extends Controller
         else{
             echo "failed";
         }
-     
+
     }
 }

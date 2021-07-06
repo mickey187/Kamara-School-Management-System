@@ -16,7 +16,10 @@ class CreateStudentClassTransfersTable extends Migration
     {
         Schema::create('student_class_transfers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id') ->references('id')->on('students');
             $table->integer('yearly_average')->nullable(false);
+            $table->integer('transfered_from')->nullable(false);
             $table->integer('transfered_to')->nullable(false);
             $table->string('pass_fail_status')->nullable(false);
             $table->timestamps();
