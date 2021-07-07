@@ -68,6 +68,7 @@ class ClassController extends Controller
 
         return redirect()->route('viewclasslabel')->with('class_data',$class_data);
     }
+    
    }
 
    public function editClassLabel($id){

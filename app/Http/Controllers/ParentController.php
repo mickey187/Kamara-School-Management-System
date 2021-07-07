@@ -56,21 +56,26 @@ class ParentController extends Controller{
 
     public function delete($id){
 
-        $parent_list = students_parent::where('id',$id)->get()->first();
-        $student = student::where('id',$parent_list->student)->first();
-        $address = address::find($parent_list->address_id);
-        $address->delete();
-        $parent_list->delete();
-        return redirect()->route('studentParentList',$student->id)->withSuccessMessage('Successfully added');
-    }
+            $parent = students_parent::where('id',$id)->get()->first();
+            $student = student::where('id',$parent->student)->first();
+            $address = address::find($parent->address_id);
+            $address->delete();
+            $parent->delete();
+
+            $student = student::where('id',$student->id)->first();
+            $parent_list = students_parent::where('student',$id)->get();
+            return redirect('studentParentList/'.$student->id);
+        }
 
     public function addMore($student_id){
         $id = $student_id;
         return view('admin.parent.add_parent')->with('id',$id);
     }
 
+
     public function update($id){
         $edit = students_parent::find($id);
+
         $sub =array();
         $sub['first_name']=request('firstName');
         $sub['middle_name']=request('middleName');
@@ -95,11 +100,17 @@ class ParentController extends Controller{
         $subAdd['house_number']=request('houseNumber');
         $addressEdit->update($subAdd);
         $addressEdit->save();
-        return redirect()->route('listParent')->withSuccessMessage('Successfully Updated');
+        
+        $student = student::where('id',$edit->student)->first();
+        $parent_list = students_parent::where('student',$student->id)->get();
+
+        //return redirect()->route('studentParentList',$id)->withSuccessMessage('Successfully Updated');
+        return view('admin.parent.view_student_and_parent')->with('parent_list',$parent_list)->with('student',$student);
     }
 
     public function editPage($id){
-        $update_address = DB::table('students_parents')->join('addresses','students_parents.address_id','=','addresses.id')->where('students_parents.address_id',$id)->first();
+        $update_address = DB::table('students_parents')->join('addresses','students_parents.address_id','=','addresses.id')->where('students_parents.id',$id)->first();
+        echo $update_address->p_o_box;
         $parent_update_list = students_parent::where('id',$id)->first();
         return view('admin.parent.add_parent')->with('parent_update_list',$parent_update_list)->with('update_address',$update_address);
     }
@@ -115,7 +126,6 @@ class ParentController extends Controller{
         $address->alternative_phone_number = request('phone2');
         $address->house_number = request('houseNumber');
         $address->save();
-
     }
 
     public function insertParent($id){
@@ -133,5 +143,9 @@ class ParentController extends Controller{
         $parent->address_id = $address_fk;
         $parent->student = $student_fk;
         $parent->save();
+        $student = student::where('id',$parent->student)->first();
+        $parent_list = students_parent::where('student',$student->id)->get();
+        return view('admin.parent.view_student_and_parent',compact('student'))->with('parent_list',$parent_list);
+
     }
 }
