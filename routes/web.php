@@ -121,8 +121,7 @@ Route::post('/deleterole', [RoleController::class, 'deleteRole']);
 
 
 // Student
-
-Route::post('newStudent', [StudentController::class, 'insert']);
+Route::post('new_student', [StudentController::class, 'insert']);
 Route::get('add_student', [StudentController::class, 'index']);
 Route::get('view_student',[StudentController::class, 'retriveAll']);
 Route::get('edit_student_form/{id}',[StudentController::class, 'retrive']);
@@ -133,6 +132,11 @@ Route::post('edit_student_value/{id}',[StudentController::class, 'update']);
 
 Route::get('newParent/{id}',[ParentController::class, 'addMore']);
 Route::get('studentParentList/{id}',[ParentController::class, 'retrive']);
-Route::get('addNewParent/{id}',[ParentController::class, 'insertParent']);
+Route::get('addNewParent/{id}',[ParentController::class, 'insert']);
 Route::get('updateParent/{id}',[ParentController::class, 'editPage']);
+Route::get('insertUpdatedParent/{id}',[ParentController::class, 'update']);
+Route::get('addNewParent',[ParentController::class, 'retriveAll']);
+Route::get('delete_parent/{id}',[ParentController::class, 'delete']);
+
+
 

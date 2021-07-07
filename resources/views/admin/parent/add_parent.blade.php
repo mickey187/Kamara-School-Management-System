@@ -155,7 +155,6 @@
                             @endif
                             >
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
-
                         </div>
                         <div class="field">
                             <div class="label">Email</div>

@@ -9,7 +9,7 @@
                 <h3 class="card-title">Student Registration</h3>
             </div>
         </div><br>
-        <form action="{{ url('newStudent') }}" role="form" method="POST" enctype="multipart/form-data" onsubmit="return=fa">
+        <form action="{{ url('new_student') }}" role="form" method="POST" enctype="multipart/form-data" onsubmit="return=fa">
             @csrf
             <div class="page slidePage">
                 <div class="row col-12">
