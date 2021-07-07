@@ -1,5 +1,4 @@
 $('#modal-student').on('show.bs.modal', function(event) {
-    console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
     var button = $(event.relatedTarget)
     var detail = button.data('detail1')
     var modal = $(this)

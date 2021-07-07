@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\DB;
 class StudentController extends Controller{
 
     public function index(){
+        $all_class = classes::all();
         $this->idGeneratorFun();
        // return view('admin.student.test');
-         return view('admin.student.add_student');
+         return view('admin.student.add_student')->with('classes',$all_class);
 
     }
 
@@ -30,7 +31,7 @@ class StudentController extends Controller{
             'birth_date' => $req->birthDate,
             'gender' => $req->gender,
             'image' => $req->image,
-            'grade' => $req->grade
+            'class' => $req->grade
         );
 
         $student_background = array(
@@ -75,7 +76,8 @@ class StudentController extends Controller{
             $this->insertStudentBackgroud($student_background);
             $this->insertStudentMedicalInfo($student_medical_info);
             $this->insertStudent($student,$req);
-            return view('admin.student.add_student');
+            $all_class = classes::all();
+            return view('admin.student.add_student')->with('classes',$all_class);
 
         }else{
 
@@ -84,8 +86,8 @@ class StudentController extends Controller{
             $this->insertStudent($student,$req);
             $this->insertAddress($addres);
             $this->insertParent($parent);
-
-         return view('admin.student.add_student');
+            $all_class = classes::all();
+            return view('admin.student.add_student')->with('classes',$all_class);
         }
 
     }
@@ -108,7 +110,6 @@ class StudentController extends Controller{
             'students.last_name',
             'students.gender',
             'students.birth_year',
-            'students.grade',
             'students.image',
             'student_backgrounds.citizenship',
             'student_backgrounds.previous_school',
@@ -131,10 +132,22 @@ class StudentController extends Controller{
 
     public function retriveAll(){
         $student_list = student::all();
-        $stud_sec = classes::all();
-        //$stud_sec = DB::table('students')->join('classes','students.class_id','=','classes.id')->get('class_label');
+        //$stud_sec = classes::all();
+        $stud_sec = DB::table('students')
+        ->join('classes','students.class_id','=','classes.id')
+        ->get([
+            'students.id',
+            'students.student_id',
+            'students.first_name',
+            'students.middle_name',
+            'students.last_name',
+            'students.gender',
+            'students.image',
+            'classes.class_label'
+        ]);
 
-        return view('admin.student.view_student')->with('student_list',$student_list);
+
+        return view('admin.student.view_student')->with('student_list',$stud_sec);
     }
 
     public function update(Request $req, $id){
@@ -190,6 +203,7 @@ class StudentController extends Controller{
     public function findStudent(){
         $all_class = classes::all();
         $student = student::where('student_id',request('student_id'))->first();
+
         if($student){
             $class = classes::where('id',$student->class_id)->first();
             if($class){
@@ -264,7 +278,6 @@ class StudentController extends Controller{
         $student->last_name = $data['last_name'];
         $student->birth_year = $data['birth_date'];
         $student->gender = $data['gender'];
-        $student->grade = $data['grade'];
         // $student->image = $data['image'];
         if($req->image->getClientOriginalName()){
             $ext =$req->image->getClientOriginalExtension();
@@ -274,7 +287,7 @@ class StudentController extends Controller{
             $image='';
         }
         $student->image = $image;
-
+        $student->class_id = $data['class'];
         $student->student_id = $this->idGeneratorFun();
         $student->save();
     }

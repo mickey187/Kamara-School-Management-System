@@ -8,7 +8,7 @@
         <div class="col-lg-12 col-sm-12">
                 <div class=" col-lg-12 col-md-6 col-sm-6 form-group">
                     @if ($student->image)
-                    <img src="{{ asset('storage/student_image/'.$student->image)}}" id="dsp-pro" class="img-fluid img-thumbnail" style="height: 210px;" alt="">
+                    <img src="{{ asset('storage/student_image/'.$student->image)}}" {{-- alt="{{ $student->image }}"  --}} id="dsp-pro" class="img-fluid img-thumbnail" style="height: 210px;" alt="">
                     @else
                     <img src="{{ asset(' https://peggyfoundation.org/wp-content/uploads/2015/10/PersonPlaceholder-01.png')}}" id="dsp-pro" class="img-fluid img-thumbnail" style="height: 210px;" alt="">
                     @endif

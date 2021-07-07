@@ -13,6 +13,7 @@
                     <th>Sex</th>
                     <th>Relation</th>
                     <th>Priority</th>
+                    <th>Email</th>
                     <th>Phone</th>
                     <th>Action</th>
                 </tr>
@@ -25,6 +26,8 @@
                         <td>{{$row->gender}}</td>
                         <td>{{$row->relation}}</td>
                         <td>{{$row->school_closur_priority}}</td>
+                        <td>{{ $row->email }}</td>
+                        <td>{{ $row->phone_number }}</td>
                         <td>
                             <button type="button" class="btn bg-green btn-sm"><i class="fa fa-eye"></i></button>
                             <button type="button" class="btn bg-primary btn-sm"><i class="fa fa-pen"></i></button>
