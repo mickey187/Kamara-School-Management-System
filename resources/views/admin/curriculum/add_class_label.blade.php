@@ -38,6 +38,22 @@
                                                 
           </div>
 
+          <div class="row" style="margin-top: 10px">
+            <div class="col-6">
+                <div class="form-group">
+                <label for="streams">Select Stream</label>
+                <select name="stream" id="streams" class="form-control">
+                    @foreach ($stream as $row )
+
+                    <option value="{{$row->id}}">{{$row->stream_type}}</option>                                                  
+                      
+                    @endforeach
+                   
+                </select>
+            </div>
+            </div>
+        </div>
+
           
 
           

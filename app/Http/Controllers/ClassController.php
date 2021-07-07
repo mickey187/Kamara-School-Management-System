@@ -25,24 +25,30 @@ class ClassController extends Controller
       $subject = subject::all();
       $stream = stream::all();
 
-      $class_data = classes::all();
+      $class_data = DB::table('classes')
+                             ->join('streams','classes.stream_id','=','streams.id')
+   ->get(['classes.id as class_id','streams.id as stream_id','class_label','stream_type']);
+                             //return $class_data;
+                        
 
                                  return view('admin/curriculum/add_class_subject')->with('class_data',$class_data)
                                  ->with('subject',$subject)->with('stream',$stream);
-
-
+    
     }
 
     public function indexClassLabel(){
-        $stream_data = stream::all();
+        $stream = stream::all();
 
-        echo 'Come on man';
-        return view('admin/curriculum/add_class_label')->with('stream_data',$stream_data);
+        
+        return view('admin/curriculum/add_class_label')->with('stream',$stream);
     }
 
    public function viewclasslabel(){
 
-    $class_label = classes::all();
+    $class_label = DB::table('classes')
+                        ->join('streams','classes.stream_id','=','streams.id')
+                        ->get();
+
 
     return view('admin/curriculum/view_class_label')->with('class_label',$class_label);
     }
@@ -50,6 +56,7 @@ class ClassController extends Controller
    public function addClassLabel(Request $req){
        $class = new classes();
        $class->class_label = $req->class_label;
+       $class->stream_id = $req->stream;
        if ( $class->save()) {
            $class_label = classes::all();
            return redirect()->route('viewclasslabel')->with('class_label',$class_label);
@@ -94,23 +101,28 @@ class ClassController extends Controller
 
 
     function addClassSubject(Request $req){
+       // return $req;
 
 
 
         $subjects_id = $req->input('subjects');
         $class_id = $req->input('class_label');
-        $stream_id = $req->stream;
+        //$stream_id = $req->stream;
 
 //$class = array($req->input('class_label'));
         foreach($class_id as $cls){
 
             foreach ($subjects_id as $sub) {
-
-                    $class_subject = new class_subject();
-                $class_subject->class_id = $cls;
-                $class_subject->stream_id = $stream_id;
+                
+                // $insert_cls_sub = array(
+                //     array('class_id'=> $cls,'subject_id'=>$sub)
+                // );
+                // class_subject::insert($insert_cls_sub);
+                
+                $class_subject = new class_subject();
+                $class_subject->class_id = $cls;               
                 $class_subject->subject_id = $sub;
-               $bools = $class_subject->save();
+                $bools = $class_subject->save();
 
 
 
@@ -121,27 +133,32 @@ class ClassController extends Controller
 
 
         }
+       
+        
 
 
  if($bools){
     $class_data = DB::table('class_subjects')
     ->join('classes','class_subjects.class_id','=','classes.id')
-    ->join('streams','class_subjects.stream_id','=','streams.id')
+    ->join('streams','classes.stream_id','=','streams.id')
     ->join('subjects','class_subjects.subject_id','=','subjects.id')
     ->get(['class_label','subject_name','stream_type']);
 return redirect()->route('/viewClassSubject')->with('class_data',$class_data);
  }
 
+ }
 
-    }
+
+    
 
     function viewClassSubject(){
 
         $class_data = DB::table('class_subjects')
                                 ->join('classes','class_subjects.class_id','=','classes.id')
-                                ->join('streams','class_subjects.stream_id','=','streams.id')
+                                ->join('streams','classes.stream_id','=','streams.id')
                                 ->join('subjects','class_subjects.subject_id','=','subjects.id')
-                                ->get(['class_subjects.id','class_label','subject_name','stream_type']);
+                                ->get(['class_subjects.id as cls_sub_id','class_label','subject_name','stream_type'
+                                    ,'subjects.id as sub_id']);
                                 return view('admin/curriculum/view_class_subject')->with('class_data',$class_data);
         $class_data = array();
         $class = classes::all();
@@ -182,33 +199,41 @@ return redirect()->route('/viewClassSubject')->with('class_data',$class_data);
 
     }
 
-    public function editClassSubject($id){
+    public function editClassSubject($id,$id_sub){
         $subject = subject::all();
         $stream = stream::all();
 
-        $class_data = classes::all();
+        $cls_sub_selected = class_subject::find($id);
+        $class_id_selected = $cls_sub_selected->class_id;
+        //return $cls_sub_selected;
+
+       // $class_data = classes::all();
+       $class_data = DB::table('classes')
+                             ->join('streams','classes.stream_id','=','streams.id')
+                ->get(['classes.id as class_id','streams.id as stream_id','class_label','stream_type']);
 
 
         $cls_subject = DB::table('class_subjects')
         ->join('classes','class_subjects.class_id','=','classes.id')
-        ->join('streams','class_subjects.stream_id','=','streams.id')
+        //->join('streams','classes.id','=','streams.id')
         ->join('subjects','class_subjects.subject_id','=','subjects.id')
-        ->where('class_subjects.id',$id)
-        ->get(['classes.id','class_label','subject_name','stream_type']);
+        ->where('class_subjects.id',$id)/*->where('subject_id',$id_sub)*/
+    ->get(/*['classes.id','class_label','subject_name','stream_type']*/);
+        // return $cls_subject;
         $id_cls = $id;
 
         foreach($cls_subject as $key){
            $id_edit = $key->id;
-           $stream_edit = $key->stream_type;
+          // $stream_edit = $key->stream_type;
            $subject_edit = $key->subject_name;
 
         }
-
+    //return $class_data;
         return view('admin.curriculum.add_class_subject')->with('cls_subject',$cls_subject)
                                 ->with('subject',$subject)->with('stream',$stream)
                                 ->with('class_data',$class_data)->with('id_edit',$id_edit)
-                                ->with('stream_edit',$stream_edit)->with('subject_edit',$subject_edit)
-                                ->with('id_cls',$id_cls);
+                               /* ->with('stream_edit',$stream_edit)*/->with('subject_edit',$subject_edit)
+                                ->with('id_cls',$id_cls)->with('class_id_selected',$class_id_selected);
     }
 
     public function editClassSubjectValue(Request $req, $id_cls){
@@ -220,15 +245,16 @@ return redirect()->route('/viewClassSubject')->with('class_data',$class_data);
 
         $cls_subject->id = $id_cls;
         $cls_subject->class_id = $class_label_id[0];
-        $cls_subject->stream_id = $req->stream;
+       // $cls_subject->stream_id = $req->stream;
         $cls_subject->subject_id = $subject_id[0];
 
         if ($cls_subject->save()) {
             $class_data = DB::table('class_subjects')
             ->join('classes','class_subjects.class_id','=','classes.id')
-            ->join('streams','class_subjects.stream_id','=','streams.id')
+            ->join('streams','classes.stream_id','=','streams.id')
             ->join('subjects','class_subjects.subject_id','=','subjects.id')
-            ->get(['class_label','subject_name','stream_type']);
+            ->get(['class_subjects.id as cls_sub_id','class_label','subject_name','stream_type'
+                ,'subjects.id as sub_id']);
         return redirect()->route('/viewClassSubject')->with('class_data',$class_data);
         }
 

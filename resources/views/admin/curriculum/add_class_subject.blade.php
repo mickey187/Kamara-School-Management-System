@@ -45,22 +45,22 @@
                     
                      name="class_label[]" data-placeholder="Select Class" style="width: 100%;">
                       @foreach ($class_data as $row )
-                      <option value="{{$row->id}}"
+                      <option value="{{$row->class_id}}"
                         @if (isset($cls_subject))
 
-                        @if ($row->id== $id_edit)
+                        @if ($row->class_id == $class_id_selected)
                         selected
-                    @endif
                         @endif
+                        @endif>
                        
-                         > {{$row->class_label}} </option>
+                          {{$row->class_label}},{{$row->stream_type}} </option>
                       @endforeach                                           
                     </select>
                   </div>
             </div>
         </div>
 
-        <div class="row" style="margin-top: 10px">
+        {{-- <div class="row" style="margin-top: 10px">
             <div class="col-6">
                 <div class="form-group">
                 <label for="streams">Select Stream</label>
@@ -81,7 +81,7 @@
                 </select>
             </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="row">
             <div class="col-6">
