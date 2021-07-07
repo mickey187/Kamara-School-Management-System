@@ -16,8 +16,8 @@ class CreateClassesTable extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
 
-            // $table->unsignedBigInteger('stream_id');
-            // $table->foreign('stream_id')->references('id')->on('streams');
+            $table->unsignedBigInteger('stream_id');
+            $table->foreign('stream_id')->references('id')->on('streams');
 
             $table->string('class_label')->nullable(false);
 

@@ -13,7 +13,8 @@
                 <thead>
                 <tr>
                   <th>id</th>
-                  <th>class label</th>                 
+                  <th>class label</th>
+                  <th>stream</th>                 
                   <th>action</th>  
                                                                                         
                 </tr>
@@ -22,7 +23,8 @@
                     @foreach ($class_label as $row)                                            
                 <tr>
                   <td>{{$row->id}}</td>                    
-                  <td>{{$row->class_label}}</td>                  
+                  <td>{{$row->class_label}}</td>     
+                  <td>{{$row->stream_type}}</td>             
                   <td>
 
                     <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#view_class_label" data-view_class_label="{{$row->id}},{{$row->class_label}}">
@@ -43,7 +45,8 @@
             <tfoot>
                 <tr>        
                   <th>id</th>             
-                  <th>class label</th>                 
+                  <th>class label</th>   
+                  <th>stream</th>                 
                   <th>action</th>                                                                                
                 </tr>
                 </tfoot>

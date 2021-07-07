@@ -61,7 +61,7 @@ Route::post('addClassSubject', [ClassController::class, 'addClassSubject']);
 
 Route::post('delete_class_subject', [ClassController::class, 'deleteClassSubject']);
 
-Route::get('/editClassSubject/{id}', [ClassController::class, 'editClassSubject'])->name('/editClassSubject');
+Route::get('/editClassSubject/{id}/{id_sub}', [ClassController::class, 'editClassSubject'])->name('/editClassSubject');
 
 Route::post('/editClassSubjectValue/{id_cls}', [ClassController::class, 'editClassSubjectValue']);
 
