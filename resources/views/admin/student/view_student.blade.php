@@ -27,10 +27,10 @@
 
                             <tr>
                                 <td>{{$counter = $counter + 1}}</td>
-                                <td>kA/{{$row->student_id}}</td>
+                                <td>{{$row->student_id}}</td>
                                 <td>{{$row->first_name.' '.$row->middle_name.' '.$row->last_name}}</td>
                                 <td>{{$row->gender}}</td>
-                                <td>{{$row->grade}}</td>
+                                <td>{{$row->class_label}}</td>
                                 <td></td>
                                 <td><span class="text-success"><b>Active</b></span></td>
                                 <td>
@@ -45,7 +45,7 @@
                                                 {{ $row->id }},
                                                 {{ $row->gender }},
                                                 {{ $img }},
-                                                {{ $row->emergency_contact_priority }}
+                                                {{-- {{ $row->emergency_contact_priority }} --}}
                                     ">
                                     <i class="fa fa-eye "></i></a>
                                     <a href="{{ url('edit_student_form/'.$row->id) }}" type="button" class="btn bg-primary btn-sm"><i class="fa fa-pen "></i></a>

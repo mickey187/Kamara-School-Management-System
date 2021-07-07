@@ -16,11 +16,11 @@ class CreateStudentEnrolmentsTable extends Migration
         Schema::create('student_enrolments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('classes');
+            $table->foreign('class_id')->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');;
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('student_id')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');;
             $table->unsignedBigInteger('student_class_transfer_id');
-            $table->foreign('student_class_transfer_id')->references('id')->on('student_class_transfers');
+            $table->foreign('student_class_transfer_id')->references('id')->on('student_class_transfers')->onUpdate('cascade')->onDelete('cascade');;
             $table->date('acadamic_year')->nullable(false);
             $table->timestamps();
         });

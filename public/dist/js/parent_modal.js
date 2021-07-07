@@ -1,5 +1,5 @@
 $('#modal-parent').on('show.bs.modal', function(event) {
-    console.log('ccccccccccccccccccccc');
+
     var button = $(event.relatedTarget)
     var detail = button.data('detail2')
     var modal = $(this)

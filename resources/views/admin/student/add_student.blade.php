@@ -88,7 +88,14 @@
                         </div>
                         <div class="field col-12">
                             <div class="label">Grade</div>
-                            <input id="studentGrade" type="number" name="grade" class="form-control" placeholder="Grade">
+                            <select  id="studentGrade" type="number" name="grade" class="form-control" placeholder="Grade">
+                                <option> Grade.. </option>
+                                <option></option>
+                                @foreach ($classes as $class)
+                                    <option value="{{ $class->id }}">{{ $class->class_label }}</option>
+                                @endforeach
+                            </select>
+                            {{-- <input id="studentGrade" type="number" name="grade" class="form-control" placeholder="Grade"> --}}
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                         </div>
                     </div>

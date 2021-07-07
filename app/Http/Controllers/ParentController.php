@@ -29,29 +29,16 @@ class ParentController extends Controller{
         $student = student::where('id',$id)->first();
 
         $parent_list = students_parent::where('student',$id)->get();
-        // $parent_list = DB::table('students_parents')
-        // ->join('addresses','addresses.id','=','students_parents.address_id')
-        // ->where('students_parents.id',$id)
-        // ->get();
-        //echo $parent_list;
-        //$parent_address = address::where($parent_list->address_id);
-        //$class = classes::where('id',$student->class_id)->first();
-
-
-        // if($class){
-        //     $section = section::where('id',$class->section_id)->first();
-        //     return view('admin.parent.view_student_and_parent')->with('student',$student)->with('class',$class)->with('section',$section)->with('parent_list',$parent_list);
-        // }else{
-        //     return view('admin.parent.view_student_and_parent')->with('student',$student)->with('parent_list',$parent_list);
-        // }
-
-
-         return view('admin.parent.view_student_and_parent',compact('student'))->with('parent_list',$parent_list);
+        return view('admin.parent.view_student_and_parent')->with('parent_list',$parent_list)->with('student',$student);
     }
 
     public function retriveAll(){
-        $parent_list = students_parent::all();
-        return view('admin.parent.view_parent')->with('parent_list',$parent_list);
+        //$parent_list = students_parent::all();
+        $parent_list = DB::table('students_parents')
+        ->join('addresses','addresses.id','=','students_parents.address_id')
+        ->get();
+       //echo $parent_list;
+         return view('admin.parent.view_parent')->with('parent_list',$parent_list);
     }
 
     public function delete($id){
@@ -100,10 +87,9 @@ class ParentController extends Controller{
         $subAdd['house_number']=request('houseNumber');
         $addressEdit->update($subAdd);
         $addressEdit->save();
-        
+
         $student = student::where('id',$edit->student)->first();
         $parent_list = students_parent::where('student',$student->id)->get();
-
         //return redirect()->route('studentParentList',$id)->withSuccessMessage('Successfully Updated');
         return view('admin.parent.view_student_and_parent')->with('parent_list',$parent_list)->with('student',$student);
     }

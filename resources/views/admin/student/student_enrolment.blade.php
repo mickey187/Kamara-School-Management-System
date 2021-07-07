@@ -16,14 +16,14 @@
                                 <form action="find_student" method="GET">
                                     @csrf
                                     <div class=" centered">
-                                            <div class=" col-sm-12 text-lg ">Student ID </div><br>
-                                            <div class="row col-sm-12">
+                                            <div class="col-12 text-lg ">Student ID </div><br>
+                                            <div class="row col-12">
 
-                                                <div class="col-sm-9">
+                                               <div class="col-9">
                                                     <input type="number" name="student_id" class="form-control text-sm " placeholder="student id">
                                                 </div>
-                                                <div class="col-sm-3">
-                                                    <button class="btn btn-primary btn-md col-sm-6" type="submit">Find</button>
+                                                <div class="col-3">
+                                                    <button class="btn btn-primary btn-md col-6" type="submit">Find</button>
                                                 </div>
 
                                             </div>
@@ -53,9 +53,9 @@
                                            <span> <label>   ID </label>{{ ' KA/'.$student->student_id }}</span>
                                            <span><label>Grade </label>
                                             @if (isset($class))
-                                               {{ $class->class_label." Section ".$section->section }}</span>
+                                               {{ $class->class_label." Section " }}</span>
                                             @else
-                                                {{ $student->grade }}</span>
+                                                {{ $student->class }}</span>
                                             @endif
                                             <span> <label> Status </label>{{ ' KA/'.$student->status }}</span>
                                             <div class="form-group  col-sm-3">

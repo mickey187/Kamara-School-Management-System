@@ -126,6 +126,9 @@ Route::get('add_student', [StudentController::class, 'index']);
 Route::get('view_student',[StudentController::class, 'retriveAll']);
 Route::get('edit_student_form/{id}',[StudentController::class, 'retrive']);
 Route::post('edit_student_value/{id}',[StudentController::class, 'update']);
+Route::get('student_enrollment',[StudentController::class, 'enroll']);
+Route::get('find_student',[StudentController::class, 'findStudent']);
+
 
 
 // parent
@@ -137,6 +140,9 @@ Route::get('updateParent/{id}',[ParentController::class, 'editPage']);
 Route::get('insertUpdatedParent/{id}',[ParentController::class, 'update']);
 Route::get('addNewParent',[ParentController::class, 'retriveAll']);
 Route::get('delete_parent/{id}',[ParentController::class, 'delete']);
+Route::get('view_parents',[ParentController::class, 'retriveAll']);
+
+
 
 
 
