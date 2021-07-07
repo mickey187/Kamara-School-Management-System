@@ -484,8 +484,8 @@
      <!-- view stream js -->
      <script src="{{ asset('view_stream.js') }}"></script>
 
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ --}}
 
 
 
@@ -532,25 +532,8 @@
         });
 
 
-       //  $('#modal_view').on('show.bs.modal', function (event) {
-//   var button = $(event.relatedTarget) // Button that triggered the modal
-//   var detail = button.data('view')
-//   // Extract info from data-* attributes
-//   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-//   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-//   var modal = $(this)
-// //   modal.find('.modal-title').text('New message to ' + recipient)
-//             var spit = detail.split(",");
-
-// //var table = ('#example1').DataTable();
-//   //modal.find('.modal-body p').text(detail)
-//   modal.find('.modal-body #subjectid_view').text("subject id: "+spit[0]);
-//   modal.find('.modal-body #stream_view').text("stream: "+spit[1]);
-//   modal.find('.modal-body #subjectgroup_view').text("subject group: "+spit[2]);
-//   modal.find('.modal-body #subjectname_view').text("subject name: "+spit[3]);
-//   modal.find('.modal-footer button').val(spit[0])
-
- });
+ 
+ 
 
 
     </script>
