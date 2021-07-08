@@ -5,11 +5,18 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StreamController;
 use App\Http\Controllers\SubjectGroupController;
+<<<<<<< HEAD
 use App\Http\Controllers\EmployeeRegistrationController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\HomeRoomController;
 use App\Http\Controllers\ListEmployeeController;
 use App\Http\Controllers\ListTeacherController;
+=======
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ParentController;
+
+>>>>>>> 0c45ced4d740ef4b6ba88baa9ae10034f11b45a9
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +51,8 @@ Route::post('deletesubject', [SubjectController::class, 'deleteSubject']);
 
 Route::get('/addsubjectgroup', [SubjectController::class, 'indexSubjectGroup'])->name('addsubjectgroup');
 
+Route::get('viewsubjectgroup', [SubjectController::class, 'viewSubjectGroup'])->name('viewsubjectgroup');
+
 Route::post('addsubjectgroup', [SubjectController::class, 'addSubjectGroup']);
 
 
@@ -51,13 +60,20 @@ Route::post('addsubjectgroup', [SubjectController::class, 'addSubjectGroup']);
 
 //class
 
-Route::get('/class', [ClassController::class, 'index'])->name('/class');
+Route::get('/indexAddClassSubject', [ClassController::class, 'indexAddClassSubject'])->name('/indexAddClassSubject');
 
-Route::get('/viewClass', [ClassController::class, 'viewClass'])->name('/viewClass');
+Route::get('/viewClassSubject', [ClassController::class, 'viewClassSubject'])->name('/viewClassSubject');
 
-Route::post('addClass', [ClassController::class, 'addClass']);
+Route::post('addClassSubject', [ClassController::class, 'addClassSubject']);
 
-Route::get('/addStream', [StreamController::class, 'index']);
+Route::post('delete_class_subject', [ClassController::class, 'deleteClassSubject']);
+
+Route::get('/editClassSubject/{id}/{id_sub}', [ClassController::class, 'editClassSubject'])->name('/editClassSubject');
+
+Route::post('/editClassSubjectValue/{id_cls}', [ClassController::class, 'editClassSubjectValue']);
+
+//stream
+Route::get('/addStream', [StreamController::class, 'index'])->name('/addStream');
 
 Route::get('/viewStream', [StreamController::class, 'viewStream'])->name('/viewStream');
 
@@ -83,4 +99,77 @@ Route::get('/edit_teacher/{id}',[ListTeacherController::class, 'getTeacher']);
 Route::get('/update_teacher/{id}',[ListTeacherController::class, 'update']);
 Route::get('/delete_teacher/{id}',[ListTeacherController::class,'deleteTeacher']);
 Route::get('find_employee',[ListEmployeeController::class, 'findEmployee']);
+Route::post('/deletestream', [StreamController::class, 'deleteStream']);
+
+Route::get('/editstream/{id}', [StreamController::class, 'editStream'])->name('/editstream');
+
+Route::post('/editstreamvalue/{id}', [StreamController::class, 'editStreamValue']);
+
+
+
+
+
+
+
+
+Route::get('addclasslabel', [ClassController::class, 'indexClassLabel']);
+
+Route::post('addclasslabel', [ClassController::class, 'addClassLabel']);
+
+Route::get('viewclasslabel', [ClassController::class, 'viewclasslabel'])->name('viewclasslabel');
+
+Route::get('viewcourse/{bv}', [ClassController::class, 'viewCourse']);
+
+Route::get('getsubjects/{class_group}', [ClassController::class, 'getSubjects']);
+
+Route::post('/deleteclasslabel', [ClassController::class, 'deleteClassLabel']);
+
+Route::get('editclasslabel/{id}', [ClassController::class, 'editClassLabel'])->name('editclasslabel');
+
+Route::get('editclasslabelvalue/{id}', [ClassController::class, 'editClassLabelValue']);
+
+
+
+
+
+//Role
+
+Route::get('indexaddrole', [RoleController::class, 'indexAddRole']);
+
+Route::post('addrole', [RoleController::class, 'addRole']);
+
+Route::get('viewrole', [RoleController::class, 'viewRole'])->name('viewrole');
+
+Route::get('editrole/{id}', [RoleController::class, 'editRole'])->name('editrole');
+
+Route::post('editrolevalue/{id}', [RoleController::class, 'editRoleValue']);
+
+Route::post('/deleterole', [RoleController::class, 'deleteRole']);
+
+
+// Student
+Route::post('new_student', [StudentController::class, 'insert']);
+Route::get('add_student', [StudentController::class, 'index']);
+Route::get('view_student',[StudentController::class, 'retriveAll']);
+Route::get('edit_student_form/{id}',[StudentController::class, 'retrive']);
+Route::post('edit_student_value/{id}',[StudentController::class, 'update']);
+Route::get('student_enrollment',[StudentController::class, 'enroll']);
+Route::get('find_student',[StudentController::class, 'findStudent']);
+
+
+
+// parent
+
+Route::get('newParent/{id}',[ParentController::class, 'addMore']);
+Route::get('studentParentList/{id}',[ParentController::class, 'retrive']);
+Route::get('addNewParent/{id}',[ParentController::class, 'insert']);
+Route::get('updateParent/{id}',[ParentController::class, 'editPage']);
+Route::get('insertUpdatedParent/{id}',[ParentController::class, 'update']);
+Route::get('addNewParent',[ParentController::class, 'retriveAll']);
+Route::get('delete_parent/{id}',[ParentController::class, 'delete']);
+Route::get('view_parents',[ParentController::class, 'retriveAll']);
+
+
+
+
 

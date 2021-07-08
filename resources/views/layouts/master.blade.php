@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kamara School Management System | Dashboard</title>
-
+    {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
 
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
@@ -16,12 +16,13 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet"href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
+    <!-- select2  -->
+  <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
@@ -32,11 +33,15 @@
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
     <link rel="stylesheet" href="{{ asset('main.css') }}">
+    <link rel="stylesheet" href="{{ asset('addclass.css') }}">
 
     <!-- DataTables -->
-    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    {{-- <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -183,15 +188,21 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="../pages/add_students.html" class="nav-link">
+                                    <a href="{{ url('add_student')  }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Student</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../pages/student_list.html" class="nav-link">
+                                    <a href="{{ url('view_student')  }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Student List</p>
+                                        <p>List Student</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('student_enrollment')  }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Enrollment</p>
                                     </a>
                                 </li>
 
@@ -238,7 +249,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="../pages/parent_list.html" class="nav-link">
+                                    <a href="{{ url('view_parents') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Parent List</p>
                                     </a>
@@ -298,16 +309,16 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/addsubjectgroup" class="nav-link">
+                                    <a href="/addclasslabel" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Subject Group</p>
+                                        <p>Add Class Label</p>
                                     </a>
                                 </li>
 
                                     <li class="nav-item">
-                                        <a href="/viewsubjectgroup" class="nav-link">
+                                        <a href="/viewclasslabel" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>View Subject Group</p>
+                                            <p>View Class Label</p>
                                         </a>
                                     </li>
                                 <li class="nav-item">
@@ -323,15 +334,15 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/class" class="nav-link">
+                                    <a href="/indexAddClassSubject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Class</p>
+                                        <p>Add Class Subject</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/viewClass" class="nav-link">
+                                    <a href="/viewClassSubject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>View Class</p>
+                                        <p>View Class Subject</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -354,6 +365,19 @@
                                     </a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a href="/indexaddrole" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Role </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="/viewrole" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Role </p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -407,7 +431,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2021 <a href="https://hawisoftware.com.et">hawisoftware.com.et</a>.</strong>
+        <strong>Copyright &copy; 2014-2021 <a href="https://hawisoftware.com.et">hawisoftware.com.et</a></strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 3.1.0
@@ -425,7 +449,7 @@
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -434,6 +458,15 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
+        <!-- select 2 -->
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script>
+    $(function() {
+
+        $('.select2').select2()
+    });
+    </script>
+
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->
     <script src="plugins/sparklines/sparkline.js"></script>
@@ -453,11 +486,31 @@
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
-    <script src="{{ asset('dist/js/script.js') }}"></script>
+
+    <!-- view class js -->
+    <script src="{{ asset('view_subject.js') }}"></script>
+
+    <!-- view role js -->
+    <script src="{{ asset('view_role.js') }}"></script>
+
+    <!-- view class label js -->
+    <script src="{{ asset('view_class_label.js') }}"></script>
+
+     <!-- view_class_subject js -->
+     <script src="{{ asset('view_class_subject.js') }}"></script>
+
+     <!-- view stream js -->
+     <script src="{{ asset('view_stream.js') }}"></script>
+
+     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ --}}
+
+
 
 
     <!-- DataTables  & Plugins -->
@@ -524,9 +577,17 @@
                         })
                     </script>
 
+    <script src="{{asset('dist/js/addclass.js')}}"></script>
+
+    <script src="{{ asset('dist/js/script.js') }}"></script>
+    <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
+    <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <!-- Page specific script -->
     <script>
         $(function() {
+
+
+
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -545,19 +606,25 @@
         });
 
 
-        $('#modal-default').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var detail = button.data('detail')
-  // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-//   modal.find('.modal-title').text('New message to ' + recipient)
-  modal.find('.modal-body p').text(detail)
-  modal.find('.modal-footer button').val(detail)
-})
+ 
+ 
+
 
     </script>
+    <script>
+        $(function () {
+          $("#img-pro").change(function(){
+            var reader = new FileReader();
+            reader.onload = function(image){
+              $("#dsp-pro").attr('src',image.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+          });
+          $("#dsp-pro").click(function () {
+            $("#img-pro").click();
+          });
+        })
+      </script>
 </body>
 
 </html>

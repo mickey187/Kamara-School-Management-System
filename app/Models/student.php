@@ -9,6 +9,8 @@ class student extends Model
 {
     protected $fillable=[
                             'id',
+                            'student_id',
+                            'image',
                             'first_name',
                             'middle_name',
                             'last_name',

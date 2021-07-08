@@ -17,7 +17,7 @@ class CreateStudentConductsTable extends Migration
             $table->id();
             $table->string('conduct');
             $table->unsignedBigInteger('semister_id');
-            $table->foreign('semister_id')->references('id')->on('semisters');
+            $table->foreign('semister_id')->references('id')->on('semisters')->onUpdate('cascade')->onDelete('cascade');;
             $table->timestamps();
         });
     }

@@ -26,21 +26,9 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Select Subject Group </label>
-                        <select class="form-control" id="exampleFormControlSelect1" name = "subjectgroup">
-                          <option>Select Subject Group</option>
-                          @foreach ($subject_group as $row )
-                            <option value="{{$row->id}}" 
-                              @if (isset($editSubject))
-                              @if ($editSubject->subject_group_id==$row->id)
-                              {{'selected'}}
-                              @endif
-                             @endif
-                            >
-
-                            {{$row->subject_group}}</option>
-                          @endforeach                                                                     
-                        </select>
+                      {{-- <label for="exampleFormControlSelect1">Add Subject Group </label>
+                      <input type="text" name ="subject_group" class="form-control" id="exampleFormControlInput1" placeholder="Subject Group"> --}}
+                                                                    
                       </div>
 
                       <div class="form-group">
@@ -52,25 +40,8 @@
                      @endif   id="exampleFormControlInput1" placeholder="Subject Name">
                       </div>
 
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Select Stream</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="stream_id">
-                          @foreach ($stream_data as $row)
-                          <option value="{{$row->id}}"
-                            @if (isset($editSubject))
-                            @if ($editSubject->stream_id==$row->id)
-                            {{'selected'}}
-                            @endif
-                           @endif
-                            >
-                            {{$row->stream_type}}
-                          
-                          </option>  
-                          @endforeach
-                                                                                                  
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary btn-md">
+                  
+                      <button type="submit" class="btn btn-primary btn-md btn-block">
                         @if (isset($editSubject))
                         Save Changes
 

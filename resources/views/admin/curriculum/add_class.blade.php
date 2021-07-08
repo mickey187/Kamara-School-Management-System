@@ -9,9 +9,7 @@
         <div class="card-body ">
           <section class="content">
             <div class="container-fluid mt-3">
-    
-    
-    
+
                 <form action="addClass" method="post">
                     @csrf
                     <div class="row">
@@ -37,30 +35,32 @@
                                     <option value="Grade 12">Grade 12</option>
                                 </select>
                             </div>
-    
+
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Select Section </label>
                                 <select class="form-control" id="exampleFormControlSelect1" name="select_section">
-                                    <option value="1">Section A</option>
+                                    @foreach ($section as $row)
+                                    <option value="{{ $row->id }}">{{ $row->section }}</option>
+                                    @endforeach
+                                    {{-- <option value="1">Section A</option>
                                     <option value="2">Section B</option>
                                     <option value="3">Section C</option>
                                     <option value="4">Section D</option>
                                     <option value="5">Section E</option>
-                                    <option value="6">Section F</option>
-    
+                                    <option value="6">Section F</option> --}}
                                 </select>
                             </div>
-    
+
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Select Stream </label>
                                 <select class="form-control" id="exampleFormControlSelect1" name="stream_id">
                                     @foreach ($stream_data as $row)
                                         <option value="{{ $row->id }}">{{ $row->stream_type }}</option>
                                     @endforeach
-    
+
                                 </select>
                             </div>
-    
+
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Select Subject</label>
                                 <select class="form-control" id="exampleFormControlSelect1" name="select_subject">
@@ -71,18 +71,18 @@
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary btn-md">Submit</button>
-    
+
                         </div>
-    
-    
-    
+
+
+
                     </div>
-    
+
                 </form>
             </div>
-    
-    
-        </section
+
+
+            </section
         </div>
     </div>
 @endsection

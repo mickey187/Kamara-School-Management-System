@@ -9,8 +9,10 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "haruncpi/laravel-id-generator": "^1.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "maatwebsite/excel": "^3.1",
         "realrashid/sweet-alert": "^3.2"
     },
     "require-dev": {
@@ -55,6 +57,7 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
+
     "minimum-stability": "dev",
     "prefer-stable": true
 }

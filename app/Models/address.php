@@ -13,7 +13,7 @@ class address extends Model
                             'subcity',
                             'email',
                             'kebele',
-                            'p.o.box',
+                            'p_o_box',
                             'phone_number',
                             'alternative_phone_number',
                             'house_number'
