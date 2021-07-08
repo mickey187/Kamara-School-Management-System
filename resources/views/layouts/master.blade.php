@@ -442,13 +442,13 @@
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
         <!-- select 2 -->
-<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+{{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
     $(function() {
 
         $('.select2').select2()
     });
-    </script>
+    </script> --}}
 
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->
@@ -490,8 +490,8 @@
      <!-- view stream js -->
      <script src="{{ asset('view_stream.js') }}"></script>
 
-     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
- --}}
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 
 
 
@@ -515,6 +515,10 @@
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <!-- Page specific script -->
+
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+
+
     <script>
         $(function() {
 
@@ -543,6 +547,9 @@
 
 
     </script>
+
+
+
     <script>
         $(function () {
           $("#img-pro").change(function(){

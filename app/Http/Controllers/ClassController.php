@@ -156,9 +156,10 @@ return redirect()->route('/viewClassSubject')->with('class_data',$class_data);
         $class_data = DB::table('class_subjects')
                                 ->join('classes','class_subjects.class_id','=','classes.id')
                                 ->join('streams','classes.stream_id','=','streams.id')
-                                ->join('subjects','class_subjects.subject_id','=','subjects.id')
+                                ->join('subjects','class_subjects.subject_id','=','subjects.id')                    
                                 ->get(['class_subjects.id as cls_sub_id','class_label','subject_name','stream_type'
                                     ,'subjects.id as sub_id']);
+                                    
                                 return view('admin/curriculum/view_class_subject')->with('class_data',$class_data);
         $class_data = array();
         $class = classes::all();
