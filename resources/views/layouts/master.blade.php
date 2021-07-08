@@ -266,18 +266,35 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="../pages/add_employee.html" class="nav-link">
+                                    <a href="/addEmployeeForm" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Employee</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../pages/employee_list.html" class="nav-link">
+                                    <a href="/listEmployee" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Employee List</p>
                                     </a>
                                 </li>
-
+                                    <li class="nav-item">
+                                    <a href="/addTeacherForm" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Teacher</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/listTeacher" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Teacher List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/addHomeRoom" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Home Room</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -489,8 +506,8 @@
      <!-- view stream js -->
      <script src="{{ asset('view_stream.js') }}"></script>
 
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ --}}
 
 
 
@@ -508,9 +525,62 @@
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+                    <script>
+                        var selecter = document.getElementById("job_position_selecter");
+                        var debut_as_a_teacher = document.getElementById("debut_as_a_teacher");
+                        var field_of_study = document.getElementById("field_of_study");
+                        var place_of_study = document.getElementById("place_of_study");
+                        var date_of_study = document.getElementById("date_of_study");
+                        var teacher_traning_program = document.getElementById("teacher_traning_program");
+                        var teacher_traning_year = document.getElementById("teacher_traning_year");
+                        var teacher_traning_institute = document.getElementById("teacher_traning_institute");
+
+                        selecter.addEventListener('change', function(){
+                            if(selecter.value == '3'){
+                                debut_as_a_teacher.style.display = "block";
+                                field_of_study.style.display = "block";
+                                place_of_study.style.display = "block";
+                                date_of_study.style.display = "block";
+                                teacher_traning_program.style.display = "block";
+                                teacher_traning_year.style.display = "block";
+                                teacher_traning_institute.style.display = "block";
+                            }else{
+                                debut_as_a_teacher.style.display = "none";
+                                field_of_study.style.display = "none";
+                                place_of_study.style.display = "none";
+                                date_of_study.style.display = "none";
+                                teacher_traning_program.style.display = "none";
+                                teacher_traning_year.style.display = "none";
+                                teacher_traning_institute.style.display = "none";
+                            }
+
+                        })
+                        window.addEventListener('load', function(){
+                            if(selecter.value == document.getElementById('job_position_selecter').value){
+                                debut_as_a_teacher.style.display = "block";
+                                field_of_study.style.display = "block";
+                                place_of_study.style.display = "block";
+                                date_of_study.style.display = "block";
+                                teacher_traning_program.style.display = "block";
+                                teacher_traning_year.style.display = "block";
+                                teacher_traning_institute.style.display = "block";
+                            }else{
+                                debut_as_a_teacher.style.display = "none";
+                                field_of_study.style.display = "none";
+                                place_of_study.style.display = "none";
+                                date_of_study.style.display = "none";
+                                teacher_traning_program.style.display = "none";
+                                teacher_traning_year.style.display = "none";
+                                teacher_traning_institute.style.display = "none";
+                            }
+
+                        })
+                    </script>
+
     <script src="{{asset('dist/js/addclass.js')}}"></script>
 
-    <script src="{{ asset('dist/js/script.js') }}"></script>
+    <script src="{{ asset('dist/js/employee.js') }}"></script>
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
