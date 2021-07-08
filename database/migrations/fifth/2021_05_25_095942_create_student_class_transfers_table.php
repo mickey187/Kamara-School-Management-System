@@ -21,6 +21,7 @@ class CreateStudentClassTransfersTable extends Migration
             $table->integer('yearly_average')->nullable(false);
             $table->integer('transfered_from')->nullable(false);
             $table->integer('transfered_to')->nullable(false);
+            $table->date('academic_year')->nullable(false);
             $table->string('pass_fail_status')->nullable(false);
             $table->timestamps();
         });

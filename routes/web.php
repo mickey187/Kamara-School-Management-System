@@ -128,6 +128,7 @@ Route::get('edit_student_form/{id}',[StudentController::class, 'retrive']);
 Route::post('edit_student_value/{id}',[StudentController::class, 'update']);
 Route::get('student_enrollment',[StudentController::class, 'enroll']);
 Route::get('find_student',[StudentController::class, 'findStudent']);
+Route::get('findStudent/{id}',[StudentController::class, 'getStudent']);
 
 
 

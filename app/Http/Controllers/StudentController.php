@@ -17,8 +17,12 @@ class StudentController extends Controller{
     public function index(){
         $all_class = classes::all();
         $this->idGeneratorFun();
+        $classes = DB::table('classes')
+            ->join('streams','streams.id','=','classes.stream_id')->get([
+                'classes.id as id','streams.stream_type','class_label'
+            ]);
        // return view('admin.student.test');
-         return view('admin.student.add_student')->with('classes',$all_class);
+         return view('admin.student.add_student')->with('classes',$classes);
 
     }
 
@@ -186,8 +190,12 @@ class StudentController extends Controller{
     public function enroll(){
 
         // $student_enrollment->acadamic_year = request('acadamic_year');
-
-        return view('admin.student.student_enrolment');
+        //$students = student::all();
+        $students = DB::table('students')
+            ->join('classes','classes.id','=','students.class_id')
+            ->join('streams','classes.stream_id','=','streams.id')
+            ->get();
+        return view('admin.student.student_enrolment')->with('students',$students);
     }
 
     public function register($id){
@@ -203,14 +211,25 @@ class StudentController extends Controller{
     public function findStudent(){
         $all_class = classes::all();
         $student = student::where('student_id',request('student_id'))->first();
-
+        $students = DB::table('students')
+                ->join('classes','classes.id','=','students.class_id')
+                ->join('streams','classes.stream_id','=','streams.id')
+                ->get();
         if($student){
             $class = classes::where('id',$student->class_id)->first();
             if($class){
                 $section = section::where('id',$class->section_id)->first();
-                return view('admin.student.student_enrolment')->with('student',$student)->with('class',$class)->with('section',$section)->with('all_class',$all_class);
+                return view('admin.student.student_enrolment')
+                ->with('student',$student)
+                ->with('class',$class)
+                ->with('section',$section)
+                ->with('all_class',$all_class)
+                ->with('students',$students);
             }else{
-                return view('admin.student.student_enrolment')->with('student',$student)->with('all_class',$all_class);
+                return view('admin.student.student_enrolment')
+                ->with('student',$student)
+                ->with('all_class',$all_class)
+                ->with('students',$students);
             }
         }else{
             echo 'no student found with ID ='.request('student_id');
@@ -301,5 +320,10 @@ class StudentController extends Controller{
             }
         }
         return $fourRandomDigit;
+    }
+
+    function getStudent(Request $req, $id){
+        $student = student::where('id',$id)->get();
+        return response()->json($student);
     }
 }

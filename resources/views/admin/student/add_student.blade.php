@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 <div class="formcontainer">
     <div class="form-outer">
@@ -92,7 +92,7 @@
                                 <option> Grade.. </option>
                                 <option></option>
                                 @foreach ($classes as $class)
-                                    <option value="{{ $class->id }}">{{ $class->class_label }}</option>
+                                    <option value="{{ $class->id }}">{{$class->class_label.' '.$class->stream_type }}</option>
                                 @endforeach
                             </select>
                             {{-- <input id="studentGrade" type="number" name="grade" class="form-control" placeholder="Grade"> --}}

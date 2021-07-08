@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="{{ asset('addclass.css') }}">
 
     <!-- DataTables -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     {{-- <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -514,6 +513,7 @@
     <script src="{{ asset('dist/js/script.js') }}"></script>
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
+    <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
     <!-- Page specific script -->
     <script>
         $(function() {
@@ -556,7 +556,7 @@
 //   modal.find('.modal-body #subjectname_view').text("subject name: "+spit[3]);
 //   modal.find('.modal-footer button').val(spit[0])
 
- 
+
 
 
     </script>
