@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
+
 <div class="card card-orange">
   <div class="card-header">
     <h3 class="card-title"> <i class="fas fa-tachometer-alt"></i> Add Subject Group</h3>

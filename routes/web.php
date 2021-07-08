@@ -5,7 +5,11 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StreamController;
 use App\Http\Controllers\SubjectGroupController;
-
+use App\Http\Controllers\EmployeeRegistrationController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\HomeRoomController;
+use App\Http\Controllers\ListEmployeeController;
+use App\Http\Controllers\ListTeacherController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,7 +40,6 @@ Route::post('addsubject', [SubjectController::class, 'addSubject']);
 Route::post('deletesubject', [SubjectController::class, 'deleteSubject']);
 
 
-
 //subject group
 
 Route::get('/addsubjectgroup', [SubjectController::class, 'indexSubjectGroup'])->name('addsubjectgroup');
@@ -59,3 +62,25 @@ Route::get('/addStream', [StreamController::class, 'index']);
 Route::get('/viewStream', [StreamController::class, 'viewStream'])->name('/viewStream');
 
 Route::post('addStream', [StreamController::class, 'addStream']);
+
+
+
+ Route::get('/addEmployee',[EmployeeRegistrationController::class, 'store']);
+Route::get('/addEmployeeForm',[EmployeeRegistrationController::class, 'form']);
+Route::get('/addTeacher',[TeacherController::class, 'store']);
+Route::get('/addTeacherForm',[TeacherController::class, 'form']);
+Route::get('/addHomeRoom',[HomeRoomController::class, 'openView']);
+Route::get('/listEmployee',[ListEmployeeController::class, 'listEmployee']);
+Route::get('/listTeacher',[ListTeacherController::class, 'listTeacher']);
+
+Route::get('/edit_employee/{id}',[ListEmployeeController::class, 'getEmployee']);
+Route::get('/update_employee/{id}',[EmployeeRegistrationController::class, 'update']);
+
+Route::get('/delete_employee/{id}',[ListEmployeeController::class,'removeEmployee']);
+Route::get('/trash_employee/{id}',[EmployeeRegistrationController::class,'delete']);
+
+Route::get('/edit_teacher/{id}',[ListTeacherController::class, 'getTeacher']);
+Route::get('/update_teacher/{id}',[ListTeacherController::class, 'update']);
+Route::get('/delete_teacher/{id}',[ListTeacherController::class,'deleteTeacher']);
+Route::get('find_employee',[ListEmployeeController::class, 'findEmployee']);
+

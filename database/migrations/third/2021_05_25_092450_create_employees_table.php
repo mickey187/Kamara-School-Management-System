@@ -33,7 +33,7 @@ class CreateEmployeesTable extends Migration
             $table->string ('middle_name') ->nullable(false);
             $table->string('last_name') ->nullable(false);
             $table->string('gender') ->nullable(false);
-            $table->date('birth_date') ->nullable(false);
+            $table->string('birth_date') ->nullable(false);
             $table->string('hired_date') ->nullable(false);
             $table->string('education_status')  ->nullable(false);
             $table->string('marrage_status')  ->nullable(false);
@@ -42,7 +42,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('net_salary')  ->nullable(false);
             $table->string('job_trainning')  ->nullable(false);
             $table->string('nationality')  ->nullable(false);
-            $table->integer('hire_type')  ->nullable(false);
+            $table->string('hire_type')  ->nullable(false);
             $table->timestamps();
 
 
