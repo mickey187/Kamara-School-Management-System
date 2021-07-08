@@ -17,7 +17,7 @@ class CreateAcademicBackgroundInfosTable extends Migration
             $table->id();
             $table->string('field_of_study') ->nullable(false);
             $table->string('place_of_study') ->nullable(false);
-            $table->date('date_of_study') ->nullable(false);
+            $table->string('date_of_study') ->nullable(false);
             $table->timestamps();
         });
     }
