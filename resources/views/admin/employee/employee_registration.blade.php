@@ -16,7 +16,8 @@
 <div class="card-body">
   <section class="content">
     <div class="container-fluid mt-3">
-               <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">  
+               <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> 
+               <link rel="stylesheet" href="{{ asset('dist/css/employee.js') }}">  
                         <div class="formcontainer">
                             <!-- <div class="progress-bar-form">
                                 <div class="step">
@@ -133,8 +134,8 @@
                                         
 
                                        
-                                       <div class="field nextBtn">
-                                            <button type="button">Next</button>
+                                       <div class="field ">
+                                            <button value="1" class="nextBtn" type="button">Next</button>
                                         </div>
 
                                     </div>
@@ -267,11 +268,26 @@
                                             }}@endif
                                             ">
                                         </div>
-                                    
+                                  
+                                        <div class="field">
+                                      <div class="label">Role</div>
+                                      <select id="role_selecter" name="employee_role" class="form-control form-select" aria-label="employee_role" name="employee_role">
+                                            @foreach($edit_all_role as $row)
+                                            {{$row->role_name}}
+                                            <option value="{{$row->id}}"
+                                              @if(isset($edit_employee))
+                                                @if($row->id == $edit_employee->role_id)
+                                                selected
+                                                @endif
+                                                @endif
+                                                >{{$row->role_name}}</option>
+                                                @endforeach
+                                      </select>
+                                    </div>
                                         </div>
                                         <div class="col-6">
-                                           <div class="field"   
-                                            >
+                                           <div class="field">   
+                                            
                                            <div class="label">Job Position</div>
                                             <select id="job_position_selecter" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
                                                 @foreach( $job_position as $row )

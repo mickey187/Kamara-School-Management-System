@@ -526,6 +526,7 @@
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
                     <script>
                         var selecter = document.getElementById("job_position_selecter");
                         var debut_as_a_teacher = document.getElementById("debut_as_a_teacher");
@@ -535,6 +536,7 @@
                         var teacher_traning_program = document.getElementById("teacher_traning_program");
                         var teacher_traning_year = document.getElementById("teacher_traning_year");
                         var teacher_traning_institute = document.getElementById("teacher_traning_institute");
+
                         selecter.addEventListener('change', function(){
                             if(selecter.value == '3'){
                                 debut_as_a_teacher.style.display = "block";
@@ -579,7 +581,7 @@
 
     <script src="{{asset('dist/js/addclass.js')}}"></script>
 
-    <script src="{{ asset('dist/js/script.js') }}"></script>
+    <script src="{{ asset('dist/js/employee.js') }}"></script>
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <!-- Page specific script -->

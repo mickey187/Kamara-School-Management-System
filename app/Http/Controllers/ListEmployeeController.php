@@ -8,6 +8,7 @@ use App\Models\employee_emergency_contact;
 use App\Models\employee_job_experience;
 use App\Models\employee_job_position;
 use App\Models\employee_religion;
+use App\Models\Role;
 use App\Models\teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,8 @@ class ListEmployeeController extends Controller
     public function getEmployee($id)
     {
         $edit_employee = employee::where('id', $id)->first();
+        $edit_role = employee::where('id',$edit_employee->role_id)->first();
+        $edit_all_role = Role::all();
         $edit_address = address::where('id', $edit_employee->address_id)->first();
         $edit_emp_emergency = employee_emergency_contact::where('id', $edit_employee->employee_emergency_contact_id)->first();
         $edit_job_position = employee_job_position::where('id', $edit_employee->employee_job_position_id)->first();
@@ -39,8 +42,11 @@ class ListEmployeeController extends Controller
         // return $edit_employee;
     
         
-        return view('admin.employee.employee_registration')->with('edit_employee', $edit_employee)->with('edit_address', $edit_address)->with('edit_emp_emergency', $edit_emp_emergency)
-        ->with('edit_job_position', $edit_job_position)->with('edit_job_experience', $edit_job_experience)->with('edit_emp_religion', $edit_emp_religion)->with('teacher',$teacher)->with('edit_all',$edit_all)->with('job_position',$job_position);
+        return view('admin.employee.employee_registration')->with('edit_employee', $edit_employee)
+        ->with('edit_address', $edit_address)->with('edit_emp_emergency', $edit_emp_emergency)
+        ->with('edit_job_position', $edit_job_position)->with('edit_job_experience', $edit_job_experience)
+        ->with('edit_emp_religion', $edit_emp_religion)->with('teacher',$teacher)->with('edit_all',$edit_all)
+        ->with('job_position',$job_position)->with('edit_role',$edit_role)->with('edit_all_role',$edit_all_role);
     }
 
     public function findEmployee()
@@ -53,6 +59,8 @@ class ListEmployeeController extends Controller
     public function removeEmployee($id)
     {
         $delete_employee = employee::find($id);
+        $delete_employee_role = Role::find($delete_employee->role_id );
+        $delete_employee_role->delete();
         $delete_employee_job_position = employee_job_position::find($delete_employee->employee_job_position_id);
         $delete_employee_job_position->delete();
         $delete_employee_emergency = employee_emergency_contact::find($delete_employee->employee_emergency_contact_id);

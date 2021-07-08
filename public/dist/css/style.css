@@ -213,7 +213,7 @@
        
        .field small {
            visibility: hidden;
-           display: ;
+           /* display: ; */
        }
        
        .field.error small {

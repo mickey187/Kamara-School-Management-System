@@ -13,6 +13,7 @@ use App\Models\employee;
 use App\Models\academic_background_info;
 use App\Models\attendance;
 use App\Models\classes;
+use App\Models\Role;
 use App\Models\section;
 use App\Models\stream;
 use App\Models\subject;
@@ -29,14 +30,19 @@ class EmployeeRegistrationController extends Controller
           $job_position = employee_job_position::all();
           $employee_religion = employee_religion::all();
           $edit_all = employee_religion::all();
-          return view('admin.employee.employee_registration')->with('edit_job_position',$edit_job_position)->with('job_position',$job_position)
-            ->with('employee_religion',$employee_religion)->with('edit_all',$edit_all);
+          $edit_role = Role::all();
+          $edit_all_role = Role::all();
+          return view('admin.employee.employee_registration')->with('edit_job_position',$edit_job_position)
+           ->with('job_position',$job_position)
+           ->with('employee_religion',$employee_religion)->with('edit_all',$edit_all)->with('edit_role',$edit_role)
+           ->with('edit_all_role',$edit_all_role);
 
       }
 
     //
     public function store(){
         if(Request('job_position')==='teacher'){
+            // $this->insertRole();
             $this->insertAddress();
             $this->insertEmergencyContact();
             $this->insertEmployeeJobExperience();
@@ -50,6 +56,7 @@ class EmployeeRegistrationController extends Controller
             $this->insertTeacherCourseLoad();
             return view('admin.teacher.teacher'); 
         }else{
+            // $this->insertRole();
             $this->insertAddress();
             $this->insertEmergencyContact();
             $this->insertEmployeeJobExperience();
@@ -58,10 +65,12 @@ class EmployeeRegistrationController extends Controller
             $edit_job_position = employee_job_position::all();
             $job_position = employee_job_position::all();
             $employee_religion = employee_religion::all();
+            $edit_role = Role::all();
+            $edit_all_role = Role::all();
             $edit_all = employee_religion::all();
-             return view('admin.employee.employee_registration')->with('edit_job_position',$edit_job_position)
-             ->with('job_position',$job_position)->with('employee_religion',$employee_religion)
-             ->with('edit_all',$edit_all);
+               return view('admin.employee.employee_registration')->with('edit_job_position',$edit_job_position)
+                     ->with('job_position',$job_position)->with('employee_religion',$employee_religion)
+                    ->with('edit_all',$edit_all)->with('edit_role',$edit_role)->with('edit_all_role',$edit_all_role);
         }
 
     }
@@ -71,6 +80,10 @@ class EmployeeRegistrationController extends Controller
        $first_name = Request('first_name');
 
         $employee = employee::find($id);
+
+        $role = Role::find($employee->role_id);
+        $role->role_name = request('employee_role');
+        $role->update();
 
         $address = address::find($employee->address_id);
         $address->city = request('City');
@@ -133,6 +146,12 @@ class EmployeeRegistrationController extends Controller
        return redirect('listEmployee');
        
     }
+    public function insertRole(){
+        $role = new Role();
+        $role->role_name = request('role_name');
+        //  return request('role_name');
+        $role->save();
+    }
 
      public function insertAddress(){
         $address = new Address();
@@ -170,7 +189,7 @@ public function insertEmployeeJobExperience(){
 
 }
 public function insertEmployee(){
-   
+    $role_fk = Role::latest('created_at')->pluck('id')->first();
     $job_experience_fk = employee_job_experience::latest('created_at')->pluck('id')->first();
     $employee_religion_fk = employee_religion::latest('created_at')->pluck('id')->first();
     $employee_emergency_contact_fk = employee_emergency_contact::latest('created_at')->pluck('id')->first();
@@ -178,6 +197,7 @@ public function insertEmployee(){
     $address_fk = Address::latest('created_at')->pluck('id')->first();
 
         $employee = new employee();
+        $employee->role_id = request('employee_role');
         $employee->job_experience_id   = $job_experience_fk;
         $employee->employee_religion_id  = request('employee_religion');
         $employee->employee_emergency_contact_id  = $employee_emergency_contact_fk;

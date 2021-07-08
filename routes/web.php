@@ -5,18 +5,15 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StreamController;
 use App\Http\Controllers\SubjectGroupController;
-<<<<<<< HEAD
 use App\Http\Controllers\EmployeeRegistrationController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\HomeRoomController;
 use App\Http\Controllers\ListEmployeeController;
 use App\Http\Controllers\ListTeacherController;
-=======
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
 
->>>>>>> 0c45ced4d740ef4b6ba88baa9ae10034f11b45a9
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,7 +76,7 @@ Route::get('/viewStream', [StreamController::class, 'viewStream'])->name('/viewS
 
 Route::post('addStream', [StreamController::class, 'addStream']);
 
-
+// Employee Controller
 
  Route::get('/addEmployee',[EmployeeRegistrationController::class, 'store']);
 Route::get('/addEmployeeForm',[EmployeeRegistrationController::class, 'form']);
