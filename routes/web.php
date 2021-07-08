@@ -8,6 +8,7 @@ use App\Http\Controllers\SubjectGroupController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\FinanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,23 @@ use App\Http\Controllers\ParentController;
 Route::get('/', function () {
     return view('/layouts/master');
 });
+
+//Finance
+
+Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
+
+Route::get('/viewPaymentType',[FinanceController::class, 'viewPaymentType']);
+
+Route::post('/addPaymentType',[FinanceController::class, 'addPaymentType']);
+
+
+
+Route::get('/indexAddPayment',[FinanceController::class, 'indexAddPayment']);
+
+Route::get('/viewPayment',[FinanceController::class, 'viewPayment']);
+
+Route::post('/addPayment',[FinanceController::class, 'addPayment']);
+
 
 
 //subject
