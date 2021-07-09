@@ -21,8 +21,10 @@
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
+
     <!-- select2  -->
   <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+  
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
@@ -500,14 +502,15 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
-        <!-- select 2 -->
+        
+<!-- select 2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-    <script>
-    $(function() {
+<script>
+$(function() {
 
-        $('.select2').select2()
-    });
-    </script>
+    $('.select2').select2()
+});
+</script>
 
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->
@@ -533,6 +536,8 @@
     <script src="{{ asset('dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+
+    
 
     <!-- view class js -->
     <script src="{{ asset('view_subject.js') }}"></script>
@@ -572,61 +577,11 @@
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-                    <script>
-                        var selecter = document.getElementById("job_position_selecter");
-                        var debut_as_a_teacher = document.getElementById("debut_as_a_teacher");
-                        var field_of_study = document.getElementById("field_of_study");
-                        var place_of_study = document.getElementById("place_of_study");
-                        var date_of_study = document.getElementById("date_of_study");
-                        var teacher_traning_program = document.getElementById("teacher_traning_program");
-                        var teacher_traning_year = document.getElementById("teacher_traning_year");
-                        var teacher_traning_institute = document.getElementById("teacher_traning_institute");
-
-                        selecter.addEventListener('change', function(){
-                            if(selecter.value == '3'){
-                                debut_as_a_teacher.style.display = "block";
-                                field_of_study.style.display = "block";
-                                place_of_study.style.display = "block";
-                                date_of_study.style.display = "block";
-                                teacher_traning_program.style.display = "block";
-                                teacher_traning_year.style.display = "block";
-                                teacher_traning_institute.style.display = "block";
-                            }else{
-                                debut_as_a_teacher.style.display = "none";
-                                field_of_study.style.display = "none";
-                                place_of_study.style.display = "none";
-                                date_of_study.style.display = "none";
-                                teacher_traning_program.style.display = "none";
-                                teacher_traning_year.style.display = "none";
-                                teacher_traning_institute.style.display = "none";
-                            }
-
-                        })
-                        window.addEventListener('load', function(){
-                            if(selecter.value == document.getElementById('job_position_selecter').value){
-                                debut_as_a_teacher.style.display = "block";
-                                field_of_study.style.display = "block";
-                                place_of_study.style.display = "block";
-                                date_of_study.style.display = "block";
-                                teacher_traning_program.style.display = "block";
-                                teacher_traning_year.style.display = "block";
-                                teacher_traning_institute.style.display = "block";
-                            }else{
-                                debut_as_a_teacher.style.display = "none";
-                                field_of_study.style.display = "none";
-                                place_of_study.style.display = "none";
-                                date_of_study.style.display = "none";
-                                teacher_traning_program.style.display = "none";
-                                teacher_traning_year.style.display = "none";
-                                teacher_traning_institute.style.display = "none";
-                            }
-
-                        })
-                    </script>
+                   
 
     <script src="{{asset('dist/js/addclass.js')}}"></script>
 
-    <script src="{{ asset('dist/js/employee.js') }}"></script>
+    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <!-- Page specific script -->

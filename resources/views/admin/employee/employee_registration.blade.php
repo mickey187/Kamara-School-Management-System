@@ -17,9 +17,9 @@
   <section class="content">
     <div class="container-fluid mt-3">
                <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> 
-               <link rel="stylesheet" href="{{ asset('dist/css/employee.js') }}">  
+               {{-- <link rel="stylesheet" href="{{ asset('dist/js/employee.js') }}">   --}}
                         <div class="formcontainer">
-                            <!-- <div class="progress-bar-form">
+                          {{--    <div class="progress-bar-form">
                                 <div class="step">
                                     <p>Basic</p>
                                     <div class="bullet"><span>1</span></div>
@@ -42,7 +42,7 @@
                                     <div class="bullet"><span>4</span></div>
                                     <div class="check fas fa-check"></div>
                                 </div>
-                            </div> -->
+                            </div> --}}
                             <div class="form-outer">
                                 <form action="
                                 @if(isset($edit_employee)){{
@@ -57,61 +57,50 @@
                                                 Basic information
                                             </div>
                                         </div>
-                                        <div class="row col-12">
+                                        <div class="row">
                                           <div class="col-6">
-                                          <div class="field">
-                                            <div class="label">First name</div>
-                                            <input type="text" name="first_name" class="form-control" placeholder="First name" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->first_name
-                                            }}@endif
-                                            ">
+                                            
+                                          <div class="form-group">
+                                            <label for="first_name" class="form-label float-left" >First Name</label>
+                                            <input type="text"  name="first_name" class="form-control" placeholder="First Name" value="@if(isset($edit_employee)){{
+                                              $edit_employee->first_name
+                                           }}@endif"
+                                             
+                                            >
                                         </div>
-                                        <div class="field">
-                                            <div class="label">Middle name</div>
-                                            <input type="text" name="middle_name" class="form-control" placeholder="Middle name" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->middle_name
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                            <label for="middle_name" class="form-label float-left">Middle name</label>
+                                            <input type="text" id="middle_name" name="middle_name" class="form-control" placeholder="Middle name" 
+                                            value="@if(isset($edit_employee)){{$edit_employee->middle_name}}@endif">
                                         </div>
-                                        <div class="field">
-                                            <div class="label">Last name</div>
-                                            <input type="text" name="last_name"  class="form-control" placeholder="Last name" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->last_name
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                            <label for="last_name" class="form-label float-left">Last name</label>
+                                            <input type="text" id="last_name" name="last_name"  class="form-control" placeholder="Last name" 
+                                            value="@if(isset($edit_employee)){{$edit_employee->last_name}}@endif">
                                         </div>
 
-                                      <div class="field">
-                                            <div class="label">Gender</div>
-                                            <select class="form-control" name="gender">
+                                      <div class="form-group">
+                                            <label class="form-label float-left">Gender</label>
+                                            <select class="form-control form-select" name="gender">
                                                     <option>Male</option>
                                                     <option>Female</option>
                                                   </select>
                                         </div>
                                           </div>
                                           <div class="col-6">
-                                          <div class="field">
-                                           <div class="label">Birth Date</div>
-                                         <input type="text"  name="birth_date" class="form-control" id="birth_date" placeholder="Enter your birth date" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->birth_date
-                                            }}@endif
-                                            ">
+                                          <div class="form-group">
+                                           <label class="form-label float-left">Birth Date</label>
+                                         <input type="text"  name="birth_date" class="form-control" id="birth_date" placeholder="Enter your birth date"
+                                          value="@if(isset($edit_employee)){{$edit_employee->birth_date}}@endif">
                                      </div>
 
-                                        <div class="field">
-                                          <div class="label">Education Status</div>
-                                          <input type="text" name="education_status" class="form-control" id="hired_date" placeholder="Enter your education status"value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->education_status
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                          <label class="form-label float-left">Education Status</label>
+                                          <input type="text" name="education_status" class="form-control" id="hired_date" placeholder="Enter your education status"
+                                          value="@if(isset($edit_employee)){{$edit_employee->education_status}}@endif">
                                         </div>
-                                        <div class="field">
-                                          <div class="label">nationality</div>
+                                        <div class="form-group">
+                                          <label class="form-label float-left">nationality</label>
                                          <select id="nationality" name="nationality" class="form-control form-select" aria-label="Ethiopia" name="nationality">
                                               <option value="Ethiopia" selected>Ethiopia</option>
                                               <option value="kenya">kenya</option>
@@ -121,9 +110,9 @@
                                           </select>
                                         </div>
 
-                                        <div class="field">
-                                          <div class="label">Marriage Status</div>
-                                            <select class="form-control" name="marriage_status">
+                                        <div class="form-group">
+                                          <label class="form-label float-left">Marriage Status</label>
+                                            <select class="form-control form-select" name="marriage_status">
                                                     <option>married</option>
                                                     <option>divorce</option>
                                                     <option>widow</option>
@@ -135,7 +124,7 @@
 
                                        
                                        <div class="field ">
-                                            <button value="1" class="nextBtn" type="button">Next</button>
+                                            <button value="1" class="nextBtn btn-prrimary" type="button">Next</button>
                                         </div>
 
                                     </div>
@@ -145,54 +134,40 @@
                                               Background info
                                             </div>
                                         </div>
-                                        <div class="row col-12">
+                                        <div class="row">
                                         <div class="col-6">
-                                         <div class="field">
-                                          <div class="label">Hired Date</div>
-                                          <input type="text" name="hired_date" class="form-control" id="hired_date" placeholder="Enter your hired date" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->hired_date
-                                            }}@endif
-                                            ">
+                                         <div class="form-group">
+                                          <label class="form-label float-left">Hired Date</label>
+                                          <input type="text" name="hired_date" class="form-control" id="hired_date" placeholder="Enter your hired date"
+                                           value="@if(isset($edit_employee)){{$edit_employee->hired_date}}@endif">
                                         </div>
 
-                                        <div class="field">
-                                          <div class="label">Previous Employment</div>
-                                           <input type="text" name="previous_employment" class="form-control" id="previous_employment" placeholder="Enter your previous employment"value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->previous_employment
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                          <label class="form-label float-left">Previous Employment</label>
+                                           <input type="text" name="previous_employment" class="form-control" id="previous_employment" placeholder="Enter your previous employment"
+                                           value="@if(isset($edit_employee)){{
+                                               $edit_employee->previous_employment}}@endif">
                                         </div>
 
-                                        <div class="field">
-                                          <div class="label">Special Skill</div>
-                                          <input type="text" name="special_skill" class="form-control" id="special_skill" placeholder="Enter your special skill" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->special_skill
-                                            }}@endif
-                                            "> 
+                                        <div class="form-group">
+                                          <label class="form-label float-left">Special Skill</label>
+                                          <input type="text" name="special_skill" class="form-control" id="special_skill" placeholder="Enter your special skill" 
+                                          value="@if(isset($edit_employee)){{$edit_employee->special_skill}}@endif"> 
                                       </div>
                                         </div>
                                         <div class="col-6">
-                                         <div class="field">
-                                          <div class="label">Net Salary</div>
-                                          <input type="text" name="net_salary" class="form-control" id="net_salary" placeholder="Enter your net salary" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->net_salary
-                                            }}@endif
-                                            ">
+                                         <div class="form-group">
+                                          <label class="form-label float-left">Net Salary</label>
+                                          <input type="text" name="net_salary" class="form-control" id="net_salary" placeholder="Enter your net salary" 
+                                          value="@if(isset($edit_employee)){{$edit_employee->net_salary}}@endif">
                                         </div>
-                                        <div class="field">
-                                          <div class="label">Hire Type</div>
-                                           <input type="text" name="hire_type" class="form-control" id="hire_type" placeholder="Enter your hire type"value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_employee->hire_type
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                          <label class="form-label float-left">Hire Type</label>
+                                           <input type="text" name="hire_type" class="form-control" id="hire_type" placeholder="Enter your hire type"
+                                           value="@if(isset($edit_employee)){{$edit_employee->hire_type}}@endif">
                                         </div>
-                                         <div class="field">
-                                          <div class="label">Employee Religion</div>
+                                         <div class="form-group">
+                                          <label class="form-label float-left">Employee Religion</label>
                                              <select id="employee_religion" name="employee_religion" class="form-control form-select" aria-label="employee_religion" name="employee_religion">
                                                   @foreach( $edit_all as $row )
                                                   {{$row->religion_name}}
@@ -223,54 +198,37 @@
                                              employee job info
                                             </div>
                                         </div>
-                                        <div class="row col-12">
+                                        <div class="row">
                                         <div class="col-6">
-                                         <div class="field">
-                                          <div class="label">Job Trainning</div>
+                                         <div class="form-group">
+                                          <label class="form-label float-left">Job Trainning</label>
                                           <input type="text" name="job_trainning" class="form-control" id="job_trainning" placeholder="Enter your job trainning" 
-                                          value="
-                                             @if(isset($edit_employee))
-                                             {{$edit_employee->job_trainning}}
-                                               
-                                            @endif
-                                            ">
+                                          value="@if(isset($edit_employee)){{$edit_employee->job_trainning}}@endif">
                                         </div>
                                             
-                                               <div class="field">
-                                          <div class="label">Past Employment Place</div>
-                                           <input type="text" name="past_employment_place" class="form-control" id="past_employment_place" placeholder="Enter your past employment place" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_job_experience->past_employee_place
-                                            }}@endif
-                                            ">
+                                               <div class="form-group">
+                                          <label class="form-label float-left">Past Employment Place</label>
+                                           <input type="text" name="past_employment_place" class="form-control" id="past_employment_place" placeholder="Enter your past employment place" 
+                                           value="@if(isset($edit_employee)){{$edit_job_experience->past_employee_place}}@endif">
                                         </div>
-                                         <div class="field">
-                                          <div class="label">Emergency Contact</div>
-                                           <input type="text" name="emergency_contact" class="form-control" id="emergency_contact" placeholder="Enter your past emergency contact name" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_emp_emergency->contact_name
-                                            }}@endif
-                                            ">    
+                                         <div class="form-group">
+                                          <label class="form-label float-left">Emergency Contact</label>
+                                           <input type="text" name="emergency_contact" class="form-control" id="emergency_contact" placeholder="Enter your past emergency contact name" 
+                                           value="@if(isset($edit_employee)){{$edit_emp_emergency->contact_name}}@endif">    
                                         </div>
-                                        <div class="field">
-                                          <div class="label">relation</div>
-                                           <input type="text" name="relation" class="form-control" id="relation" placeholder="Enter your relation"value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_emp_emergency->relation
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                          <label class="form-label float-left">relation</label>
+                                           <input type="text" name="relation" class="form-control" id="relation" placeholder="Enter your relation"
+                                           value="@if(isset($edit_employee)){{$edit_emp_emergency->relation}}@endif">
                                         </div>
-                                    <div class="field">
-                                          <div class="label">Past Job Position</div>
-                                           <input type="text" name="past_job_position" class="form-control" id="past_job_position" placeholder="Enter your past job position" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_job_experience->past_job_position
-                                            }}@endif
-                                            ">
+                                    <div class="form-group">
+                                          <label class="form-label float-left">Past Job Position</label>
+                                           <input type="text" name="past_job_position" class="form-control" id="past_job_position" placeholder="Enter your past job position" 
+                                           value="@if(isset($edit_employee)){{$edit_job_experience->past_job_position}}@endif">
                                         </div>
                                   
-                                        <div class="field">
-                                      <div class="label">Role</div>
+                                        <div class="form-group">
+                                      <label class="form-label float-left">Role</label>
                                       <select id="role_selecter" name="employee_role" class="form-control form-select" aria-label="employee_role" name="employee_role">
                                             @foreach($edit_all_role as $row)
                                             {{$row->role_name}}
@@ -286,9 +244,9 @@
                                     </div>
                                         </div>
                                         <div class="col-6">
-                                           <div class="field">   
+                                           <div class="form-group">   
                                             
-                                           <div class="label">Job Position</div>
+                                           <label class="form-label float-left">Job Position</label>
                                             <select id="job_position_selecter" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
                                                 @foreach( $job_position as $row )
                                                 {{ $row->position_name }}
@@ -304,73 +262,45 @@
                                             </select>
                                     </div>
 
-                                     <div class="field" id="Debut as a Teacher" >
-                                          <div class="label">debut_as_a_teacher</div>
+                                     <div class="form-group" id="Debut as a Teacher" >
+                                          <label class="form-label float-left">debut_as_a_teacher</label>
                                             <input  type="text" name="debut_as_a_teacher" class="form-control"  aria-describedby="debut_as_a_teacher" placeholder="Enter your debut as a teacher"
-                                            value="
-                                            @if(isset($edit_job_position->position_name) == 'Teacher'){{
-                                               $edit_job_position->position_name
-                                            }}@endif
-                                            ">
+                                            value="@if(isset($edit_job_position->position_name) == 'Teacher'){{$edit_job_position->position_name}}@endif">
                                           </div>
-                                           <div class="field" id="Field Of Study">
-                                          <div class="label">field_of_study</div>
+                                           <div class="form-group" id="Field Of Study">
+                                          <label class="form-label float-left">field_of_study</label>
                                                 <input type="text" name="field_of_study"  class="form-control" placeholder="Enter your field of study"
-                                              value="
-                                            @if(isset($edit_job_position->position_name) == 'Teacher'){{
-                                               $edit_job_position->position_name
-                                            }}@endif
-                                            ">
+                                              value="@if(isset($edit_job_position->position_name) == 'Teacher'){{$edit_job_position->position_name}}@endif">
                                         </div>
 
-                                        <div class="field" id="Place Of Study">
-                                          <div class="label">place_of_study</div>
+                                        <div class="form-group" id="Place Of Study">
+                                          <label class="form-label float-left">place_of_study</label>
                                           <input type="text" name="place_of_study"  class="form-control" placeholder="Enter your place of study"
-                                          value="
-                                            @if(isset($edit_job_position->position_name) == 'Teacher'){{
-                                               $edit_job_position->position_name
-                                            }}@endif
-                                            ">
+                                          value="@if(isset($edit_job_position->position_name) == 'Teacher'){{$edit_job_position->position_name}}@endif">
                                             </div>
 
-                                      <div class="field" id="Date Of Study">
-                                          <div class="label">date_of_study</div>
+                                      <div class="form-group" id="Date Of Study">
+                                          <label class="form-label float-left">date_of_study</label>
                                           <input type="date" name="date_of_study"  class="form-control" placeholder="Enter your date of study"
-                                          value="
-                                            @if(isset($edit_job_position->position_name) == 'Teacher'){{
-                                               $edit_job_position->position_name
-                                            }}@endif
-                                            ">
+                                          value="@if(isset($edit_job_position->position_name) == 'Teacher'){{$edit_job_position->position_name}}@endif">
                                         </div>
 
-                                        <div class="field" id="Teacher Traning Program">
-                                                    <div class="label">teacher_traning_program</div>
+                                        <div class="form-group" id="Teacher Traning Program">
+                                                    <label class="form-label float-left">teacher_traning_program</label>
                                                       <input type="text" name="teacher_traning_program"  class="form-control" placeholder="Enter your teacher training program"
-                                                      value="
-                                                          @if(isset($edit_job_position->position_name) == 'Teacher'){{
-                                                            $edit_job_position->position_name
-                                                          }}@endif
-                                                          ">
+                                                      value="@if(isset($edit_job_position->position_name) == 'Teacher'){{$edit_job_position->position_name}}@endif">
                                                   </div>
                                                       
-                                                    <div class="field" id="Teacher Traning Year">
-                                                    <div class="label">teacher_traning_year</div>
+                                                    <div class="form-group" id="Teacher Traning Year">
+                                                    <label class="form-label float-left">teacher_traning_year</label>
                                                           <input type="date" name="teacher_traning_year"  class="form-control" placeholder="Enter your teacher training year"
-                                                          value="
-                                                              @if(isset($edit_job_position->position_name) == 'Teacher'){{
-                                                                $edit_job_position->position_name
-                                                              }}@endif
-                                                              ">
+                                                          value="@if(isset($edit_job_position->position_name) == 'Teacher'){{$edit_job_position->position_name}}@endif">
                                                       </div>
                                                   
-                                                  <div class="field" id="Teacher Traning Institute">
-                                                    <div class="label">teacher_traning_institute</div>
+                                                  <div class="form-group" id="Teacher Traning Institute">
+                                                    <label class="form-label float-left">teacher_traning_institute</label>
                                                     <input type="text" name="teacher_traning_institute"  class="form-control" placeholder="Enter your teacher training institute"
-                                                    value="
-                                                        @if(isset($edit_job_position->position_name) == 'Teacher'){{
-                                                          $edit_job_position->position_name
-                                                        }}@endif
-                                                        ">
+                                                    value="@if(isset($edit_job_position->position_name) == 'Teacher'){{$edit_job_position->position_name}}@endif">
                                                   </div>
                                         </div>
                                         </div>
@@ -388,73 +318,49 @@
                                                 Address info
                                             </div>
                                         </div>
-                                        <div class="row col-12">
+                                        <div class="row">
                                         <div class="col-6">
-                                         <div class="field">
-                                            <div class="label">City</div>
-                                            <input type="text" name="City" class="form-control" placeholder="City"  value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_address->city
-                                            }}@endif
-                                            ">
+                                         <div class="form-group">
+                                            <label class="form-label float-left">City</label>
+                                            <input type="text" name="City" class="form-control" placeholder="City" 
+                                             value="@if(isset($edit_employee)){{$edit_address->city}}@endif">
                                             </div>
-                                        <div class="field">
-                                            <div class="label">Sub city</div>
-                                            <input type="text" name="sub_city" class="form-control" placeholder="Subcity"  value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_address->subcity
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                            <label class="form-label float-left">Sub city</label>
+                                            <input type="text" name="sub_city" class="form-control" placeholder="Subcity" 
+                                             value="@if(isset($edit_employee)){{$edit_address->subcity}}@endif">
                                         </div>
-                                        <div class="field">
-                                            <div class="label">Kebele</div>
-                                            <input type="text" required name="Kebele" class="form-control" placeholder="Kebele"  value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_address->kebele
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                            <label class="form-label float-left">Kebele</label>
+                                            <input type="text" required name="Kebele" class="form-control" placeholder="Kebele"
+                                              value="@if(isset($edit_employee)){{$edit_address->kebele}}@endif">
                                         </div>
-                                        <div class="field">
-                                            <div class="label">House number</div>
-                                            <input type="text" name="house_number" class="form-control" placeholder="House number" value="
-                                             @if(isset($edit_employee)){{
-                                               number_format($edit_address->house_number)
-                                            }}@endif 
-                                            ">
+                                        <div class="form-group">
+                                            <label class="form-label float-left">House number</label>
+                                            <input type="text" name="house_number" class="form-control" placeholder="House number"
+                                             value="@if(isset($edit_employee)){{number_format($edit_address->house_number)}}@endif">
                                         </div>
                                         </div>
                                         <div class="col-6">
-                                          <div class="field">
-                                            <div class="label">P.O.Box</div>
-                                            <input type="text" name="POBox" class="form-control" placeholder="P.O.Box" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_address->P_o_box
-                                            }}@endif
-                                            ">
+                                          <div class="form-group">
+                                            <label class="form-label float-left">P.O.Box</label>
+                                            <input type="text" name="POBox" class="form-control" placeholder="P.O.Box"
+                                             value="@if(isset($edit_employee)){{$edit_address->P_o_box}}@endif">
                                         </div>
-                                        <div class="field">
-                                            <div class="label">Email</div>
-                                            <input type="email" name="email" class="form-control" placeholder="Email" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_address->email
-                                            }}@endif
-                                            ">
+                                        <div class="formg-group">
+                                            <label class="form-label float-left">Email</label>
+                                            <input type="email" name="email" class="form-control" placeholder="Email"
+                                             value="@if(isset($edit_employee)){{$edit_address->email}}@endif">
                                         </div>
-                                        <div class="field">
-                                            <div class="label">Phone</div>
-                                            <input type="text" name="phone1" class="form-control" placeholder="Phone" value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_address->phone_number
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                            <label class="form-label float-left">Phone</label>
+                                            <input type="text" name="phone1" class="form-control" placeholder="Phone"
+                                             value="@if(isset($edit_employee)){{$edit_address->phone_number}}@endif">
                                         </div>
-                                        <div class="field">
-                                            <div class="label">Alternative Phone</div>
-                                            <input type="text" name="phone2" class="form-control" placeholder="Alternative phone"value="
-                                             @if(isset($edit_employee)){{
-                                               $edit_address->alternative_phone_number
-                                            }}@endif
-                                            ">
+                                        <div class="form-group">
+                                            <label class="form-label float-left">Alternative Phone</label>
+                                            <input type="text" name="phone2" class="form-control" placeholder="Alternative phone"
+                                            value="@if(isset($edit_employee)){{$edit_address->alternative_phone_number}}@endif">
                                         </div>
                                         </div>
                                         </div>

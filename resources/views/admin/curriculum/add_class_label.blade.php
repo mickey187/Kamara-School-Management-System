@@ -38,7 +38,7 @@
                                                 
           </div>
 
-          <div class="row" style="margin-top: 10px">
+          {{-- <div class="row" style="margin-top: 10px">
             <div class="col-6">
                 <div class="form-group">
                 <label for="streams">Select Stream</label>
@@ -52,7 +52,7 @@
                 </select>
             </div>
             </div>
-        </div>
+        </div> --}}
 
           
 
