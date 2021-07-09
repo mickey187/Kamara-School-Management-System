@@ -17,12 +17,15 @@ class CreateStudentClassTransfersTable extends Migration
         Schema::create('student_class_transfers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id') ->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('student_id') ->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('transfered_from')->nullable(true);
+            $table->foreign('transfered_from') ->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('transfered_to')->nullable(true);
+            $table->foreign('transfered_to') ->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('yearly_average')->nullable(false);
-            $table->integer('transfered_from')->nullable(false);
-            $table->integer('transfered_to')->nullable(false);
-            $table->date('academic_year')->nullable(false);
-            $table->string('pass_fail_status')->nullable(false);
+            $table->string('academic_year')->nullable(false);
+            $table->string('status')->nullable(false);
+            $table->boolean('isRegistered')->nullable(false);
             $table->timestamps();
         });
     }

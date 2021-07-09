@@ -24,7 +24,7 @@ use App\Models\teacher;
 
 class EmployeeRegistrationController extends Controller
 {
-    
+
       public function form(){
           $edit_job_position = employee_job_position::all();
           $job_position = employee_job_position::all();
@@ -41,7 +41,7 @@ class EmployeeRegistrationController extends Controller
 
     //
     public function store(){
-        if(Request('job_position')==='teacher'){
+        if(Request('job_position')==='1'){
             // $this->insertRole();
             $this->insertAddress();
             $this->insertEmergencyContact();
@@ -54,7 +54,7 @@ class EmployeeRegistrationController extends Controller
             $this->insertTeacher();
             //$this->insertHomeRoom();
             $this->insertTeacherCourseLoad();
-            return view('admin.teacher.teacher'); 
+            return view('admin.teacher.teacher');
         }else{
             // $this->insertRole();
             $this->insertAddress();
@@ -94,9 +94,9 @@ class EmployeeRegistrationController extends Controller
         $address->phone_number = request('phone1');
         $address->alternative_phone_number = request('phone2');
         $address->house_number = request('house_number');
-        $address->update(); 
+        $address->update();
 
- 
+
 
         $employee_emergency_contact = employee_emergency_contact::find($employee->employee_emergency_contact_id);
         $employee_emergency_contact->contact_name = request('emergency_contact');
@@ -123,28 +123,28 @@ class EmployeeRegistrationController extends Controller
         $employee->job_trainning =request('job_trainning');
          $employee->employee_job_position_id = request('job_position');
         $employee->update();
-        if(request('job_position') == 'teacher'){
+        if(request('job_position') == '1'){
             $teacher = teacher::find($employee->id);
             //echo $employee->id ;
-            $academic_background = academic_background_info::find($teacher->academic_background_id);  
+            $academic_background = academic_background_info::find($teacher->academic_background_id);
             $academic_background->field_of_study = request('field_of_study');
             $academic_background->place_of_study = request('place_of_study');
             $academic_background->date_of_study = request('date_of_study');
             $academic_background->update();
-            
+
             $training_institution_info = training_institution_info::find($teacher->teacher_training_info_id);
             $training_institution_info->teacher_traning_program = request('teacher_traning_program');
             $training_institution_info->teacher_traning_year = request('teacher_traning_year');
             $training_institution_info->teacher_traning_institute = request('teacher_traning_institute');
             $training_institution_info->update();
-    
+
             $teacher->debut_as_a_teacher = request('debut_as_a_teacher');
             $teacher->update();
         }
-  
+
 
        return redirect('listEmployee');
-       
+
     }
     public function insertRole(){
         $role = new Role();
@@ -163,13 +163,13 @@ class EmployeeRegistrationController extends Controller
         $address->phone_number = request('phone1');
         $address->alternative_phone_number = request('phone2');
         $address->house_number = request('house_number');
-        $address->save(); 
+        $address->save();
     }
 
 
 
 public function insertEmergencyContact(){
-   
+
 $employee_emergency_contact = new employee_emergency_contact();
 $employee_emergency_contact->contact_name = request('emergency_contact');
 $employee_emergency_contact->relation = request('relation');
@@ -177,7 +177,7 @@ $employee_emergency_contact->save();
 }
 
 public function insertEmployeeJobExperience(){
-    
+
     $address_fk = Address::latest('created_at')->pluck('id')->first();
     $employee_job_experience = new employee_job_experience();
     $employee_job_experience->past_job_position = request('past_job_position');
@@ -203,7 +203,7 @@ public function insertEmployee(){
         $employee->employee_emergency_contact_id  = $employee_emergency_contact_fk;
         $employee->employee_job_position_id  = request('job_position');
         $employee->address_id = $address_fk;
-        
+
         $employee->first_name = request('first_name');
         $employee->middle_name = request('middle_name');
         $employee->last_name = request('last_name');
@@ -227,7 +227,7 @@ public function insertAcademicBackgroundInfo(){
          $academic_background->place_of_study = request('place_of_study');
          $academic_background->date_of_study = request('date_of_study');
          $academic_background->save();
-         
+
     }
     public function insertTrainingInstitutionInfo(){
         $training_institution_info = new training_institution_info();
@@ -246,7 +246,7 @@ public function insertAcademicBackgroundInfo(){
     public function insertTeacherCourseLoad(){
         $section_fk = section::latest('created_at')->pluck('id')->first();
         $subject_fk = subject::latest('created_at')->pluck('id')->first();
-        
+
     }
     public function insertTeacher(){
         $subject_fk = subject::latest('created_at')->pluck('id')->first();
@@ -254,7 +254,7 @@ public function insertAcademicBackgroundInfo(){
         $employee_id_fk = employee::latest('created_at')->pluck('id')->first();
         $academic_background_fk = academic_background_info::latest('created_at')->pluck('id')->first();
         $training_institution_info_fk = training_institution_info::latest('created_at')->pluck('id')->first();
-    
+
         $teacher = new teacher();
         $teacher->id = $employee_id_fk;
         $teacher->academic_background_id = $academic_background_fk;

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class ListEmployeeController extends Controller
 {
-   
+
     //
     public function listEmployee()
     {
@@ -23,30 +23,45 @@ class ListEmployeeController extends Controller
         $emp_list = DB::table('employees')
                                 ->join('employee_job_positions', 'employees.employee_job_position_id', '=', 'employee_job_positions.id')
                                 ->get(['first_name','middle_name','last_name','gender','position_name','hire_type','hired_date','employees.id']);
-                                
+
         return view('admin.employee.listEmployee')->with('emp_list', $emp_list);
     }
     public function getEmployee($id)
     {
-        $edit_employee = employee::where('id', $id)->first();
-        $edit_role = employee::where('id',$edit_employee->role_id)->first();
         $edit_all_role = Role::all();
-        $edit_address = address::where('id', $edit_employee->address_id)->first();
-        $edit_emp_emergency = employee_emergency_contact::where('id', $edit_employee->employee_emergency_contact_id)->first();
-        $edit_job_position = employee_job_position::where('id', $edit_employee->employee_job_position_id)->first();
-       $job_position = employee_job_position::all();
-        $edit_job_experience = employee_job_experience::where('id', $edit_employee->job_experience_id)->first();
-        $edit_emp_religion = employee_religion::where('id', $edit_employee->employee_religion_id)->first();
+        $job_position = employee_job_position::all();
         $edit_all = employee_religion::all();
-        $teacher = teacher::where('id',$id)->first();
-        // return $edit_employee;
-    
-        
-        return view('admin.employee.employee_registration')->with('edit_employee', $edit_employee)
-        ->with('edit_address', $edit_address)->with('edit_emp_emergency', $edit_emp_emergency)
-        ->with('edit_job_position', $edit_job_position)->with('edit_job_experience', $edit_job_experience)
-        ->with('edit_emp_religion', $edit_emp_religion)->with('teacher',$teacher)->with('edit_all',$edit_all)
-        ->with('job_position',$job_position)->with('edit_role',$edit_role)->with('edit_all_role',$edit_all_role);
+        $teacher = DB::table('teachers')
+        ->join('academic_background_infos','academic_background_infos.id','=','teachers.academic_background_id')
+        ->join('training_institution_infos','training_institution_infos.id','=','teachers.teacher_training_info_id')
+        ->where('teachers.id',$id)
+        ->get([
+            'teachers.id as teacher_id','debut_as_a_teacher','teacher_traning_program','teacher_traning_year','teacher_traning_institute',
+            'field_of_study','place_of_study','date_of_study'
+        ]);
+
+        $employee_data = DB::table('employees')
+        ->join('roles','employees.role_id','=','roles.id')
+        ->join('addresses','addresses.id','=','employees.address_id')
+        ->join('employee_emergency_contacts','employee_emergency_contacts.id','=','employees.employee_emergency_contact_id')
+        ->join('employee_job_positions','employee_job_positions.id','=','employees.employee_job_position_id')
+        ->join('employee_job_experiences','employee_job_experiences.id','=','employees.job_experience_id')
+        ->join('employee_religions','employee_religions.id','=','employees.employee_religion_id')
+        ->where('employees.id',$id)
+        ->get([
+            'employees.id','first_name','middle_name','last_name','gender','birth_date','hired_date',
+            'education_status','marrage_status','previous_employment','special_skill','net_salary','relation','role_id','employee_job_position_id',
+            'job_trainning','nationality','hire_type','contact_name','past_job_position','past_employee_place','house_number','employee_religion_id',
+            'position_name','religion_name','city','subcity','email','kebele','p_o_box','phone_number','alternative_phone_number'
+        ]);
+
+
+         return view('admin.employee.employee_edit')
+         ->with('edit_em',$employee_data)
+         ->with('teacher_',$teacher)
+         ->with('edit_all',$edit_all)
+         ->with('job_position',$job_position)
+         ->with('edit_all_role',$edit_all_role);
     }
 
     public function findEmployee()
@@ -77,7 +92,7 @@ class ListEmployeeController extends Controller
         $emp_list = DB::table('employees')
                                 ->join('employee_job_positions', 'employees.employee_job_position_id', '=', 'employee_job_positions.id')
                                 ->get(['first_name','middle_name','last_name','gender','position_name','hire_type','hired_date','employees.id']);
-                                
+
         return view('admin.employee.listEmployee')->with('emp_list', $emp_list);
     }
 }

@@ -36,9 +36,14 @@
                                                 <td>{{ $row->gender }}</td>
                                                 <td>{{ $row->class_label }}</td>
                                                 <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <a type="button" class="btn bg-green btn-sm"
+                                                <td>{{ $row->pass_fail_status }}</td>
+                                                <td><div id="register">
+                                                    <button type="button"
+                                                    @if ( $row->pass_fail_status == "on load")
+                                                        class="btn bg-danger btn-sm"
+                                                    @else
+                                                        class="btn bg-primary btn-sm"
+                                                    @endif
                                                         data-toggle="modal"
                                                         data-target="#modal-student-enroll"
                                                         data-detail1="
@@ -48,7 +53,19 @@
                                                                 {{ $img }},
                                                                 {{ $row->class_label }},
                                                                 {{ $row->stream_type }}
-                                                                    ">Register</a>
+                                                                    "
+                                                                @if ( $row->pass_fail_status == "Registered")
+                                                                    disabled
+                                                                @endif
+                                                                    >
+                                                                @if ( $row->pass_fail_status == "on load")
+                                                                    Register
+                                                                @else
+                                                                    Registered
+                                                                @endif
+
+                                                    </button>
+                                                    </div>
                                                     </td>
                                             </tr>
                                         @endforeach
@@ -109,8 +126,8 @@
                                         <option>2012</option>
                                         <option>2013</option>
                                     </select><br>
-                                    <input  type="button" class="col-6 btn btn-primary" value="Register">
-
+                                    <div id="register1" hidden><p id="id"></p></div>
+                                    <button onclick="register(this);" type="button" class="col-6 btn btn-primary"  value="" >Register</button>
                         </div>
                         <div class="modal-footer">
 

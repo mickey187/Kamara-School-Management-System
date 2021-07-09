@@ -17,17 +17,17 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('role_id');
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('job_experience_id');
-            $table->foreign('job_experience_id')->references('id')->on('employee_job_experiences');
+            $table->foreign('job_experience_id')->references('id')->on('employee_job_experiences')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('employee_religion_id');
-            $table->foreign('employee_religion_id')->references('id')->on('employee_religions');
+            $table->foreign('employee_religion_id')->references('id')->on('employee_religions')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('employee_job_position_id');
-            $table->foreign('employee_job_position_id')->references('id')->on('employee_job_positions');
+            $table->foreign('employee_job_position_id')->references('id')->on('employee_job_positions')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('employee_emergency_contact_id');
-            $table->foreign('employee_emergency_contact_id')->references('id')->on('employee_emergency_contacts');
+            $table->foreign('employee_emergency_contact_id')->references('id')->on('employee_emergency_contacts')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('address_id');
-            $table->foreign('address_id')->references('id')->on('addresses');
+            $table->foreign('address_id')->references('id')->on('addresses')->onUpdate('cascade')->onDelete('cascade');
 
             $table->string ('first_name') ->nullable(false);
             $table->string ('middle_name') ->nullable(false);

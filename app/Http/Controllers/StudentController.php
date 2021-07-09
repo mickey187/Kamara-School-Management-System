@@ -8,6 +8,7 @@ use App\Models\student_background;
 use App\Models\student_medical_info;
 use App\Models\students_parent;
 use App\Models\student;
+use App\Models\student_class_transfer;
 use App\Models\student_enrolment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,12 @@ class StudentController extends Controller{
             'image' => $req->image,
             'class' => $req->grade
         );
-
+        echo request('class');
+        $student_class_transfer = array(
+            'average' =>request('average'),
+            'class' =>request('grade'),
+            'academic_year' =>request('academic_year'),
+        );
         $student_background = array(
             'transfer_reason' => $req->transferReason,
             'suspension_status' => $req->sespensionStatus,
@@ -80,6 +86,7 @@ class StudentController extends Controller{
             $this->insertStudentBackgroud($student_background);
             $this->insertStudentMedicalInfo($student_medical_info);
             $this->insertStudent($student,$req);
+            $this->insertStudentClassTransfer($student_class_transfer);
             $all_class = classes::all();
             return view('admin.student.add_student')->with('classes',$all_class);
 
@@ -88,6 +95,7 @@ class StudentController extends Controller{
             $this->insertStudentBackgroud($student_background);
             $this->insertStudentMedicalInfo($student_medical_info);
             $this->insertStudent($student,$req);
+            $this->insertStudentClassTransfer($student_class_transfer);
             $this->insertAddress($addres);
             $this->insertParent($parent);
             $all_class = classes::all();
@@ -97,12 +105,6 @@ class StudentController extends Controller{
     }
 
     public function retrive($id){
-        // $student = student::where('id',$id)->first();
-        // $medical = student_medical_info::where('id',$student->student_medical_info_id)->first();
-        // //DB::table('students')->join('student_medical_infos','students.student_medical_info_id','=','student_medical_infos.id')->where('students.student_medical_info_id',$id)->get();
-        // $background = student_background::where('id',$student->student_background_id)->first();
-        // //DB::table('students')->join('student_backgrounds','students.student_background_id','=','student_backgrounds.id')->where('students.student_background_id',$id)->first();
-        // //echo $background->citizenship;
         $student = DB::table('students')
         ->join('student_medical_infos','student_medical_infos.id','=','students.student_medical_info_id')
         ->join('student_backgrounds','student_backgrounds.id','=','students.student_background_id')
@@ -194,18 +196,24 @@ class StudentController extends Controller{
         $students = DB::table('students')
             ->join('classes','classes.id','=','students.class_id')
             ->join('streams','classes.stream_id','=','streams.id')
-            ->get();
+            ->join('student_class_transfers','student_class_transfers.student_id','=','students.id')
+            ->get([
+                'students.student_id','students.id','first_name','middle_name','last_name',
+                'class_label','pass_fail_status','stream_type','gender','image'
+            ]);
+           // echo $students;
         return view('admin.student.student_enrolment')->with('students',$students);
     }
 
-    public function register($id){
-        $student = student::find($id);
-        $student->class_id = request('transfered');
-        $student->save();
-        $student_enrollment = new student_enrolment();
-        $student_enrollment->acadamic_year = request('acadamic_year');
-        error_log('ID = '.$id.' and label = '. request('transfered'));
-        return redirect()->route('enrollPage')->withSuccessMessage('Student Enroled');
+    public function register($var){
+        $id = str_replace(' ', '', $var);
+         $student = student::where('id',$id)->get();
+         $student_class = student_class_transfer::where('student_id',$id)->first();
+           $student_class_tran = student_class_transfer::find($student_class->id);
+            $student_class_tran->pass_fail_status = "Registered";
+            $student_class_tran->update();
+            $this->insertEnrollment($id);
+        return response()->json($student_class);
     }
 
     public function findStudent(){
@@ -311,6 +319,28 @@ class StudentController extends Controller{
         $student->save();
     }
 
+    public function insertStudentClassTransfer($data){
+        $student_fk = student::latest('created_at')->pluck('id')->first();
+        $studentTransfer = new student_class_transfer();
+        $studentTransfer->student_id = $student_fk;
+        $studentTransfer->yearly_average = $data['average'];
+        $studentTransfer->transfered_from = $data['class'];
+        $studentTransfer->transfered_to = $data['class'];
+        $studentTransfer->academic_year = $data['academic_year'];
+        $studentTransfer->pass_fail_status = 'on load';
+        $studentTransfer->save();
+    }
+
+    public function insertEnrollment($id){
+        $student = student::where('id',$id)->first();
+        $student_class_transfer = student_class_transfer::where('student_id',$id)->first();
+        $enrollment = new student_enrolment();
+        $enrollment->class_id = $student->class_id;
+        $enrollment->student_id = $id;
+        $enrollment->student_class_transfer_id =  $student_class_transfer->id;
+        $enrollment->acadamic_year = $student_class_transfer->academic_year;
+        $enrollment->save();
+    }
     public function idGeneratorFun(){
         $fourRandomDigit = rand(1000,9999);
         $student = student::get(['id']);
@@ -326,4 +356,11 @@ class StudentController extends Controller{
         $student = student::where('id',$id)->get();
         return response()->json($student);
     }
+    function adminDashboard(){
+        return view('admin.dashboard');
+    }
+    function marklist(){
+        return view('admin.student.marklist');
+    }
 }
+

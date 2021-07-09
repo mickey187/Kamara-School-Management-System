@@ -19,17 +19,31 @@
                         </div><br>
                     </div>
                     <div class="col-4">
-                        <div class="col-12">
                             <div class="col-lg-12 col-sm-12">
                                 <div class=" col-lg-12 col-md-6 col-sm-6 form-group">
-                                    <img src="{{ asset('img/logo.png') }}" id="dsp-pro" class="img-fluid img-thumbnail" style="height: 210px;" alt="">
+                                    <img src="{{ asset('img/default_picture.png') }}" id="dsp-pro" class="img-fluid img-thumbnail" style="height: 200px;" alt="">
                                     <div class="custom-file input" >
-                                    <input type="file" name="image" class="custom-file-input" id="img-pro" required ><i class="fas fa-check-circle"></i>- <small>error message</small>
+                                    <input  type="file" name="image" class="custom-file-input" id="img-pro" required >
                                     <label class="custom-file-label" for="img-pro">Choose image </label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row field col-12" style="margin-top:50px;">
+                                <div class="col-8">
+                                    <div class="label">Academic Year</div>
+                                        <select id="academic_year" name="academic_year" class="form-select" >
+                                            <option value="2010">2010</option>
+                                            <option value="2011">2011</option>
+                                            <option value="2012">2012</option>
+                                            <option value="2013">2013</option>
+                                    </select> <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
+                                </div>
+                                <div class="col-4">
+                                    <div class="label">Avarage</div>
+                                    <input type="number" id="average" name="average" class="form-control" placeholder="50.00" min="50" max="100">
+                                    <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
+                                </div>
+                            </div>
                     </div>
 
                     <div class="row col-4">

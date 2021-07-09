@@ -50,7 +50,7 @@
                                     <i class="fa fa-eye "></i></a>
                                     <a href="{{ url('edit_student_form/'.$row->id) }}" type="button" class="btn bg-primary btn-sm"><i class="fa fa-pen "></i></a>
                                     <a href="{{ url('studentParentList/'.$row->id) }}" class="fa fa-user btn bg-primary btn-sm"> parent</a>
-                                    <a href="" class=" btn bg-primary btn-sm"><i class="fas fa-angle-double-right"></i> Mark List </a>
+                                    <a href="{{ url('marklist/'.$row->id) }}" class=" btn bg-primary btn-sm"><i class="fas fa-angle-double-right"></i> Mark List </a>
                                 </td>
                             </tr>
 
