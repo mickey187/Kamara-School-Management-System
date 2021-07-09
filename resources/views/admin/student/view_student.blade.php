@@ -50,7 +50,7 @@
                                     <i class="fa fa-eye "></i></a>
                                     <a href="{{ url('edit_student_form/'.$row->id) }}" type="button" class="btn bg-primary btn-sm"><i class="fa fa-pen "></i></a>
                                     <a href="{{ url('studentParentList/'.$row->id) }}" class="fa fa-user btn bg-primary btn-sm"> parent</a>
-                                    <a href="" class=" btn bg-primary btn-sm"><i class="fas fa-angle-double-right"></i> Mark List </a>
+                                    <a href="{{ url('marklist/'.$row->id) }}" class=" btn bg-primary btn-sm"><i class="fas fa-angle-double-right"></i> Mark List </a>
                                 </td>
                             </tr>
 
@@ -65,7 +65,7 @@
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="card-header  bg-primary">
-            <h3 class="card-title">Student Details</h3>
+            <h3 class="card-title">Student Registration</h3>
           </div>
         <div class="modal-body">
 
@@ -88,9 +88,9 @@
 
         </div>
         <div class="modal-footer">
-                <button href="" class=" btn bg-primary btn-sm"> More</button>
+                <button href="" class=" btn bg-primary btn-sm"> </button>
                 <button href="" type="button" class="btn bg-primary btn-sm"><i class="fa fa-pen "></i></button>
-                <button href="" class="fa fa-user btn bg-primary btn-sm"> Parent</button>
+                <button href="" class="fa fa-user btn bg-primary btn-sm"> </button>
             <button type="close" data-dismiss="modal" class="btn btn-secondary float-right" name="delete" id="#2">Close</button>
 
         </div>

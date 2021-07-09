@@ -21,7 +21,7 @@ class CreateStudentEnrolmentsTable extends Migration
             $table->foreign('student_id')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');;
             $table->unsignedBigInteger('student_class_transfer_id');
             $table->foreign('student_class_transfer_id')->references('id')->on('student_class_transfers')->onUpdate('cascade')->onDelete('cascade');;
-            $table->date('acadamic_year')->nullable(false);
+            $table->string('acadamic_year')->nullable(false);
             $table->timestamps();
         });
     }
