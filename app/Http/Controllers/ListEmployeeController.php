@@ -34,7 +34,7 @@ class ListEmployeeController extends Controller
         $edit_address = address::where('id', $edit_employee->address_id)->first();
         $edit_emp_emergency = employee_emergency_contact::where('id', $edit_employee->employee_emergency_contact_id)->first();
         $edit_job_position = employee_job_position::where('id', $edit_employee->employee_job_position_id)->first();
-       $job_position = employee_job_position::all();
+        $job_position = employee_job_position::all();
         $edit_job_experience = employee_job_experience::where('id', $edit_employee->job_experience_id)->first();
         $edit_emp_religion = employee_religion::where('id', $edit_employee->employee_religion_id)->first();
         $edit_all = employee_religion::all();
