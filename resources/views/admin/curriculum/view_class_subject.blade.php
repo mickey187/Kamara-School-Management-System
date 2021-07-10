@@ -32,17 +32,17 @@
                         <button class="btn btn-success btn-sm"
                         data-toggle="modal" 
                        data-target="#modal_view_cls" 
-                        data-view="{{$row->cls_sub_id}},{{$row->class_label}},{{$row->subject_name}}">
+                        data-view="{{$row->cls_sub_id}},{{$row->class_label}},{{$row->subject_name}},{{$row->stream_type}}">
                          <i class="fa fa-eye" aria-hidden="true"></i>
                        
                        </button>
                        
-                       <a name="edit_ubject" id="" class="btn btn-info btn-sm" href="{{url('editClassSubject/'.$row->cls_sub_id.'/'.$row->sub_id)}}" role="button"> 
+                       <a name="edit_ubject" id="" class="btn btn-info btn-sm" href="{{url('editClassSubject/'.$row->cls_sub_id)}}" role="button"> 
                        <i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
    
                        <button class="btn btn-danger btn-sm" data-toggle="modal" 
                        data-target="#modal_delete_cls" 
-                        data-delete="{{$row->cls_sub_id}},{{$row->class_label}},{{$row->subject_name}}}">
+                        data-delete="{{$row->cls_sub_id}},{{$row->class_label}},{{$row->subject_name}},{{$row->stream_type}}">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                         
                       </button>

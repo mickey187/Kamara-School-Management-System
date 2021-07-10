@@ -38,11 +38,11 @@
                                                 
           </div>
 
-          <div class="row" style="margin-top: 10px">
+          {{-- <div class="row" style="margin-top: 10px">
             <div class="col-6">
                 <div class="form-group">
                 <label for="streams">Select Stream</label>
-                <select name="stream" id="streams" class="form-control">
+                <select name="stream" id="streams" class="form-select">
                     @foreach ($stream as $row )
 
                     <option value="{{$row->id}}">{{$row->stream_type}}</option>                                                  
@@ -52,7 +52,7 @@
                 </select>
             </div>
             </div>
-        </div>
+        </div> --}}
 
           
 

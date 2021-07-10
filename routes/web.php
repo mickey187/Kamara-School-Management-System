@@ -14,6 +14,7 @@ use App\Http\Controllers\MarklistController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\FinanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,23 @@ use App\Http\Controllers\ParentController;
 Route::get('/', function () {
     return view('/admin/dashboard');
 });
+
+//Finance
+
+Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
+
+Route::get('/viewPaymentType',[FinanceController::class, 'viewPaymentType']);
+
+Route::post('/addPaymentType',[FinanceController::class, 'addPaymentType']);
+
+
+
+Route::get('/indexAddPayment',[FinanceController::class, 'indexAddPayment']);
+
+Route::get('/viewPayment',[FinanceController::class, 'viewPayment']);
+
+Route::post('/addPayment',[FinanceController::class, 'addPayment']);
+
 
 
 //subject
@@ -66,7 +84,7 @@ Route::post('addClassSubject', [ClassController::class, 'addClassSubject']);
 
 Route::post('delete_class_subject', [ClassController::class, 'deleteClassSubject']);
 
-Route::get('/editClassSubject/{id}/{id_sub}', [ClassController::class, 'editClassSubject'])->name('/editClassSubject');
+Route::get('/editClassSubject/{id}', [ClassController::class, 'editClassSubject'])->name('/editClassSubject');
 
 Route::post('/editClassSubjectValue/{id_cls}', [ClassController::class, 'editClassSubjectValue']);
 

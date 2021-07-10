@@ -17,8 +17,9 @@ class CreateClassSubjectsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id')->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
-             // $table->unsignedBigInteger('stream_id');
-            // $table->foreign('stream_id')->references('id')->on('streams')->onUpdate('cascade')->onDelete('cascade');
+            
+            $table->unsignedBigInteger('stream_id');
+            $table->foreign('stream_id')->references('id')->on('streams')->onUpdate('cascade')->onDelete('cascade');
            
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects')->onUpdate('cascade')->onDelete('cascade');

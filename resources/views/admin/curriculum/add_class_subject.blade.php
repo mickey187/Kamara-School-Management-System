@@ -5,7 +5,7 @@
     <div class="card card-orange">
         <div class="card-header">
             <h3 class="card-title"> <i class="fas fa-tachometer-alt"></i> 
-                @if (isset($cls_subject))
+                @if (isset($edit_cls_sub))
                    {{' Edit Subjects for Class'}}
                     @else
                     {{'Add Subjects for Class'}}
@@ -22,8 +22,8 @@
     
                 <form action="
                 
-                @if (isset($cls_subject))
-                    {{url('editClassSubjectValue/'.$id_cls)}}
+                @if (isset($edit_cls_sub))
+                    {{url('editClassSubjectValue/'.$edit_cls_sub['id'])}}
                 @else
                     {{url('addClassSubject')}}
                     
@@ -33,34 +33,31 @@
 
                    
                    <div class="row">
-                       <div class="col-6">                       
+                       <div class="col-6">   
+                           
+                        {{-- {{$edit_cls_sub['class_id']}} --}}
                    
                 <div class="form-group">
-                    <label>Select Class Label</label>
-                    <select class="select2"
-                    @if (!isset($cls_subject))
-                    multiple="multiple"
-
-                    @endif
+                    <label for="select_class">Select Class Label</label>
+                    <select class="select2" name="class_label[]"  data-placholder="Class"  style="width: 100%;" id="select_class"
+                     @if (!isset($edit_cls_sub))
+                     multiple="multiple"
+                     @endif>
                     
-                     name="class_label[]" data-placeholder="Select Class" style="width: 100%;">
-                      @foreach ($class_data as $row )
-                      <option value="{{$row->class_id}}"
-                        @if (isset($cls_subject))
-
-                        @if ($row->class_id == $class_id_selected)
-                        selected
-                        @endif
-                        @endif>
-                       
-                          {{$row->class_label}},{{$row->stream_type}} </option>
-                      @endforeach                                           
+                    @foreach ($class_data as $row)
+                      <option value="{{$row->id}}"  
+                      @if (isset($edit_cls_sub))
+                          @if ($row->id == $edit_cls_sub['class_id'])
+                              selected
+                          @endif
+                      @endif>{{$row->class_label}} </option>     
+                    @endforeach                                           
                     </select>
                   </div>
             </div>
         </div>
 
-        {{-- <div class="row" style="margin-top: 10px">
+        <div class="row" style="margin-top: 10px">
             <div class="col-6">
                 <div class="form-group">
                 <label for="streams">Select Stream</label>
@@ -68,39 +65,34 @@
                     @foreach ($stream as $row )
 
                     <option value="{{$row->id}}"
-                        @if (isset($cls_subject))
-                        @if ($row->stream_type==$stream_edit)
-                            selected
-                        @endif
-                            
-                        @endif
-                        >{{$row->stream_type}}</option>
+                         @if (isset($edit_cls_sub))
+                            @if ( $row->id == $edit_cls_sub['stream_id'])
+                           selected
+                       @endif
+                    @endif>{{$row->stream_type}}</option>
 
                     @endforeach
                    
                 </select>
             </div>
             </div>
-        </div> --}}
+        </div> 
 
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
                     <label for="Select_Subject">Select Subject</label>
-                    <select class="select2"
-                    @if (!isset($cls_subject))
-                    multiple="multiple"
-
-                    @endif
-                     name="subjects[]" data-placeholder="Select Class" style="width: 100%;" id="Select_Subject">
+                    <select class="select2" name="subjects[]"  data-placeholder="just ok" style="width: 100%;" id="Select_Subject"
+                        @if (!isset($edit_cls_sub))
+                        multiple="multiple"
+                        @endif>
                         @foreach ($subject as $row )
                         <option value="{{$row->id}}"
-                            @if (isset($cls_subject))
-                                @if ($row->subject_name==$subject_edit)
-                                    selected
-                                @endif
+                              @if (isset($edit_cls_sub))
+                                 @if ($row->id == $edit_cls_sub['subject_id'])
+                                selected
                             @endif
-                            >{{$row->subject_name}}</option>
+                        @endif>{{$row->subject_name}}</option>
                         @endforeach                                           
                       </select>
                     </div>
