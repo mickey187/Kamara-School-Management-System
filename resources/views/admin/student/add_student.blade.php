@@ -100,17 +100,30 @@
                             <input id="studentCitizen" type="text" name="citizenship" class="form-control" placeholder="Cityzenship">
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                         </div>
-                        <div class="field col-12">
-                            <div class="label">Grade</div>
+                        <div class="field col-12 row">
+                            <div class="col-4">
+                                <div class="label">Grade</div>
                             <select  id="studentGrade" type="number" name="grade" class="form-control" placeholder="Grade">
-                                <option> Grade.. </option>
-                                <option></option>
+                                <option> Grade</option>
                                 @foreach ($classes as $class)
-                                    <option value="{{ $class->id }}">{{$class->class_label.' '.$class->stream_type }}</option>
+                                    <option value="{{ $class->id }}">{{$class->class_label}}</option>
                                 @endforeach
                             </select>
                             {{-- <input id="studentGrade" type="number" name="grade" class="form-control" placeholder="Grade"> --}}
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
+                            </div>
+                            <div class="col-8">
+                                <div class="label">Stream</div>
+                            <select  id="studentGrade" type="number" name="stream" class="form-control" placeholder="Grade">
+                                <option>Stream</option>
+                                @foreach ($streams as $stream)
+                                    <option value="{{ $stream->id }}">{{$stream->stream_type }}</option>
+                                @endforeach
+                            </select>
+                            {{-- <input id="studentGrade" type="number" name="grade" class="form-control" placeholder="Grade"> --}}
+                            <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
+                            </div>
+
                         </div>
                     </div>
                 </div>

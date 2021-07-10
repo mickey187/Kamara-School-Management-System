@@ -193,5 +193,6 @@ Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 
 //marklist
 Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
+Route::get('/import',[MarklistController::class, 'import'])->name('student_mark_list.import');
 
 
