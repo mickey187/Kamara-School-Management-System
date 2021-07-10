@@ -408,16 +408,31 @@
                                             <p>View Payment Type</p>
                                         </a>
                                     </li>
-                                <li class="nav-item">
-                                    <a href="{{url('indexAddPayment')}}" class="nav-link">
+
+                                    <li class="nav-item">
+                                    <a href="{{url('/indexAddPaymentLoad')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Payment</p>
+                                        <p>Add Payment Load</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{url('/viewPaymentLoad')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Payment Load</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{url('indexAddTuitionPayment')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Tuiton Fee Payment</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{url('/viewPayment')}}" class="nav-link">
+                                    <a href="{{url('/viewTuitonPayment')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>View Payment</p>
+                                        <p>View Tuiton Fee Payment</p>
                                     </a>
                                 </li>
                                 
