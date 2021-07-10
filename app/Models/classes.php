@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class classes extends Model
 {
    protected $fillable = [
-                            'id',
-                            'stream_id',                                                        
+                            'id',                                                                                  
                             'class_label'                            
                         ];
 }

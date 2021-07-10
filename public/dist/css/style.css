@@ -46,16 +46,16 @@
            font-weight: 400;
        }
        
-       .form-outer form .page .field input {
-           /* position: absolute;
+       /*.form-outer form .page .field input {
+            position: absolute;
            display: block;
            height: 100%; */
            /*width: 100%;
            border: 1px solid lightgray;
            border-radius: 5px; */
            /* font-size: 14px; */
-           /* padding-left: 15px; */
-       }
+           /* padding-left: 15px; 
+       }*/
        
        form .page .field select {
            width: 100%;

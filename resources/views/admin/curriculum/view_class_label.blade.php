@@ -14,7 +14,7 @@
                 <tr>
                   <th>id</th>
                   <th>class label</th>
-                  <th>stream</th>                 
+                                
                   <th>action</th>  
                                                                                         
                 </tr>
@@ -24,7 +24,7 @@
                 <tr>
                   <td>{{$row->id}}</td>                    
                   <td>{{$row->class_label}}</td>     
-                  <td>{{$row->stream_type}}</td>             
+                              
                   <td>
 
                     <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#view_class_label" data-view_class_label="{{$row->id}},{{$row->class_label}}">
@@ -42,14 +42,14 @@
                 </tr>
                 @endforeach
             </tbody>
-            <tfoot>
+            {{-- <tfoot>
                 <tr>        
                   <th>id</th>             
                   <th>class label</th>   
                   <th>stream</th>                 
                   <th>action</th>                                                                                
                 </tr>
-                </tfoot>
+                </tfoot> --}}
             </table>
 
 
