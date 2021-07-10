@@ -24,7 +24,16 @@ teacher.addEventListener("change", function(){
     const field_of_study = document.getElementById('field_of_study');
     const teacher_traning_program = document.getElementById('teacher_traning_program');
 
-    if(teacher.value==="2"){
+    if(teacher.value==="1"){
+         place_of_study.style.display = "block";
+        teacher_traning_year.style.display = "block";
+        debut_as_a_teacher.style.display = "block";
+        teacher_traning_institute.style.display = "block";
+        date_of_study.style.display = "block";
+        field_of_study.style.display = "block";
+        teacher_traning_program.style.display = "block";
+       
+    }else{
         place_of_study.style.display = "none";
         teacher_traning_year.style.display = "none";
         debut_as_a_teacher.style.display = "none";
@@ -32,14 +41,6 @@ teacher.addEventListener("change", function(){
         date_of_study.style.display = "none";
         field_of_study.style.display = "none";
         teacher_traning_program.style.display = "none";
-    }else{
-        place_of_study.style.display = "block";
-        teacher_traning_year.style.display = "block";
-        debut_as_a_teacher.style.display = "block";
-        teacher_traning_institute.style.display = "block";
-        date_of_study.style.display = "block";
-        field_of_study.style.display = "block";
-        teacher_traning_program.style.display = "block";
     }
 
 });
@@ -52,15 +53,7 @@ window.addEventListener("load", function(){
     const field_of_study = document.getElementById('field_of_study');
     const teacher_traning_program = document.getElementById('teacher_traning_program');
 
-    if(teacher.value==="2"){
-        place_of_study.style.display = "none";
-        teacher_traning_year.style.display = "none";
-        debut_as_a_teacher.style.display = "none";
-        teacher_traning_institute.style.display = "none";
-        date_of_study.style.display = "none";
-        field_of_study.style.display = "none";
-        teacher_traning_program.style.display = "none";
-    }else{
+    if(teacher.value==="1"){
         place_of_study.style.display = "block";
         teacher_traning_year.style.display = "block";
         debut_as_a_teacher.style.display = "block";
@@ -68,6 +61,16 @@ window.addEventListener("load", function(){
         date_of_study.style.display = "block";
         field_of_study.style.display = "block";
         teacher_traning_program.style.display = "block";
+
+    }else{
+        
+          place_of_study.style.display = "none";
+        teacher_traning_year.style.display = "none";
+        debut_as_a_teacher.style.display = "none";
+        teacher_traning_institute.style.display = "none";
+        date_of_study.style.display = "none";
+        field_of_study.style.display = "none";
+        teacher_traning_program.style.display = "none";
     }
 
 });

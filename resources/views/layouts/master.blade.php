@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kamara School Management System | Dashboard</title>
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
@@ -526,65 +527,15 @@
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-                    <script>
-                        var selecter = document.getElementById("job_position_selecter");
-                        var debut_as_a_teacher = document.getElementById("debut_as_a_teacher");
-                        var field_of_study = document.getElementById("field_of_study");
-                        var place_of_study = document.getElementById("place_of_study");
-                        var date_of_study = document.getElementById("date_of_study");
-                        var teacher_traning_program = document.getElementById("teacher_traning_program");
-                        var teacher_traning_year = document.getElementById("teacher_traning_year");
-                        var teacher_traning_institute = document.getElementById("teacher_traning_institute");
-
-                        selecter.addEventListener('change', function(){
-                            if(selecter.value == '3'){
-                                debut_as_a_teacher.style.display = "block";
-                                field_of_study.style.display = "block";
-                                place_of_study.style.display = "block";
-                                date_of_study.style.display = "block";
-                                teacher_traning_program.style.display = "block";
-                                teacher_traning_year.style.display = "block";
-                                teacher_traning_institute.style.display = "block";
-                            }else{
-                                debut_as_a_teacher.style.display = "none";
-                                field_of_study.style.display = "none";
-                                place_of_study.style.display = "none";
-                                date_of_study.style.display = "none";
-                                teacher_traning_program.style.display = "none";
-                                teacher_traning_year.style.display = "none";
-                                teacher_traning_institute.style.display = "none";
-                            }
-
-                        })
-                        window.addEventListener('load', function(){
-                            if(selecter.value == document.getElementById('job_position_selecter').value){
-                                debut_as_a_teacher.style.display = "block";
-                                field_of_study.style.display = "block";
-                                place_of_study.style.display = "block";
-                                date_of_study.style.display = "block";
-                                teacher_traning_program.style.display = "block";
-                                teacher_traning_year.style.display = "block";
-                                teacher_traning_institute.style.display = "block";
-                            }else{
-                                debut_as_a_teacher.style.display = "none";
-                                field_of_study.style.display = "none";
-                                place_of_study.style.display = "none";
-                                date_of_study.style.display = "none";
-                                teacher_traning_program.style.display = "none";
-                                teacher_traning_year.style.display = "none";
-                                teacher_traning_institute.style.display = "none";
-                            }
-
-                        })
-                    </script>
+                    
 
     <script src="{{asset('dist/js/addclass.js')}}"></script>
 
-    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
+     <script src="{{ asset('dist/js/employee.js') }}"></script>
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
-    <script src="{{ asset('dist/js/script.js') }}"></script>
+    <!-- <script src="{{ asset('dist/js/script.js') }}"></script> -->
     <!-- Page specific script -->
     <script>
         $(function() {
