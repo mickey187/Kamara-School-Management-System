@@ -314,7 +314,7 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Job Position</div>
-                                                    <select disabled id="job_position_selecter" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
+                                                    <select id="job_position_selecter" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
                                                         @foreach( $job_position as $row )
                                                         {{ $row->position_name }}
                                                         <option value="{{ $row->id }}"

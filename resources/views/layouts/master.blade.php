@@ -24,7 +24,7 @@
 
     <!-- select2  -->
   <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
-  
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
@@ -242,7 +242,7 @@
                             </ul>
                         </li>
 
-                        
+
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -364,7 +364,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="../pages/add_marklist.html" class="nav-link">
+                                    <a href="{{ url('addMarkList') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Mark List</p>
                                     </a>
@@ -435,7 +435,7 @@
                                         <p>View Tuiton Fee Payment</p>
                                     </a>
                                 </li>
-                                
+
                          </ul>
                         </li>
 
@@ -516,7 +516,7 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
-        
+
 <!-- select 2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 <script>
@@ -551,7 +551,7 @@ $(function() {
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 
-    
+
 
     <!-- view class js -->
     <script src="{{ asset('view_subject.js') }}"></script>
@@ -591,10 +591,10 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-                   
+
+
 
     <script src="{{asset('dist/js/addclass.js')}}"></script>
-
     {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
