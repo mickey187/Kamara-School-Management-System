@@ -38,7 +38,6 @@
     <link rel="stylesheet" href="{{ asset('addclass.css') }}">
 
     <!-- DataTables -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     {{-- <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -169,7 +168,7 @@
 
 
                         <li class="nav-item">
-                            <a href="../index.html" class="nav-link active">
+                            <a href="{{ url('dashboard') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -584,6 +583,8 @@ $(function() {
     {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
+    <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
+    <script src="{{ asset('dist/js/script.js') }}"></script>
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
@@ -612,8 +613,25 @@ $(function() {
         });
 
 
- 
- 
+       //  $('#modal_view').on('show.bs.modal', function (event) {
+//   var button = $(event.relatedTarget) // Button that triggered the modal
+//   var detail = button.data('view')
+//   // Extract info from data-* attributes
+//   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+//   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+//   var modal = $(this)
+// //   modal.find('.modal-title').text('New message to ' + recipient)
+//             var spit = detail.split(",");
+
+// //var table = ('#example1').DataTable();
+//   //modal.find('.modal-body p').text(detail)
+//   modal.find('.modal-body #subjectid_view').text("subject id: "+spit[0]);
+//   modal.find('.modal-body #stream_view').text("stream: "+spit[1]);
+//   modal.find('.modal-body #subjectgroup_view').text("subject group: "+spit[2]);
+//   modal.find('.modal-body #subjectname_view').text("subject name: "+spit[3]);
+//   modal.find('.modal-footer button').val(spit[0])
+
+
 
 
     </script>

@@ -20,7 +20,7 @@
                <link rel="stylesheet" href="{{ asset('dist/css/employee.js') }}">
                         <div class="formcontainer">
                             <div class="form-outer">
-
+                                @foreach ($edit_em as $edit_employee)
 
 
                                 <form action="
@@ -266,7 +266,7 @@
                                         <div class="page">
                                         <div class="" style="margin-left: 15px;">
                                             <div class="card card-header bg-light">
-                                                <h3 class="card-title float-right">  employee job info</h3>
+                                                <h3 class="card-title float-right"> employee job info</h3>
                                             </div>
                                         </div>
                                         <div class="row col-12">
@@ -314,7 +314,7 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Job Position</div>
-                                                    <select id="job_position_selecter" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
+                                                    <select disabled id="job_position_selecter" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
                                                         @foreach( $job_position as $row )
                                                         {{ $row->position_name }}
                                                         <option value="{{ $row->id }}"
@@ -330,6 +330,8 @@
                                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
 
                                                 </div>
+                                                @foreach ($teacher_ as $teacher)
+
 
                                                 <div class="field" id="debut_as_a_teacher" >
                                                     <div class="label">debut_as_a_teacher</div>
@@ -404,6 +406,7 @@
                                                         @endif
                                                         ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                                 </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                         </div>
@@ -519,6 +522,7 @@
                                     </div>
 
                                 </form>
+                                @endforeach
                             </div>
                             </section>
                             </div>
