@@ -10,6 +10,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\HomeRoomController;
 use App\Http\Controllers\ListEmployeeController;
 use App\Http\Controllers\ListTeacherController;
+use App\Http\Controllers\MarklistController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
@@ -26,7 +27,7 @@ use App\Http\Controllers\ParentController;
 */
 
 Route::get('/', function () {
-    return view('/layouts/master');
+    return view('/admin/dashboard');
 });
 
 
@@ -172,6 +173,7 @@ Route::get('view_parents',[ParentController::class, 'retriveAll']);
 // admin
 Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 
-
+//marklist
+Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
 
 
