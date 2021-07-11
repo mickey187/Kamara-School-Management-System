@@ -576,16 +576,13 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
-
-
-
     <script src="{{asset('dist/js/addclass.js')}}"></script>
     <script src="{{ asset('dist/js/employee.js') }}"></script>
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
     {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
+     <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
