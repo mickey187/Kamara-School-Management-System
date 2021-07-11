@@ -39,11 +39,17 @@ Route::get('/viewPaymentType',[FinanceController::class, 'viewPaymentType']);
 
 Route::post('/addPaymentType',[FinanceController::class, 'addPaymentType']);
 
+Route::get('/indexAddPaymentLoad',[FinanceController::class, 'indexAddPaymentLoad']);
+
+Route::post('/addPaymentLoad',[FinanceController::class, 'AddPaymentLoad']);
+
+Route::get('/viewPaymentLoad',[FinanceController::class, 'viewPaymentLoad']);
 
 
-Route::get('/indexAddPayment',[FinanceController::class, 'indexAddPayment']);
 
-Route::get('/viewPayment',[FinanceController::class, 'viewPayment']);
+Route::get('/indexAddTuitionPayment',[FinanceController::class, 'indexAddTuitionPayment']);
+
+Route::get('/viewTuitonPayment',[FinanceController::class, 'viewTuitonPayment']);
 
 Route::post('/addPayment',[FinanceController::class, 'addPayment']);
 
@@ -193,5 +199,6 @@ Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 
 //marklist
 Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
+Route::get('/import',[MarklistController::class, 'import'])->name('student_mark_list.import');
 
 

@@ -24,6 +24,8 @@ class CreateStudentsTable extends Migration
             $table->foreign('student_medical_info_id')->references('id')->on('student_medical_infos')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('class_id')->nullable(true);
             $table->foreign('class_id')->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('stream_id')->nullable(true);
+            $table->foreign('stream_id')->references('id')->on('streams')->onUpdate('cascade')->onDelete('cascade');
             $table->string('student_id')->unique()->nullable(false);
             $table->string('image')->unique()->nullable(true);
             $table->string('first_name')->nullable(false);
@@ -31,6 +33,7 @@ class CreateStudentsTable extends Migration
             $table->string('last_name')->nullable(false);
             $table->date('birth_year')->nullable(false);
             $table->string('gender')->nullable(false);
+            $table->string('discount')->nullable(true);
             $table->timestamps();
         });
     }

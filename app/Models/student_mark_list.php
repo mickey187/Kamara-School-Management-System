@@ -7,14 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class student_mark_list extends Model
 {
+    use HasFactory;
+    
+    protected $table = "student_mark_lists";
+
     protected $fillable = [
                             'id',
-                            'academic_year',
-                            'assasment_type',
-                            'subject',
-                            'class',
-                            'teacher',
-                            'semister',
-                            'student'
+                            'assasment_type_id',
+                            'subject_id',
+                            'class_id',
+                            'teacher_id',
+                            'student_id',
+                            'mark',
+                            'academic_year'
                         ];
 }

@@ -18,7 +18,7 @@
                                             <th>Full name</th>
                                             <th>Sex</th>
                                             <th>Grade</th>
-                                            <th>Section</th>
+                                            <th>Stream</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -35,11 +35,11 @@
                                                 <td>{{ $row->first_name.' '.$row->middle_name.' '.$row->last_name }}</td>
                                                 <td>{{ $row->gender }}</td>
                                                 <td>{{ $row->class_label }}</td>
-                                                <td></td>
-                                                <td>{{ $row->pass_fail_status }}</td>
+                                                <td>{{ $row->stream_type  }}</td>
+                                                <td>{{ $row->status }}</td>
                                                 <td><div id="register">
                                                     <button type="button"
-                                                    @if ( $row->pass_fail_status == "on load")
+                                                    @if ( $row->status == "on load")
                                                         class="btn bg-danger btn-sm"
                                                     @else
                                                         class="btn bg-primary btn-sm"
@@ -54,11 +54,11 @@
                                                                 {{ $row->class_label }},
                                                                 {{ $row->stream_type }}
                                                                     "
-                                                                @if ( $row->pass_fail_status == "Registered")
+                                                                @if ( $row->status == "Registered")
                                                                     disabled
                                                                 @endif
                                                                     >
-                                                                @if ( $row->pass_fail_status == "on load")
+                                                                @if ( $row->status == "on load")
                                                                     Register
                                                                 @else
                                                                     Registered
@@ -127,7 +127,7 @@
                                         <option>2013</option>
                                     </select><br>
                                     <div id="register1" hidden><p id="id"></p></div>
-                                    <button onclick="register(this);" type="button" class="col-6 btn btn-primary"  value="" >Register</button>
+                                    <button onclick="register(this);" type="button" class="col-6 btn btn-primary"  value="" data-dismiss="modal">Register</button>
                         </div>
                         <div class="modal-footer">
 

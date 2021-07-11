@@ -3,7 +3,7 @@ const findButton = document.getElementById("enroll_student");
 
 findButton.addEventListener("click", function() {
     fetchStudent(input.value);
-    //alert(input.value);
+    
 })
 
 function fetchStudent(id) {

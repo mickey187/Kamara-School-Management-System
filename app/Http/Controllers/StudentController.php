@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\address;
 use App\Models\classes;
 use App\Models\section;
+use App\Models\stream;
 use App\Models\student_background;
 use App\Models\student_medical_info;
 use App\Models\students_parent;
@@ -17,13 +18,8 @@ class StudentController extends Controller{
 
     public function index(){
         $all_class = classes::all();
-        $this->idGeneratorFun();
-        $classes = DB::table('classes')
-            ->join('streams','streams.id','=','classes.stream_id')->get([
-                'classes.id as id','streams.stream_type','class_label'
-            ]);
-       // return view('admin.student.test');
-         return view('admin.student.add_student')->with('classes',$classes);
+        $all_stream = stream::all();
+         return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream);
 
     }
 
@@ -36,7 +32,8 @@ class StudentController extends Controller{
             'birth_date' => $req->birthDate,
             'gender' => $req->gender,
             'image' => $req->image,
-            'class' => $req->grade
+            'class' => $req->grade,
+            'stream' => $req->stream
         );
         echo request('class');
         $student_class_transfer = array(
@@ -88,7 +85,8 @@ class StudentController extends Controller{
             $this->insertStudent($student,$req);
             $this->insertStudentClassTransfer($student_class_transfer);
             $all_class = classes::all();
-            return view('admin.student.add_student')->with('classes',$all_class);
+            $all_stream = stream::all();
+            return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream);
 
         }else{
 
@@ -128,12 +126,7 @@ class StudentController extends Controller{
             'student_medical_infos.medical_condtion',
             'student_medical_infos.blood_type']
         );
-
-
-            //return  $student;
              return view('admin.student.edit_student')->with('stud',$student);
-
-       // return view('admin.student.edit_student')->with('student',$student)->with('medical',$medical)->with('background',$background);
     }
 
     public function retriveAll(){
@@ -190,18 +183,14 @@ class StudentController extends Controller{
     }
 
     public function enroll(){
-
-        // $student_enrollment->acadamic_year = request('acadamic_year');
-        //$students = student::all();
         $students = DB::table('students')
             ->join('classes','classes.id','=','students.class_id')
-            ->join('streams','classes.stream_id','=','streams.id')
+            ->join('streams','students.stream_id','=','streams.id')
             ->join('student_class_transfers','student_class_transfers.student_id','=','students.id')
             ->get([
-                'students.student_id','students.id','first_name','middle_name','last_name',
-                'class_label','pass_fail_status','stream_type','gender','image'
-            ]);
-           // echo $students;
+                    'students.student_id','students.id','first_name','middle_name','last_name',
+                    'class_label','status','stream_type','gender','image'
+                ]);
         return view('admin.student.student_enrolment')->with('students',$students);
     }
 
@@ -210,7 +199,8 @@ class StudentController extends Controller{
          $student = student::where('id',$id)->get();
          $student_class = student_class_transfer::where('student_id',$id)->first();
            $student_class_tran = student_class_transfer::find($student_class->id);
-            $student_class_tran->pass_fail_status = "Registered";
+            $student_class_tran->status = "Registered";
+            $student_class_tran->isRegistered = true;
             $student_class_tran->update();
             $this->insertEnrollment($id);
         return response()->json($student_class);
@@ -315,6 +305,7 @@ class StudentController extends Controller{
         }
         $student->image = $image;
         $student->class_id = $data['class'];
+        $student->stream_id = $data['stream'];
         $student->student_id = $this->idGeneratorFun();
         $student->save();
     }
@@ -327,7 +318,8 @@ class StudentController extends Controller{
         $studentTransfer->transfered_from = $data['class'];
         $studentTransfer->transfered_to = $data['class'];
         $studentTransfer->academic_year = $data['academic_year'];
-        $studentTransfer->pass_fail_status = 'on load';
+        $studentTransfer->status = 'on load';
+        $studentTransfer->isRegistered = false;
         $studentTransfer->save();
     }
 

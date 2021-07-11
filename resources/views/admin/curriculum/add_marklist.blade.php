@@ -5,7 +5,7 @@
         <h3 class="card-title"> <i class="fas fa-tachometer-alt"></i> Add Mark list</h3>
     </div>
     <div class="card-body ">
-        <form class="col-6">
+        <form action="{{ route('student_mark_list.import') }}" method="GET">
         <div class="row h-100 justify-content-center align-items-center">
                 <div class="form-group ">
                   <label for="inputEmail4">Grade</label>
@@ -19,9 +19,6 @@
                     <option>7</option>
                     <option>8</option>
                   </select>
-                </div>
-                <div class="form-group ">
-
                 </div>
               <div class="form-group pl-3">
                 <label for="inputAddress">Section</label>
@@ -47,9 +44,10 @@
                   </select>
                 </div>
                   <div class="form-group pl-3">
-                  <input type="file" class="form-control-file  border" id="exampleFormControlFile1">
+                    <label for="inputAddress"></label>
+                  <input name="Excel" type="file" class="form-control file  border" id="exampleFormControlFile1">
                 </div>
-                <div class="pl-3">
+                <div form-group class="form-group pl-3">
                     <button class="btn btn-primary" type="submit">Import</button>
                 </div>
       </div>

@@ -29,14 +29,9 @@
                 <th>
                   <button class="btn btn-sm btn-success"><span><i class="fa fa-plus" aria-hidden="true"></i></span></button>
               </th>
-
-
               </tr>
           </thead>
-
           <tbody>
-
-
               <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
                  <td><button class="btn btn-default btn-xs"><i class="fas fa-sort-down"></i></button></td>
                  <td>1. </td>
@@ -45,16 +40,14 @@
                   <td>30</td>
                   <td>40</td>
                   <td>99</td>
-
               </tr>
-
               <tr>
                   <td colspan="12" class="hiddenRow">
                                   <div class="accordian-body collapse" id="demo1">
                     <table class="table table-bordered table-striped">
                             <thead>
                               <tr class="info">
-                                                           <th>No.</th>
+                                                            <th>No.</th>
                                                           <th>Class work</th>
                                                           <th>Home Work</th>
                                                           <th>Assignment</th>
