@@ -45,13 +45,29 @@ Route::post('/addPaymentLoad',[FinanceController::class, 'AddPaymentLoad']);
 
 Route::get('/viewPaymentLoad',[FinanceController::class, 'viewPaymentLoad']);
 
+Route::get('/fetchload/{class_id}/{pay_type}/{stud_id}',[FinanceController::class, 'fetchLoad']);
+
+Route::get('/fetchpaymenthistory/{stud_id}',[FinanceController::class, 'fetchPaymentHistory']);
 
 
-Route::get('/indexAddTuitionPayment',[FinanceController::class, 'indexAddTuitionPayment']);
 
-Route::get('/viewTuitonPayment',[FinanceController::class, 'viewTuitonPayment']);
 
-Route::post('/addPayment',[FinanceController::class, 'addPayment']);
+
+Route::get('/indexAddStudentPayment',[FinanceController::class, 'indexAddStudentPayment']);
+
+Route::get('/viewStudentPayment',[FinanceController::class, 'viewStudentPayment']);
+
+Route::post('/addStudentPayment',[FinanceController::class, 'addStudentPayment']);
+
+
+
+Route::get('/indexAddStudentDiscount',[FinanceController::class, 'indexAddStudentDiscount']);
+
+Route::post('/addStudentDiscount',[FinanceController::class, 'addStudentDiscount']);
+
+Route::get('fetchstudent/{stud_id}',[FinanceController::class, 'fetchStudent']);
+
+Route::get('/viewStudentDiscount',[FinanceController::class, 'viewStudentDiscount']);
 
 
 

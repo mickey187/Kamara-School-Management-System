@@ -10,7 +10,10 @@ class student_payment extends Model
    protected $fillable = [
        'id',
        'student_id',
+       'payment_type_id',
        'payment_load_id',
-       'amount'
+       'amount_payed',
+       'payment_month'
+
    ];
 }

@@ -386,6 +386,11 @@
                             </ul>
                         </li>
 
+                        
+                         
+
+
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-dollar-sign"></i>
@@ -424,15 +429,29 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{url('indexAddTuitionPayment')}}" class="nav-link">
+                                    <a href="{{url('/indexAddStudentDiscount')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Tuiton Fee Payment</p>
+                                        <p>Add Student Discount</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{url('/viewStudentDiscount')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Student Discount</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{url('indexAddStudentPayment')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Student Payment</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{url('/viewTuitonPayment')}}" class="nav-link">
+                                    <a href="{{url('/viewStudentPayment')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>View Tuiton Fee Payment</p>
+                                        <p>View Student Payment</p>
                                     </a>
                                 </li>
 
@@ -568,8 +587,12 @@ $(function() {
      <!-- view stream js -->
      <script src="{{ asset('view_stream.js') }}"></script>
 
+
      <!-- add payments js -->
      <script src="{{ asset('add_payments.js') }}"></script>
+
+      <!-- student discount js -->
+      <script src="{{ asset('student_discount.js') }}"></script>
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -626,6 +649,8 @@ $(function() {
                 "responsive": true,
             });
         });
+
+        
 
 
        //  $('#modal_view').on('show.bs.modal', function (event) {
