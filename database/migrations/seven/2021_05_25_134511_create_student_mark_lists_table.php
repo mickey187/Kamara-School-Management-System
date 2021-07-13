@@ -28,7 +28,8 @@ class CreateStudentMarkListsTable extends Migration
             $table->foreign('semister_id')->references('id')->on('semisters');
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('students');
-            $table->float('Mark');
+            $table->float('mark');
+            $table->integer('test_load');
             $table->string('academic_year');
             $table->timestamps();
         });

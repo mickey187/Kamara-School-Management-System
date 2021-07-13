@@ -34,20 +34,25 @@ class ListTeacherController extends Controller
         //echo $teach_list;
                  return view('admin.teacher.listTeacher')->with('teach_list',$teach_list);
     }
+    public function teacher_classes($id){
+        $teacher = teacher::where('id',$id)->get();
+        return "Teacher Classes. Teacher ID=".$teacher;
+    }
+
     public function getTeacher($id){
-        
+
        $edit_employee = employee::where('id', $id)->first();
         $edit_address = address::where('id', $edit_employee->address_id)->first();
         $edit_emp_emergency = employee_emergency_contact::where('id', $edit_employee->employee_emergency_contact_id)->first();
         $edit_job_position = employee_job_position::where('id', $edit_employee->employee_job_position_id)->first();
         $edit_job_experience = employee_job_experience::where('id', $edit_employee->job_experience_id)->first();
         $edit_emp_religion = employee_religion::where('id', $edit_employee->employee_religion_id)->first();
-           
+
         return view('admin.teacher.edit_teacher')->with('edit_employee', $edit_employee)->with('edit_address', $edit_address)->with('edit_emp_emergency', $edit_emp_emergency)
         ->with('edit_job_position', $edit_job_position)->with('edit_job_experience', $edit_job_experience)->with('edit_emp_religion', $edit_emp_religion);
        // ->with('edit_training_info',$edit_training_info)->with('course_load',$course_load);
     }
-    
+
     public function deleteTeacher($id){
         $delete_teacher = teacher::find($id);
         $delete_academic_background = academic_background_info::find($delete_teacher->academic_background_id);
@@ -63,7 +68,7 @@ class ListTeacherController extends Controller
                 ->get(['first_name','middle_name','last_name','teachers.id','field_of_study','place_of_study','date_of_study']);
 
                  return view('admin.teacher.listTeacher')->with('teach_list',$teach_list);
-        
+
 
     }
 }
@@ -74,5 +79,5 @@ class ListTeacherController extends Controller
         // $emp_list = DB::table('employees')
         //                         ->join('employee_job_positions', 'employees.employee_job_position_id', '=', 'employee_job_positions.id')
         //                         ->get(['first_name','middle_name','last_name','gender','position_name','hire_type','hired_date','employees.id']);
-                                
+
         // return view('admin.employee.listEmployee')->with('emp_list', $emp_list);

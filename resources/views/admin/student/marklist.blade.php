@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('content')
-
-
-
 <div class="card">
 <div class="col-12 col-sm-12">
   <div class="card card-orange card-tabs">
@@ -16,143 +13,54 @@
     </div>
     <div class="card-body">
       <div class="tab-content" id="custom-tabs-two-tabContent">
-        <table class="table table-bordered table-striped">
-          <thead>
-              <tr>
-                <th></th>
-                <th>Roll No</th>
-                <th>Student Name</th>
-                <th>Assesment</th>
-                <th>MidExam</th>
-                <th>Final Exam</th>
-                <th>total(100%)</th>
-                <th>
-                  <button class="btn btn-sm btn-success"><span><i class="fa fa-plus" aria-hidden="true"></i></span></button>
-              </th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
-                 <td><button class="btn btn-default btn-xs"><i class="fas fa-sort-down"></i></button></td>
-                 <td>1. </td>
-                 <td>Abeselom abebe tadesse ghjjmnh </td>
-                  <td>66</td>
-                  <td>30</td>
-                  <td>40</td>
-                  <td>99</td>
-              </tr>
-              <tr>
-                  <td colspan="12" class="hiddenRow">
-                                  <div class="accordian-body collapse" id="demo1">
-                    <table class="table table-bordered table-striped">
-                            <thead>
-                              <tr class="info">
-                                                            <th>No.</th>
-                                                          <th>Class work</th>
-                                                          <th>Home Work</th>
-                                                          <th>Assignment</th>
-                                                          <th>Quize</th>
-                                                          <th>W.S</th>
-
-                                                            <th>action</th>
-                                                            <th>
-                                                                <button class="btn btn-sm btn-success"><span><i class="fa fa-plus" aria-hidden="true"></i></span></button>
-                                                            </th>
-                                                      </tr>
-                                                  </thead>
-
-                                                  <tbody>
-
-                              <tr data-toggle="collapse"  class="accordion-toggle " data-target="#demo10">
-                                                          <td>1.</td>
-                                                          <td contenteditable="true"> 5</td>
-                                                          <td>5</td>
-                                                          <td>10 </td>
-                                                          <td> 3</td>
-                                                          <td>6</td>
-
-                                                          <td><button class="btn btn-sm btn-success"><span><i class="fa fa-eye" aria-hidden="true"></i></span></button>
-                                                         <button class="btn btn-sm btn-info "><span><i class="fas fa-pencil-alt" aria-hidden="true"></i></span></button>
-                                                         <button class="btn btn-sm btn-danger"><span><i class="fa fa-trash" aria-hidden="true"></i></span></button></td>
-                                                         <th>
-                                                          <button class="btn btn-sm btn-success"><span><i class="fa fa-plus" aria-hidden="true"></i></span></button>
-                                                      </th>
-                                                        </tr>
-
-                                                       <tr>
-
-
-                              <tr>
-                                                           <td>2.</td>
-                                                          <td>3</td>
-                                                          <td>8</td>
-                                                          <td>2</td>
-                                                          <td>6 </td>
-                                                          <td>9</td>
-
-                                                          <td><button class="btn btn-sm btn-success"><span><i class="fa fa-eye" aria-hidden="true"></i></span></button>
-                                                              <button class="btn btn-sm btn-info "><span><i class="fas fa-pencil-alt" aria-hidden="true"></i></span></button>
-                                                              <button class="btn btn-sm btn-danger"><span><i class="fa fa-trash" aria-hidden="true"></i></span></button>
-                                                              <th>
-                                                                <button class="btn btn-sm btn-success"><span><i class="fa fa-plus" aria-hidden="true"></i></span></button>
-                                                            </th>
-                                                          </td>
-
-
-
-                                                      </tr>
-
-
-                              <tr>
-                                                           <td>3.</td>
-                                                          <td>3</td>
-                                                          <td>2</td>
-                                                          <td>7 </td>
-                                                          <td>5</td>
-                                                          <td>6</td>
-
-                                                          <td><button class="btn btn-sm btn-success"><span><i class="fa fa-eye" aria-hidden="true"></i></span></button>
-                                                              <button class="btn btn-sm btn-info "><span><i class="fas fa-pencil-alt" aria-hidden="true"></i></span></button>
-                                                              <button class="btn btn-sm btn-danger"><span><i class="fa fa-trash" aria-hidden="true"></i></span></button></td>
-                                                              <th>
-                                                                <button class="btn btn-sm btn-success"><span><i class="fa fa-plus" aria-hidden="true"></i></span></button>
-                                                            </th>
-
-                                                      </tr>
-
-
-                              <tr>
-                                  <td>4.</td>
-                                  <td>3</td>
-                                  <td>2</td>
-                                  <td>7 </td>
-                                  <td>5</td>
-                                  <td>6</td>
-
-                                  <td><button class="btn btn-sm btn-success"><span><i class="fa fa-eye" aria-hidden="true"></i></span></button>
-                                      <button class="btn btn-sm btn-info "><span><i class="fas fa-pencil-alt" aria-hidden="true"></i></span></button>
-                                      <button class="btn btn-sm btn-danger"><span><i class="fa fa-trash" aria-hidden="true"></i></span></button></td>
-                                      <th>
-                                        <button class="btn btn-sm btn-success"><span><i class="fa fa-plus" aria-hidden="true"></i></span></button>
-                                    </th>
-                                                      </tr>
-
-
-                            </tbody>
-
-                         </table>
-
+        <div class="callout callout-info ">
+            <div class="row">
+                <div class="col-lg-3" >
+                    <div class="col-lg-12 col-sm-12">
+                        <div>
+                            <label> NAME:</label>   {{ $student->first_name.' '.$student->middle_name.' '.$student->last_name }}
+                         </div>
+                        <div>
+                            <label> ID:</label>  {{ $student->student_id }}
+                        </div>
+                        <div>
+                            <label> GENDER:</label>  {{ $student->gender }}
+                            </div>
                     </div>
-                </td>
-              </tr>
+                </div>
+            </div>
+        </div>
+    <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="info">
+                    <th>No.</th>
+                    <th>Assasment</th>
+                    <th>Mark</th>
+                    <th>Subject</th>
+                    <th>Test Load</th>
+                    <th>action</th>
 
+                </tr>
+            </thead>
 
-
-                                                      </tbody>
-      </table>
-
-
-
+            <tbody>
+                <?php
+                    $counter = 0;
+                    ?>
+                @foreach ($mark as $row)
+                    {{-- <tr data-toggle="collapse"  class="accordion-toggle " data-target="#demo10"></i></button></td> --}}
+                    <td>{{ $counter = $counter+1 }}</td>
+                    <td>{{ $row->assasment_type }}</td>
+                    <td>{{ $row->mark }}</td>
+                    <td>{{ $row->subject_name }}</td>
+                    <td>{{ $row->test_load }}</td>
+                    <td><button class="btn btn-sm btn-success"><span><i class="fa fa-eye" aria-hidden="true"></i></span></button>
+                        <button class="btn btn-sm btn-info "><span><i class="fas fa-pencil-alt" aria-hidden="true"></i></span></button>
+                        <button class="btn btn-sm btn-danger"><span><i class="fa fa-trash" aria-hidden="true"></i></span></button></td>
+                    </tr>
+                @endforeach
+            </tbody>
+            </table>
       </div>
     </div>
     <!-- /.card -->

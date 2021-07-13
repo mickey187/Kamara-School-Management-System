@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class student_mark_list extends Model
 {
     use HasFactory;
-    
+
     protected $table = "student_mark_lists";
 
     protected $fillable = [
@@ -19,6 +19,7 @@ class student_mark_list extends Model
                             'teacher_id',
                             'student_id',
                             'mark',
+                            'test_load',
                             'academic_year'
                         ];
 }

@@ -9,13 +9,9 @@
 <div class="card-body">
   <section class="content">
     <div class="container-fluid mt-3">
-               <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">  
-
-                               
+               <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
                         <div class="formcontainer">
-
                             <div class="form-outer">
-                               
                                 <form action="addTeacher" method="GET">
                                   @csrf
                                     <div class="page slidePage">
@@ -24,7 +20,6 @@
                                                Teacher Name
                                             </div>
                                         </div>
-                                     
                                        <div class="field nextBtn">
                                             <button type="button">Next</button>
                                         </div>
@@ -53,7 +48,7 @@
                                         </div>
                                          <div class="field">
                                           <div class="label">field_of_study</div>
-                                                <input type="text" name="field_of_study" id="field_of_study" class="form-control" placeholder="Enter your field of study">
+                                            <input type="text" name="field_of_study" id="field_of_study" class="form-control" placeholder="Enter your field of study">
                                         </div>
 
                                         <div class="field">
@@ -81,12 +76,12 @@
                                                     <div class="label">teacher_traning_program</div>
                                                       <input type="text" name="teacher_traning_program" id="teacher_traning_program" class="form-control" placeholder="Enter your teacher training program">
                                                   </div>
-                                                      
+
                                                     <div class="field">
                                                     <div class="label">teacher_traning_year</div>
                                                           <input type="date" name="teacher_traning_year" id="teacher_traning_year" class="form-control" placeholder="Enter your teacher training year">
                                                       </div>
-                                                  
+
                                                   <div class="field">
                                                     <div class="label">teacher_traning_institute</div>
                                                     <input type="text" name="teacher_traning_institute" id="teacher_traning_institute" class="form-control" placeholder="Enter your teacher training institute">

@@ -7,8 +7,6 @@ $('#modal-student-enroll').on('show.bs.modal', function(event) {
     modal.find('.modal-body #id').text(split[1])
     modal.find('.modal-body #gender').text(split[2]);
     var img = (split[3].trim());
-     var from = split[4].split("-");
-     var to = from[0]+'-'+(parseInt(from[1])+1);
     modal.find('.modal-body #image').attr('src', (img));
     modal.find('.modal-body #grade').text(split[4]);
     modal.find('.modal-body #stream_type').text(split[5]);

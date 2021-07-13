@@ -15,14 +15,15 @@
                             <th>Full name</th>
                             <th>Sex</th>
                             <th>Grade</th>
-                            <th>Section</th>
-                            <th>Status</th>
+                            <th>Stream</th>
                             <th>Action</th>
                         </tr>
 
                     </thead>
                     <tbody>
-                        {{ $counter = 0 }}
+                        <?php
+                            $counter = 0
+                        ?>
                         @foreach ($student_list as $row)
 
                             <tr>
@@ -31,8 +32,7 @@
                                 <td>{{$row->first_name.' '.$row->middle_name.' '.$row->last_name}}</td>
                                 <td>{{$row->gender}}</td>
                                 <td>{{$row->class_label}}</td>
-                                <td></td>
-                                <td><span class="text-success"><b>Active</b></span></td>
+                                <td>{{ $row->stream_type }}</td>
                                 <td>
                                     @php
                                         $img = "storage/student_image/".$row->image;
@@ -45,6 +45,8 @@
                                                 {{ $row->id }},
                                                 {{ $row->gender }},
                                                 {{ $img }},
+                                                {{ $row->student_id }},
+                                                {{ $row->class_label }}
                                                 {{-- {{ $row->emergency_contact_priority }} --}}
                                     ">
                                     <i class="fa fa-eye "></i></a>
@@ -76,21 +78,19 @@
                   <p class="text-muted text-center" id="gender"></p>
                     <ul class="list-group list-group-unbordered mb-3">
                             <li class="">
-                            <b>Grade</b> <a class="">Not Set</a>
+                            <b>ID</b> <p id="stID" class="">Not Set</p>
+                            </li>
+                            <li class="">
+                            <b>Grade</b> <p id="grade">
                             </li>
                             <li class="">
                             <b>Section</b> <a class="text-center">Not Set</a>
-                            </li>
-                            <li class="">
-                            <b>Status</b> <a class="text-center">Not Set</a>
                             </li>
                     </ul>
 
         </div>
         <div class="modal-footer">
-                <button href="" class=" btn bg-primary btn-sm"> </button>
-                <button href="" type="button" class="btn bg-primary btn-sm"><i class="fa fa-pen "></i></button>
-                <button href="" class="fa fa-user btn bg-primary btn-sm"> </button>
+
             <button type="close" data-dismiss="modal" class="btn btn-secondary float-right" name="delete" id="#2">Close</button>
 
         </div>
@@ -100,5 +100,42 @@
       <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
+    <div class="modal_delete">
+        <div class="modal fade" id="modal_default">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Delete Subject</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p id="subjectid"></p>
+
+                <p id="subjectname"></p>
+
+
+                <span id="1" class="badge badge-primary"></span>
+              </div>
+              <form action="{{url('/deletesubject')}}" method="post">
+                @csrf
+              <div class="modal-footer justify-content-between">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="post" class="btn btn-danger" name="delete" id="#2">
+                  Delete Subject</button>
+                </form>
+
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+
+        </div>
+
+
+        
 
 @endsection
