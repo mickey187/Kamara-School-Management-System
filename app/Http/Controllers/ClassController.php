@@ -21,7 +21,7 @@ class ClassController extends Controller
 
 //load the add_class_subject page
    public function indexAddClassSubject(){
-        
+
       $subject = subject::all();
       $stream = stream::all();
       $class_data = classes::all();
@@ -30,17 +30,17 @@ class ClassController extends Controller
 //                              ->join('streams','classes.stream_id','=','streams.id')
 //    ->get(['classes.id as class_id','streams.id as stream_id','class_label','stream_type']);
                              //return $class_data;
-                        
+
 
                                  return view('admin/curriculum/add_class_subject')->with('class_data',$class_data)
                                  ->with('subject',$subject)->with('stream',$stream);
-    
+
     }
 
     public function indexClassLabel(){
         $stream = stream::all();
 
-        
+
         return view('admin/curriculum/add_class_label')->with('stream',$stream);
     }
 
@@ -55,7 +55,7 @@ class ClassController extends Controller
    public function addClassLabel(Request $req){
        $class = new classes();
        $class->class_label = $req->class_label;
-      
+       $class->priority = $req->class_priority;
        if ( $class->save()) {
            $class_label = classes::all();
            return redirect()->route('viewclasslabel')->with('class_label',$class_label);
@@ -74,7 +74,7 @@ class ClassController extends Controller
 
         return redirect()->route('viewclasslabel')->with('class_data',$class_data);
     }
-    
+
    }
 
    public function editClassLabel($id){
@@ -112,14 +112,14 @@ class ClassController extends Controller
         foreach($class_id as $cls){
 
             foreach ($subjects_id as $sub) {
-                
+
                 // $insert_cls_sub = array(
                 //     array('class_id'=> $cls,'subject_id'=>$sub)
                 // );
                 // class_subject::insert($insert_cls_sub);
-                
+
                 $class_subject = new class_subject();
-                $class_subject->class_id = $cls;               
+                $class_subject->class_id = $cls;
                 $class_subject->subject_id = $sub;
                 $class_subject->stream_id = $stream_id;
                 $bools = $class_subject->save();
@@ -133,8 +133,8 @@ class ClassController extends Controller
 
 
         }
-       
-        
+
+
 
 
  if($bools){
@@ -149,17 +149,17 @@ return redirect()->route('/viewClassSubject');
  }
 
 
-    
+
 
     function viewClassSubject(){
 
         $class_data = DB::table('class_subjects')
                                 ->join('classes','class_subjects.class_id','=','classes.id')
                                 ->join('streams','class_subjects.stream_id','=','streams.id')
-                                ->join('subjects','class_subjects.subject_id','=','subjects.id')                    
+                                ->join('subjects','class_subjects.subject_id','=','subjects.id')
                                 ->get(['class_subjects.id as cls_sub_id','class_label','subject_name','stream_type'
                                     ,'subjects.id as sub_id']);
-                                    
+
                                 return view('admin/curriculum/view_class_subject')->with('class_data',$class_data);
         $class_data = array();
         $class = classes::all();
@@ -247,12 +247,12 @@ return redirect()->route('/viewClassSubject');
 
     public function editClassSubjectValue(Request $req, $id_cls){
 
-        
+
         $cls_subject = class_subject::find($id_cls);
         //return $cls_subject;
         $class_label_id = $req->input('class_label');
         $subject_id = $req->input('subjects');
-       
+
 
        // $cls_subject->id = $id_cls;
         $cls_subject->class_id = $class_label_id[0];

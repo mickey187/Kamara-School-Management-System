@@ -23,7 +23,7 @@
                                             </div>
                                         </div>
                                         <div class="row col-12">
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">First name</div>
                                                     <input type="text" id="studentFirstName" name="firstName" class="form-control" placeholder="First name" value="{{$student->first_name}}">
@@ -34,14 +34,13 @@
                                                     <input type="text" id="studentMiddleName" name="middleName" class="form-control" placeholder="Middle name" value="{{$student->middle_name}}">
                                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                                 </div>
-                                            </div>
-                                            <div class="col-6">
                                                 <div class="field">
                                                     <div class="label">Last name</div>
                                                     <input type="text" id="studentLastName" name="lastName" class="form-control" placeholder="Last name" value="{{$student->last_name}}">
                                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                                 </div>
-
+                                            </div>
+                                            <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Gender</div>
                                                     <select id="studentGender" name="gender" class="form-control">
@@ -61,25 +60,6 @@
                                                           <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
 
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div value="edit" class="field ">
-                                            <button type="button" class="nextBtn btn btn-primary" value="1">Next</button>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="page">
-
-                                        <div class="title">
-                                            <div>
-                                                Background information
-                                            </div>
-                                        </div>
-                                        <div class="row col-12">
-                                            <div class="col-6">
                                                 <div class="field">
                                                     <div class="label">Birth date</div>
                                                     <input type="date" name="birthDate" class="form-control" data-target="#reservationdate" placeholder="Birth date" value="{{$student->birth_year}}"/>
@@ -99,9 +79,9 @@
                                                             <option>Washington</option>
                                                     </select>
                                                           <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
-                                                        </div>
+                                                </div>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Native language</div>
                                                     <select name="language" class="form-control select2bs4" style="width: 100%;">
@@ -124,27 +104,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <hr>
 
-
-
-                                        <div class="field btns">
-                                            <button type="button" class="prev-1 prev  btn btn-primary">Previous</button>
-                                            <button type="button" class="next-1 next  btn btn-primary">Next</button>
-                                        </div>
-                                    </div>
-                                    <div class="page">
-                                        <div class="title">
-                                            <div>
-                                                History
-                                            </div>
-                                        </div>
                                         <div class="row col-12">
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Previous School</div>
                                                     <input type="text" name="previousSchool" class="form-control" placeholder="Previous School" value="{{$student->previous_school}}">
                                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
-
                                                 </div>
                                                 <div class="field">
                                                     <div class="label">Transfer reason</div>
@@ -155,44 +122,23 @@
                                                     <div class="label float-right">Previous special education</div>
                                                     <input type="text" name="specialEducation" class="form-control" placeholder="Previous special education" value="{{$student->previous_special_education}}">
                                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
-
                                                 </div>
+
+
                                             </div>
-                                            <div class="col-6">
-                                                <div class="field">
-                                                    <div class="label">Expelsion status</div>
-                                                    <input type="text" name="expelsionStatus" class="form-control" placeholder="Expelsion status" value="{{$student->expulsion_status}}">
-                                                    <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
-
-                                                </div>
+                                            <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Sespension status</div>
                                                     <input type="text" name="sespensionStatus" class="form-control" placeholder="Sespension status" value="{{$student->suspension_status}}">
                                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
-
                                                 </div>
-
+                                                <div class="field">
+                                                    <div class="label">Expelsion status</div>
+                                                    <input type="text" name="expelsionStatus" class="form-control" placeholder="Expelsion status" value="{{$student->expulsion_status}}">
+                                                    <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
+                                                </div>
                                             </div>
-
-
-                                        </div>
-
-
-
-
-                                        <div class="field btns">
-                                            <button type="button" class="prev-2 prev  btn btn-primary">Previous</button>
-                                            <button type="button" class="next-2 next  btn btn-primary">Next</button>
-                                        </div>
-                                    </div>
-                                    <div class="page">
-                                        <div class="title">
-                                            <div>
-                                                Medical information
-                                            </div>
-                                        </div>
-                                        <div class="row col-12">
-                                            <div class="row col-6">
+                                            <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Disability</div>
                                                     <input type="text" name="disability" class="form-control" placeholder="Disability" value="{{$student->disablity}}">
@@ -203,26 +149,16 @@
                                                     <input type="text" name="medicalCondtion" class="form-control" placeholder="Medical condtion" value="{{$student->medical_condtion}}">
                                                      <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                                 </div>
+                                                <div class="field">
+                                                    <div class="label">Blood type</div>
+                                                    <input type="text" name="bloodType" class="form-control" placeholder="Blood type" value="{{$student->blood_type}}">
+                                                    <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
+                                                </div>
                                             </div>
-                                            <div class="row col-6">
-
-                                            <div class="field">
-                                                <div class="label">Blood type</div>
-                                                <input type="text" name="bloodType" class="form-control" placeholder="Blood type" value="{{$student->blood_type}}">
-                                                <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
-                                            </div>
-                                            </div>
-
+                                        </div>
+                                            <button type="submit" class="   btn btn-primary">Update</button>
                                         </div>
 
-
-
-
-
-                                        <div class="field btns">
-                                            <button  type="button" class="prev-3 prev  btn btn-primary">Previous</button>
-                                            <button type="submit" class=" submitBtn  btn btn-primary">submit</button>
-                                        </div>
                                     </div>
 
                                 </form>

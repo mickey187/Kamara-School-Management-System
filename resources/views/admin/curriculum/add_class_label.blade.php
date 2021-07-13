@@ -11,9 +11,9 @@
 </div>
 <div class="card-body">
   <section class="content">
-    <div class="container-fluid mt-3">                 
+    <div class="container-fluid mt-3">
         <form action="
-        
+
         @if (isset($class_label))
           {{url('editclasslabelvalue/'.$class_label->id)}}
 
@@ -21,8 +21,8 @@
           {{url('addclasslabel')}}
         @endif "
          method="post">
-          @csrf   
-          
+          @csrf
+
           <div class="row">
             <div class="col-6">
               <div class="form-group">
@@ -30,12 +30,17 @@
                 <input type="text" name ="class_label" class="form-control" id="exampleFormControlInput1" placeholder="Class label"
                 @if (isset($class_label))
                   value="{{$class_label->class_label}}"
-          
+
                 @endif  >
               </div>
-              
+              <div class="col-6">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Add Priority</label>
+                    <input type="number" name ="class_priority" min="1" max="15" class="form-control" id="exampleFormControlInput1" placeholder="priority" >
+                  </div>
+              </div>
             </div>
-                                                
+
           </div>
 
           {{-- <div class="row" style="margin-top: 10px">
@@ -45,22 +50,22 @@
                 <select name="stream" id="streams" class="form-select">
                     @foreach ($stream as $row )
 
-                    <option value="{{$row->id}}">{{$row->stream_type}}</option>                                                  
-                      
+                    <option value="{{$row->id}}">{{$row->stream_type}}</option>
+
                     @endforeach
-                   
+
                 </select>
             </div>
             </div>
         </div> --}}
 
-          
 
-          
-          
+
+
+
           <div class="row">
             <div class="col-6">
-              
+
               <button type="submit" class="btn btn-primary btn-md btn-block">
                 @if (isset($class_label))
                 Save Changes
@@ -69,15 +74,15 @@
                 Submit
                 @endif
 
-                
+
               </button>
             </div>
-                                                
+
           </div>
 
-          
-        </form>                                                  
-    </div>    
+
+        </form>
+    </div>
   </section>
 </div>
 </div>

@@ -15,6 +15,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\SectionController;
+use GrahamCampbell\ResultType\Success;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,7 @@ use App\Http\Controllers\FinanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
 Route::get('/', function () {
     return view('/admin/dashboard');
 });
@@ -119,13 +121,14 @@ Route::post('addStream', [StreamController::class, 'addStream']);
 
 // Employee Controller
 
- Route::get('/addEmployee',[EmployeeRegistrationController::class, 'store']);
+Route::get('/addEmployee',[EmployeeRegistrationController::class, 'store']);
 Route::get('/addEmployeeForm',[EmployeeRegistrationController::class, 'form']);
 Route::get('/addTeacher',[TeacherController::class, 'store']);
 Route::get('/addTeacherForm',[TeacherController::class, 'form']);
 Route::get('/addHomeRoom',[HomeRoomController::class, 'openView']);
 Route::get('/listEmployee',[ListEmployeeController::class, 'listEmployee']);
 Route::get('/listTeacher',[ListTeacherController::class, 'listTeacher']);
+Route::get('teacher_classes/{id}',[ListTeacherController::class, 'teacher_classes']);
 
 Route::get('/edit_employee/{id}',[ListEmployeeController::class, 'getEmployee']);
 Route::get('/update_employee/{id}',[EmployeeRegistrationController::class, 'update']);
@@ -207,7 +210,7 @@ Route::get('addNewParent/{id}',[ParentController::class, 'insert']);
 Route::get('updateParent/{id}',[ParentController::class, 'editPage']);
 Route::get('insertUpdatedParent/{id}',[ParentController::class, 'update']);
 Route::get('addNewParent',[ParentController::class, 'retriveAll']);
-Route::get('delete_parent/{id}',[ParentController::class, 'delete']);
+Route::get('deleteParent',[ParentController::class, 'deleteParent']);
 Route::get('view_parents',[ParentController::class, 'retriveAll']);
 
 // admin
@@ -215,6 +218,13 @@ Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 
 //marklist
 Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
-Route::get('/import',[MarklistController::class, 'import'])->name('student_mark_list.import');
+Route::post('/import',[MarklistController::class, 'import'])->name('import');
+Route::get('addAssasment',[MarklistController::class, 'addAssasment']);
+Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
+
+//Section
+Route::get('sectionForm',[SectionController::class, 'index']);
 
 
+//For Testing
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;

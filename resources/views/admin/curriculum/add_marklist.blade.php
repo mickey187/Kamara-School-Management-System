@@ -5,24 +5,24 @@
         <h3 class="card-title"> <i class="fas fa-tachometer-alt"></i> Add Mark list</h3>
     </div>
     <div class="card-body ">
-        <form action="{{ route('student_mark_list.import') }}" method="GET">
+        <form action="{{ url('import') }}" method="POST" enctype="multipart/form-data">
+            @csrf
         <div class="row h-100 justify-content-center align-items-center">
-                <div class="form-group ">
+            <div class="form-group ">
+                <label for="inputAddress2">Term</label>
+                <input name="term" type="number" min="1" max="4" class="form-control" id="inputAddress2" placeholder="term">
+              </div>
+            <div class="form-group pl-3">
                   <label for="inputEmail4">Grade</label>
-                  <select id="inputState" class="form-control">
-                    <option selected>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
+                  <select name="grade" id="inputState" class="form-control">
+                    @foreach ($classes as $class)
+                    <option value="{{ $class->id }}">{{$class->class_label}}</option>
+                @endforeach
                   </select>
                 </div>
               <div class="form-group pl-3">
                 <label for="inputAddress">Section</label>
-                <select id="inputState" class="form-control">
+                <select name="section" id="inputState" class="form-control">
                   <option selected>A</option>
                   <option>B</option>
                   <option>C</option>
@@ -32,15 +32,24 @@
                 </select>
               </div>
               <div class="form-group pl-3">
-                <label for="inputAddress2">Load</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder=>
+                <label for="inputAddress">Subject</label>
+                <select name="subject" id="inputState" class="form-control">
+                  @foreach ($subject as $row)
+                  <option value="{{ $row->id }}">{{ $row->subject_name }}</option>
+                  @endforeach
+                 </select>
               </div>
-                <div class="form-group pl-3">
+              <div class="form-group pl-3">
+                <label for="inputAddress2">Load</label>
+                <input name="testLoad" type="number" min="5" max="50" class="form-control" id="inputAddress2">
+              </div>
+              <div class="form-group pl-3">
                   <label for="inputAddress">Type</label>
-                  <select id="inputState" class="form-control">
-                    <option selected>Final Exam</option>
-                    <option>Mid Exam</option>
-                    <option>Assesment</option>
+                  <select name="assasment_type" id="inputState" class="form-control">
+                    @foreach ($assasment as $row)
+                    <option value="{{ $row->id }}">{{ $row->assasment_type }}</option>
+                    @endforeach
+                   </select>
                   </select>
                 </div>
                   <div class="form-group pl-3">

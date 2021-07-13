@@ -11,6 +11,7 @@ use App\Models\students_parent;
 use App\Models\student;
 use App\Models\student_class_transfer;
 use App\Models\student_enrolment;
+use App\Models\student_mark_list;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -97,7 +98,8 @@ class StudentController extends Controller{
             $this->insertAddress($addres);
             $this->insertParent($parent);
             $all_class = classes::all();
-            return view('admin.student.add_student')->with('classes',$all_class);
+            $all_stream = stream::all();
+            return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream);
         }
 
     }
@@ -134,6 +136,7 @@ class StudentController extends Controller{
         //$stud_sec = classes::all();
         $stud_sec = DB::table('students')
         ->join('classes','students.class_id','=','classes.id')
+        ->join('streams','streams.id','=','students.stream_id')
         ->get([
             'students.id',
             'students.student_id',
@@ -142,10 +145,9 @@ class StudentController extends Controller{
             'students.last_name',
             'students.gender',
             'students.image',
-            'classes.class_label'
+            'classes.class_label',
+            'stream_type'
         ]);
-
-
         return view('admin.student.view_student')->with('student_list',$stud_sec);
     }
 
@@ -351,8 +353,15 @@ class StudentController extends Controller{
     function adminDashboard(){
         return view('admin.dashboard');
     }
-    function marklist(){
-        return view('admin.student.marklist');
+    function marklist($id){
+        $mark =  DB::table('student_mark_lists')
+        ->join('students','students.id','=','student_mark_lists.student_id')
+        ->join('assasment_types','assasment_types.id','=','student_mark_lists.assasment_type_id')
+        ->join('subjects','subjects.id','=','student_mark_lists.subject_id')
+        ->where('student_mark_lists.student_id',$id)->get();
+        //$mark = student_mark_list::where('student_id',$id)->get();
+        $student = student::where('id',$id)->first();
+         return view('admin.student.marklist')->with('mark', $mark)->with('student',$student);
     }
 }
 

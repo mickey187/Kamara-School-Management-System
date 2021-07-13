@@ -9,6 +9,6 @@ class section extends Model
 {
     protected $fillable = [
                             'id',
-                            'section'
+                            'section_name'
                         ];
 }

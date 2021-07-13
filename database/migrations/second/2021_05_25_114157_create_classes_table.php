@@ -20,7 +20,7 @@ class CreateClassesTable extends Migration
             // $table->foreign('stream_id')->references('id')->on('streams');
 
             $table->string('class_label')->nullable(false);
-
+            $table->integer('priority')->nullable(false);
             $table->timestamps();
         });
 

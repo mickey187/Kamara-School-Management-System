@@ -281,11 +281,8 @@ function registerStudent(id) {
         dataType : 'json',
 
         success:function (data) {
-           var rows = '';
-           data.forEach(d => {
-            rows+='<td>'+'<a type="button" class="btn bg-green btn-sm" >Registered'+d.academic_year+'</a>'+'</td>';
-        });
-        $('#register').html(rows);
+          alert('good');
+
         },
         error:function (data) {
 
