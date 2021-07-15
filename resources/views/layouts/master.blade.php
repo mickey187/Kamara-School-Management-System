@@ -102,7 +102,7 @@
                 <li class="nav-item dropdown user-menu">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <img src="{{ asset('img/default_picture.png') }}" class="user-image" alt="User Image">
-                        <span class="d-none d-sm-inline text-bold">Yohannes Kasse</span>
+                        <span class="d-none d-sm-inline text-bold">Mr Nobody</span>
                     </a>
                     <ul class="mt-2 dropdown-menu">
                         <!-- User image -->
