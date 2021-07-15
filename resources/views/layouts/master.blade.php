@@ -66,6 +66,8 @@
 
             </ul>
 
+            
+
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -120,9 +122,16 @@
                                 <div class="col-6 text-left">
                                     <a href="#"><i class="fa fa-user"></i> My profile</a>
                                 </div>
+
+                                
                                 <div class="col-6 text-right">
-                                    <a href="#"><i class="fa fa-sign-out-alt"></i> logout</a>
+                                    {{-- <a href="{{route('logout')}}"><i class="fa fa-sign-out-alt"></i> logout</a> --}}
+                                    <form action="{{url('/logout')}}" method="post">
+                                        @csrf
+                                        <input type="submit" value="logout" class="btn btn-success">
+                                    </form>
                                 </div>
+                           
                             </div>
                             <!-- /.row -->
                         </li>

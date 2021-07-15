@@ -36,7 +36,7 @@ use GrahamCampbell\ResultType\Success;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
@@ -44,6 +44,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
 Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
 
 Route::get('/viewPaymentType',[FinanceController::class, 'viewPaymentType']);
