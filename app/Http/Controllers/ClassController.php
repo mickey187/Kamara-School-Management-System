@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\DB;
 class ClassController extends Controller
 {
 
+    public function __construct()
+{
+    $this->middleware('auth');
+}
+
 
 
 //load the add_class_subject page

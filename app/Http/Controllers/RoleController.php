@@ -8,6 +8,13 @@ use DB;
 
 class RoleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     //
     public function indexAddRole(){
         return view('admin.add_role');

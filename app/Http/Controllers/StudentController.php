@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller{
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
         $all_class = classes::all();
         $all_stream = stream::all();
