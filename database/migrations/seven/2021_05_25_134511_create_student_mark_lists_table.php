@@ -22,9 +22,9 @@ class CreateStudentMarkListsTable extends Migration
             $table->foreign('subject_id')->references('id')->on('subjects');
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id')->references('id')->on('classes');
-            $table->unsignedBigInteger('teacher_id');
+            $table->unsignedBigInteger('teacher_id')->nullable(true);
             $table->foreign('teacher_id')->references('id')->on('teachers');
-            $table->unsignedBigInteger('semister_id');
+            $table->unsignedBigInteger('semister_id')->nullable(true);
             $table->foreign('semister_id')->references('id')->on('semisters');
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('students');

@@ -37,9 +37,11 @@ class ListTeacherController extends Controller
                  ->join('academic_background_infos','teachers.academic_background_id','=','academic_background_infos.id')
                  ->join('employees','employees.id','=','teachers.id')
                 ->get(['first_name','middle_name','last_name','teachers.id','field_of_study','place_of_study','date_of_study']);
-
+        $subject = subject::all();
+        $class = classes::all();
         //echo $teach_list;
-                 return view('admin.teacher.listTeacher')->with('teach_list',$teach_list);
+                 return view('admin.teacher.listTeacher')->with('teach_list',$teach_list)->with('subject',$subject)
+                 ->with('class',$class);
     }
     public function teacher_classes($id){
         $teacher = teacher::where('id',$id)->get();

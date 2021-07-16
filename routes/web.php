@@ -235,7 +235,22 @@ Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
 
 //Section
 Route::get('sectionForm',[SectionController::class, 'index']);
+Route::get('setSection',[SectionController::class, 'setSection']);
+Route::get('findSection/{id}',[SectionController::class, 'findSection']);
+Route::get('setCourseLoad/{teacher}/{section}/{class}/{subject}',[SectionController::class, 'setCourseLoad']);
+Route::get('SetHomeRoom/{teacher}/{section}/{class}',[SectionController::class, 'setHomeRoom']);
+
+Route::get('getCourseLoad/{id}',[SectionController::class, 'getCourseLoad']);
+Route::get('deleteCourseLoad/{load_id}',[SectionController::class, 'deleteCourseLoad']);
+Route::get('getHomeRoom/{teacher_id}',[SectionController::class, 'getHomeRoom']);
+Route::get('deleteHomeRoom/{hoom_room_id}',[SectionController::class, 'deleteHomeRoom']);
+
 
 
 //For Testing
 Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
+Route::get('addSemister',[SectionController::class, 'semister']);
+Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
+
+
