@@ -1,6 +1,7 @@
 $("#searchStudentClass").click(function () {
     var class_id = $("#class").val();
     var stream_id = $("#stream").val();
+    //alert(class_id+" = "+ stream_id);
     fetch(class_id, stream_id);
 
 });

@@ -235,7 +235,7 @@ Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
 //Section
 Route::get('sectionForm',[SectionController::class, 'index']);
 Route::get('setSection',[SectionController::class, 'setSection']);
-Route::get('findSection/{id}',[SectionController::class, 'findSection']);
+Route::get('findSection/{id}/{stream_id}',[SectionController::class, 'findSection']);
 Route::get('setCourseLoad/{teacher}/{section}/{class}/{subject}',[SectionController::class, 'setCourseLoad']);
 Route::get('SetHomeRoom/{teacher}/{section}/{class}',[SectionController::class, 'setHomeRoom']);
 
