@@ -379,7 +379,7 @@ class StudentController extends Controller{
             $userAccount->email = $name.$id.'@gmail.com';
             $userAccount->password = Hash::make($name.$id);
             $userAccount->save();
-            $roleId = 4;
+            $roleId = 2;
             $userAccount->roles()->attach($roleId);
     }
 }
