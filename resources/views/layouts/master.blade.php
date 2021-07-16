@@ -63,8 +63,27 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <h2 class="text-bold">Kamara School</h2>
+                
+               <?php
+
+               $role_name = Auth::user()->roles;
+               //$role = null;
+               foreach ($role_name as $key ) {
+                   # code...
+                   $role_name = $key->role_name;
+               }
+
+               echo $role_name;
+               ?>
+                @if($role_name == 'Student')
+                
+                <h1>Hello Student</h1>
+                
+            @endif
 
             </ul>
+
+            
 
 
             <!-- Right navbar links -->
@@ -102,14 +121,14 @@
                 <li class="nav-item dropdown user-menu">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <img src="{{ asset('img/default_picture.png') }}" class="user-image" alt="User Image">
-                        <span class="d-none d-sm-inline text-bold">Yohannes Kasse</span>
+                        <span class="d-none d-sm-inline text-bold">{{ Auth::user()->name }}</span>
                     </a>
                     <ul class="mt-2 dropdown-menu">
                         <!-- User image -->
                         <li class="user-header bg-orange">
                             <img src="{{ asset('img/default_picture.png') }}" class="img-circle" alt="User Image">
 
-                            <p class="mt-0"> <span class="text-bold">Yohannes kassa</span> <br>
+                            <p class="mt-0"> <span class="text-bold">{{ Auth::user()->name }}</span> <br>
                                 grade <br>
                                 <span class="text"> section </span>
                             </p>
@@ -120,9 +139,16 @@
                                 <div class="col-6 text-left">
                                     <a href="#"><i class="fa fa-user"></i> My profile</a>
                                 </div>
+
+                                
                                 <div class="col-6 text-right">
-                                    <a href="#"><i class="fa fa-sign-out-alt"></i> logout</a>
+                                    {{-- <a href="{{route('logout')}}"><i class="fa fa-sign-out-alt"></i> logout</a> --}}
+                                    <form action="{{url('/logout')}}" method="post">
+                                        @csrf
+                                        <input type="submit" value="logout" class="btn btn-success">
+                                    </form>
                                 </div>
+                           
                             </div>
                             <!-- /.row -->
                         </li>

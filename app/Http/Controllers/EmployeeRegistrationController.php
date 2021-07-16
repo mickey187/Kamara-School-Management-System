@@ -25,6 +25,12 @@ use App\Models\teacher;
 class EmployeeRegistrationController extends Controller
 {
 
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
       public function form(){
           $edit_job_position = employee_job_position::all();
           $job_position = employee_job_position::all();

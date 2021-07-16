@@ -14,6 +14,12 @@ use DB;
 
 class FinanceController extends Controller
 {
+
+    public function __construct()
+{
+    $this->middleware('auth');
+}
+
     //indexAddPaymentType function
 
     public function indexAddPaymentType(){

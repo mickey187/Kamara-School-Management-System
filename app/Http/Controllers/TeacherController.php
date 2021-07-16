@@ -25,6 +25,13 @@ use App\Models\teacher;
 class TeacherController extends Controller
 {
     //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     public function form()
     {
         $employee = DB::table('employees')

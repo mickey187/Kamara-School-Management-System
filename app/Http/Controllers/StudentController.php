@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\address;
 use App\Models\classes;
+use App\Models\User;
 use App\Models\section;
 use App\Models\stream;
 use App\Models\student_background;
@@ -14,8 +15,14 @@ use App\Models\student_enrolment;
 use App\Models\student_mark_list;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller{
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index(){
         $all_class = classes::all();
@@ -310,6 +317,7 @@ class StudentController extends Controller{
         $student->stream_id = $data['stream'];
         $student->student_id = $this->idGeneratorFun();
         $student->save();
+        $this->addUserAccount($data['first_name'],$student->student_id);
     }
 
     public function insertStudentClassTransfer($data){
@@ -362,6 +370,17 @@ class StudentController extends Controller{
         //$mark = student_mark_list::where('student_id',$id)->get();
         $student = student::where('id',$id)->first();
          return view('admin.student.marklist')->with('mark', $mark)->with('student',$student);
+    }
+
+    function addUserAccount($name, $id){
+
+            $userAccount = new User();
+            $userAccount->name = $name.$id;
+            $userAccount->email = $name.$id.'@gmail.com';
+            $userAccount->password = Hash::make($name.$id);
+            $userAccount->save();
+            $roleId = 4;
+            $userAccount->roles()->attach($roleId);
     }
 }
 
