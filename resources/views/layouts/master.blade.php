@@ -384,7 +384,12 @@
                                         <p>View Stream</p>
                                     </a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a href="{{ url('addSemister') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Semister</p>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a href="{{ url('addMarkList') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -627,7 +632,8 @@ $(function() {
     <script src="{{ asset('dist/js/script.js') }}"></script>
     <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/teacher.js') }}"></script>
-
+    <script src="{{ asset('dist/css/checkbox.css') }}"></script>
+    <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}

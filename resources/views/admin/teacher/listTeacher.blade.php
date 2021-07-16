@@ -19,8 +19,6 @@
                     <th>place of study</th>
                     <th>year of study</th>
                     <th>Action</th>
-
-
                 </tr>
             </thead>
             <tbody>
@@ -31,21 +29,26 @@
                         <td>{{$row->field_of_study}}</td>
                         <td>{{$row->place_of_study}}</td>
                         <td>{{$row->date_of_study}}</td>
-
                          <td>
-                         <td>
-                        <button type="button" class="btn bg-orange btn-sm"><i class="fa fa-eye"
+                        <button type="button" class="btn bg-primary btn-sm"
                             data-toggle="modal"
                             data-target="#modal-teacher"
                             data-teacher="
                                         {{ $row->first_name.' '.$row->middle_name.' '.$row->last_name }},
-                                        {{ $row->id }},"
-                                        ></i></button>
-                        <a href="{{ url('edit_teacher/'.$row->id) }}" type="button" class="btn bg-blue btn-sm"><i class="fa fa-pen"></i></a>
-                        <a href="{{ url('delete_teacher/'.$row->id)}}" type="button" class="btn bg-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        <a href="{{ url('teacher_classes/'.$row->id)}}" type="button" class="btn bg-primary btn-sm"></i>classes</a>
+                                        {{ $row->id }}
+                                        ">
+                                        <i class="fa fa-pen">Assign Classes</i></button>
+                            <button type="button" class="btn bg-primary btn-sm"
+                                data-toggle="modal"
+                                data-target="#modal-teacher-home-room"
+                                data-teacher2="
+                                {{ $row->first_name.' '.$row->middle_name.' '.$row->last_name }},
+                                {{ $row->id }}
+                                "
+                            ><i class="fa fa-pen">Assign Home Room</i></button>
+                        {{-- <a href="{{ url('edit_teacher/'.$row->id) }}" type="button" class="btn bg-blue btn-sm"><i class="fa fa-pen"></i></a>
+                        <a href="{{ url('delete_teacher/'.$row->id)}}" type="button" class="btn bg-danger btn-sm"><i class="fa fa-trash"></i></a> --}}
                     </td>
-                         </td>
                     </tr>
                 @endforeach
 
@@ -55,34 +58,183 @@
 </section>
 </div>
 </div>
-  <div>
     <div class="modal_teacher">
-        <div class="modal fade" id="modal-teacher">
-          <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal fade " id="modal-teacher">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
               <div class="modal-header">
-                <h4 class="modal-title">Teacher</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title">Assign Classes</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">X
                 </button>
               </div>
-                <div class="modal-body">
-                    <div><p id="id" ></p></div>
-                    <div><p id="full_name" ></p></div>
-                    <span id="1" class="badge badge-primary"></span>
+              <div class="modal-body col-12">
+                <div class="row col-12 form-group">
+                    <div class="col-1 text-lg float-right"><label>Name</label> </div>
+                    <div class="col-4 float-left"><h3 class="text-lg" id="full_name" ></h3></div>
+                    <div id="teacher_id" class="float-left" hidden ><h3 class="text-lg" id="id" ></h3></div>
                 </div>
-
-                  <div class="modal-footer justify-content-between">
-                    <p id="id"></p>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                   {{-- <p class="text-primary float-left" type="button"  onclick="unhide();"><i class="fas fa-arrow-alt-circle-down"></i></p> --}}
+                <div style="display: block" id="add_mode">
+                    <div class=" row col-12">
+                        <div class="col-5">
+                            Assign Class
+                            <div class="col-12">
+                                    <div class="form-group">
+                                        <select class=" form-control"name="class" id="singleClassId" >
+                                            @foreach ( $class as $row )
+                                                <option value="{{ $row->id }}">{{ $row->class_label }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            Assign Subject
+                            <div class="form-group">
+                                <select class="form-control" id="selectedSubject" >
+                                    @foreach ( $subject as $row )
+                                        <option value="{{ $row->id }}">{{ $row->subject_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class=" col-2"><br>
+                            <div class="form-group">
+                                <input type="button" class="btn btn-primary form-control" value="Add" id="assignTeacherToClsss">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-12" id="listOfsections">
+                            </div>
+                        </div>
 
                     </div>
-                  </div>
+                    {{-- <div class="modal-footer justify-content-between"> --}}
+                     {{-- <p id="id"></p> --}}
+                        {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> --}}
+                    {{-- </div> --}}
+                </div>
+                {{-- <p class="text-primary float-left" type="button"  onclick="colapse();"><i class="fas fa-arrow-alt-circle-up"></i></p> --}}
+                <div class="col-4 text-lg float-left">Teacher Classes </div>
+
+                <div class="row col-12 form-group">
+                    <div class="col-12 float-left" >
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <th>Grade</th>
+                                <th>Section</th>
+                                <th>Subject</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody id="courseLoad">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{-- <div class="row col-12 form-group">
+                    <div class="col-4 text-lg float-right"><label>Home Room Classes</label> </div>
+                    <div class="col-8 float-left">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <th>Grade</th>
+                                <th>Section</th>
+                            </thead>
+                            <tbody id="home_room">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                </div> --}}
+
                 </div>
                 <!-- /.modal-content -->
               </div>
               <!-- /.modal-dialog -->
 
             </div>
-  </div>
+        </div>
+    </div>
+
+
+
+    {{-- HOome Room --}}
+
+    <div class="modal_teacher2">
+        <div class="modal fade " id="modal-teacher-home-room">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
+              <div class="modal-header">
+                <h4 class="modal-title">Home Room</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">X
+                </button>
+              </div>
+              <div class="modal-body col-12">
+                <div class="row col-12 form-group">
+                    <div class="col-1 text-lg float-right"><label>Name</label> </div>
+                    <div class="col-4 float-left"><h3 class="text-lg" id="full_name" ></h3></div>
+                    <div id="teacher_id2" class="float-left" hidden ><h3 class="text-lg" id="id" ></h3></div>
+                </div>
+                <div style="display: block" id="add_mode">
+                    <div class=" row col-12">
+                        <div class="col-5">
+                            Assign Class
+                            <div class="col-12">
+                                    <div class="form-group">
+                                        <select class=" form-control"name="class" id="singleClassId2" >
+                                            @foreach ( $class as $row )
+                                                <option value="{{ $row->id }}">{{ $row->class_label }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                            </div>
+                        </div>
+                        {{-- <div class="col-5">
+                            Assign Subject
+                            <div class="form-group">
+                                <select class="form-control" id="selectedSubject2" >
+                                    @foreach ( $subject as $row )
+                                        <option value="{{ $row->id }}">{{ $row->subject_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div> --}}
+                        <div class=" col-2"><br>
+                            <div class="form-group">
+                                <input type="button" class="btn btn-primary form-control" value="Add" id="assignTeacherHomeRoom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-12" id="listOfsections2">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-4 text-lg float-left">Home Room</div>
+
+                <div class="row col-12 form-group">
+                    <div class="col-12 float-left" >
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <th>Grade</th>
+                                <th>Section</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody id="homeroom">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
