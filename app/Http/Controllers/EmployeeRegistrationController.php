@@ -54,7 +54,7 @@ class EmployeeRegistrationController extends Controller
             $this->insertTeacher();
             //$this->insertHomeRoom();
             $this->insertTeacherCourseLoad();
-            return view('admin.teacher.teacher');
+            return view('admin.employee.employee_registration');
         }else{
             // $this->insertRole();
             $this->insertAddress();
@@ -84,6 +84,10 @@ class EmployeeRegistrationController extends Controller
         $role = Role::find($employee->role_id);
         $role->role_name = request('employee_role');
         $role->update();
+
+        $religion = employee_religion::find($employee->employee_religion_id );
+        $religion->religion_name = request('employee_religion');
+        $religion->update();
 
         $address = address::find($employee->address_id);
         $address->city = request('City');
@@ -145,6 +149,11 @@ class EmployeeRegistrationController extends Controller
 
        return redirect('listEmployee');
 
+    }
+    public function insertReligion(){
+        $religion = new employee_religion();
+        $religion->religion_name = request('religion_name');
+        $religion->save();
     }
     public function insertRole(){
         $role = new Role();

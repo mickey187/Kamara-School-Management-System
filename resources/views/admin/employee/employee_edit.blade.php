@@ -139,20 +139,7 @@
                                                     ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                                 </div>
                                           </div>
-                                        </div>
-                                       <div class="field ">
-                                            <button value="1" class="nextBtn btn btn-primary" type="button">Next</button>
-                                        </div>
-
-                                    </div>
-                                    <div class="page">
-                                        <div class="" style="margin-left: 15px;">
-                                            <div class="card card-header bg-light">
-                                                <h3 class="card-title float-right"> Background info</h3>
-                                            </div>
-                                        </div>
-                                        <div class="row col-12">
-                                            <div class="col-4">
+                                                     <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Job Trainning</div>
                                                     <input type="text" name="job_trainning" class="form-control" id="job_trainning" placeholder="Enter your job trainning"
@@ -257,19 +244,10 @@
                                                       ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                                     </div>
                                             </div>
-                                        </div>
-                                        <div class="field btns">
-                                            <button type="button" class="prev-1 prev btn btn-primary">Previous</button>
-                                            <button type="button" class="next-1 next btn btn-primary">Next</button>
-                                        </div>
-                                    </div>
-                                        <div class="page">
-                                        <div class="" style="margin-left: 15px;">
-                                            <div class="card card-header bg-light">
-                                                <h3 class="card-title float-right"> employee job info</h3>
-                                            </div>
-                                        </div>
-                                        <div class="row col-12">
+
+                                            <hr><hr>
+
+                                            <div class="row col-12">
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Job Trainning</div>
@@ -343,6 +321,7 @@
                                                         @endif
                                                         ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                                 </div>
+                                            
                                                 <div class="field" id="field_of_study">
                                                     <div class="label">field_of_study</div>
                                                             <input type="text" name="field_of_study"  class="form-control" placeholder="Enter your field of study"
@@ -356,9 +335,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-4">
-                                                <div class="field" id="place_of_study1">
+                                                <div class="field" id="place_of_study">
                                                     <div class="label">place_of_study</div>
-                                                    <input type="text" name="place_of_study"  class="form-control" placeholder="Enter your place of study"
+                                                    <input  type="text" name="place_of_study"  class="form-control" placeholder="Enter your place of study"
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->place_of_study }}"
                                                         @endif
@@ -409,7 +388,7 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                        </div>
+                                        <!-- </div>
                                          <div class="field btns">
                                             <button type="button" class="prev-2 prev btn btn-primary">Previous</button>
                                             <button type="button" class="next-2 next btn btn-primary">Next</button>
@@ -421,7 +400,7 @@
                                             <div class="card card-header bg-light">
                                                 <h3 class="card-title float-right"> Address info</h3>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="row col-12">
                                         <div class="col-4">
                                          <div class="field">
@@ -514,12 +493,38 @@
                                         </div>
                                         </div>
 
+                                        </div>
+                                       <button type="submit" class=" submitBtn btn btn-primary">submit</button>
+
+                                    </div>
+                                    <!-- <div class="page">
+                                        <div class="" style="margin-left: 15px;">
+                                            <div class="card card-header bg-light">
+                                                <h3 class="card-title float-right"> Background info</h3>
+                                            </div>
+                                        </div>
+                                        <div class="row col-12">
+                                           
+                                        
+                                        <div class="field btns">
+                                            <button type="button" class="prev-1 prev btn btn-primary">Previous</button>
+                                            <button type="button" class="next-1 next btn btn-primary">Next</button>
+                                        </div>
+                                    </div> -->
+                                        <!-- <div class="page">
+                                        <div class="" style="margin-left: 15px;">
+                                            <div class="card card-header bg-light">
+                                                <h3 class="card-title float-right"> employee job info</h3>
+                                            </div>
+                                        </div>
+                                        
+
 
                                         <div class="field btns">
                                             <button type="button" class="prev-3 prev btn btn-primary">Previous</button>
-                                            <button type="submit" class=" submitBtn btn btn-primary">submit</button>
+                                            
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                 </form>
                                 @endforeach

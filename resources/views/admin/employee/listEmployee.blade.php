@@ -114,12 +114,12 @@
                       
                       <span id="1" class="badge badge-primary"></span>
                     </div>
-                    <form action="{{url('/removeEmployee($id)')}}" method="get">
+                    <form action="{{url('/delete_employee')}}" method="get">
                       @csrf
                     <div class="modal-footer justify-content-between">
                       
                       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                      <button type="get" class="btn btn-danger" name="delete" id="#3">
+                      <button type="get" class="btn btn-danger" name="delete" id="delete_employee">
                         Delete Employee</button>
                       </form>
                       

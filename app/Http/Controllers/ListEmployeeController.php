@@ -71,8 +71,10 @@ class ListEmployeeController extends Controller
         echo $job->position_name;
         return view('admin.teacher.teacher')->with('employee', $employee)->with('job', $job);
     }
-    public function removeEmployee($id)
+    public function removeEmployee()
     {
+        //  return request();
+          $id = request('delete');
         $delete_employee = employee::find($id);
         $delete_employee_role = Role::find($delete_employee->role_id );
         $delete_employee_role->delete();
@@ -88,7 +90,7 @@ class ListEmployeeController extends Controller
         $delete_employee_address->delete();
         $delete_employee->delete();
 
-        echo $id.' deleted successfuly';
+         echo $id.' deleted successfuly';
         $emp_list = DB::table('employees')
                                 ->join('employee_job_positions', 'employees.employee_job_position_id', '=', 'employee_job_positions.id')
                                 ->get(['first_name','middle_name','last_name','gender','position_name','hire_type','hired_date','employees.id']);

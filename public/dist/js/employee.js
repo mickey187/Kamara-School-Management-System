@@ -16,7 +16,7 @@ let max = 4;
 let current = 1;
 
 teacher.addEventListener("change", function(){
-    const place_of_study = document.getElementById('place_of_study1');
+    const place_of_study = document.getElementById('place_of_study');
     const teacher_traning_year = document.getElementById('teacher_traning_year');
     const debut_as_a_teacher = document.getElementById('debut_as_a_teacher');
     const date_of_study = document.getElementById('date_of_study');
@@ -25,7 +25,7 @@ teacher.addEventListener("change", function(){
     const teacher_traning_program = document.getElementById('teacher_traning_program');
 
     if(teacher.value==="1"){
-         place_of_study.style.display = "block";
+        place_of_study.style.display = "block";
         teacher_traning_year.style.display = "block";
         debut_as_a_teacher.style.display = "block";
         teacher_traning_institute.style.display = "block";
@@ -45,7 +45,7 @@ teacher.addEventListener("change", function(){
 
 });
 window.addEventListener("load", function(){
-    const place_of_study = document.getElementById('place_of_study1');
+    const place_of_study = document.getElementById('place_of_study');
     const teacher_traning_year = document.getElementById('teacher_traning_year');
     const debut_as_a_teacher = document.getElementById('debut_as_a_teacher');
     const date_of_study = document.getElementById('date_of_study');
@@ -64,7 +64,7 @@ window.addEventListener("load", function(){
 
     }else{
         
-          place_of_study.style.display = "none";
+        place_of_study.style.display = "none";
         teacher_traning_year.style.display = "none";
         debut_as_a_teacher.style.display = "none";
         teacher_traning_institute.style.display = "none";

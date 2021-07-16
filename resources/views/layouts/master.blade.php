@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kamara School Management System | Dashboard</title>
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
@@ -284,18 +283,46 @@
                                         <p>Employee List</p>
                                     </a>
                                 </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                     <a href="/addTeacherForm" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Teacher</p>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a href="/listTeacher" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Teacher List</p>
                                     </a>
                                 </li>
+                                 <li class="nav-item">
+                                    <a href="/addReligionPage" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Religion</p>
+                                    </a>
+                                </li>
+
+                                 <li class="nav-item">
+                                    <a href="/viewReligion" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Religion</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="/indexAddJobPosition" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add position</p>
+                                    </a>
+                                </li>
+
+                                 <li class="nav-item">
+                                    <a href="/viewJobPosition" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>view position</p>
+                                    </a>
+                                </li>
+
                                 <li class="nav-item">
                                     <a href="/addHomeRoom" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -368,6 +395,12 @@
                                     <a href="{{ url('addMarkList') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Mark List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('Assasmentform') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Assasment</p>
                                     </a>
                                 </li>
 
@@ -591,17 +624,22 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+
+
+
     <script src="{{asset('dist/js/addclass.js')}}"></script>
-    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
+     <script src="{{ asset('dist/js/employee.js') }}"></script> 
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
-    {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
-     <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
-    <script src="{{ asset('dist/js/script.js') }}"></script>
+    <!-- <script src="{{ asset('dist/js/script.js') }}"></script> -->
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
+    <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
+    <script src="{{ asset('dist/js/view_religion_value.js') }}"></script>
+    <script src="{{ asset('dist/js/view_job_position.js') }}"></script>
 
 
     <script>

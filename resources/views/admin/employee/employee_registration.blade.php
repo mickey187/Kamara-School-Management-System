@@ -354,7 +354,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-4">
-                                                <div class="field" id="place_of_study1">
+                                                <div class="field" id="place_of_study">
                                                     <div class="label">place_of_study</div>
                                                     <input type="text" name="place_of_study"  class="form-control" placeholder="Enter your place of study"
                                                         @if(isset($teacher))
