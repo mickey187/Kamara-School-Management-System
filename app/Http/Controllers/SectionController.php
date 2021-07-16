@@ -90,7 +90,7 @@ class SectionController extends Controller
 
         return view('admin.curriculum.add_semister')->with('semister',$semister);
     }
-    public function findSection($id,$stream_id){
+    public function findSection($id){
         $val = '';
         $count = 0;
         $section = section::where('class_id',$id)->get();

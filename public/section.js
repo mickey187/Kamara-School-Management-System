@@ -124,6 +124,7 @@ $("#assignTeacherToClsss").click(function () {
 
 $("#singleClassId2").change(function () {
     var class_id = $("#singleClassId2").val();
+    //alert(class_id);
     $.ajax({
         type: 'GET',
         url: 'findSection/'+class_id,

@@ -18,8 +18,7 @@ class CreateHomeRoomsTable extends Migration
 
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id') ->references('id')->on('classes');
-            $table->unsignedBigInteger('section_id');
-            $table->foreign('section_id') ->references('id')->on('sections');
+            //$table->foreign('section_id') ->references('id')->on('sections');
             // $table->unsignedBigInteger('stream_id');
             // $table->foreign('stream_id') ->references('id')->on('streams');
             // $table->unsignedBigInteger('address_id');
@@ -28,6 +27,7 @@ class CreateHomeRoomsTable extends Migration
             $table->foreign('employee_id') ->references('id')->on('employees');
             $table->unsignedBigInteger('attendance_id')->nullable(true);
             $table->foreign('attendance_id') ->references('id')->on('attendances');
+            $table->string('section');
             $table->timestamps();
         });
     }
