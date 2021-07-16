@@ -17,12 +17,17 @@ class CreateStudentPaymentsTable extends Migration
             $table->id();
                         
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students');
+
+            $table->unsignedBigInteger('payment_type_id');
+            $table->foreign('payment_type_id')->references('id')->on('payment_types');
            
             $table->unsignedBigInteger('payment_load_id');
-            $table->foreign('payment_load_id')->references('id')->on('payment_loads')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('payment_load_id')->references('id')->on('payment_loads');
 
-            $table->integer('amount')->nullable(false);
+            $table->integer('amount_payed')->nullable(false);
+
+            $table->string('payment_month')->nullable(false);
 
             $table->timestamps();
         });

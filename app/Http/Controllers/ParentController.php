@@ -9,11 +9,13 @@ use App\Models\students_parent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use PHPUnit\Util\Json;
 
 class ParentController extends Controller{
 
     public function index(){
         $parent_list = students_parent::all();
+        $address = address::where('id',$parent_list->address_id);
         return view('admin.parent.view_parent')->with('parent_list',$parent_list);
     }
 
@@ -27,7 +29,6 @@ class ParentController extends Controller{
 
     public function retrive($id){
         $student = student::where('id',$id)->first();
-
         $parent_list = students_parent::where('student',$id)->get();
         return view('admin.parent.view_student_and_parent')->with('parent_list',$parent_list)->with('student',$student);
     }
@@ -41,18 +42,16 @@ class ParentController extends Controller{
          return view('admin.parent.view_parent')->with('parent_list',$parent_list);
     }
 
-    public function delete($id){
-
-            $parent = students_parent::where('id',$id)->get()->first();
+    public function deleteParent(Request $req){
+            $parent = students_parent::where('id',$req->delete)->get()->first();
             $student = student::where('id',$parent->student)->first();
             $address = address::find($parent->address_id);
             $address->delete();
             $parent->delete();
-
             $student = student::where('id',$student->id)->first();
-            $parent_list = students_parent::where('student',$id)->get();
-            return redirect('studentParentList/'.$student->id);
-        }
+            // $parent_list = students_parent::where('student',$id)->get();
+            return "success";
+    }
 
     public function addMore($student_id){
         $id = $student_id;

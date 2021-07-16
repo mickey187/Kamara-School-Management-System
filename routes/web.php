@@ -19,6 +19,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\SectionController;
+use GrahamCampbell\ResultType\Success;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +32,7 @@ use App\Http\Controllers\FinanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
 Route::get('/', function () {
     return view('/admin/dashboard');
 });
@@ -49,13 +51,29 @@ Route::post('/addPaymentLoad',[FinanceController::class, 'AddPaymentLoad']);
 
 Route::get('/viewPaymentLoad',[FinanceController::class, 'viewPaymentLoad']);
 
+Route::get('/fetchload/{class_id}/{pay_type}/{stud_id}',[FinanceController::class, 'fetchLoad']);
+
+Route::get('/fetchpaymenthistory/{stud_id}',[FinanceController::class, 'fetchPaymentHistory']);
 
 
-Route::get('/indexAddTuitionPayment',[FinanceController::class, 'indexAddTuitionPayment']);
 
-Route::get('/viewTuitonPayment',[FinanceController::class, 'viewTuitonPayment']);
 
-Route::post('/addPayment',[FinanceController::class, 'addPayment']);
+
+Route::get('/indexAddStudentPayment',[FinanceController::class, 'indexAddStudentPayment']);
+
+Route::get('/viewStudentPayment',[FinanceController::class, 'viewStudentPayment']);
+
+Route::post('/addStudentPayment',[FinanceController::class, 'addStudentPayment']);
+
+
+
+Route::get('/indexAddStudentDiscount',[FinanceController::class, 'indexAddStudentDiscount']);
+
+Route::post('/addStudentDiscount',[FinanceController::class, 'addStudentDiscount']);
+
+Route::get('fetchstudent/{stud_id}',[FinanceController::class, 'fetchStudent']);
+
+Route::get('/viewStudentDiscount',[FinanceController::class, 'viewStudentDiscount']);
 
 
 
@@ -129,6 +147,7 @@ Route::get('/addTeacherForm',[TeacherController::class, 'form']);
 Route::get('/addHomeRoom',[HomeRoomController::class, 'openView']);
 Route::get('/listEmployee',[ListEmployeeController::class, 'listEmployee']);
 Route::get('/listTeacher',[ListTeacherController::class, 'listTeacher']);
+Route::get('teacher_classes/{id}',[ListTeacherController::class, 'teacher_classes']);
 
 Route::get('/edit_employee/{id}',[ListEmployeeController::class, 'getEmployee']);
 Route::get('/update_employee/{id}',[EmployeeRegistrationController::class, 'update']);
@@ -210,7 +229,7 @@ Route::get('addNewParent/{id}',[ParentController::class, 'insert']);
 Route::get('updateParent/{id}',[ParentController::class, 'editPage']);
 Route::get('insertUpdatedParent/{id}',[ParentController::class, 'update']);
 Route::get('addNewParent',[ParentController::class, 'retriveAll']);
-Route::get('delete_parent/{id}',[ParentController::class, 'delete']);
+Route::get('deleteParent',[ParentController::class, 'deleteParent']);
 Route::get('view_parents',[ParentController::class, 'retriveAll']);
 
 // admin
@@ -218,6 +237,27 @@ Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 
 //marklist
 Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
-Route::get('/import',[MarklistController::class, 'import'])->name('student_mark_list.import');
+Route::post('/import',[MarklistController::class, 'import'])->name('import');
+Route::get('addAssasment',[MarklistController::class, 'addAssasment']);
+Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
+
+//Section
+Route::get('sectionForm',[SectionController::class, 'index']);
+Route::get('setSection',[SectionController::class, 'setSection']);
+Route::get('findSection/{id}',[SectionController::class, 'findSection']);
+Route::get('setCourseLoad/{teacher}/{section}/{class}/{subject}',[SectionController::class, 'setCourseLoad']);
+Route::get('SetHomeRoom/{teacher}/{section}/{class}',[SectionController::class, 'setHomeRoom']);
+
+Route::get('getCourseLoad/{id}',[SectionController::class, 'getCourseLoad']);
+Route::get('deleteCourseLoad/{load_id}',[SectionController::class, 'deleteCourseLoad']);
+Route::get('getHomeRoom/{teacher_id}',[SectionController::class, 'getHomeRoom']);
+Route::get('deleteHomeRoom/{hoom_room_id}',[SectionController::class, 'deleteHomeRoom']);
+
+
+
+//For Testing
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
+Route::get('addSemister',[SectionController::class, 'semister']);
+Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
 

@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class payment_type extends Model
 {
-       protected $fillabl = [
+       protected $fillable = [
                                 'id',
-                                'payment_type'
+                                'payment_type',
+                                'recurring_type'
                             ];
 
 }

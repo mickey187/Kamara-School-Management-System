@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class home_room extends Model
 {
-    
+
     protected $filled = [
       'id',
-      'class',
+      'class_id',
       'section',
-      'stream',
-      'employee',
-      'attendance'  
+      'employee_id',
+      'attendance_id'
     ];
 }

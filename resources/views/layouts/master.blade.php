@@ -238,11 +238,33 @@
                                         <p>Enrollment</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('sectionForm')  }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Sectioning</p>
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
 
-
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Teacher
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('listTeacher') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Teacher List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -390,7 +412,12 @@
                                         <p>View Stream</p>
                                     </a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a href="{{ url('addSemister') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Semister</p>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a href="{{ url('addMarkList') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -419,6 +446,11 @@
                                 </li>
                             </ul>
                         </li>
+
+                        
+                         
+
+
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -458,15 +490,29 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{url('indexAddTuitionPayment')}}" class="nav-link">
+                                    <a href="{{url('/indexAddStudentDiscount')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Tuiton Fee Payment</p>
+                                        <p>Add Student Discount</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{url('/viewStudentDiscount')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Student Discount</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{url('indexAddStudentPayment')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Student Payment</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{url('/viewTuitonPayment')}}" class="nav-link">
+                                    <a href="{{url('/viewStudentPayment')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>View Tuiton Fee Payment</p>
+                                        <p>View Student Payment</p>
                                     </a>
                                 </li>
 
@@ -584,6 +630,7 @@ $(function() {
     <script src="{{ asset('dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+    <script src="{{ asset('section.js') }}"></script>
 
 
 
@@ -602,8 +649,12 @@ $(function() {
      <!-- view stream js -->
      <script src="{{ asset('view_stream.js') }}"></script>
 
+
      <!-- add payments js -->
      <script src="{{ asset('add_payments.js') }}"></script>
+
+      <!-- student discount js -->
+      <script src="{{ asset('student_discount.js') }}"></script>
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -624,16 +675,16 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
-
-
-
     <script src="{{asset('dist/js/addclass.js')}}"></script>
      <script src="{{ asset('dist/js/employee.js') }}"></script> 
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
-    <!-- <script src="{{ asset('dist/js/script.js') }}"></script> -->
+    <script src="{{ asset('dist/js/script.js') }}"></script>
+    <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
+    <script src="{{ asset('dist/js/teacher.js') }}"></script>
+    <script src="{{ asset('dist/css/checkbox.css') }}"></script>
+    <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
@@ -641,12 +692,8 @@ $(function() {
     <script src="{{ asset('dist/js/view_religion_value.js') }}"></script>
     <script src="{{ asset('dist/js/view_job_position.js') }}"></script>
 
-
     <script>
         $(function() {
-
-
-
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -663,6 +710,8 @@ $(function() {
                 "responsive": true,
             });
         });
+
+        
 
 
        //  $('#modal_view').on('show.bs.modal', function (event) {

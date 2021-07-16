@@ -78,7 +78,12 @@
                             <a href="#" type="button" class="btn bg-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-phone"></i></a>
                             <a href="#" type="button" class="btn bg-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-envelope"></i></a>
                             <a href="{{ url('updateParent/'.$row->id) }}" type="button" class="btn bg-primary btn-sm"><i class="fa fa-pen"></i></a>
-                            <a href="{{ url('delete_parent/'.$row->id) }}" type="button" class=" btn bg-danger btn-sm "><i class="fa fa-trash"></i></a>
+                            <button  type="button" class=" btn bg-danger btn-sm "><i class="fa fa-trash"
+                                data-toggle="modal" data-target="#modal-delete-parent"
+                                data-delete="
+                                {{ $row->id }}
+                                " data-whatever="@mdo"
+                                ></i></button>
                         </td>
                     </tr>
 
@@ -127,5 +132,36 @@
       </div>
       <!-- /.modal-content -->
     </div>
+    {{-- delete modal --}}
+    <div class="modal_delete">
+        <div class="modal fade" id="modal-delete-parent">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Delete Parent</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+              </div>
 
+                <div class="modal-body">
+                    <p id="id" name="parent_id"></p>
+                    <div id="deleteParent" hidden><p id="id"></p></div>
+                    <span id="1" class="badge badge-primary"></span>
+                </div>
+                <form action="{{url('deleteParent')}}" method="get">
+                    @csrf
+                  <div class="modal-footer justify-content-between">
+                    <p id="id"></p>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="get" class="btn btn-danger" name="delete">
+                      Delete Subject</button>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+
+            </div>
 @endsection

@@ -15,11 +15,14 @@ class CreateTeacherCourseLoadsTable extends Migration
     {
         Schema::create('teacher_course_loads', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('teacher_id');
+            $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects');
-            $table->integer('class') ->nullable(false);
+            $table->unsignedBigInteger('class_id') ->nullable(true);
+            $table->foreign('class_id')->references('id')->on('classes');
+            $table->string('section') ->nullable(true);
             $table->timestamps();
-
         });
     }
 

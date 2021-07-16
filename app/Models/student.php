@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class student extends Model
 {
+    use HasFactory;
+
+    protected $table = "students";
+
     protected $fillable=[
                             'id',
                             'student_id',
@@ -20,6 +24,7 @@ class student extends Model
                             'student_background',
                             'student_medical_info',
                             'student_enrolment',
-                            'class'
+                            'class_id',
+                            'stream_id'
                         ];
 }

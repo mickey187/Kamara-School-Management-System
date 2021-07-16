@@ -19,6 +19,14 @@
             <input type="text" name ="payment_type" class="form-control" id="exampleFormControlInput1" 
             placeholder="Payment Type">
           </div>
+
+          <div class="form-group">
+            <label for="select_recurring">Select Recurring</label>
+            <select name="recurring_type" id="select_recurring" class="form-control">
+              <option value="recurring">Recurring</option>
+              <option value="non-recurring">Non Recurring</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-primary btn-md">Submit</button>
         </div>
       </div>
