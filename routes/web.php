@@ -28,10 +28,20 @@ use GrahamCampbell\ResultType\Success;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
+
 Route::get('/', function () {
-    return view('/admin/dashboard');
+    return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
+// Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
+// Route::get('/', function () {
+//     return view('/admin/dashboard');
+// });
 
 //Finance
 
@@ -242,3 +252,5 @@ Route::get('addSemister',[SectionController::class, 'semister']);
 Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
 
+
+require __DIR__.'/auth.php';
