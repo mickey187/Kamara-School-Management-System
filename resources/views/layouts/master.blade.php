@@ -680,6 +680,7 @@ $(function() {
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
+    
     <script src="{{ asset('dist/js/script.js') }}"></script>
     <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/teacher.js') }}"></script>
