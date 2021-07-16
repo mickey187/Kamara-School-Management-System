@@ -8467,7 +8467,6 @@
         "fakerphp/faker",
         "filp/whoops",
         "hamcrest/hamcrest-php",
-        "laravel/breeze",
         "laravel/sail",
         "mockery/mockery",
         "myclabs/deep-copy",

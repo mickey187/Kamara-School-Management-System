@@ -1,7 +1,6 @@
 <?php
 
 
-
 use App\Http\Controllers\AddJobPositionController;
 use App\Http\Controllers\AddReligionController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +20,7 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\SectionController;
 use GrahamCampbell\ResultType\Success;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,10 +37,8 @@ use GrahamCampbell\ResultType\Success;
 //     return view('/admin/dashboard');
 // });
 
-
-
 Route::get('/', function () {
-    return view('auth.login');
+   return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
@@ -48,7 +46,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
-
 
 Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
 
