@@ -30,7 +30,9 @@
               <button type="submit" class="btn btn-primary btn-md">Submit</button>
             </div>
           </div>
-        </form>                                                  
+        </form>  
+        
+      
     </div>    
   </section>
 </div>

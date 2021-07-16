@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\DB;
 class ClassController extends Controller
 {
 
+    public function __construct()
+{
+    $this->middleware('auth');
+}
+
 
 
 //load the add_class_subject page
@@ -275,6 +280,8 @@ return redirect()->route('/viewClassSubject');
      $class_subject_id = $req->cls_subject;
 
      $class_subject = class_subject::find($class_subject_id);
+    
+        
 
      if ($class_subject->delete()) {
         $class_data = DB::table('class_subjects')

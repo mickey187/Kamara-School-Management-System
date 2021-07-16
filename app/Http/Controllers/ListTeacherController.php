@@ -25,6 +25,13 @@ use Illuminate\Support\Facades\DB;
 class ListTeacherController extends Controller
 {
     //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
      public function listTeacher(){
         $teach_list= DB::table('teachers')
                  ->join('academic_background_infos','teachers.academic_background_id','=','academic_background_infos.id')

@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\DB;
 class SubjectController extends Controller
 {
     //
+    public function __construct()
+{
+    $this->middleware('auth');
+}
+
 
     function index(){
 

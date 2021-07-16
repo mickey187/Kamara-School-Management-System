@@ -12,4 +12,9 @@ class Role extends Model
         'id',
         'role_name'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

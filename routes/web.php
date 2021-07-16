@@ -21,7 +21,6 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\SectionController;
 use GrahamCampbell\ResultType\Success;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,12 +31,24 @@ use GrahamCampbell\ResultType\Success;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
+
+// Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
+// Route::get('/', function () {
+//     return view('/admin/dashboard');
+// });
+
+
+
 Route::get('/', function () {
-    return view('/admin/dashboard');
+    return view('auth.login');
 });
 
-//Finance
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
 
 Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
 
@@ -256,6 +267,7 @@ Route::get('deleteHomeRoom/{hoom_room_id}',[SectionController::class, 'deleteHom
 
 
 //For Testing
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
 Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
 Route::get('addSemister',[SectionController::class, 'semister']);
 Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
