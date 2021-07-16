@@ -17,9 +17,8 @@
                 <thead>
                 <tr>
                   <th>Student ID</th>
-                  <th>First Name</th> 
-                  <th>Middle Name</th>   
-                  <th>Last Name</th>
+                  <th>Full Name</th> 
+                  
                   <th>Action</th>             
                   
                 </tr>
@@ -30,15 +29,14 @@
                     
                 <tr>
                   <td>{{$row->student_id}}</td>
-                  <td>{{$row->first_name}}</td>
-                  <td>{{$row->middle_name}}</td>
-                  <td>{{$row->last_name}}</td>
+                  <td>{{$row->first_name."  ".$row->middle_name."  ".$row->last_name}}</td>
+                  
                    
                   <td>
                     <button class="btn btn-success btn-sm"
                     data-toggle="modal" 
                    data-target="#view_payment_history" 
-                    data-="">
+                    data-payment_history="{{$row->id}}">
                      <i class="fa fa-eye" aria-hidden="true"></i>
                    
                    </button>
@@ -47,7 +45,7 @@
 
                    <button class="btn btn-info btn-sm" data-toggle="modal" 
                    data-target="#make_payment" 
-                    data-payment_data="{{$row->student_id}},{{$row->first_name}},{{$row->middle_name}},{{$row->last_name}}">
+                    data-payment_data="{{$row->student_id}},{{$row->class_id}},{{$row->first_name."  ".$row->middle_name."  ".$row->last_name}},{{$row->id}},{{$row->discount}}">
                     <i class="fa fa-dollar-sign"></i>
                     
                   </button>
@@ -67,7 +65,7 @@
 
             
             <div class="modal fade" id="view_payment_history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">View Payment History </h5>
@@ -76,9 +74,26 @@
                       </button>
                     </div>
                     <div class="modal-body">
+                      <div class="row">
+                        <div class="col-12">
+                          
+                          <table class="table table-bordered table-striped mt-5" id="example3">
+                            <thead>
+                              <tr>
+                                <th>name</th>
+                                <th>payment type</th>            
+                                <th>amount</th>  
+                                <th>payment month</th>
+                                                                                                      
+                              </tr>
+                              </thead>
+                              <tbody id="payment_history">
+     
+                              </tbody>
+                          </table>
+                        </div>
+                      </div>
                       
-                      <p id="stream_id"></p>
-                      <p id="stream_type"></p>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -98,39 +113,50 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
+                    <form action="{{url('/addStudentPayment')}}" method="post">
+                      @csrf
                     <div class="modal-body">
                       <div class="row">
                           <div class="col-6">
 
-                            <p id="student_id"></p>
-                            <p id="student_name"></p>
+                            <h4 id="student_id" class="text-primary"></h4>
+                            <h4 id="student_name" class="text-info"></h4>
                             
 
                             <label for="payment_type">Select Payment Type</label>
                             <div class="form-group">
-                                <select name="select_payment_type" id="payment_type" class="form-select">
-                                  <option value="">m</option>
+                                <select name="select_payment_type" id="payment_type" class="form-control">
+                                  @foreach ($payment_type as $row )
+                                    <option value="{{$row->id}}">{{$row->payment_type}}</option>
+                                  @endforeach
+                                  
                                 </select>
 
                             </div>
 
-                            <label for="amount">Enter Amount</label>
-                            <div class="form-group">
-                                <input type="text" name="payment_amount" id="amount" class="form-control" placeholder="Enter Amount">
+                            <label for="#payment_load">Amount to be Payed for</label>
+                            <div class="form-group" id="payment_load">
+
                             </div>
 
-                            <label for="date">Select Date</label>
+                            <label for="select_month">Select Recurring Month</label>
                             <div class="form-group">
-                                <input type="date" name="payment_date" id="date" class="form-control" >
+                              <input type="month" name="month" id="select_month">
                             </div>
+
+                            
+
+                           
                           </div>
                       </div>
                       
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-primary" id="submit_payment" name="submit" >Submit</button>
+                    
                     </div>
+                  </form>
                   </div>
                 </div>
               </div>

@@ -665,6 +665,7 @@ class ComposerStaticInit09b82281131ae13f303a3dc3b42e93a2
         'App\\Models\\student_background' => __DIR__ . '/../..' . '/app/Models/student_background.php',
         'App\\Models\\student_class_transfer' => __DIR__ . '/../..' . '/app/Models/student_class_transfer.php',
         'App\\Models\\student_conduct' => __DIR__ . '/../..' . '/app/Models/student_conduct.php',
+        'App\\Models\\student_discount' => __DIR__ . '/../..' . '/app/Models/student_discount.php',
         'App\\Models\\student_enrolment' => __DIR__ . '/../..' . '/app/Models/student_enrolment.php',
         'App\\Models\\student_mark_list' => __DIR__ . '/../..' . '/app/Models/student_mark_list.php',
         'App\\Models\\student_medical_info' => __DIR__ . '/../..' . '/app/Models/student_medical_info.php',

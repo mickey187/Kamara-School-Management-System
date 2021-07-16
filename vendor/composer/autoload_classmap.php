@@ -58,6 +58,7 @@ return array(
     'App\\Models\\student_background' => $baseDir . '/app/Models/student_background.php',
     'App\\Models\\student_class_transfer' => $baseDir . '/app/Models/student_class_transfer.php',
     'App\\Models\\student_conduct' => $baseDir . '/app/Models/student_conduct.php',
+    'App\\Models\\student_discount' => $baseDir . '/app/Models/student_discount.php',
     'App\\Models\\student_enrolment' => $baseDir . '/app/Models/student_enrolment.php',
     'App\\Models\\student_mark_list' => $baseDir . '/app/Models/student_mark_list.php',
     'App\\Models\\student_medical_info' => $baseDir . '/app/Models/student_medical_info.php',

@@ -15,6 +15,7 @@
                 <tr>
                   <th>id</th>
                   <th>Payment Type</th> 
+                  <th>Recurring Type</th> 
                   <th>action</th>             
                   
                 </tr>
@@ -26,6 +27,7 @@
                 <tr>
                   <td>{{$row->id}}</td>
                   <td>{{$row->payment_type}}</td>   
+                  <td>{{$row->recurring_type}}</td>  
                   <td>
                     <button class="btn btn-success btn-sm"
                     data-toggle="modal" 
