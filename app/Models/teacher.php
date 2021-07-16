@@ -11,7 +11,7 @@ class teacher extends Model
                             'id',
                             'debut_as_a_teacher',
                             'subject',
-                            'course_load',
+                            // 'course_load',
                             'academic_background',
                             'teacher_trainning'
                         ];

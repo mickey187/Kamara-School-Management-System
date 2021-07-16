@@ -1,6 +1,7 @@
 $("#searchStudentClass").click(function () {
     var class_id = $("#class").val();
     var stream_id = $("#stream").val();
+    //alert(class_id+" = "+ stream_id);
     fetch(class_id, stream_id);
 
 });
@@ -123,6 +124,7 @@ $("#assignTeacherToClsss").click(function () {
 
 $("#singleClassId2").change(function () {
     var class_id = $("#singleClassId2").val();
+    //alert(class_id);
     $.ajax({
         type: 'GET',
         url: 'findSection/'+class_id,

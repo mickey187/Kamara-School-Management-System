@@ -254,3 +254,5 @@ Route::get('addSemister',[SectionController::class, 'semister']);
 Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
 
+
+require __DIR__.'/auth.php';
