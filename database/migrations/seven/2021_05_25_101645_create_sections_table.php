@@ -15,6 +15,7 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
+            
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id')->references('id')->on('classes');
             $table->unsignedBigInteger('student_id');
