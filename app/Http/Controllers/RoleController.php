@@ -33,9 +33,9 @@ class RoleController extends Controller
         $role->role_name = $req->rolename;
         
         if ($role->save()) {
-           // $view_role = Role::all();
-           // return redirect()->route('viewrole')->with('view_role',$view_role);
-            return $role->id;
+           $view_role = Role::all();
+           return redirect()->route('viewrole')->with('view_role',$view_role);
+            //return $role->id;
            
         }
     }

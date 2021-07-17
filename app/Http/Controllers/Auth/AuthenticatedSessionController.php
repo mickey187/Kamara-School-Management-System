@@ -32,7 +32,24 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+     $roles =  Auth::user()->roles;
+     $role_name = null;
+     foreach ($roles as $row) {
+        
+         $role_name = $row->role_name;
+     }
+
+        switch ($role_name) {
+            case 'Finance':
+                return view('layouts.finance_view');
+                break;
+            
+            default:
+            return redirect()->intended(RouteServiceProvider::HOME);
+                break;
+        }
+
+       // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
