@@ -13,6 +13,7 @@ use App\Models\student;
 use App\Models\student_class_transfer;
 use App\Models\student_enrolment;
 use App\Models\student_mark_list;
+use App\Models\teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -343,14 +344,33 @@ class StudentController extends Controller{
         $enrollment->acadamic_year = $student_class_transfer->academic_year;
         $enrollment->save();
     }
+    // public function idGeneratorFun(){
+    //     $fourRandomDigit = rand(1000,9999);
+    //     $student = student::get(['id']);
+    //     foreach($student as $row){
+    //         if($row->id==$fourRandomDigit){
+    //             $this->idGeneratorFun();
+    //         }
+    //     }
+    //     return $fourRandomDigit;
+    // }
+
     public function idGeneratorFun(){
         $fourRandomDigit = rand(1000,9999);
         $student = student::get(['id']);
+        $teacher = teacher::get(['id']);
+
         foreach($student as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
+        foreach($teacher as $row){
+            if($row->id==$fourRandomDigit){
+                $this->idGeneratorFun();
+            }
+        }
+
         return $fourRandomDigit;
     }
 
@@ -376,6 +396,7 @@ class StudentController extends Controller{
 
             $userAccount = new User();
             $userAccount->name = $name.$id;
+            $userAccount->user_id = $id;
             $userAccount->email = $name.$id.'@gmail.com';
             $userAccount->password = Hash::make($name.$id);
             $userAccount->save();

@@ -63,24 +63,6 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <h2 class="text-bold">Kamara School</h2>
-
-               <?php
-
-               $role_name = Auth::user()->roles;
-               //$role = null;
-               foreach ($role_name as $key ) {
-                   # code...
-                   $role_name = $key->role_name;
-               }
-
-               echo $role_name;
-               ?>
-                @if($role_name == 'Student')
-
-                <h1>Hello Student</h1>
-
-            @endif
-
             </ul>
 
 
@@ -187,21 +169,20 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                        with font-awesome or any other icon font library -->
 
 
 
 
 
                         <li class="nav-item">
-                            <a href="{{ url('dashboard') }}" class="nav-link active">
+                            <a href="{{ url('teacherDashboard') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
                                 </p>
                             </a>
                         </li>
-
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -232,8 +213,24 @@
                                 </li>
                             </ul>
                         </li>
-
-
+                        {{-- Teacher --}}
+                        {{-- <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Teacher
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('listTeacher') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Teacher List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> --}}
 
                         <!-- student -->
 
@@ -247,46 +244,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('add_student')  }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Student</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ url('view_student')  }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>List Student</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('student_enrollment')  }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Enrollment</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('sectionForm')  }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sectioning</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    Teacher
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ url('listTeacher') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Teacher List</p>
                                     </a>
                                 </li>
                             </ul>
@@ -309,214 +269,7 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-user-alt"></i>
-                                <p>
-                                    Employee
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/addEmployeeForm" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Employee</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/listEmployee" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Employee List</p>
-                                    </a>
-                                </li>
-                                    <li class="nav-item">
-                                    <a href="/addTeacherForm" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Teacher</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/listTeacher" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Teacher List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/addHomeRoom" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Home Room</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Curriculum
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/addclasslabel" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Class Label</p>
-                                    </a>
-                                </li>
-
-                                    <li class="nav-item">
-                                        <a href="/viewclasslabel" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>View Class Label</p>
-                                        </a>
-                                    </li>
-                                <li class="nav-item">
-                                    <a href="/subject" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Subject</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/viewSubject" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Subjects</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/indexAddClassSubject" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Class Subject</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/viewClassSubject" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Class Subject</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/addStream" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Stream</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/viewStream" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Stream</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('addSemister') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Semister</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('addMarkList') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Mark List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('Assasmentform') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Assasment</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="/indexaddrole" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Role </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="/viewrole" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Role </p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-
-
-
-
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-dollar-sign"></i>
-                                <p>
-                                    Finance
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{url('/indexAddPaymentType')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Payment Type</p>
-                                    </a>
-                                </li>
-
-                                    <li class="nav-item">
-                                        <a href="{{url('/viewPaymentType')}}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>View Payment Type</p>
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                    <a href="{{url('/indexAddPaymentLoad')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Payment Load</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('/viewPaymentLoad')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Payment Load</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('/indexAddStudentDiscount')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Student Discount</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('/viewStudentDiscount')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Student Discount</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('indexAddStudentPayment')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Student Payment</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{url('/viewStudentPayment')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Student Payment</p>
-                                    </a>
-                                </li>
-
-                         </ul>
-                        </li>
-
+                        {{-- End of teacher --}}
                         <hr>
                         <li class="nav-header">MISCELLANEOUS</li>
 
@@ -556,7 +309,7 @@
                     <div class="row">
                         <div class="col-12">
                             @include('sweetalert::alert')
-                            @yield('content')
+                            @yield('content_teacher')
                         </div>
                     </div>
                 </div>

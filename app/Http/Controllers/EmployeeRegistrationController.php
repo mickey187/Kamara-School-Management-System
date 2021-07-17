@@ -16,11 +16,13 @@ use App\Models\classes;
 use App\Models\Role;
 use App\Models\section;
 use App\Models\stream;
+use App\Models\student;
 use App\Models\subject;
 use App\Models\teacher_course_load;
 use App\Models\training_institution_info;
 use App\Models\teacher;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeRegistrationController extends Controller
 {
@@ -210,6 +212,7 @@ public function insertEmployee(){
         $employee->employee_job_position_id  = request('job_position');
         $employee->address_id = $address_fk;
 
+        $employee->employee_id = $this->idGeneratorFun();
         $employee->first_name = request('first_name');
         $employee->middle_name = request('middle_name');
         $employee->last_name = request('last_name');
@@ -226,6 +229,7 @@ public function insertEmployee(){
         $employee->job_trainning =request('job_trainning');
 
         $employee->save();
+        $this->addUserAccount(request('first_name'),$employee->employee_id);
 }
 public function insertAcademicBackgroundInfo(){
         $academic_background = new academic_background_info();
@@ -267,9 +271,38 @@ public function insertAcademicBackgroundInfo(){
         $teacher->teacher_training_info_id = $training_institution_info_fk;
         // $teacher->subject_id = 3;
         // $teacher->course_load_id = 3;
+        // $teacher->teacher_id = $this->idGeneratorFun();
         $teacher->debut_as_a_teacher = request('debut_as_a_teacher');
         $teacher->save();
 
     }
 
+    public function idGeneratorFun(){
+        $fourRandomDigit = rand(1000,9999);
+        $student = student::get(['id']);
+        $employee = employee::get(['id']);
+
+        foreach($student as $row){
+            if($row->id==$fourRandomDigit){
+                $this->idGeneratorFun();
+            }
+        }
+        foreach($employee as $row){
+            if($row->id==$fourRandomDigit){
+                $this->idGeneratorFun();
+            }
+        }
+
+        return $fourRandomDigit;
+    }
+    function addUserAccount($name, $id){
+        $userAccount = new User();
+        $userAccount->name = $name.$id;
+        $userAccount->user_id = $id;
+        $userAccount->email = $name.$id.'@gmail.com';
+        $userAccount->password = Hash::make($name.$id);
+        $userAccount->save();
+        $roleId = 2;
+        $userAccount->roles()->attach($roleId);
+}
 }

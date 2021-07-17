@@ -85,7 +85,7 @@ class SectionController extends Controller
             $semister_ = new semister();
             $semister_->semister = $request->semister;
             $semister_->term = $request->term;
-            $semister_->year = $request->year;
+            $semister_->current_semister = false;
             $semister_->save();
 
         return view('admin.curriculum.add_semister')->with('semister',$semister);
@@ -247,6 +247,19 @@ class SectionController extends Controller
         return response()->json(['datac'=>$home_r, 'status'=>$response]);
         //return response()->json($j);
 
+    }
+    public function setCurrentSemister($id){
+        $semister1 = semister::all();
+        foreach($semister1 as $row){
+            $semister = semister::find($row->id);
+            $semister->current_semister = false;
+            $semister->update();
+        }
+        $semister2 = semister::find($id);
+        $semister2->current_semister = true;
+        $semister2->update();
+        $semister3 = semister::all();
+        return response()->json($semister3);
     }
 }
 

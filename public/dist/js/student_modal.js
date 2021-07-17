@@ -11,4 +11,4 @@ $('#modal-student').on('show.bs.modal', function(event) {
     var img = (split[3].trim());
     modal.find('.modal-body #image').attr('src', (img));
     modal.find('.modal-footer button').val(detail);
-})
+});

@@ -30,8 +30,10 @@ class TeacherController extends Controller
     {
         $this->middleware('auth');
     }
+    public function teacherDashBoard(){
+        return view('teacher.teacher_dashboard');
+    }
 
-    
     public function form()
     {
         $employee = DB::table('employees')
@@ -65,7 +67,7 @@ class TeacherController extends Controller
         $address->phone_number = request('phone1');
         $address->alternative_phone_number = request('phone2');
         $address->house_number = request('house_number');
-        $address->update();    
+        $address->update();
 
         $employee_religion = employee_religion::find($employee->employee_religion_id);
         $employee_religion->religion_name = request('employee_religion');
@@ -99,7 +101,7 @@ class TeacherController extends Controller
         $employee->hire_type =request('hire_type');
         $employee->job_trainning =request('job_trainning');
         $employee->update();
-      
+
         $teacher = teacher::find($employee->id);
         //echo $employee->id ;
         $academic_background = academic_background_info::find($teacher->academic_background_id);
@@ -107,17 +109,17 @@ class TeacherController extends Controller
         $academic_background->place_of_study = request('place_of_study');
         $academic_background->date_of_study = request('date_of_study');
         $academic_background->update();
-            
+
         $training_institution_info = training_institution_info::find($teacher->teacher_training_info_id);
         $training_institution_info->teacher_traning_program = request('teacher_traning_program');
         $training_institution_info->teacher_traning_year = request('teacher_traning_year');
         $training_institution_info->teacher_traning_institute = request('teacher_traning_institute');
         $training_institution_info->update();
-    
+
         $teacher->debut_as_a_teacher = request('debut_as_a_teacher');
         $teacher->update();
-        
-  
+
+
 
         return redirect('listTeacher');
     }
@@ -129,13 +131,13 @@ class TeacherController extends Controller
         //  $academic_background->place_of_study = request('place_of_study');
         //  $academic_background->date_of_study = request('date_of_study');
         //  $academic_background->update();
-        
+
         //  $training_institution_info = training_institution_info::find($teacher->teacher_training_info_id);
         // $training_institution_info->teacher_traning_program = request('teacher_traning_program');
         // $training_institution_info->teacher_traning_year = request('teacher_traning_year');
         // $training_institution_info->teacher_traning_institute = request('teacher_traning_institute');
         // $training_institution_info->update();
-        
+
         //  $teacher->id = request('teacher_name');
         //  $teacher->debut_as_a_teacher = request('debut_as_a_teacher');
         //  $teacher->update();
@@ -146,7 +148,7 @@ class TeacherController extends Controller
          $academic_background->place_of_study = request('place_of_study');
          $academic_background->date_of_study = request('date_of_study');
          $academic_background->save();
-         
+
     }
     public function insertTrainingInstitutionInfo(){
         $training_institution_info = new training_institution_info();
@@ -165,14 +167,14 @@ class TeacherController extends Controller
     public function insertTeacherCourseLoad(){
         $section_fk = section::latest('created_at')->pluck('id')->first();
         $subject_fk = subject::latest('created_at')->pluck('id')->first();
-        
+
     }
     public function insertTeacher(){
         $subject_fk = subject::latest('created_at')->pluck('id')->first();
         $teacher_course_load_fk = teacher_course_load::latest('created_at')->pluck('id')->first();
         $academic_background_fk = academic_background_info::latest('created_at')->pluck('id')->first();
         $training_institution_info_fk = training_institution_info::latest('created_at')->pluck('id')->first();
-     
+
         $teacher = new teacher();
         $teacher->id = request('select_teacher');
         $teacher->academic_backgroud_id = $academic_background_fk;

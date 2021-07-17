@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StreamController;
@@ -133,33 +134,42 @@ Route::post('addStream', [StreamController::class, 'addStream']);
 // Employee Controller
 
 Route::get('/addEmployee',[EmployeeRegistrationController::class, 'store']);
+
 Route::get('/addEmployeeForm',[EmployeeRegistrationController::class, 'form']);
+
 Route::get('/addTeacher',[TeacherController::class, 'store']);
+
 Route::get('/addTeacherForm',[TeacherController::class, 'form']);
+
 Route::get('/addHomeRoom',[HomeRoomController::class, 'openView']);
+
 Route::get('/listEmployee',[ListEmployeeController::class, 'listEmployee']);
+
 Route::get('/listTeacher',[ListTeacherController::class, 'listTeacher']);
+
 Route::get('teacher_classes/{id}',[ListTeacherController::class, 'teacher_classes']);
 
 Route::get('/edit_employee/{id}',[ListEmployeeController::class, 'getEmployee']);
+
 Route::get('/update_employee/{id}',[EmployeeRegistrationController::class, 'update']);
 
 Route::get('/delete_employee/{id}',[ListEmployeeController::class,'removeEmployee']);
+
 Route::get('/trash_employee/{id}',[EmployeeRegistrationController::class,'delete']);
 
 Route::get('/edit_teacher/{id}',[ListTeacherController::class, 'getTeacher']);
+
 Route::get('/update_teacher/{id}',[ListTeacherController::class, 'update']);
+
 Route::get('/delete_teacher/{id}',[ListTeacherController::class,'deleteTeacher']);
+
 Route::get('find_employee',[ListEmployeeController::class, 'findEmployee']);
+
 Route::post('/deletestream', [StreamController::class, 'deleteStream']);
 
 Route::get('/editstream/{id}', [StreamController::class, 'editStream'])->name('/editstream');
 
 Route::post('/editstreamvalue/{id}', [StreamController::class, 'editStreamValue']);
-
-
-
-
 
 
 
@@ -180,7 +190,9 @@ Route::get('editclasslabel/{id}', [ClassController::class, 'editClassLabel'])->n
 
 Route::get('editclasslabelvalue/{id}', [ClassController::class, 'editClassLabelValue']);
 
+// Teacher
 
+Route::get('teacherDashBoard', [TeacherController::class,'teacherDashBoard']);
 
 
 
@@ -200,59 +212,90 @@ Route::post('/deleterole', [RoleController::class, 'deleteRole']);
 
 
 // Student
+
 Route::post('new_student', [StudentController::class, 'insert']);
+
 Route::get('add_student', [StudentController::class, 'index']);
+
 Route::get('view_student',[StudentController::class, 'retriveAll']);
+
 Route::get('edit_student_form/{id}',[StudentController::class, 'retrive']);
+
 Route::post('edit_student_value/{id}',[StudentController::class, 'update']);
+
 Route::get('student_enrollment',[StudentController::class, 'enroll']);
+
 Route::get('find_student',[StudentController::class, 'findStudent']);
+
 Route::get('findStudent/{id}',[StudentController::class, 'getStudent']);
+
 Route::get('register/{id}',[StudentController::class, 'register']);
+
 Route::get('marklist/{id}',[StudentController::class, 'marklist']);
-
-
 
 // parent
 
 Route::get('newParent/{id}',[ParentController::class, 'addMore']);
+
 Route::get('studentParentList/{id}',[ParentController::class, 'retrive']);
+
 Route::get('addNewParent/{id}',[ParentController::class, 'insert']);
+
 Route::get('updateParent/{id}',[ParentController::class, 'editPage']);
+
 Route::get('insertUpdatedParent/{id}',[ParentController::class, 'update']);
+
 Route::get('addNewParent',[ParentController::class, 'retriveAll']);
+
 Route::get('deleteParent',[ParentController::class, 'deleteParent']);
+
 Route::get('view_parents',[ParentController::class, 'retriveAll']);
 
 // admin
 Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 
 //marklist
+
 Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
+
 Route::post('/import',[MarklistController::class, 'import'])->name('import');
+
 Route::get('addAssasment',[MarklistController::class, 'addAssasment']);
+
 Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
 
 //Section
+
 Route::get('sectionForm',[SectionController::class, 'index']);
+
 Route::get('setSection',[SectionController::class, 'setSection']);
+
 Route::get('findSection/{id}',[SectionController::class, 'findSection']);
+
 Route::get('setCourseLoad/{teacher}/{section}/{class}/{subject}',[SectionController::class, 'setCourseLoad']);
+
 Route::get('SetHomeRoom/{teacher}/{section}/{class}',[SectionController::class, 'setHomeRoom']);
 
 Route::get('getCourseLoad/{id}',[SectionController::class, 'getCourseLoad']);
+
 Route::get('deleteCourseLoad/{load_id}',[SectionController::class, 'deleteCourseLoad']);
+
 Route::get('getHomeRoom/{teacher_id}',[SectionController::class, 'getHomeRoom']);
+
 Route::get('deleteHomeRoom/{hoom_room_id}',[SectionController::class, 'deleteHomeRoom']);
 
+Route::get('setCurrentSemister/{id}',[SectionController::class, 'setCurrentSemister']);
 
 
 //For Testing
-Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
-Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
-Route::get('addSemister',[SectionController::class, 'semister']);
-Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
+
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
+
+Route::get('addSemister',[SectionController::class, 'semister']);
+
+Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
 
 require __DIR__.'/auth.php';

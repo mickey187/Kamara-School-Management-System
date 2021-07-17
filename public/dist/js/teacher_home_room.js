@@ -84,8 +84,7 @@ $("#assignTeacherHomeRoom").click(function () {
                     '</tr>'
                });
                $('#homeroom').html(row);
-
-
+               section = '';
         },
         error:function (data) {
             console.log("it is not works fine");
