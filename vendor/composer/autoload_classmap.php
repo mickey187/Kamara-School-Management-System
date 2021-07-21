@@ -76,6 +76,7 @@ return array(
     'App\\Models\\student_medical_info' => $baseDir . '/app/Models/student_medical_info.php',
     'App\\Models\\student_payment' => $baseDir . '/app/Models/student_payment.php',
     'App\\Models\\student_semister_average' => $baseDir . '/app/Models/student_semister_average.php',
+    'App\\Models\\student_transportation' => $baseDir . '/app/Models/student_transportation.php',
     'App\\Models\\students_parent' => $baseDir . '/app/Models/students_parent.php',
     'App\\Models\\subject' => $baseDir . '/app/Models/subject.php',
     'App\\Models\\teacher' => $baseDir . '/app/Models/teacher.php',

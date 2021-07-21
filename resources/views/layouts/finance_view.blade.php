@@ -129,8 +129,8 @@
                             <img src="{{ asset('img/default_picture.png') }}" class="img-circle" alt="User Image">
 
                             <p class="mt-0"> <span class="text-bold">{{ Auth::user()->name }}</span> <br>
-                                grade <br>
-                                <span class="text"> section </span>
+                                
+                                <span class="text"> {{ $role_name }} </span>
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -272,6 +272,13 @@
                                     <a href="{{url('/viewPaymentLoad')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Payment Load</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{url('/indexAddStudentTransportation')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Student Transportation</p>
                                     </a>
                                 </li>
 
@@ -441,6 +448,12 @@ $(function() {
 
       <!-- student discount js -->
       <script src="{{ asset('student_discount.js') }}"></script>
+
+      <!-- student transportation js -->
+      <script src="{{ asset('student_transport.js') }}"></script>
+
+       <!-- student transportation js -->
+       <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.finance_view')
 @section('content')
 
 
@@ -126,6 +126,8 @@
                             <label for="payment_type">Select Payment Type</label>
                             <div class="form-group">
                                 <select name="select_payment_type" id="payment_type" class="form-control">
+                                  <option hidden value="none" >Select Payment Type</option>
+                                  <option value="total">Total Payment</option>
                                   @foreach ($payment_type as $row )
                                     <option value="{{$row->id}}">{{$row->payment_type}}</option>
                                   @endforeach
@@ -152,7 +154,8 @@
                       
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Cancel</button>
+                      <button type="button" class="btn btn-success" id="pay_total" >Pay Total</button>
                       <button type="submit" class="btn btn-primary" id="submit_payment" name="submit" >Submit</button>
                     
                     </div>

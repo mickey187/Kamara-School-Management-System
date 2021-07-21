@@ -43,8 +43,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
 
+
+
+//Finance Route Group
+Route::middleware(['auth','role:Admin,Finance,null'])->group(function () {
 
 Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
 
@@ -60,9 +64,19 @@ Route::get('/viewPaymentLoad',[FinanceController::class, 'viewPaymentLoad']);
 
 Route::get('/fetchload/{class_id}/{pay_type}/{stud_id}',[FinanceController::class, 'fetchLoad']);
 
+Route::get('/fetchTotalPaymentLoad/{class_id}/{stud_id}',[FinanceController::class, 'fetchTotalPaymentLoad']);
+
 Route::get('/fetchpaymenthistory/{stud_id}',[FinanceController::class, 'fetchPaymentHistory']);
 
+Route::get('/makeTotalPayment/{stud_id}/{month}',[FinanceController::class, 'makeTotalPayment']);
 
+
+
+Route::get('/indexAddStudentTransportation',[FinanceController::class, 'indexAddStudentTransportation']);
+
+Route::get('/fetchstudentTransportLoad/{stud_id}',[FinanceController::class, 'fetchstudentTransportLoad']);
+
+Route::get('/registerForTransport/{student_table_id}/{payment_load_id}',[FinanceController::class, 'registerForTransport']);
 
 
 
@@ -82,6 +96,7 @@ Route::get('fetchstudent/{stud_id}',[FinanceController::class, 'fetchStudent']);
 
 Route::get('/viewStudentDiscount',[FinanceController::class, 'viewStudentDiscount']);
 
+});
 
 
 //subject
