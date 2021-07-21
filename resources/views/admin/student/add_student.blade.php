@@ -48,6 +48,15 @@
 
                     <div class="row col-4">
                         <div class="col-12 ">
+                            <div hidden>
+                                <select name="role" class="form-control select2bs4">
+                                    @foreach ($role as $row)
+                                    <option @if ($row->role_name === 'Student')
+                                        selected
+                                    @endif value="{{ $row->id }}">{{ $row->role_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="field col-12 ">
                                 <div class="label">First name</div>
                                 <input type="text" id="studentFirstName" name="firstName" class="form-control" placeholder="First name" required data-parsley-pattern="[a-zA-Z ]+$" data-parsley-trigger="keyup">

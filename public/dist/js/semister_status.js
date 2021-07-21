@@ -9,7 +9,7 @@ getSemister.addEventListener('change',function(){
             // alert(data + "from server");
             row = '';
             count = 1;
-             console.log(data);
+            console.log(data);
             data.forEach(d => {
                 if(d.current_semister==true){
                     row+= '<tr class="bg-secondary "><td>'+count+' </td>'+' <td>'+d.semister+

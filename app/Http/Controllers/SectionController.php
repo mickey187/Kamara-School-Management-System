@@ -8,6 +8,7 @@ use App\Models\section;
 use App\Models\semister;
 use App\Models\stream;
 use App\Models\student;
+use App\Models\student_mark_list;
 use App\Models\teacher;
 use App\Models\teacher_course_load;
 use Illuminate\Http\Request;
@@ -194,6 +195,7 @@ class SectionController extends Controller
     }
 
     public function getHomeRoom($teacher_id){
+        $student_subject = array();
         $hoom_room = home_room::where('employee_id',$teacher_id)->get();
         $teacher_home_room = DB::table('home_rooms')
         ->join('classes','home_rooms.class_id','classes.id')
@@ -201,6 +203,25 @@ class SectionController extends Controller
         ->get(['class_label','section','home_rooms.id as id']);
         return response()->json($teacher_home_room);
     }
+
+
+    public function getHomeRoomStudent($teacher_id,$section,$class_name){
+        $sec = DB::table('sections')
+                ->join('classes','sections.class_id','=','classes.id')
+                ->join('students','sections.student_id','=','students.id')
+                ->where('section_name',$section)
+                ->get();
+        $mark = DB::table('student_mark_lists')
+                ->join('students','student_mark_lists.student_id','=','students.id')
+                ->join('classes','student_mark_lists.class_id','=','classes.id')
+                ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
+                ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
+                ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                ->get();
+        $semister = semister::all();
+        return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
+    }
+
 
     public function deleteHomeRoom($hoom_room_id){
         $id = 0;

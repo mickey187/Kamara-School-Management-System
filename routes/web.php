@@ -190,11 +190,15 @@ Route::get('editclasslabel/{id}', [ClassController::class, 'editClassLabel'])->n
 
 Route::get('editclasslabelvalue/{id}', [ClassController::class, 'editClassLabelValue']);
 
-// Teacher
+// Teacher Dashboard
 
 Route::get('teacherDashBoard', [TeacherController::class,'teacherDashBoard']);
 
+Route::get('my_student/teacherDashBoard', [TeacherController::class,'teacherDashBoard']);
 
+Route::get('my_student/{id}', [TeacherController::class,'myStudent']);
+
+Route::get('my_student/getClassSection/{class_Label}/{section}', [TeacherController::class,'getClassAndSection']);
 
 //Role
 
@@ -233,6 +237,8 @@ Route::get('register/{id}',[StudentController::class, 'register']);
 
 Route::get('marklist/{id}',[StudentController::class, 'marklist']);
 
+Route::get('my_student/marklist/{id}',[StudentController::class, 'teacherMarklist']);
+
 // parent
 
 Route::get('newParent/{id}',[ParentController::class, 'addMore']);
@@ -267,6 +273,8 @@ Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
 //Section
 
 Route::get('sectionForm',[SectionController::class, 'index']);
+
+Route::get('getHomeRoomStudent/{teacher_id}/{section}/{class_name}',[SectionController::class, 'getHomeRoomStudent']);
 
 Route::get('setSection',[SectionController::class, 'setSection']);
 

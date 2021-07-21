@@ -229,7 +229,7 @@ public function insertEmployee(){
         $employee->job_trainning =request('job_trainning');
 
         $employee->save();
-        $this->addUserAccount(request('first_name'),$employee->employee_id);
+        $this->addUserAccount(request('first_name'),$employee->employee_id,$employee->role_id);
 }
 public function insertAcademicBackgroundInfo(){
         $academic_background = new academic_background_info();
@@ -295,14 +295,14 @@ public function insertAcademicBackgroundInfo(){
 
         return $fourRandomDigit;
     }
-    function addUserAccount($name, $id){
+    function addUserAccount($name, $id,$role_id2){
         $userAccount = new User();
         $userAccount->name = $name.$id;
         $userAccount->user_id = $id;
         $userAccount->email = $name.$id.'@gmail.com';
         $userAccount->password = Hash::make($name.$id);
         $userAccount->save();
-        $roleId = 2;
+        $roleId = $role_id2;
         $userAccount->roles()->attach($roleId);
 }
 }

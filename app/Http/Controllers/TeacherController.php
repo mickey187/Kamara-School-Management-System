@@ -16,11 +16,13 @@ use App\Models\attendance;
 use App\Models\classes;
 use App\Models\section;
 use App\Models\stream;
+use App\Models\student;
 use App\Models\subject;
 use App\Models\teacher_course_load;
 use App\Models\training_institution_info;
 use App\Models\teacher;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -31,7 +33,11 @@ class TeacherController extends Controller
         $this->middleware('auth');
     }
     public function teacherDashBoard(){
-        return view('teacher.teacher_dashboard');
+        $user_id =  Auth::id();
+        $user = User::find($user_id);
+        $employee = employee::where('employee_id',$user->user_id)->first();
+      // return $teacher;
+          return view('teacher.teacher_dashboard')->with('employee',$employee);
     }
 
     public function form()
@@ -185,4 +191,33 @@ class TeacherController extends Controller
         $teacher->save();
 
     }
+
+    public function myStudent($id){
+        $course_load = teacher_course_load::where('teacher_id',$id)->get();
+        $array = array();
+        foreach($course_load as $row){
+            $student = DB::table('sections')
+            ->join('students','sections.student_id','=','students.id')
+            ->join('classes','students.class_id','=','classes.id')
+            ->join('streams','students.stream_id','=','streams.id')
+            ->where('students.class_id',$row->class_id)
+            ->where('section_name',$row->section)->get();
+             $array += array($row->section=> $student);
+        }
+        $user_id =  Auth::id();
+        $user = User::find($user_id);
+        $employee = employee::where('employee_id',$user->user_id)->first();
+         return view('teacher.view_student')->with('courses',$array)->with('employee',$employee);
+    }
+    function getClassAndSection($class_Label, $section){
+        $section = DB::table('sections')
+                    ->join('classes','sections.class_id','=','classes.id')
+                    ->join('students','sections.student_id','=','students.id')
+                    ->where('class_label',$class_Label)
+                    ->where('section_name',$section)
+                    ->get(['students.id as id','students.first_name','students.middle_name','students.last_name','students.student_id','students.gender']);
+        return response()->json($section);
+    }
+
+    
 }

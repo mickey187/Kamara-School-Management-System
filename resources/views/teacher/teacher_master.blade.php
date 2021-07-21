@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
     <link rel="stylesheet" href="{{ asset('main.css') }}">
+
     <link rel="stylesheet" href="{{ asset('addclass.css') }}">
 
     <!-- DataTables -->
@@ -45,7 +46,11 @@
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
 </head>
-
+        {{-- <?php
+            // $user_id =  Auth::id();
+            // $user = User::find($user_id);
+            // $employee = employee::where('employee_id',$user->user_id)->first();
+        ?> --}}
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
@@ -85,7 +90,6 @@
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         sender name
-
                                     </h3>
                                     <p class="text-sm">massage hint </p>
                                     <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
@@ -171,12 +175,8 @@
                         <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
 
-
-
-
-
                         <li class="nav-item">
-                            <a href="{{ url('teacherDashboard') }}" class="nav-link active">
+                            <a href="{{ url('teacherDashBoard') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -186,6 +186,7 @@
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
+                                
                                 <i class="nav-icon far fa-envelope"></i>
                                 <p>
                                     Mailbox
@@ -213,40 +214,20 @@
                                 </li>
                             </ul>
                         </li>
-                        {{-- Teacher --}}
-                        {{-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    Teacher
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ url('listTeacher') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Teacher List</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> --}}
-
-                        <!-- student -->
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="nav-icon fas fa-chalkboard-teacher""></i>
                                 <p>
-                                    Student
+                                   My Class
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('view_student')  }}" class="nav-link">
+                                    <a href="{{ url('my_student/'.$employee->id )  }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>List Student</p>
+                                        <p>List Class</p>
                                     </a>
                                 </li>
                             </ul>
@@ -262,7 +243,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('view_parents') }}" class="nav-link">
+                                    <a href="{{ url('') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Parent List</p>
                                     </a>
@@ -437,6 +418,8 @@ $(function() {
     <script src="{{ asset('dist/css/checkbox.css') }}"></script>
     <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
     <script src="{{ asset('dist/js/semister_status.js') }}"></script>
+    <script src="{{ asset('dist/js/view_teacher_modal.js') }}"></script>
+    <script src="{{ asset('dist/js/view_teacher_dashboard.js') }}"></script>
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
