@@ -79,12 +79,13 @@
                 
                 <h1>Hello Student</h1>
                 
+                
             @endif
 
             </ul>
 
             
-            <h1>The Wolf of Wall Street</h1>
+            
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -193,8 +194,15 @@
 
 
 
-                        <li class="nav-item">
-                            <a href="{{ url('dashboard') }}" class="nav-link active">
+                        <li class="nav-item"> 
+                            
+                                
+                            
+                            <a href="{{ url('finance/financeDashboard') }}" class="nav-link 
+                            @if (Request::segment(2)== 'financeDashboard')
+                            active
+                            @endif">
+                                
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -239,8 +247,13 @@
 
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-dollar-sign"></i>
+                            
+                                
+                           
+                            
+                            <a href="#" class="nav-link @if (Request::segment(1)== 'finance') active @endif" id="nav_finance">
+                               
+                                <i class="nav-icon fas fa-dollar-sign"></i>
                                 <p>
                                     Finance
                                     <i class="fas fa-angle-left right"></i>
@@ -248,62 +261,62 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{url('/indexAddPaymentType')}}" class="nav-link">
+                                    <a href="{{url('finance/indexAddPaymentType')}}" class="nav-link @if (Request::segment(2)== 'indexAddPaymentType') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Payment Type</p>
                                     </a>
                                 </li>
 
                                     <li class="nav-item">
-                                        <a href="{{url('/viewPaymentType')}}" class="nav-link">
+                                        <a href="{{url('finance/viewPaymentType')}}" class="nav-link @if (Request::segment(2)== 'viewPaymentType') active  @endif">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>View Payment Type</p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                    <a href="{{url('/indexAddPaymentLoad')}}" class="nav-link">
+                                    <a href="{{url('finance/indexAddPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'indexAddPaymentLoad') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Payment Load</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{url('/viewPaymentLoad')}}" class="nav-link">
+                                    <a href="{{url('finance/viewPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'viewPaymentLoad') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Payment Load</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{url('/indexAddStudentTransportation')}}" class="nav-link">
+                                    <a href="{{url('finance/indexAddStudentTransportation')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentTransportation') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Student Transportation</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{url('/indexAddStudentDiscount')}}" class="nav-link">
+                                    <a href="{{url('finance/indexAddStudentDiscount')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentDiscount') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Student Discount</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{url('/viewStudentDiscount')}}" class="nav-link">
+                                    <a href="{{url('finance/viewStudentDiscount')}}" class="nav-link @if (Request::segment(2)== 'viewStudentDiscount') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Student Discount</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{url('indexAddStudentPayment')}}" class="nav-link">
+                                    <a href="{{url('finance/indexAddStudentPayment')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentPayment') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Student Payment</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{url('/viewStudentPayment')}}" class="nav-link">
+                                    <a href="{{url('finance/viewStudentPayment')}}" class="nav-link @if (Request::segment(2)== 'viewStudentPayment') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Student Payment</p>
                                     </a>
@@ -455,6 +468,9 @@ $(function() {
        <!-- student transportation js -->
        <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
+        <!-- finance_master -->
+        <script src="{{ asset('finance_master.js') }}"></script>
+
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
@@ -532,6 +548,8 @@ $(function() {
 
 
     </script>
+
+    
 
 
 

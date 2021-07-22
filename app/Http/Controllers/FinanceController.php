@@ -11,18 +11,27 @@ use App\Models\student_payment;
 use App\Models\student_discount;
 use App\Models\student_transportation;
 use DB;
-
+use Carbon\Carbon;
 
 class FinanceController extends Controller
 {
 
-//     public function __construct()
-// {
-//     $this->middleware('auth');
-// }
+    public function __construct()
+{
+    $this->middleware('auth');
+}
 
+    //Finance Dashboard function
+    public function financeDashboard(){
+        $total_value = 0;  
+        $total_payment_collected = student_payment::where('payment_month',"20".Carbon::now()->format('y-m'))->get(['amount_payed']);
+        //return $total_payment_collected;
+        foreach ($total_payment_collected as $total) {
+            $total_value = $total_value + $total->amount_payed;
+        }
+        return view('finance.finance_dashboard')->with('total_value',number_format($total_value));
+    }
     //indexAddPaymentType function
-
     public function indexAddPaymentType(){
         return view('finance.add_payment_type');
     }

@@ -48,7 +48,9 @@ Route::get('/dashboard', function () {
 
 
 //Finance Route Group
-Route::middleware(['auth','role:Admin,Finance,null'])->group(function () {
+Route::middleware(['role:null,Finance,null'])->prefix('finance')->group(function () {
+
+Route::get('/financeDashboard',[FinanceController::class, 'financeDashboard']);
 
 Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
 

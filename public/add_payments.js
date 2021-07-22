@@ -3,6 +3,9 @@ var send_pay_total_detail = [];
 var student_id_for_total_payment = null;
 // the below code launches make payment modal
 $('#make_payment').on('show.bs.modal', function (event) {
+  
+  
+
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var recipient = button.data('payment_data') // Extract info from data-* attributes

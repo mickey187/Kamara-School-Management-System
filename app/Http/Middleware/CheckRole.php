@@ -49,7 +49,7 @@ class CheckRole
         return $next($request);
      }
 
-     return response("You have come to a forbidden place",401);
+     return response()->view('errors.401',[],401);
     // return redirect()->intended(RouteServiceProvider::HOME);
         //return $next($request);
     }
