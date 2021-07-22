@@ -29,8 +29,9 @@ class CreateEmployeesTable extends Migration
             $table->unsignedBigInteger('address_id');
             $table->foreign('address_id')->references('id')->on('addresses')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string ('first_name') ->nullable(false);
-            $table->string ('middle_name') ->nullable(false);
+            $table->integer('employee_id') ->unique()->nullable(false);
+            $table->string('first_name') ->nullable(false);
+            $table->string('middle_name') ->nullable(false);
             $table->string('last_name') ->nullable(false);
             $table->string('gender') ->nullable(false);
             $table->string('birth_date') ->nullable(false);
@@ -44,8 +45,7 @@ class CreateEmployeesTable extends Migration
             $table->string('nationality')  ->nullable(false);
             $table->string('hire_type')  ->nullable(false);
             $table->timestamps();
-
-
+            
         });
     }
 

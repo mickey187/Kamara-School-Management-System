@@ -20,6 +20,7 @@ class student_mark_list extends Model
                             'student_id',
                             'mark',
                             'test_load',
+                            'semister_id',
                             'academic_year'
                         ];
 }

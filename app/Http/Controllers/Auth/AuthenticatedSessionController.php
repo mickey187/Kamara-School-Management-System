@@ -35,17 +35,25 @@ class AuthenticatedSessionController extends Controller
      $roles =  Auth::user()->roles;
      $role_name = null;
      foreach ($roles as $row) {
-        
+
          $role_name = $row->role_name;
      }
+
+
 
         switch ($role_name) {
             case 'Finance':
                 return view('layouts.finance_view');
                 break;
-            
+            case 'Teacher':
+                return redirect('teacherDashBoard');
+                break;
+            case 'Student':
+                return "This is Student";
+                break;
             default:
-            return redirect()->intended(RouteServiceProvider::HOME);
+                return 'Default';
+           // return redirect()->intended(RouteServiceProvider::HOME);
                 break;
         }
 

@@ -8,6 +8,7 @@ use App\Models\section;
 use App\Models\semister;
 use App\Models\stream;
 use App\Models\student;
+use App\Models\student_mark_list;
 use App\Models\teacher;
 use App\Models\teacher_course_load;
 use Illuminate\Http\Request;
@@ -85,7 +86,7 @@ class SectionController extends Controller
             $semister_ = new semister();
             $semister_->semister = $request->semister;
             $semister_->term = $request->term;
-            $semister_->year = $request->year;
+            $semister_->current_semister = false;
             $semister_->save();
 
         return view('admin.curriculum.add_semister')->with('semister',$semister);
@@ -194,12 +195,64 @@ class SectionController extends Controller
     }
 
     public function getHomeRoom($teacher_id){
+        $student_subject = array();
         $hoom_room = home_room::where('employee_id',$teacher_id)->get();
         $teacher_home_room = DB::table('home_rooms')
         ->join('classes','home_rooms.class_id','classes.id')
         ->where('employee_id',$teacher_id)
         ->get(['class_label','section','home_rooms.id as id']);
         return response()->json($teacher_home_room);
+    }
+
+
+    public function getHomeRoomStudent($teacher_id,$section,$class_name){
+        $sec = DB::table('sections')
+                ->join('classes','sections.class_id','=','classes.id')
+                ->join('students','sections.student_id','=','students.id')
+                ->where('section_name',$section)
+                ->where('class_label',$class_name)
+                ->get();
+        $mark = DB::table('student_mark_lists')
+                ->join('students','student_mark_lists.student_id','=','students.id')
+                ->join('classes','student_mark_lists.class_id','=','classes.id')
+                ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
+                ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
+                ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                ->get();
+        $semister = semister::all();
+        return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
+    }
+
+    public function getCourseLoadStudent($teacher_id,$section,$class_id,$course_load_id){
+        $subject = '';
+        $course_load = DB::table('teacher_course_loads')
+                        ->join('subjects','teacher_course_loads.subject_id','=','subjects.id')
+                        ->where('teacher_id',$teacher_id)
+                        ->where('section',$section)
+                        ->where('class_id',$class_id)
+                        ->get('subject_name');
+        foreach($course_load as $row){
+            $subject = $row->subject_name;
+        }
+      //  error_log($course_load_id->subject_name);
+        $sec = DB::table('sections')
+                ->join('classes','sections.class_id','=','classes.id')
+                ->join('students','sections.student_id','=','students.id')
+                ->where('section_name',$section)
+                ->where('classes.id',$class_id)
+                ->get();
+        $mark = DB::table('student_mark_lists')
+                ->join('students','student_mark_lists.student_id','=','students.id')
+                ->join('classes','student_mark_lists.class_id','=','classes.id')
+                ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
+                ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
+                ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                ->where('classes.id',$class_id)
+                ->where('subject_name',$subject)
+                ->get();
+                $semister = semister::all();
+        return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
+       //return response()->json([$course_load]);
     }
 
     public function deleteHomeRoom($hoom_room_id){
@@ -247,6 +300,19 @@ class SectionController extends Controller
         return response()->json(['datac'=>$home_r, 'status'=>$response]);
         //return response()->json($j);
 
+    }
+    public function setCurrentSemister($id){
+        $semister1 = semister::all();
+        foreach($semister1 as $row){
+            $semister = semister::find($row->id);
+            $semister->current_semister = false;
+            $semister->update();
+        }
+        $semister2 = semister::find($id);
+        $semister2->current_semister = true;
+        $semister2->update();
+        $semister3 = semister::all();
+        return response()->json($semister3);
     }
 }
 

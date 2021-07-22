@@ -7,6 +7,7 @@ use App\Imports\MarklistImport;
 use App\Imports\StudentImport;
 use App\Models\assasment_type;
 use App\Models\classes;
+use App\Models\semister;
 use App\Models\subject;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -20,29 +21,26 @@ class MarklistController extends Controller
         $this->middleware('auth');
     }
 
-    
+
     public function addMarkListForm(){
         $ass = assasment_type::all();
         $classes = classes::all();
         $sub = subject::all();
-        return view('admin.curriculum.add_marklist')->with('assasment',$ass)->with('classes',$classes)->with('subject',$sub);
+        $semister = semister::all();
+        return view('admin.curriculum.add_marklist')
+        ->with('assasment',$ass)
+        ->with('classes',$classes)
+        ->with('subject',$sub)
+        ->with('semister',$semister);
     }
 
     public function import(Request $request){
-        //Excel::store(new MarklistImport,$request->Excel);
-        //$request->file('Excel')->storeAs('public',$request->Excel);
-        // Excel::import(new MarklistImport,$request->Excel);
         Excel::import(new MarklistImport, $request->Excel);
-       // Storage::move($request->Excel, storage_path());
-
          return "data inserted";
     }
 
     public function sample_student(Request $request){
-
         Excel::import(new StudentImport, $request->excel);
-       // Storage::move($request->Excel, storage_path());
-
          return "Student inserted";
     }
 

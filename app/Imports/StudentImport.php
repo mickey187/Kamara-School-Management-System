@@ -2,7 +2,9 @@
 
 namespace App\Imports;
 
+use App\Models\employee;
 use App\Models\student;
+use App\Models\teacher;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -33,22 +35,28 @@ class StudentImport implements ToModel,WithHeadingRow
     }
 
 
-
     public function idGeneratorFun(){
         $fourRandomDigit = rand(1000,9999);
         $student = student::get(['id']);
+        $employee = employee::get(['id']);
+
         foreach($student as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
+        }foreach($employee as $row){
+            if($row->id==$fourRandomDigit){
+                $this->idGeneratorFun();
+            }
         }
+
         return $fourRandomDigit;
     }
 
     function addUserAccount($name, $id){
-
         $userAccount = new User();
         $userAccount->name = $name.$id;
+        $userAccount->user_id = $id;
         $userAccount->email = $name.$id.'@gmail.com';
         $userAccount->password = Hash::make($name.$id);
         $userAccount->save();

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class semister extends Model
 {
-    protected $fillable = ['id','semister','term'];
+    protected $fillable = ['id','semister','term','current_semister'];
 }

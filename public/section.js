@@ -135,7 +135,6 @@ $("#singleClassId2").change(function () {
             var size = '';
             var count = 0;
             data.forEach(d => {
-                //console.log(d);
                 rows += '<label class="PillList-item">'+
                         '<input id="selectedSection" type="checkbox" name="feature" value="'+d+'">'+
                         '<span class="PillList-label" > Section '+d+

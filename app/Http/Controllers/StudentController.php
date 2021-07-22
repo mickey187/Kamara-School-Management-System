@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\address;
 use App\Models\classes;
+use App\Models\employee;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\section;
+use App\Models\semister;
 use App\Models\stream;
 use App\Models\student_background;
 use App\Models\student_medical_info;
@@ -13,7 +16,9 @@ use App\Models\student;
 use App\Models\student_class_transfer;
 use App\Models\student_enrolment;
 use App\Models\student_mark_list;
+use App\Models\teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,7 +32,8 @@ class StudentController extends Controller{
     public function index(){
         $all_class = classes::all();
         $all_stream = stream::all();
-         return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream);
+        $all_role = Role::all();
+         return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
 
     }
 
@@ -41,7 +47,8 @@ class StudentController extends Controller{
             'gender' => $req->gender,
             'image' => $req->image,
             'class' => $req->grade,
-            'stream' => $req->stream
+            'stream' => $req->stream,
+            'role' => $req->role
         );
         echo request('class');
         $student_class_transfer = array(
@@ -94,7 +101,8 @@ class StudentController extends Controller{
             $this->insertStudentClassTransfer($student_class_transfer);
             $all_class = classes::all();
             $all_stream = stream::all();
-            return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream);
+            $all_role = Role::all();
+            return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
 
         }else{
 
@@ -106,7 +114,8 @@ class StudentController extends Controller{
             $this->insertParent($parent);
             $all_class = classes::all();
             $all_stream = stream::all();
-            return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream);
+            $all_role = Role::all();
+            return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
         }
 
     }
@@ -317,7 +326,7 @@ class StudentController extends Controller{
         $student->stream_id = $data['stream'];
         $student->student_id = $this->idGeneratorFun();
         $student->save();
-        $this->addUserAccount($data['first_name'],$student->student_id);
+        $this->addUserAccount($data['first_name'],$student->student_id,$data['role']);
     }
 
     public function insertStudentClassTransfer($data){
@@ -343,14 +352,33 @@ class StudentController extends Controller{
         $enrollment->acadamic_year = $student_class_transfer->academic_year;
         $enrollment->save();
     }
+    // public function idGeneratorFun(){
+    //     $fourRandomDigit = rand(1000,9999);
+    //     $student = student::get(['id']);
+    //     foreach($student as $row){
+    //         if($row->id==$fourRandomDigit){
+    //             $this->idGeneratorFun();
+    //         }
+    //     }
+    //     return $fourRandomDigit;
+    // }
+
     public function idGeneratorFun(){
         $fourRandomDigit = rand(1000,9999);
         $student = student::get(['id']);
+        $teacher = teacher::get(['id']);
+
         foreach($student as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
+        foreach($teacher as $row){
+            if($row->id==$fourRandomDigit){
+                $this->idGeneratorFun();
+            }
+        }
+
         return $fourRandomDigit;
     }
 
@@ -372,15 +400,50 @@ class StudentController extends Controller{
          return view('admin.student.marklist')->with('mark', $mark)->with('student',$student);
     }
 
-    function addUserAccount($name, $id){
+    function teacherMarklist($id){
+        $count_term = 0;
+        $term = '';
+        $semister = 0;
+        $allTerm = array();
+        $mark =  DB::table('student_mark_lists')
+        ->join('students','students.id','=','student_mark_lists.student_id')
+        ->join('assasment_types','assasment_types.id','=','student_mark_lists.assasment_type_id')
+        ->join('subjects','subjects.id','=','student_mark_lists.subject_id')
+        ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
+        ->where('student_mark_lists.student_id',$id)->get();
+        $student = student::where('id',$id)->first();
+        $user_id =  Auth::id();
+        $user = User::find($user_id);
+        $employee = employee::where('employee_id',$user->user_id)->first();
+        foreach($mark as $row){
+            if($term == '' && $semister == 0 ){
+                $term = $row->term;
+                $semister = $row->semister;
+                $count_term = $count_term + 1;
+                array_push($allTerm,'Semister '.$semister.' '. $term);
+            }else if($term == $row->term && $semister == $row->semister){
+                continue;
+            }else{
+                $term = $row->term;
+                $semister = $row->semister;
+                $count_term = $count_term + 1;
+                array_push($allTerm,'Semister '.$semister.' '. $term);
+            }
 
-            $userAccount = new User();
-            $userAccount->name = $name.$id;
-            $userAccount->email = $name.$id.'@gmail.com';
-            $userAccount->password = Hash::make($name.$id);
-            $userAccount->save();
-            $roleId = 2;
-            $userAccount->roles()->attach($roleId);
+        }
+       // return $allTerm;
+        return view('teacher.marklist')->with('mark', $mark)->with('student',$student)->with('employee',$employee)->with('total_term',$allTerm);
     }
+
+    function addUserAccount($name, $id,$role_id2){
+        $userAccount = new User();
+        $userAccount->name = $name.$id;
+        $userAccount->user_id = $id;
+        $userAccount->email = $name.$id.'@gmail.com';
+        $userAccount->password = Hash::make($name.$id);
+        $userAccount->save();
+        $roleId = $role_id2;
+        $userAccount->roles()->attach($roleId);
+}
 }
 
