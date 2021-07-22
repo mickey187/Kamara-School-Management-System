@@ -210,6 +210,7 @@ class SectionController extends Controller
                 ->join('classes','sections.class_id','=','classes.id')
                 ->join('students','sections.student_id','=','students.id')
                 ->where('section_name',$section)
+                ->where('class_label',$class_name)
                 ->get();
         $mark = DB::table('student_mark_lists')
                 ->join('students','student_mark_lists.student_id','=','students.id')
@@ -222,6 +223,37 @@ class SectionController extends Controller
         return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
     }
 
+    public function getCourseLoadStudent($teacher_id,$section,$class_id,$course_load_id){
+        $subject = '';
+        $course_load = DB::table('teacher_course_loads')
+                        ->join('subjects','teacher_course_loads.subject_id','=','subjects.id')
+                        ->where('teacher_id',$teacher_id)
+                        ->where('section',$section)
+                        ->where('class_id',$class_id)
+                        ->get('subject_name');
+        foreach($course_load as $row){
+            $subject = $row->subject_name;
+        }
+      //  error_log($course_load_id->subject_name);
+        $sec = DB::table('sections')
+                ->join('classes','sections.class_id','=','classes.id')
+                ->join('students','sections.student_id','=','students.id')
+                ->where('section_name',$section)
+                ->where('classes.id',$class_id)
+                ->get();
+        $mark = DB::table('student_mark_lists')
+                ->join('students','student_mark_lists.student_id','=','students.id')
+                ->join('classes','student_mark_lists.class_id','=','classes.id')
+                ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
+                ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
+                ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                ->where('classes.id',$class_id)
+                ->where('subject_name',$subject)
+                ->get();
+                $semister = semister::all();
+        return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
+       //return response()->json([$course_load]);
+    }
 
     public function deleteHomeRoom($hoom_room_id){
         $id = 0;

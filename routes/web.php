@@ -276,6 +276,8 @@ Route::get('sectionForm',[SectionController::class, 'index']);
 
 Route::get('getHomeRoomStudent/{teacher_id}/{section}/{class_name}',[SectionController::class, 'getHomeRoomStudent']);
 
+Route::get('getCourseLoadStudent/{teacher_id}/{section}/{class_id}/{course_load_id}',[SectionController::class, 'getCourseLoadStudent']);
+
 Route::get('setSection',[SectionController::class, 'setSection']);
 
 Route::get('findSection/{id}',[SectionController::class, 'findSection']);

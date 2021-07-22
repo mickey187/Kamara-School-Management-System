@@ -186,7 +186,7 @@
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                
+
                                 <i class="nav-icon far fa-envelope"></i>
                                 <p>
                                     Mailbox
@@ -217,7 +217,7 @@
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chalkboard-teacher""></i>
+                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
                                 <p>
                                    My Class
                                     <i class="fas fa-angle-left right"></i>
@@ -419,7 +419,8 @@ $(function() {
     <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
     <script src="{{ asset('dist/js/semister_status.js') }}"></script>
     <script src="{{ asset('dist/js/view_teacher_modal.js') }}"></script>
-    <script src="{{ asset('dist/js/view_teacher_dashboard.js') }}"></script>
+    <script src="{{ asset('dist/js/view_teacher_home_room.js') }}"></script>
+    <script src="{{ asset('dist/js/view_teacher_course_load.js') }}"></script>
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}

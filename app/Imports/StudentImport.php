@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\employee;
 use App\Models\student;
 use App\Models\teacher;
 use App\Models\User;
@@ -34,27 +35,16 @@ class StudentImport implements ToModel,WithHeadingRow
     }
 
 
-
-    // public function idGeneratorFun(){
-    //     $fourRandomDigit = rand(1000,9999);
-    //     $student = student::get(['id']);
-    //     foreach($student as $row){
-    //         if($row->id==$fourRandomDigit){
-    //             $this->idGeneratorFun();
-    //         }
-    //     }
-    //     return $fourRandomDigit;
-    // }
     public function idGeneratorFun(){
         $fourRandomDigit = rand(1000,9999);
         $student = student::get(['id']);
-        $teacher = teacher::get(['id']);
+        $employee = employee::get(['id']);
 
         foreach($student as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
-        }foreach($teacher as $row){
+        }foreach($employee as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
@@ -64,7 +54,6 @@ class StudentImport implements ToModel,WithHeadingRow
     }
 
     function addUserAccount($name, $id){
-
         $userAccount = new User();
         $userAccount->name = $name.$id;
         $userAccount->user_id = $id;
