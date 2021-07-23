@@ -11,6 +11,7 @@ $('#modal-dashboard').on('show.bs.modal', function(event) {
         $('#title').html(data[0]);
     }else if(data[0] == "Profile"){
         $('#title').html(data[0]);
+        $('#full_name').html(data[1]);
     }
 });
 
@@ -60,7 +61,7 @@ function getHomeRoom(id){
                 '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.id+','+d.class_label+','+d.section+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
-                          '<p>'+d.class_label+' '+d.section+'</p><br>'+
+                        '<label>'+d.class_label+' '+d.section+'</label><br>'+
                         '</div>'+
                         '<div class="icon"><br>'+
                           '<i class="fas fa-users"></i>'+
@@ -98,8 +99,7 @@ function getHomeRoomStudent(nb){
             var semister1 = JSON.parse(JSON.stringify(data.semister));
             var count = 1;
             console.log(data);
-            row = '<div class="card  col-12">'+
-                  '<div class="card card-header bg-orange col-12">List of Students</div>'+
+            row = '<div class=" card col-12">'+
                   '<section class="content">'+
                   '<div class="container-fluid">'+
                       '<h2 class="text-center display-4">Search</h2>'+
@@ -119,7 +119,7 @@ function getHomeRoomStudent(nb){
                       '</div>'+
                   '</div>'+
               '</section><br>'+
-                  '<div class="card"><table id="example1" class="table table-striped table-lg"'+
+                  '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1" class="table table-striped table-lg"'+
                     '<thead>'+
                         '<th>No</th>'+
                         '<th>Full Name</th>'+
@@ -135,8 +135,8 @@ function getHomeRoomStudent(nb){
                      '<td colspan="12" class="hiddenRow">'
                 semister1.forEach(d3 =>{
                     subject = [];
-                    // total = 0;
-                    // percent = 0;
+                    all_total = 0;
+                    all_percent = 0;
                     replace_td='';
                     row+='<div class="d-flex justify-content-center">'+
                     '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
@@ -174,6 +174,8 @@ function getHomeRoomStudent(nb){
                                         '<td class="text-center">'+ d2.subject_name+' </td>'+
                                         '<td class="text-center">'+parseInt(total)+'/'+parseInt(percent)+'</td>'+
                                     '</tr>'
+                                    all_total = all_total + total;
+                                    all_percent = all_percent + 1;
                                     subject.push(d2.subject_name);
                                     console.log('-----------------------------');
                                 }
@@ -183,16 +185,18 @@ function getHomeRoomStudent(nb){
 
                     });
                     subject = [];
-                    row+= '</tbody>'+
+                    row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+(all_total/all_percent).toFixed(2)+'</td></tr></tbody>'+
                     '</table></div>'+
                      '</div>'
+                     all_percent = 0;
+                     all_total = 0;
                 })
                 row+= '</td>'+
                         '</tr>'+
                         '</tr>'
                 count++;
            });
-           row+='</tbody></table></div>';
+           row+='</tbody></table></div></div></div>';
             $('#dashboard').html(row);
         },
         error:function (data) {

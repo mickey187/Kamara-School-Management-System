@@ -5,9 +5,12 @@
 {{-- @foreach ($employee as $row)
    Name: <label> {{ $row->first_name.' '.$row->middle_name.' '.$row->last_name }}</label>
 @endforeach --}}
-<hr>
-<div class="col-12 row" id="dashboard">
-    <div class="col-lg-3">
+
+<div class="row card  d-flex justify-content-center  ">
+    <div class="card-header bg-orange"><label id="teacherDashboardTitle">Dashboard</label> </div>
+<div class="d-flex justify-content-center ">
+<div class="col-12 row " id="dashboard">
+    <div class="col-lg-3" style="margin-top: 20px;">
         <a style="cursor: pointer;" onclick="getHomeRoom1();">
             <div class="small-box bg-primary">
                 <div class="inner p-3">
@@ -22,7 +25,7 @@
               </div>
         </a>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3" style="margin-top: 20px;">
         <a style="cursor: pointer;" onclick="getHomeRoom('{{ $employee->id }}');" >
             <div class="small-box bg-info">
                 <div class="inner p-3">
@@ -35,11 +38,11 @@
               </div>
         </a>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3" style="margin-top: 20px;">
         <a style="cursor: pointer;" onclick="getCourseLoad('{{ $employee->id }}');" >
             <div class="small-box bg-red">
                 <div class="inner p-3">
-                  <p>Course Load</p><br>
+                  <p>My Classes</p><br>
                 </div>
                 <div class="icon"><br>
                   <i class="fas fa-book"></i>
@@ -48,7 +51,7 @@
               </div>
         </a>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3" style="margin-top: 20px;">
         <a href="#" data-toggle="modal"
                     data-detail3="Profile,{{ $employee->id }}"
                     data-target="#modal-dashboard">
@@ -64,7 +67,7 @@
         </a>
     </div>
 </div>
-
+</div>
 
 <!-- /.modal-dialog -->
 <div class="modal_class">
@@ -79,6 +82,7 @@
                 </div>
                 <div class="modal-body">
                     {{-- <section class="content"> --}}
+                        <p id="full_name"></p>
                     <div class="row col-lg-12 text-center" id="classes">
 
                     </div>
@@ -90,5 +94,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

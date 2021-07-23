@@ -29,7 +29,7 @@ use GrahamCampbell\ResultType\Success;
 |
 */
 
-// Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
+ Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
 // Route::get('/', function () {
 //     return view('/admin/dashboard');
 // });

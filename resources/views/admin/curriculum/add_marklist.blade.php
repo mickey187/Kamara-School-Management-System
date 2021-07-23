@@ -51,6 +51,7 @@
                     <option>D</option>
                     <option>E</option>
                     <option>F</option>
+                    <option>G</option>
                   </select>
                 </div>
                 <div class="col-4 form-group pl-3">

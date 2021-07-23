@@ -36,7 +36,15 @@ class MarklistController extends Controller
 
     public function import(Request $request){
         Excel::import(new MarklistImport, $request->Excel);
-         return "data inserted";
+        $ass = assasment_type::all();
+        $classes = classes::all();
+        $sub = subject::all();
+        $semister = semister::all();
+        return view('admin.curriculum.add_marklist')
+        ->with('assasment',$ass)
+        ->with('classes',$classes)
+        ->with('subject',$sub)
+        ->with('semister',$semister);
     }
 
     public function sample_student(Request $request){

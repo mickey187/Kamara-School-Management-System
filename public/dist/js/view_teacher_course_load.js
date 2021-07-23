@@ -14,7 +14,8 @@ function getCourseLoad(id){
                 '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section+','+d.teacher_id+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
-                          '<p>'+d.class_label+' '+d.section+'</p><br>'+
+                          '<label>'+d.class_label+' '+d.section+'</label><br>'+
+                          '<label>'+d.subject_name+'</label>'+
                         '</div>'+
                         '<div class="icon"><br>'+
                           '<i class="fas fa-users"></i>'+
@@ -52,7 +53,6 @@ function getCourseLoadStudent(nb){
                 var count = 1;
                 console.log(data);
                 row = '<div class="card  col-12">'+
-                      '<div class="card card-header bg-orange col-12">List of Students</div>'+
                       '<section class="content">'+
                       '<div class="container-fluid">'+
                           '<h2 class="text-center display-4">Search</h2>'+
@@ -72,7 +72,7 @@ function getCourseLoadStudent(nb){
                           '</div>'+
                       '</div>'+
                   '</section><br>'+
-                      '<div class="card"><table id="example1" class="table table-striped table-lg"'+
+                      '<div  class="card"><table  class="table table-striped table-lg"'+
                         '<thead>'+
                             '<th>No</th>'+
                             '<th>Full Name</th>'+
@@ -87,6 +87,8 @@ function getCourseLoadStudent(nb){
                          '</tr>'+
                          '<td colspan="12" class="hiddenRow">'
                     semister1.forEach(d3 =>{
+                        all_total = 0;
+                        all_percent = 0;
                         row+='<div class="d-flex justify-content-center">'+
                         '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
                         '<table class="table  table-striped table-sm">'+
@@ -97,8 +99,8 @@ function getCourseLoadStudent(nb){
                                 '<tr >'+
                                     '<th class="text-center">Subject</th>'+
                                     '<th class="text-center">Assasment</th>'+
-                                    '<th class="text-center">Load</th>'+
                                     '<th class="text-center">Mark</th>'+
+                                    '<th class="text-center">Load</th>'+
                                     '<th class="text-center">Action</th>'+
                                 '</tr>'+
                             '</thead>'+
@@ -111,21 +113,25 @@ function getCourseLoadStudent(nb){
                                         '<tr class="text-primary">'+
                                             '<td class="text-center">'+ d2.subject_name+' </td>'+
                                             '<td class="text-center">'+d2.assasment_type+'</td>'+
-                                            '<td class="text-center">'+ d2.test_load+' </td>'+
                                             '<td class="text-center">'+d2.mark+'</td>'+
+                                            '<td class="text-center">'+ d2.test_load+' </td>'+
                                             '<td class="text-center">'+
                                                 '<button class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
                                             '</td>'+
                                         '</tr>'
+                                        all_percent = all_percent + d2.test_load;
+                                        all_total = all_total + d2.mark;
                                 }else{
                                 }
                             }
 
                         });
-                        row+= '</tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td colspan="2" class="text-right">Total</td><td colspan="3" class="text-left">'+all_total.toFixed(2)+'/'+all_percent+'</td></tr></tbody>'+
                         '</table>'+
                         '</div>'+
                          '</div>'
+                         all_total = 0;
+                         all_percent = 0;
                     })
                     row+= '</td>'+
                             '</tr>'+
