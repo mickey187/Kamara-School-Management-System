@@ -12,6 +12,7 @@ use App\Models\student_discount;
 use App\Models\student_transportation;
 use DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class FinanceController extends Controller
 {
@@ -23,6 +24,7 @@ class FinanceController extends Controller
 
     //Finance Dashboard function
     public function financeDashboard(){
+        
         $total_value = 0;  
         $total_payment_collected = student_payment::where('payment_month',"20".Carbon::now()->format('y-m'))->get(['amount_payed']);
         //return $total_payment_collected;
@@ -341,7 +343,14 @@ class FinanceController extends Controller
         $payment_load->payment_type_id = $req->select_payment_type;
         $payment_load->class_id = $req->select_class;
         $payment_load->amount = $req->payment_amount;
-        $payment_load->save();
+        
+        if ($payment_load->save()) {
+            $payment_load = DB::table('payment_loads')
+            ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
+            ->join('classes','payment_loads.class_id','=','classes.id')
+            ->get(['payment_loads.id as load_id','payment_type','class_label','amount']);
+            return view('finance.view_payment_load')->with('payment_load',$payment_load);
+        } 
 
     }
 

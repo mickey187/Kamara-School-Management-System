@@ -42,14 +42,17 @@ class AuthenticatedSessionController extends Controller
 
 
         switch ($role_name) {
-            case 'Finance':
-                return view('layouts.finance_view');
+            case 'finance':
+                return redirect()->route('finance/financeDashboard');
                 break;
-            case 'Teacher':
+            case 'teacher':
                 return redirect('teacherDashBoard');
                 break;
-            case 'Student':
+            case 'student':
                 return "This is Student";
+                break;
+            case 'admin':
+                return redirect()->intended(RouteServiceProvider::HOME);
                 break;
             default:
                 return 'Default';

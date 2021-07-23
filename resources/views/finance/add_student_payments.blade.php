@@ -113,7 +113,7 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <form action="{{url('/addStudentPayment')}}" method="post">
+                    <form action="{{url('finance/addStudentPayment')}}" method="post">
                       @csrf
                     <div class="modal-body">
                       <div class="row">

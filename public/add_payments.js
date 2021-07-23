@@ -60,7 +60,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
   function fetchTotalPaymentLoad(class_id,stud_id){
     $.ajax({
       type: 'GET',
-      url: '/fetchTotalPaymentLoad/'+class_id+'/'+stud_id,
+      url: 'fetchTotalPaymentLoad/'+class_id+'/'+stud_id,
       dataType: 'json',
       success: function (data) {
         var rows = '';
@@ -210,7 +210,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
    // console.log(student_id_for_total_payment+' '+month);
     $.ajax({
       type: 'GET',
-      url: '/makeTotalPayment/'+student_id_for_total_payment+'/'+month,
+      url: 'makeTotalPayment/'+student_id_for_total_payment+'/'+month,
       data: {'detail':send_pay_total_detail},
       dataType:'json',
       cache: false,

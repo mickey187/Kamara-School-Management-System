@@ -36,22 +36,22 @@ use GrahamCampbell\ResultType\Success;
 
 
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 // require __DIR__.'/auth.php';
 
 
 
 //Finance Route Group
-Route::middleware(['role:null,Finance,null'])->prefix('finance')->group(function () {
+Route::middleware(['role:admin,finance,null'])->prefix('finance')->group(function () {
 
-Route::get('/financeDashboard',[FinanceController::class, 'financeDashboard']);
+Route::get('/financeDashboard',[FinanceController::class, 'financeDashboard'])->name('finance/financeDashboard');
 
 Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
 

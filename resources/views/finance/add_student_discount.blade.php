@@ -67,7 +67,7 @@
                             
                      <h5 id="pay_type" class="text-info"></h5>
                         <h5 id="amount" class="text-info"></h5>
-                        <form action="{{url('/addStudentDiscount')}}" method="post">
+                        <form action="{{url('finance/addStudentDiscount')}}" method="post">
                             @csrf
                         <div class="form-group">
                           <label for="d_percent">Enter Discount in Percent(%)</label>
