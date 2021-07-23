@@ -31,12 +31,9 @@ class SectionController extends Controller
         //return $student;
     }
     public function fetchStudent($class_id,$stream_id){
-        // $class = DB::table('students')
-        // ->join('classes','classes.id','=','students.class_id')
-        // ->join('streams','streams.id','=','students.stream_id')
-        // ->where('class_id',$class_id)
-        // ->where('stream_id',$stream_id)->orderBy('first_name','ASC')
-        // ->get();
+        $label = '';
+        $status = '';
+        $section = array();
         $class = DB::table('sections')
         ->join('students','students.id','=','sections.student_id')
         ->join('classes','classes.id','=','sections.class_id')
@@ -44,9 +41,18 @@ class SectionController extends Controller
         ->where('sections.class_id',$class_id)
         ->where('students.stream_id',$stream_id)
         ->get();
-       // $class = student::where('class_id',$class_id)->where('stream_id',$stream_id)->get();
-       //return $class;
-        return response()->json($class);
+        foreach($class as $row){
+            if(($label == '') || ($label != $row->section_name)){
+                $label = $row->section_name;
+                array_push($section,$row->section_name);
+            }
+        }
+        if($label==''){
+            $status = 'false';
+        }else{
+            $status = 'true';
+        }
+        return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
     }
     public function setSection(Request $request){
         $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('first_name','ASC')->get();
@@ -230,6 +236,7 @@ class SectionController extends Controller
                         ->where('teacher_id',$teacher_id)
                         ->where('section',$section)
                         ->where('class_id',$class_id)
+                        ->where('teacher_course_loads.id',$course_load_id)
                         ->get('subject_name');
         foreach($course_load as $row){
             $subject = $row->subject_name;
@@ -249,7 +256,14 @@ class SectionController extends Controller
                 ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
                 ->where('classes.id',$class_id)
                 ->where('subject_name',$subject)
-                ->get();
+                ->get(['semisters.semister',
+                        'students.student_id',
+                        'student_mark_lists.test_load',
+                        'semisters.term',
+                        'student_mark_lists.id as id',
+                        'assasment_types.assasment_type',
+                        'subjects.subject_name',
+                        'student_mark_lists.mark']);
                 $semister = semister::all();
         return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
        //return response()->json([$course_load]);

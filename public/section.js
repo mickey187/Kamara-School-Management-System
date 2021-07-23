@@ -15,28 +15,49 @@ function fetch(class_id, stream_id) {
 
         success:function (data) {
             var rows = '';
+            var sec = '';
             var counter = 0;
-            data.forEach(d => {
-                counter = counter+1;
-                no = '<div class="ml-3 text-danger"><p>'+counter+'<p></div>'
-                rows += '<tr>'+
-                        // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
-                        '<td>'+d.student_id+'</td>'+
-                        '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
-                        '<td>'+d.class_label+'</td>'+
-                        '<td>'+d.stream_type+'</td>'+
-                        '<td>'+d.section_name+'</td>'+
-                        '<td>'+
-                        // '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
-                        // 'data-target="#add_discount" data-disount_data="'+student_id+','+d.load_id+','+d.payment_type+','+d.amount+'" >'+
-                        // '<i class="fas fa-percent"></i>'+
-                        // '</button>'+
-                        '</td>'
-                        '</tr>'
-           });
+            var section = JSON.parse(JSON.stringify(data.sections));
+            var status = JSON.parse(JSON.stringify(data.status));
+            var data = JSON.parse(JSON.stringify(data.classes));
+            // Swal.fire(
+            //     'Registered Successfully!',
+            //   );
+            if(status == 'true'){
 
-           $('#student_list').html(rows);
-           $('#counter').html(no);
+                section.forEach(d =>{
+                    sec +=  '<label class="PillList-item">'+
+                            '<input id="selectedSection" type="checkbox" name="feature" checked disabled value="'+d+'">'+
+                            '<span class="PillList-label" > Section '+d+
+                            '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>'+
+                            '</span>'+
+                            '</label>'
+                })
+               // console.log(data);
+                data.forEach(d => {
+                    counter = counter+1;
+                    no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
+                    rows += '<tr>'+
+                            // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
+                            '<td>'+d.student_id+'</td>'+
+                            '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
+                            '<td>'+d.class_label+'</td>'+
+                            '<td>'+d.stream_type+'</td>'+
+                            '<td>'+d.section_name+'</td>'+
+                            '<td>'+
+                            // '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
+                            // 'data-target="#add_discount" data-disount_data="'+student_id+','+d.load_id+','+d.payment_type+','+d.amount+'" >'+
+                            // '<i class="fas fa-percent"></i>'+
+                            // '</button>'+
+                            '</td>'
+                            '</tr>'
+               });
+
+               $('#student_list').html(rows);
+               $('#counter').html(no);
+               $('#sections').html(sec);
+            }
+
         },
         error:function (data) {
             console.log("it is not works fine");

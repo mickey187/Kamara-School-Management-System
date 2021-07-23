@@ -29,7 +29,7 @@ use GrahamCampbell\ResultType\Success;
 |
 */
 
-// Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
+ Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
 // Route::get('/', function () {
 //     return view('/admin/dashboard');
 // });
@@ -286,6 +286,8 @@ Route::post('/import',[MarklistController::class, 'import'])->name('import');
 Route::get('addAssasment',[MarklistController::class, 'addAssasment']);
 
 Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
+
+Route::get('editMarkStudentList/{id}/{mark}/{load}/{assasment}',[MarklistController::class, 'editMarkStudentList']);
 
 //Section
 

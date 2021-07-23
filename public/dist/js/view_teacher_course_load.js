@@ -14,7 +14,8 @@ function getCourseLoad(id){
                 '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section+','+d.teacher_id+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
-                          '<p>'+d.class_label+' '+d.section+'</p><br>'+
+                          '<label>'+d.class_label+' '+d.section+'</label><br>'+
+                          '<label>'+d.subject_name+'</label>'+
                         '</div>'+
                         '<div class="icon"><br>'+
                           '<i class="fas fa-users"></i>'+
@@ -52,7 +53,6 @@ function getCourseLoadStudent(nb){
                 var count = 1;
                 console.log(data);
                 row = '<div class="card  col-12">'+
-                      '<div class="card card-header bg-orange col-12">List of Students</div>'+
                       '<section class="content">'+
                       '<div class="container-fluid">'+
                           '<h2 class="text-center display-4">Search</h2>'+
@@ -72,7 +72,7 @@ function getCourseLoadStudent(nb){
                           '</div>'+
                       '</div>'+
                   '</section><br>'+
-                      '<div class="card"><table id="example1" class="table table-striped table-lg"'+
+                      '<div  class="card"><table  class="table table-striped table-lg"'+
                         '<thead>'+
                             '<th>No</th>'+
                             '<th>Full Name</th>'+
@@ -87,6 +87,8 @@ function getCourseLoadStudent(nb){
                          '</tr>'+
                          '<td colspan="12" class="hiddenRow">'
                     semister1.forEach(d3 =>{
+                        all_total = 0;
+                        all_percent = 0;
                         row+='<div class="d-flex justify-content-center">'+
                         '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
                         '<table class="table  table-striped table-sm">'+
@@ -97,8 +99,8 @@ function getCourseLoadStudent(nb){
                                 '<tr >'+
                                     '<th class="text-center">Subject</th>'+
                                     '<th class="text-center">Assasment</th>'+
-                                    '<th class="text-center">Load</th>'+
                                     '<th class="text-center">Mark</th>'+
+                                    '<th class="text-center">Load</th>'+
                                     '<th class="text-center">Action</th>'+
                                 '</tr>'+
                             '</thead>'+
@@ -108,24 +110,28 @@ function getCourseLoadStudent(nb){
                             if(d2.student_id==d.student_id){
                                 if(d3.semister+d3.term==all_semister){
                                         row+=
-                                        '<tr class="text-primary">'+
+                                        '<tr class="text-primary" id="'+d2.id+'">'+
                                             '<td class="text-center">'+ d2.subject_name+' </td>'+
                                             '<td class="text-center">'+d2.assasment_type+'</td>'+
-                                            '<td class="text-center">'+ d2.test_load+' </td>'+
                                             '<td class="text-center">'+d2.mark+'</td>'+
+                                            '<td class="text-center">'+ d2.test_load+' </td>'+
                                             '<td class="text-center">'+
-                                                '<button class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
+                                                '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+d.first_name+' '+d.middle_name+' '+d.last_name+','+d2.subject_name+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
                                             '</td>'+
                                         '</tr>'
+                                        all_percent = all_percent + d2.test_load;
+                                        all_total = all_total + d2.mark;
                                 }else{
                                 }
                             }
 
                         });
-                        row+= '</tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td colspan="2" class="text-right">Total</td><td colspan="3" class="text-left">'+all_total.toFixed(2)+'/'+all_percent+'</td></tr></tbody>'+
                         '</table>'+
                         '</div>'+
                          '</div>'
+                         all_total = 0;
+                         all_percent = 0;
                     })
                     row+= '</td>'+
                             '</tr>'+
@@ -139,4 +145,62 @@ function getCourseLoadStudent(nb){
             console.log("it is not works fine");
         }
      });
+}
+
+function editMark(val){
+    var splitter = (val.value.trim()).split(",");
+    var id = splitter[0];
+    var assasmentType = splitter[1];
+    var mark = splitter[2];
+    var load = splitter[3];
+    var name = splitter[4];
+    var subject = splitter[5];
+    $('#modal-editMark').modal('show');
+    $("#modal-editMark").click(function () {
+        var str = "Assasment : "+assasmentType
+            + "Mark: " + mark
+            + " Load: " + load;
+        // $("#modal_body").html(str);
+        //$("#assasment").html(assasmentType);
+        $(".modal-header #title").html(name);
+
+        $(".modal-body #assasment").val(assasmentType);
+        $(".modal-body #mark").attr("value", mark);
+        $(".modal-body #load").attr("value", load);
+        $(".modal-body #aid").val(id);
+        $(".modal-body #fullname").val(name);
+        $(".modal-body #subject").val(subject);
+        // $(".modal-body #load").val(load);
+    });
+    $('#modal-editMark').click();
+}
+
+function saveEditedValue(){
+    var id = $("#aid").val().trim()
+    var mark = $("#mark").val().trim()
+    var load = $("#load").val().trim()
+    var name = $('#fullname').val().trim()
+    var assasment = $("#assasment").val().trim();
+    var subject = $("#subject").val().trim();
+    // alert('id: '+id+' Mark: '+ mark+ ' Load: '+ load+ ' Assasment: '+ assasment +' Name: '+name);
+    $.ajax({
+        type: 'GET',
+        url: 'editMarkStudentList/'+id+'/'+mark+'/'+load+'/'+assasment,
+        success:function(data){
+            console.log(data)
+           var row='';
+            row='<td class="text-center">'+subject+'</td><td class="text-center">'+assasment+'</td><td class="text-center">'+mark+'</td><td class="text-center">'+load+'</td>'+
+            '<td class="text-center">'+
+                '<button onclick="editMark(this)" value="'+id+','+assasment+','+mark+','+load+','+name+','+subject+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
+            '</td>'
+            $('#'+data).html(row);
+            swal("Updated!", "You Updated Successfuly!", "success");
+            closer();
+        }
+    })
+
+}
+
+function closer(){
+    $('#modal-editMark').modal('hide');
 }

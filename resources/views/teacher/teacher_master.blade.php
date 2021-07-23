@@ -7,6 +7,8 @@
     <title>Kamara School Management System | Dashboard</title>
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
 
+    <link rel="stylesheet" href="sweetalert2.min.css">
+
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -37,7 +39,7 @@
     <link rel="stylesheet" href="{{ asset('main.css') }}">
 
     <link rel="stylesheet" href="{{ asset('addclass.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <!-- DataTables -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -317,6 +319,7 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
+    <script src="sweetalert2.min.js"></script>
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
@@ -387,8 +390,6 @@ $(function() {
 
       <!-- student discount js -->
       <script src="{{ asset('student_discount.js') }}"></script>
-
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
 
@@ -486,6 +487,10 @@ $(function() {
           });
         })
       </script>
+      <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

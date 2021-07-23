@@ -26,6 +26,9 @@
                                 <input class="btn btn-primary" type="button" id="searchStudentClass" value="Find" >
                             </div>
                         </div>
+                        <div class="row col-12 m-3 flex" id="sections">
+
+                        </div>
                         <div class="row col-12">
 
                                 <div class="col-5">
