@@ -256,7 +256,14 @@ class SectionController extends Controller
                 ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
                 ->where('classes.id',$class_id)
                 ->where('subject_name',$subject)
-                ->get();
+                ->get(['semisters.semister',
+                        'students.student_id',
+                        'student_mark_lists.test_load',
+                        'semisters.term',
+                        'student_mark_lists.id as id',
+                        'assasment_types.assasment_type',
+                        'subjects.subject_name',
+                        'student_mark_lists.mark']);
                 $semister = semister::all();
         return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
        //return response()->json([$course_load]);

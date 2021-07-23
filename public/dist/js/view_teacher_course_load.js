@@ -110,13 +110,13 @@ function getCourseLoadStudent(nb){
                             if(d2.student_id==d.student_id){
                                 if(d3.semister+d3.term==all_semister){
                                         row+=
-                                        '<tr class="text-primary">'+
+                                        '<tr class="text-primary" id="'+d2.id+'">'+
                                             '<td class="text-center">'+ d2.subject_name+' </td>'+
                                             '<td class="text-center">'+d2.assasment_type+'</td>'+
                                             '<td class="text-center">'+d2.mark+'</td>'+
                                             '<td class="text-center">'+ d2.test_load+' </td>'+
                                             '<td class="text-center">'+
-                                                '<button class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
+                                                '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+d.first_name+' '+d.middle_name+' '+d.last_name+','+d2.subject_name+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
                                             '</td>'+
                                         '</tr>'
                                         all_percent = all_percent + d2.test_load;
@@ -145,4 +145,62 @@ function getCourseLoadStudent(nb){
             console.log("it is not works fine");
         }
      });
+}
+
+function editMark(val){
+    var splitter = (val.value.trim()).split(",");
+    var id = splitter[0];
+    var assasmentType = splitter[1];
+    var mark = splitter[2];
+    var load = splitter[3];
+    var name = splitter[4];
+    var subject = splitter[5];
+    $('#modal-editMark').modal('show');
+    $("#modal-editMark").click(function () {
+        var str = "Assasment : "+assasmentType
+            + "Mark: " + mark
+            + " Load: " + load;
+        // $("#modal_body").html(str);
+        //$("#assasment").html(assasmentType);
+        $(".modal-header #title").html(name);
+
+        $(".modal-body #assasment").val(assasmentType);
+        $(".modal-body #mark").attr("value", mark);
+        $(".modal-body #load").attr("value", load);
+        $(".modal-body #aid").val(id);
+        $(".modal-body #fullname").val(name);
+        $(".modal-body #subject").val(subject);
+        // $(".modal-body #load").val(load);
+    });
+    $('#modal-editMark').click();
+}
+
+function saveEditedValue(){
+    var id = $("#aid").val().trim()
+    var mark = $("#mark").val().trim()
+    var load = $("#load").val().trim()
+    var name = $('#fullname').val().trim()
+    var assasment = $("#assasment").val().trim();
+    var subject = $("#subject").val().trim();
+    // alert('id: '+id+' Mark: '+ mark+ ' Load: '+ load+ ' Assasment: '+ assasment +' Name: '+name);
+    $.ajax({
+        type: 'GET',
+        url: 'editMarkStudentList/'+id+'/'+mark+'/'+load+'/'+assasment,
+        success:function(data){
+            console.log(data)
+           var row='';
+            row='<td class="text-center">'+subject+'</td><td class="text-center">'+assasment+'</td><td class="text-center">'+mark+'</td><td class="text-center">'+load+'</td>'+
+            '<td class="text-center">'+
+                '<button onclick="editMark(this)" value="'+id+','+assasment+','+mark+','+load+','+name+','+subject+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
+            '</td>'
+            $('#'+data).html(row);
+            swal("Updated!", "You Updated Successfuly!", "success");
+            closer();
+        }
+    })
+
+}
+
+function closer(){
+    $('#modal-editMark').modal('hide');
 }

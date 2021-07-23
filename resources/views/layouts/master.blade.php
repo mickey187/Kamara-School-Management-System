@@ -36,6 +36,7 @@
 
     <link rel="stylesheet" href="{{ asset('main.css') }}">
     <link rel="stylesheet" href="{{ asset('addclass.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.css') }}">
 
     <!-- DataTables -->
 
@@ -555,7 +556,6 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            @include('sweetalert::alert')
                             @yield('content')
                         </div>
                     </div>
@@ -597,7 +597,9 @@
 
 <!-- select 2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="sweetalert2.all.min.js"></script>
 <script>
+
 $(function() {
 
     $('.select2').select2()
@@ -684,6 +686,9 @@ $(function() {
     <script src="{{ asset('dist/css/checkbox.css') }}"></script>
     <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
     <script src="{{ asset('dist/js/semister_status.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}

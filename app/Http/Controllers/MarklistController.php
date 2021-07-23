@@ -8,6 +8,7 @@ use App\Imports\StudentImport;
 use App\Models\assasment_type;
 use App\Models\classes;
 use App\Models\semister;
+use App\Models\student_mark_list;
 use App\Models\subject;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -63,5 +64,18 @@ class MarklistController extends Controller
     public function assasmentForm(){
         $ass = assasment_type::all();
         return view('admin.curriculum.add_assasment_label')->with('assasment',$ass);
+    }
+
+    public function editMarkStudentList($id,$mark,$load,$assasment){
+        $mark_list = student_mark_list::find($id);
+        $mark_list->mark = $mark;
+        $mark_list->test_load = $load;
+        if($mark_list->update()){
+            return response()->json($id);
+        }else{
+            return response()->json('Error While Updating');
+        }
+      //  return response()->json($mark);
+
     }
 }

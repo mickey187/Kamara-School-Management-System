@@ -95,5 +95,44 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="modal-editMark" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div id="title">Edit Mark List</div>
+          <button type="button" onclick="closer()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            {{-- <div id="modal_body"></div> --}}
+            <div class="row col-12 form-group">
+                <div class="col-4">
+                    <label>Assasment</label>
+                    <input type="text" disabled class="form-control" id="assasment">
+                </div>
+                <div class="col-4">
+                    <label>Mark</label>
+                    <input type="text"  class="form-control" id="mark">
+                </div>
+                <div class="col-4">
+                    <label>Test Load</label>
+                    <input type="text"  class="form-control" id="load">
+                    <input type="text" hidden class="form-control" id="aid">
+                    <input type="text" hidden class="form-control" id="fullname">
+                    <input type="text" hidden class="form-control" id="subject">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" onclick="closer()" class="btn btn-secondary" data-dismiss="modal-editMark">Close</button>
+          <button type="button" onclick="saveEditedValue()" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 @endsection

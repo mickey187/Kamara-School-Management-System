@@ -287,6 +287,8 @@ Route::get('addAssasment',[MarklistController::class, 'addAssasment']);
 
 Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
 
+Route::get('editMarkStudentList/{id}/{mark}/{load}/{assasment}',[MarklistController::class, 'editMarkStudentList']);
+
 //Section
 
 Route::get('sectionForm',[SectionController::class, 'index']);
