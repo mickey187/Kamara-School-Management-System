@@ -21,10 +21,13 @@ class StudentFactory extends Factory
      */
     public function definition()
     {
+        $gender = $this->faker->randomElement(['male','female']);
         return [
             //
             'first_name' => $this->faker->firstName(),
             'middle_name' => $this->faker->firstName(),
+            'gender' => $gender,
+            'birth_year' => $this->faker->date(),
             'last_name' =>$this->faker->lastName(),
             'class_id' => rand(1,11),
             'stream_id' => rand(1,2),
