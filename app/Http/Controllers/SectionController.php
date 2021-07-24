@@ -62,6 +62,7 @@ class SectionController extends Controller
         return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
     }
     public function setSection(Request $request){
+        
         if($request->section_type=='Alphabet'){
             $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('first_name','ASC')->get();
             $this->sectionLogic($student,$request->student_size);
