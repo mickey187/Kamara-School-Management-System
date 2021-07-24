@@ -27,7 +27,7 @@
 
           <div class="form-group">
               <label for="">Select Class</label>
-            <select name="select_class" id="class_id" class="form-control">
+            <select  id="class_id" class="select2" multiple="multiple" style="width: 100%"data-placeholder="Select Class" name="select_classes[]">
                 @foreach ($class as $row)
                     <option value="{{$row->id}}">{{$row->class_label}}</option>
                 @endforeach

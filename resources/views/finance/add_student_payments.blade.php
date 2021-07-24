@@ -18,6 +18,7 @@
                 <tr>
                   <th>Student ID</th>
                   <th>Full Name</th> 
+                  <th>Class Label</th>
                   
                   <th>Action</th>             
                   
@@ -30,13 +31,14 @@
                 <tr>
                   <td>{{$row->student_id}}</td>
                   <td>{{$row->first_name."  ".$row->middle_name."  ".$row->last_name}}</td>
+                  <td>{{$row->class_label}}</td>
                   
                    
                   <td>
                     <button class="btn btn-success btn-sm"
                     data-toggle="modal" 
                    data-target="#view_payment_history" 
-                    data-payment_history="{{$row->id}}">
+                    data-payment_history="{{$row->student_table_id}}">
                      <i class="fa fa-eye" aria-hidden="true"></i>
                    
                    </button>
@@ -45,7 +47,7 @@
 
                    <button class="btn btn-info btn-sm" data-toggle="modal" 
                    data-target="#make_payment" 
-                    data-payment_data="{{$row->student_id}},{{$row->class_id}},{{$row->first_name."  ".$row->middle_name."  ".$row->last_name}},{{$row->id}},{{$row->discount}}">
+                    data-payment_data="{{$row->student_id}},{{$row->class_id}},{{$row->first_name."  ".$row->middle_name."  ".$row->last_name}},{{$row->student_table_id}},{{$row->discount}}">
                     <i class="fa fa-dollar-sign"></i>
                     
                   </button>
@@ -126,7 +128,7 @@
                             <label for="payment_type">Select Payment Type</label>
                             <div class="form-group">
                                 <select name="select_payment_type" id="payment_type" class="form-control">
-                                  <option hidden value="none" >Select Payment Type</option>
+                                  <option hidden value="none" id="none">Select Payment Type</option>
                                   <option value="total">Total Payment</option>
                                   @foreach ($payment_type as $row )
                                     <option value="{{$row->id}}">{{$row->payment_type}}</option>

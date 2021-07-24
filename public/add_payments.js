@@ -3,6 +3,7 @@ var send_pay_total_detail = [];
 var student_id_for_total_payment = null;
 // the below code launches make payment modal
 $('#make_payment').on('show.bs.modal', function (event) {
+
   
   
 
@@ -207,6 +208,8 @@ $('#make_payment').on('show.bs.modal', function (event) {
 
   $('#pay_total').click(function () { 
     var month = $('#select_month').val();
+    // var date = new Date(month);
+    // console.log(date.getFullYear()+date.getMonth());
    // console.log(student_id_for_total_payment+' '+month);
     $.ajax({
       type: 'GET',
