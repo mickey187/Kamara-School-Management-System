@@ -51,5 +51,4 @@ function findMyStudent()
 
 function callFunction($val){
     window.location.href = 'marklist/'+$val+''
-    // alert($val);
 }

@@ -281,6 +281,9 @@ Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 
 Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
 
+Route::get('singleAddMarkList/{student_id}/{class_id}/{semister_id}/{assasment_id}/{subject}/{mark}/{load}',
+[MarklistController::class, 'singleAddMarkList']);
+
 Route::post('/import',[MarklistController::class, 'import'])->name('import');
 
 Route::get('addAssasment',[MarklistController::class, 'addAssasment']);

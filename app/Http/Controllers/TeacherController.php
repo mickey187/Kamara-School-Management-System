@@ -12,6 +12,7 @@ use App\Models\employee_emergency_contact;
 use App\Models\address;
 use App\Models\employee;
 use App\Models\academic_background_info;
+use App\Models\assasment_type;
 use App\Models\attendance;
 use App\Models\classes;
 use App\Models\section;
@@ -36,8 +37,9 @@ class TeacherController extends Controller
         $user_id =  Auth::id();
         $user = User::find($user_id);
         $employee = employee::where('employee_id',$user->user_id)->first();
+        $assasment = assasment_type::all();
       // return $teacher;
-          return view('teacher.teacher_dashboard')->with('employee',$employee);
+          return view('teacher.teacher_dashboard')->with('employee',$employee)->with('assasment',$assasment);
     }
 
     public function form()
