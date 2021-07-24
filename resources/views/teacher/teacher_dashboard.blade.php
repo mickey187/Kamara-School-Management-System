@@ -123,6 +123,7 @@
                     <input type="text" hidden class="form-control" id="aid">
                     <input type="text" hidden class="form-control" id="fullname">
                     <input type="text" hidden class="form-control" id="subject">
+                    <input type="text" hidden class="form-control" id="total">
                 </div>
             </div>
         </div>
@@ -133,6 +134,53 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<!-- /.modal-dialog -->
+<div class="modal_class">
+    <div class="modal fade" id="modal-addMarkList">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="title">Add Mark List</h4>
+                    <button type="button" onclick="closeAddMl()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row col-12 form-group">
+                        <div class="col-4">
+                            <label>Assasment</label>
+                            <select  class="form-control" id="assasment2">
+                                @foreach ($assasment as $row)
+                                    <option value="{{ $row->id }}">{{ $row->assasment_type }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label>Mark</label>
+                            <input type="number"  class="form-control" id="mark2">
+                        </div>
+                        <div class="col-4">
+                            <label>Test Load</label>
+                            <input type="number"  class="form-control" id="load2">
+                            <input type="text" hidden class="form-control" id="class">
+                            <input type="text" hidden class="form-control" id="student">
+                            <input type="text" hidden class="form-control" id="semister">
+                            <input type="text" hidden class="form-control" id="subject">
+                            <input type="text" hidden class="form-control" id="name2">
+                            <input type="text" hidden class="form-control" id="term2">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="closeAddMl()" class="btn btn-secondary" data-dismiss="modal-editMark">Close</button>
+                    <button type="button" onclick="sendMarkList()" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection

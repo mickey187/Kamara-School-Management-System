@@ -7,7 +7,7 @@
     <title>Kamara School Management System | Dashboard</title>
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
 
-    {{-- <link rel="stylesheet" href="sweetalert2.min.css"> --}}
+    <link rel="stylesheet" href="sweetalert2.min.css">
 
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="{{ asset('main.css') }}">
 
     <link rel="stylesheet" href="{{ asset('addclass.css') }}">
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" /> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <!-- DataTables -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -319,7 +319,7 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    {{-- <script src="sweetalert2.min.js"></script> --}}
+    <script src="sweetalert2.min.js"></script>
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
@@ -422,6 +422,10 @@ $(function() {
     <script src="{{ asset('dist/js/view_teacher_modal.js') }}"></script>
     <script src="{{ asset('dist/js/view_teacher_home_room.js') }}"></script>
     <script src="{{ asset('dist/js/view_teacher_course_load.js') }}"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
@@ -446,33 +450,7 @@ $(function() {
         });
 
 
-
-
-       //  $('#modal_view').on('show.bs.modal', function (event) {
-//   var button = $(event.relatedTarget) // Button that triggered the modal
-//   var detail = button.data('view')
-//   // Extract info from data-* attributes
-//   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-//   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-//   var modal = $(this)
-// //   modal.find('.modal-title').text('New message to ' + recipient)
-//             var spit = detail.split(",");
-
-// //var table = ('#example1').DataTable();
-//   //modal.find('.modal-body p').text(detail)
-//   modal.find('.modal-body #subjectid_view').text("subject id: "+spit[0]);
-//   modal.find('.modal-body #stream_view').text("stream: "+spit[1]);
-//   modal.find('.modal-body #subjectgroup_view').text("subject group: "+spit[2]);
-//   modal.find('.modal-body #subjectname_view').text("subject name: "+spit[3]);
-//   modal.find('.modal-footer button').val(spit[0])
-
-
-
-
     </script>
-
-
-
     <script>
         $(function () {
           $("#img-pro").change(function(){
@@ -487,8 +465,8 @@ $(function() {
           });
         })
       </script>
-      <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
-      {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> --}}
+      {{-- <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> --}}
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>

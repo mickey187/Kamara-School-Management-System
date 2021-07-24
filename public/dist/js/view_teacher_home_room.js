@@ -142,7 +142,11 @@ function getHomeRoomStudent(nb){
                     '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
                     '<table class="table  table-striped table-sm">'+
                         '<thead class="text-dark">'+
-                            '<div class="card card-header card-sm bg-secondary"><h6>Semister '+d3.semister+' '+d3.term+'</h6></div>'+
+                            '<div class="row card-sm card  card-sm bg-secondary">'+
+                                '<div class="">'+
+                                        '<h6 style="margin:10px;" class="float-left">Semister '+d3.semister+' '+d3.term+'</h6>'+
+                                '</div>'+
+                           '</div>'+
                             '<tr >'+
                                 '<th class="text-center">Subject</th>'+
                                 '<th class="text-center">Total</th>'+

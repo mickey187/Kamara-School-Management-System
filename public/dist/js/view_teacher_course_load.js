@@ -50,6 +50,8 @@ function getCourseLoadStudent(nb){
                 var section1 = JSON.parse(JSON.stringify(data.section));
                 var mark1 = JSON.parse(JSON.stringify(data.mark));
                 var semister1 = JSON.parse(JSON.stringify(data.semister));
+                var subject = JSON.parse(JSON.stringify(data.subject));
+               // var assasment_name = JSON.parse(JSON.stringify(data.assasment));
                 var count = 1;
                 console.log(data);
                 row = '<div class="card  col-12">'+
@@ -93,8 +95,11 @@ function getCourseLoadStudent(nb){
                         '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
                         '<table class="table  table-striped table-sm">'+
                             '<thead class="text-dark">'+
-                                '<div class="row card card-header card-sm bg-secondary"><div class="float-left "><h6 >Semister '+d3.semister+' '+d3.term+'</h6></div>'+
-                                // '<div class="float-right"><button class="btn btn-primary m-1"><i class="fa fa-plus"></button></i></div>'+
+                                '<div class="row  card-sm card  card-sm bg-secondary">'+
+                                    '<div class="">'+
+                                        '<h6 style="margin:10px;" class="float-left">Semister '+d3.semister+' '+d3.term+'</h6>'+
+                                        '<button onclick="addMarkList(this);" value="'+d.studid+','+d.class_id+','+d3.id+','+subject+','+d.first_name+' '+d.middle_name+' '+d.last_name+','+d3.semister+d3.term+'" class="btn bg-white float-right btn-sm m-1"><i class="fa fa-plus"></button></i>'+
+                                    '</div>'+
                                 '</div>'+
                                 '<tr >'+
                                     '<th class="text-center">Subject</th>'+
@@ -104,19 +109,18 @@ function getCourseLoadStudent(nb){
                                     '<th class="text-center">Action</th>'+
                                 '</tr>'+
                             '</thead>'+
-                        '<tbody>'
+                        '<tbody id="semister'+d3.id+'">'
                         mark1.forEach(d2 => {
                             all_semister=d2.semister+d2.term;
                             if(d2.student_id==d.student_id){
                                 if(d3.semister+d3.term==all_semister){
-                                        row+=
-                                        '<tr class="text-primary" id="'+d2.id+'">'+
+                                        row+='<tr class="text-primary" id="'+d2.id+'">'+
                                             '<td class="text-center">'+ d2.subject_name+' </td>'+
                                             '<td class="text-center">'+d2.assasment_type+'</td>'+
                                             '<td class="text-center">'+d2.mark+'</td>'+
                                             '<td class="text-center">'+ d2.test_load+' </td>'+
                                             '<td class="text-center">'+
-                                                '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+d.first_name+' '+d.middle_name+' '+d.last_name+','+d2.subject_name+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
+                                                '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+d.first_name+' '+d.middle_name+' '+d.last_name+','+d2.subject_name+','+d3.semister+'-'+d3.term+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
                                             '</td>'+
                                         '</tr>'
                                         all_percent = all_percent + d2.test_load;
@@ -126,10 +130,10 @@ function getCourseLoadStudent(nb){
                             }
 
                         });
-                        row+= '<tr class="text-primary  text-bold"><td colspan="2" class="text-right">Total</td><td colspan="3" class="text-left">'+all_total.toFixed(2)+'/'+all_percent+'</td></tr></tbody>'+
+                        row+= '<tr id="editTotalMl'+d3.semister+d3.term+'" class="text-primary  text-bold"><td colspan="2" class="text-right">Total</td><td colspan="3" class="text-left">'+all_total.toFixed(2)+'/'+all_percent+'</td></tr></tbody>'+
                         '</table>'+
                         '</div>'+
-                         '</div>'
+                         '</div> <input hidden type="text" id="total'+d3.semister+d3.term+'" value="'+d3.semister+d3.term+'"><input hidden type="text" id="percent'+d3.semister+d3.term+'" value="'+all_percent+'">'
                          all_total = 0;
                          all_percent = 0;
                     })
@@ -155,6 +159,8 @@ function editMark(val){
     var load = splitter[3];
     var name = splitter[4];
     var subject = splitter[5];
+    var total = splitter[6];
+    $('#modal-editMark').click();
     $('#modal-editMark').modal('show');
     $("#modal-editMark").click(function () {
         var str = "Assasment : "+assasmentType
@@ -163,13 +169,15 @@ function editMark(val){
         // $("#modal_body").html(str);
         //$("#assasment").html(assasmentType);
         $(".modal-header #title").html(name);
-
         $(".modal-body #assasment").val(assasmentType);
+        // $(".modal-body #mark").text(mark);
+        // $(".modal-body #load").text(load);
         $(".modal-body #mark").attr("value", mark);
         $(".modal-body #load").attr("value", load);
         $(".modal-body #aid").val(id);
         $(".modal-body #fullname").val(name);
         $(".modal-body #subject").val(subject);
+        $(".modal-body #total").val(total);
         // $(".modal-body #load").val(load);
     });
     $('#modal-editMark').click();
@@ -182,20 +190,32 @@ function saveEditedValue(){
     var name = $('#fullname').val().trim()
     var assasment = $("#assasment").val().trim();
     var subject = $("#subject").val().trim();
-    // alert('id: '+id+' Mark: '+ mark+ ' Load: '+ load+ ' Assasment: '+ assasment +' Name: '+name);
+    var total = $("#total").val().trim().split("-");
+    var vl1 = $("#total"+total[0]+total[1]).val().trim()
+    var vl2 = $("#percent"+total[0]+total[1]).val().trim()
+    //alert(vl1+vl2);
+    //alert('id: '+id+' Mark: '+ mark+ ' Load: '+ load+ ' Assasment: '+ assasment +' Name: '+name+' Subject: '+subject+' Total: '+total);
     $.ajax({
         type: 'GET',
         url: 'editMarkStudentList/'+id+'/'+mark+'/'+load+'/'+assasment,
         success:function(data){
             console.log(data)
            var row='';
-            row='<td class="text-center">'+subject+'</td><td class="text-center">'+assasment+'</td><td class="text-center">'+mark+'</td><td class="text-center">'+load+'</td>'+
-            '<td class="text-center">'+
+           var row2='';
+            row='<td class="text-center text-bold">'+subject+'</td><td class="text-center text-bold">'+assasment+'</td><td class="text-center text-bold">'+mark+'</td><td class="text-center text-bold">'+load+'</td>'+
+            '<td class="text-center text-bold">'+
                 '<button onclick="editMark(this)" value="'+id+','+assasment+','+mark+','+load+','+name+','+subject+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
             '</td>'
+            row2+= '<td colspan="2" class="text-right">Total</td><td colspan="3" class="text-left">Loading...</td>'
             $('#'+data).html(row);
-            swal("Updated!", "You Updated Successfuly!", "success");
+            $('#editTotalMl'+vl1).html(row2);
+            Swal.fire("Updated!", "You Updated Successfuly!", "success");
+            // $("#mark").val('')
+            // $("#load").val('')
             closer();
+            // $('#modal-editMark').on('hidden.bs.modal', function (e) {
+            //     $(this).find('input').val('');
+            //   });
         }
     })
 
@@ -203,4 +223,77 @@ function saveEditedValue(){
 
 function closer(){
     $('#modal-editMark').modal('hide');
+}
+
+function closeAddMl(){
+    $('#modal-addMarkList').modal('hide');
+}
+
+function addMarkList(val){
+
+    var splitter = (val.value.trim()).split(",");
+    var student = splitter[0];
+    var class_id = splitter[1];
+    var semister = splitter[2];
+    var subject = splitter[3];
+    var name = splitter[4];
+    var term = splitter[5];
+
+
+  //alert(subject)
+  //  alert('Student: '+student+' Class: '+class_id+' Semister: '+semister)
+    $('#modal-addMarkList').modal('show');
+    $("#modal-addMarkList").click(function () {
+        $(".modal-body #student").val(student);
+        $(".modal-body #class").val(class_id);
+        $(".modal-body #subject").val(subject);
+        $(".modal-body #semister").val(semister);
+        $(".modal-body #name").val(name);
+        $(".modal-body #term2").val(term);
+    });
+    $('#modal-addMarkList').click();
+}
+
+function sendMarkList(){
+    var student = $("#student").val().trim();
+    var class_id = $("#class").val().trim();
+    var mark = $("#mark2").val().trim();
+    var load = $("#load2").val().trim();
+    var assasment = $("#assasment2").val().trim();
+    var subject = $("#subject").val().trim();
+    var semister = $("#semister").val().trim();
+    var name = $("#name2").val().trim();
+    var term = $("#term2").val().trim();
+   // alert('Assasment: '+assasment+' student: '+student+' Class: '+class_id+' Load: '+load+' Mark: '+mark+' Subject: '+subject+' Semister'+semister)
+   $.ajax({
+       type: 'GET',
+       url: 'singleAddMarkList/'+student+'/'+class_id+'/'+semister+'/'+assasment+'/'+subject+'/'+mark+'/'+load,
+       success: function(data){
+            console.log(term)
+            row = '';
+            data.forEach(d2 => {
+                if(d2.student_id==student){
+                    if(d2.semister+d2.term==term){
+                        console.log(term)
+                        console.log(d2.semister+d2.term)
+                            row+=
+                            '<tr class="text-primary" id="'+d2.id+'">'+
+                                '<td class="text-center">'+ d2.subject_name+' </td>'+
+                                '<td class="text-center">'+d2.assasment_type+'</td>'+
+                                '<td class="text-center">'+d2.mark+'</td>'+
+                                '<td class="text-center">'+ d2.test_load+' </td>'+
+                                '<td class="text-center">'+
+                                    '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+name+','+d2.subject_name+','+d2.semister+'-'+d2.term+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
+                                '</td>'+
+                            '</tr>'
+                    }else{
+                    }
+                }
+
+            });
+                $('#semister'+semister).html(row);
+           // row2+= '<td colspan="2" class="text-right">Total</td><td colspan="3" class="text-left">Loading...</td>'
+
+       }
+   })
 }

@@ -23,6 +23,8 @@ function fetch(class_id, stream_id) {
             // Swal.fire(
             //     'Registered Successfully!',
             //   );
+            console.log(status)
+            console.log(data)
             if(status == 'true'){
 
                 section.forEach(d =>{
@@ -49,6 +51,29 @@ function fetch(class_id, stream_id) {
                             // 'data-target="#add_discount" data-disount_data="'+student_id+','+d.load_id+','+d.payment_type+','+d.amount+'" >'+
                             // '<i class="fas fa-percent"></i>'+
                             // '</button>'+
+                            '</td>'
+                            '</tr>'
+               });
+
+               $('#student_list').html(rows);
+               $('#counter').html(no);
+               $('#sections').html(sec);
+            }else{
+                data.forEach(d => {
+                    counter = counter+1;
+                    no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
+                    rows += '<tr>'+
+                            // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
+                            '<td>'+d.student_id+'</td>'+
+                            '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
+                            '<td>'+d.class_label+'</td>'+
+                            '<td>'+d.stream_type+'</td>'+
+                            '<td>'+d.section_name+'</td>'+
+                            '<td>'+
+                            '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
+                            'data-target="#add_discount" " >'+
+                            '<i class="fas fa-percent"></i>'+
+                            '</button>'+
                             '</td>'
                             '</tr>'
                });
@@ -140,8 +165,6 @@ $("#assignTeacherToClsss").click(function () {
      });
 
 });
-
-
 
 $("#singleClassId2").change(function () {
     var class_id = $("#singleClassId2").val();
