@@ -47,21 +47,22 @@ class MarklistController extends Controller
         $mark_list->subject_id = $sub->id;
         $mark_list->academic_year = date("Y");
         $mark_list->assasment_type_id = $assasment_id;
-
         if($mark_list->save()){
             $as = assasment_type::where('id',$assasment_id)->get('assasment_type')->first();
             //'class_label']);
             $mark2 = DB::table('student_mark_lists')
-                    ->join('students','student_mark_lists.student_id','=','students.id')
+                  //  ->join('students','student_mark_lists.student_id','=','students.id')
                     ->join('classes','student_mark_lists.class_id','=','classes.id')
                     ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
                     ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
                     ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
                     ->where('classes.id',$class_id)
                     ->where('subject_name',$subject)
+                    ->where('student_mark_lists.student_id',$student_id)
+                    ->where('semisters.id',$semister_id)
                     ->get(['semisters.semister',
                             'semisters.term',
-                            'students.id as student_id',
+                            'student_mark_lists.student_id as student_id',
                             'student_mark_lists.test_load',
                             'semisters.id as semister_id',
                             'student_mark_lists.id as id',
@@ -71,7 +72,7 @@ class MarklistController extends Controller
                             'subjects.id as subject_id',
                             'semisters.id as semid',
                             'student_mark_lists.mark']);
-            return response()->json($mark2);
+            return response()->json(['mark'=>$mark2,'new'=>$mark_list->id]);
         }else{
             return response()->json("Error");
         }

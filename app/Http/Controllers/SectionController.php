@@ -26,8 +26,6 @@ class SectionController extends Controller
     public function index(){
         $class = classes::all();
         $stream = stream::all();
-
-
         return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
         //return $student;
     }
@@ -62,7 +60,7 @@ class SectionController extends Controller
         return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
     }
     public function setSection(Request $request){
-        
+
         if($request->section_type=='Alphabet'){
             $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('first_name','ASC')->get();
             $this->sectionLogic($student,$request->student_size);
@@ -284,6 +282,7 @@ class SectionController extends Controller
                         'middle_name',
                         'last_name',
                         'gender',
+                        'sections.student_id as ssection_id',
                         'students.student_id',
                         'students.id as studid',
                         'section_name',

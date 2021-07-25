@@ -6,7 +6,6 @@ $('#modal-teacher').on('show.bs.modal', function(event) {
     modal.find('.modal-body #full_name').text(split[0])
     modal.find('.modal-body #id').text(split[1])
     modal.find('.modal-footer button').val(detail);
-    //alert(split[1])
     $.ajax({
         type: 'GET',
         url: 'getCourseLoad/'+(split[1].trim()),
