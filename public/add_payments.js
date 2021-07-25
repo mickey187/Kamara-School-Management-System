@@ -1,3 +1,4 @@
+// const { split } = require("lodash");
 
 var send_pay_total_detail = [];
 var student_id_for_total_payment = null;
@@ -183,6 +184,67 @@ $('#make_payment').on('show.bs.modal', function (event) {
       success:function (data) {
          var rows = '';
           console.log(data);
+          var split = null;
+          data.forEach(d => {
+             var str = d.payment_month
+             split = str.split('-');
+             switch (split[1]) {
+               case '01':
+                split[1] = 'January';
+                 
+                 break;
+                 case '02':
+                   split[1] = 'February';
+                   break;
+
+                 case '03':
+                  split[1] = 'March';
+                   break;
+
+                   case '04':
+                    split[1] = 'April';
+                    break;
+
+                    case '05':
+                      split[1] = 'May';
+                   break;
+
+                   case '06':
+                    split[1] = 'June';
+                   break;
+
+                   case '07':
+                    split[1] = 'July';
+                   break;
+                   case '08':
+                    split[1] = 'August';
+                   break;
+
+                   case '09':
+                    split[1] = 'September';
+                   break;
+
+                   case '10':
+                    split[1] = 'October';
+                   break;
+
+                   case '11':
+                    split[1] = 'November';
+                   break;
+
+                   case '12':
+                    split[1] = 'December';
+                   break;
+
+             
+               default:
+                 break;
+             }
+             console.log(split[1]+' '+split[0]);
+             var month_year = split[1] +' '+split[0];
+             d.payment_month = month_year;
+             console.log(d.payment_month);
+          });
            data.forEach(d => {
              
               // rows+= 
@@ -208,9 +270,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
 
   $('#pay_total').click(function () { 
     var month = $('#select_month').val();
-    // var date = new Date(month);
-    // console.log(date.getFullYear()+date.getMonth());
-   // console.log(student_id_for_total_payment+' '+month);
+    
     $.ajax({
       type: 'GET',
       url: 'makeTotalPayment/'+student_id_for_total_payment+'/'+month,

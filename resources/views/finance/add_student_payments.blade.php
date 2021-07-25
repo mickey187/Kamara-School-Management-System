@@ -145,7 +145,7 @@
 
                             <label for="select_month">Select Recurring Month</label>
                             <div class="form-group">
-                              <input type="month" name="month" id="select_month">
+                              <input type="month" name="month" id="select_month" class="form-control">
                             </div>
 
                             

@@ -271,6 +271,7 @@ class FinanceController extends Controller
                                     ->join('payment_types','student_payments.payment_type_id','=','payment_types.id')
                                     ->join('payment_loads','student_payments.payment_load_id','=','payment_loads.id')
                                     ->where('student_payments.student_id',$stud_id)
+                                    ->orderBy('payment_month','DESC')
                                     ->get(['first_name','middle_name','last_name','payment_type','amount_payed','payment_month']);
 
     //         $result_history = DB::table('tuition_fees')
