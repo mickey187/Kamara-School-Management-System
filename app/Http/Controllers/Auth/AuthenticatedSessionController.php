@@ -45,7 +45,7 @@ class AuthenticatedSessionController extends Controller
             case 'finance':
                 return redirect()->route('finance/financeDashboard');
                 break;
-            case 'teacher':
+            case 'Teacher':
                 return redirect('teacherDashBoard');
                 break;
             case 'student':

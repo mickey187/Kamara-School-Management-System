@@ -27,7 +27,7 @@
     </div>
     <div class="col-lg-3" style="margin-top: 20px;">
         <a style="cursor: pointer;" onclick="getHomeRoom('{{ $employee->id }}');" >
-            <div class="small-box bg-info">
+            <div class="small-box bg-primary">
                 <div class="inner p-3">
                   <p>Home Room</p><br>
                 </div>
@@ -40,7 +40,7 @@
     </div>
     <div class="col-lg-3" style="margin-top: 20px;">
         <a style="cursor: pointer;" onclick="getCourseLoad('{{ $employee->id }}');" >
-            <div class="small-box bg-red">
+            <div class="small-box bg-primary">
                 <div class="inner p-3">
                   <p>My Classes</p><br>
                 </div>
@@ -55,7 +55,7 @@
         <a href="#" data-toggle="modal"
                     data-detail3="Profile,{{ $employee->id }}"
                     data-target="#modal-dashboard">
-            <div class="small-box bg-green">
+            <div class="small-box bg-primary">
                 <div class="inner p-3">
                   <p>Profile</p><br>
                 </div>

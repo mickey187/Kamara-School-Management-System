@@ -1,4 +1,3 @@
-
 function getCourseLoad(id){
     $.ajax({
         type: 'GET',
@@ -41,6 +40,7 @@ function getCourseLoadStudent(nb){
     section = data[2];
     teacher_id = data[3];
     course_load_id = data[0];
+    // stream_id = data[4];
     //alert('class_id: '+class_id+' section: '+section+' teacher: '+teacher_id+' course load: '+course_load_id)
     $.ajax({
         type: 'GET',
@@ -109,7 +109,8 @@ function getCourseLoadStudent(nb){
                                     '<th class="text-center">Action</th>'+
                                 '</tr>'+
                             '</thead>'+
-                        '<tbody id="semister'+d3.id+'">'
+                        '<tbody id="semister'+d3.id+"-"+d.ssection_id+'">'
+                        console.log("inside out row id => "+d3.id+"-"+d.ssection_id)
                         mark1.forEach(d2 => {
                             all_semister=d2.semister+d2.term;
                             if(d2.student_id==d.student_id){
@@ -238,6 +239,7 @@ function addMarkList(val){
     var subject = splitter[3];
     var name = splitter[4];
     var term = splitter[5];
+    var mark_id = splitter[6];
 
 
   //alert(subject)
@@ -264,18 +266,42 @@ function sendMarkList(){
     var semister = $("#semister").val().trim();
     var name = $("#name2").val().trim();
     var term = $("#term2").val().trim();
+    console.log("First student id: "+student)
+    console.log("First Semister: "+semister)
    // alert('Assasment: '+assasment+' student: '+student+' Class: '+class_id+' Load: '+load+' Mark: '+mark+' Subject: '+subject+' Semister'+semister)
    $.ajax({
        type: 'GET',
        url: 'singleAddMarkList/'+student+'/'+class_id+'/'+semister+'/'+assasment+'/'+subject+'/'+mark+'/'+load,
        success: function(data){
-            console.log(term)
+            // console.log(term)
+            semid = 0;
+            studid = 0;
             row = '';
-            data.forEach(d2 => {
-                if(d2.student_id==student){
-                    if(d2.semister+d2.term==term){
-                        console.log(term)
-                        console.log(d2.semister+d2.term)
+            var mark = JSON.parse(JSON.stringify(data.mark));
+            var new1 = JSON.parse(JSON.stringify(data.new));
+            mark.forEach(d2 => {
+                 console.log(d2.semid)
+                 console.log("Old: "+d2.id)
+                 console.log("New: "+new1)
+                 console.log(semister)
+                 semid = d2.semid;
+                 studid = d2.student_id;
+                 if(d2.semister+d2.term==term){
+                        console.log("Second term "+term)
+                        console.log("Second db term "+d2.semister+d2.term)
+                        console.log("Second student id "+d2.student_id)
+                            if(new1 == d2.id){
+                                row+=
+                                '<tr class="text-primary" id="'+d2.id+'">'+
+                                    '<td class="text-center"><span class="badge badge-danger">New</span> '+ d2.subject_name+' </td>'+
+                                    '<td class="text-center">'+d2.assasment_type+'</td>'+
+                                    '<td class="text-center">'+d2.mark+'</td>'+
+                                    '<td class="text-center">'+ d2.test_load+' </td>'+
+                                    '<td class="text-center">'+
+                                        '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+name+','+d2.subject_name+','+d2.semister+'-'+d2.term+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
+                                    '</td>'+
+                                '</tr>'
+                            }else{
                             row+=
                             '<tr class="text-primary" id="'+d2.id+'">'+
                                 '<td class="text-center">'+ d2.subject_name+' </td>'+
@@ -286,12 +312,20 @@ function sendMarkList(){
                                     '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+name+','+d2.subject_name+','+d2.semister+'-'+d2.term+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
                                 '</td>'+
                             '</tr>'
-                    }else{
+                            }
                     }
-                }
-
             });
-                $('#semister'+semister).html(row);
+                $('#semister'+semid+"-"+studid).html(row);
+                console.log(+semid+"-"+studid);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                closeAddMl();
+
            // row2+= '<td colspan="2" class="text-right">Total</td><td colspan="3" class="text-left">Loading...</td>'
 
        }
