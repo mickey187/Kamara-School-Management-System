@@ -111,7 +111,14 @@ class FinanceController extends Controller
                                   ->join('classes','payment_loads.class_id','=','classes.id')
                                   ->get(['payment_loads.id as load_id','payment_type','class_label','amount']);
                                   
-        $student_data = student::get(['id','student_id','first_name','middle_name','last_name','discount','class_id']);
+       // $student_data = student::get(['id','student_id','first_name','middle_name','last_name','discount','class_id']);
+        $student_data = DB::table('students')
+                                 ->join('classes','students.class_id','=','classes.id')
+                                 ->orderBy('first_name','ASC')
+                                 ->orderBy('middle_name','ASC')
+                                 ->orderBy('last_name','ASC')
+                                 ->orderBy('classes.id','ASC')
+                                 ->get(['students.id as student_table_id','student_id','first_name','middle_name','last_name','discount','class_id','class_label']);
        
             //return $student_data;
        
@@ -163,10 +170,18 @@ class FinanceController extends Controller
 //check if a student is registered for transportation
 
              if (!student_transportation::where('student_id',$stud_id)->exists()) {
-               $payment_load_id = student_transportation::pluck('payment_load_id')->first();
-               if ($key->load_id == $payment_load_id) {
-                   $key->amount = 0;
-               }
+                 foreach ($result_load as $key) {
+                     # code...
+                     
+                     if ($key->payment_type == 'Transportation Fee') {
+                         # code...
+                         $key->amount = 0;
+                     }
+                 }
+            //    $payment_load_id = student_transportation::pluck('payment_load_id')->first();
+            //    if ($key->load_id == $payment_load_id) {
+            //        $key->amount = 0;
+            //    }
              }
 
             }
@@ -183,7 +198,7 @@ class FinanceController extends Controller
         return response()->json(['result_load' => $result_load, 'total_load' => $total]);
 
     }
-
+//fetch individual payment loads
     public function fetchLoad($class_id, $pay_type, $stud_id){
 
         $result_load = DB::table('payment_loads')
@@ -205,13 +220,17 @@ class FinanceController extends Controller
                     $key->amount = 0;
                 }
               }
-
+            }
+            foreach ($result_load as $key) {
+                # code...
+            
               if ($key->recurring_type == 'non-recurring') {
                   if (student_payment::where('student_id',$stud_id)->where('payment_load_id',$key->load_id)->exists()) {
                       $key->amount = "already payed";
                   }
               }
-        }
+            }
+        
 
     if (student_discount::where('student_id',$stud_id)->where('payment_load_id',$load_id_value)->exists()) {
             
@@ -252,6 +271,7 @@ class FinanceController extends Controller
                                     ->join('payment_types','student_payments.payment_type_id','=','payment_types.id')
                                     ->join('payment_loads','student_payments.payment_load_id','=','payment_loads.id')
                                     ->where('student_payments.student_id',$stud_id)
+                                    ->orderBy('payment_month','DESC')
                                     ->get(['first_name','middle_name','last_name','payment_type','amount_payed','payment_month']);
 
     //         $result_history = DB::table('tuition_fees')

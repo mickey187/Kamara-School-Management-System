@@ -79,13 +79,12 @@
                 
                 <h1>Hello Student</h1>
                 
-                
             @endif
 
             </ul>
 
             
-            
+
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -130,8 +129,8 @@
                             <img src="{{ asset('img/default_picture.png') }}" class="img-circle" alt="User Image">
 
                             <p class="mt-0"> <span class="text-bold">{{ Auth::user()->name }}</span> <br>
-                                
-                                <span class="text"> {{ $role_name }} </span>
+                                grade <br>
+                                <span class="text"> section </span>
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -194,15 +193,8 @@
 
 
 
-                        <li class="nav-item"> 
-                            
-                                
-                            
-                            <a href="{{ url('finance/financeDashboard') }}" class="nav-link 
-                            @if (Request::segment(2)== 'financeDashboard')
-                            active
-                            @endif">
-                                
+                        <li class="nav-item">
+                            <a href="{{ url('student_view_dashboard') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -243,87 +235,70 @@
 
 
 
-                        <!-- finance -->
-
+                        <!-- student -->
 
                         <li class="nav-item">
-                            
-                                
-                           
-                            
-                            <a href="#" class="nav-link @if (Request::segment(1)== 'finance') active @endif" id="nav_finance">
-                               
-                                <i class="nav-icon fas fa-dollar-sign"></i>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Finance
+                                    Grade
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{url('finance/indexAddPaymentType')}}" class="nav-link @if (Request::segment(2)== 'indexAddPaymentType') active  @endif">
+                                     <a href="../pages/Grade/Grade.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Payment Type</p>
-                                    </a>
-                                </li>
-
-                                    <li class="nav-item">
-                                        <a href="{{url('finance/viewPaymentType')}}" class="nav-link @if (Request::segment(2)== 'viewPaymentType') active  @endif">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>View Payment Type</p>
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                    <a href="{{url('finance/indexAddPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'indexAddPaymentLoad') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Payment Load</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('finance/viewPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'viewPaymentLoad') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Payment Load</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('finance/indexAddStudentTransportation')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentTransportation') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Student Transportation</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('finance/indexAddStudentDiscount')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentDiscount') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Student Discount</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('finance/viewStudentDiscount')}}" class="nav-link @if (Request::segment(2)== 'viewStudentDiscount') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Student Discount</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('finance/indexAddStudentPayment')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentPayment') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Student Payment</p>
+                                        <p>view grade</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{url('finance/viewStudentPayment')}}" class="nav-link @if (Request::segment(2)== 'viewStudentPayment') active  @endif">
+                                    <a href="../pages/Grade/Grade.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>View Student Payment</p>
+                                        <p>view mark</p>
                                     </a>
                                 </li>
+                                {{-- <li class="nav-item">
+                                    <a href="{{ url('student_enrollment')  }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Enrollment</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('sectionForm')  }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Sectioning</p>
+                                    </a>
+                                </li> --}}
 
-                         </ul>
+                            </ul>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Attendance
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                     <a href="../pages/Attendance/Attendance.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>view attendance</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="../pages/Attendance/Attendance.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>view absence</p>
+                                    </a>
+                                </li>
+                            
+                            </ul>
+                        </li>
+
 
                         <hr>
                         <li class="nav-header">MISCELLANEOUS</li>
@@ -462,15 +437,6 @@ $(function() {
       <!-- student discount js -->
       <script src="{{ asset('student_discount.js') }}"></script>
 
-      <!-- student transportation js -->
-      <script src="{{ asset('student_transport.js') }}"></script>
-
-       <!-- student transportation js -->
-       <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
-
-        <!-- finance_master -->
-        <script src="{{ asset('finance_master.js') }}"></script>
-
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
@@ -490,11 +456,13 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
     <script src="{{asset('dist/js/addclass.js')}}"></script>
-    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
+     <script src="{{ asset('dist/js/employee.js') }}"></script> 
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
+    
     <script src="{{ asset('dist/js/script.js') }}"></script>
     <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/teacher.js') }}"></script>
@@ -503,6 +471,9 @@ $(function() {
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
+    <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
+    <script src="{{ asset('dist/js/view_religion_value.js') }}"></script>
+    <script src="{{ asset('dist/js/view_job_position.js') }}"></script>
 
     <script>
         $(function() {
@@ -510,7 +481,6 @@ $(function() {
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -549,8 +519,6 @@ $(function() {
 
 
     </script>
-
-    
 
 
 

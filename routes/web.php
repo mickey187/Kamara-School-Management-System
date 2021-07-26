@@ -1,5 +1,8 @@
 <?php
 
+
+use App\Http\Controllers\AddJobPositionController;
+use App\Http\Controllers\AddReligionController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SubjectController;
@@ -18,6 +21,7 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\SectionController;
 use GrahamCampbell\ResultType\Success;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +38,12 @@ use GrahamCampbell\ResultType\Success;
 //     return view('/admin/dashboard');
 // });
 
-
+//  Route::get('/student', function () {
+//      return view('/layouts/student_view_dashboard');
+//  });
+Route::get("/student", function(){
+   return view ("layouts/student_dashboard");
+});
 
 // Route::get('/', function () {
 //     return view('auth.login');
@@ -149,6 +158,21 @@ Route::get('/viewStream', [StreamController::class, 'viewStream'])->name('/viewS
 Route::post('addStream', [StreamController::class, 'addStream']);
 
 // Employee Controller
+Route::get('/addReligionPage',[AddReligionController::class,'addReligionPage']);
+Route::get('addReligion/{religion}',[AddReligionController::class,'addReligion']);
+Route::get('/viewReligion',[AddReligionController::class,'viewReligion'])->name('viewReligion');
+Route::get('editReligion/{id}', [AddReligionController::class, 'editReligion'])->name('editReligion');
+Route::get('editReligionValue/{id}',[AddReligionController::class,'editReligionValue']);
+Route::get('/deleteReligion', [AddReligionController::class, 'deleteReligion']);
+
+Route::get('/indexAddJobPosition',[AddJobPositionController::class,'indexAddJobPosition']);
+Route::get('addJobPosition/{position}',[AddJobPositionController::class,'addJobPosition']);
+Route::get('/viewJobPosition',[AddJobPositionController::class,'viewJobPosition'])->name('viewJobPosition');
+Route::get('editJobPosition/{id}', [AddJobPositionController::class, 'editJobPosition'])->name('editJobPosition');
+Route::get('editPositionValue/{id}',[AddJobPositionController::class,'editPositionValue']);
+Route::get('/deleteJobPosition', [AddJobPositionController::class, 'deleteJobPosition']);
+
+
 
 Route::get('/addEmployee',[EmployeeRegistrationController::class, 'store']);
 
@@ -170,6 +194,7 @@ Route::get('/edit_employee/{id}',[ListEmployeeController::class, 'getEmployee'])
 
 Route::get('/update_employee/{id}',[EmployeeRegistrationController::class, 'update']);
 
+Route::get('/delete_employee',[ListEmployeeController::class,'removeEmployee']);
 Route::get('/delete_employee/{id}',[ListEmployeeController::class,'removeEmployee']);
 
 Route::get('/trash_employee/{id}',[EmployeeRegistrationController::class,'delete']);
@@ -221,15 +246,15 @@ Route::get('my_student/getClassSection/{class_Label}/{section}', [TeacherControl
 
 Route::get('indexaddrole', [RoleController::class, 'indexAddRole']);
 
-Route::post('addrole', [RoleController::class, 'addRole']);
+Route::get('addrole', [RoleController::class, 'addRole']);
 
 Route::get('viewrole', [RoleController::class, 'viewRole'])->name('viewrole');
 
 Route::get('editrole/{id}', [RoleController::class, 'editRole'])->name('editrole');
 
-Route::post('editrolevalue/{id}', [RoleController::class, 'editRoleValue']);
+Route::get('editrolevalue/{id}', [RoleController::class, 'editRoleValue']);
 
-Route::post('/deleterole', [RoleController::class, 'deleteRole']);
+Route::get('/deleterole', [RoleController::class, 'deleteRole']);
 
 
 // Student

@@ -33,7 +33,7 @@ class MarklistImport implements ToModel,WithHeadingRow
         }
         $academic_year = request('academic_year');
 
-        $student = student::where('student_id',$row['id'])->first();
+        $student = student::where('student_id',(int)$row['id'])->first();
         $section2 = section::where('student_id',$student->id)
                            ->where('class_id',$grade)
                            ->where('section_name',$section)->first();
