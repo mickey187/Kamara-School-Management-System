@@ -37,6 +37,13 @@ use GrahamCampbell\ResultType\Success;
 //     return view('/admin/dashboard');
 // });
 
+//  Route::get('/student', function () {
+//      return view('/layouts/student_view_dashboard');
+//  });
+Route::get("/student", function(){
+   return view ("layouts/student_dashboard");
+});
+
 Route::get('/', function () {
    return view('auth.login');
 });
@@ -133,14 +140,14 @@ Route::post('addStream', [StreamController::class, 'addStream']);
 
 // Employee Controller
 Route::get('/addReligionPage',[AddReligionController::class,'addReligionPage']);
-Route::get('/addReligion',[AddReligionController::class,'addReligion']);
+Route::get('addReligion/{religion}',[AddReligionController::class,'addReligion']);
 Route::get('/viewReligion',[AddReligionController::class,'viewReligion'])->name('viewReligion');
 Route::get('editReligion/{id}', [AddReligionController::class, 'editReligion'])->name('editReligion');
 Route::get('editReligionValue/{id}',[AddReligionController::class,'editReligionValue']);
 Route::get('/deleteReligion', [AddReligionController::class, 'deleteReligion']);
 
 Route::get('/indexAddJobPosition',[AddJobPositionController::class,'indexAddJobPosition']);
-Route::get('/addJobPosition',[AddJobPositionController::class,'addJobPosition']);
+Route::get('addJobPosition/{position}',[AddJobPositionController::class,'addJobPosition']);
 Route::get('/viewJobPosition',[AddJobPositionController::class,'viewJobPosition'])->name('viewJobPosition');
 Route::get('editJobPosition/{id}', [AddJobPositionController::class, 'editJobPosition'])->name('editJobPosition');
 Route::get('editPositionValue/{id}',[AddJobPositionController::class,'editPositionValue']);

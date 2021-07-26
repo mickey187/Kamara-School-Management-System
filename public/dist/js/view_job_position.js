@@ -27,5 +27,5 @@ $('#view_position').on('show.bs.modal', function (event) {
     modal.find('.modal-body #position_id_delete').text("position ident: "+data_array[0])
     modal.find('.modal-body #position_name_delete').text("position type: "+data_array[1])
 
-    // modal.find('.modal-footer #delete_position_btn').val(data_array[0])
+    modal.find('.modal-footer #delete_position_btn').val(data_array[0])
   })

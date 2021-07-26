@@ -34,7 +34,9 @@
 
                      <a href="{{ url('editReligion/'.$row->id) }}" type="button" class="btn bg-blue btn-sm"><i class="fa fa-pen"></i></a>
 
-                      <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete_religion" data-role_delete="{{$row->id}},{{$row->religion_name}}">
+                      <button class="btn btn-danger btn-sm" 
+                      data-toggle="modal" data-target="#delete_religion" 
+                      data-religion_delete="{{$row->id}},{{$row->religion_name}}">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 
@@ -77,7 +79,7 @@
               </div>
             </div>
 
-            <div class="modal fade" id="delete_role" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="delete_religion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">

@@ -15,10 +15,10 @@ class AddJobPositionController extends Controller
     public function indexAddJobPosition(){
         return view('admin.employee.add_job_position');
     }
-    public function addJobPosition()
+    public function addJobPosition($position2)
     {
         $position =new employee_job_position();
-        $position->position_name = request('employee_position');
+        $position->position_name = $position2;
         
         if ($position->save()) {
             $view_position = employee_job_position::all();

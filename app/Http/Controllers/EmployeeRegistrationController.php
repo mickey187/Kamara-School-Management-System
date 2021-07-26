@@ -60,7 +60,16 @@ class EmployeeRegistrationController extends Controller
             $this->insertTeacher();
             //$this->insertHomeRoom();
             $this->insertTeacherCourseLoad();
-            return view('admin.employee.employee_registration');
+             $edit_job_position = employee_job_position::all();
+            $job_position = employee_job_position::all();
+            $employee_religion = employee_religion::all();
+            $edit_role = Role::all();
+            $edit_all_role = Role::all();
+            $edit_all_religion = employee_religion::all();
+               return view('admin.employee.employee_registration')->with('edit_job_position',$edit_job_position)
+                     ->with('job_position',$job_position)->with('employee_religion',$employee_religion)
+                    ->with('edit_all',$edit_all_religion)->with('edit_role',$edit_role)->with('edit_all_role',$edit_all_role);
+           // return view('admin.employee.employee_registration');
         }else{
             // $this->insertRole();
             $this->insertAddress();
@@ -73,10 +82,10 @@ class EmployeeRegistrationController extends Controller
             $employee_religion = employee_religion::all();
             $edit_role = Role::all();
             $edit_all_role = Role::all();
-            $edit_all = employee_religion::all();
+            $edit_all_religion = employee_religion::all();
                return view('admin.employee.employee_registration')->with('edit_job_position',$edit_job_position)
                      ->with('job_position',$job_position)->with('employee_religion',$employee_religion)
-                    ->with('edit_all',$edit_all)->with('edit_role',$edit_role)->with('edit_all_role',$edit_all_role);
+                    ->with('edit_all',$edit_all_religion)->with('edit_role',$edit_role)->with('edit_all_role',$edit_all_role);
         }
 
     }
@@ -124,7 +133,7 @@ class EmployeeRegistrationController extends Controller
         $employee->gender = request('gender');
         $employee->birth_date =request ('birth_date');
         $employee->education_status =request('education_status');
-        $employee->nationality =request('nationality');
+        $employee->nationality =request('citizen');
         $employee->marrage_status =request('marriage_status');
         $employee->hired_date =request('hired_date');
         $employee->special_skill =request('special_skill');
@@ -225,7 +234,7 @@ public function insertEmployee(){
         $employee->gender = request('gender');
         $employee->birth_date =request ('birth_date');
         $employee->education_status =request('education_status');
-        $employee->nationality =request('nationality');
+        $employee->nationality =request('citizen');
         $employee->marrage_status =request('marriage_status');
         $employee->hired_date =request('hired_date');
         $employee->previous_employment =request('previous_employment');

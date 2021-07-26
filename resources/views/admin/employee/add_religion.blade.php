@@ -15,7 +15,7 @@
 <div class="card-body">
   <section class="content">
     <div class="container-fluid mt-3">                 
-        <form action="
+        <form id="religion_form" action="
         @if (isset($edit_employee_religion))
         {{url('editReligionValue/'.$edit_employee_religion->id)}}
         @else
@@ -31,9 +31,9 @@
                 @if (isset($edit_employee_religion))
                     value="{{$edit_employee_religion->religion_name}}"
                 @endif
-                >
+                >{{--<i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small> --}}
               </div>
-              <button type="submit" class="btn btn-primary btn-md">
+              <button type="button" id="submit12" class="btn btn-primary btn-md">
                                 @if (isset($edit_employee_religion))
                                 Save Changes
                                 @else

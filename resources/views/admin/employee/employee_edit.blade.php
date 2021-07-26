@@ -61,7 +61,7 @@
                                                     </div>
                                                 <div class="field">
                                                     <div class="label">Education Status</div>
-                                                    <input type="text" name="education_status" class="form-control" id="hired_date" placeholder="Enter your education status"
+                                                    <input type="text" name="education_status" class="form-control" id="education_status" placeholder="Enter your education status"
                                                         @if(isset($edit_employee))
                                                             value="{{ $edit_employee->education_status }}"
                                                         @else
@@ -75,7 +75,7 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Middle name</div>
-                                                    <input type="text" name="middle_name" class="form-control" placeholder="Middle name"
+                                                    <input type="text" id="middle_name" name="middle_name" class="form-control" placeholder="Middle name"
                                                     @if(isset($edit_employee))
                                                     value="{{ $edit_employee->middle_name }}"
                                                     @else
@@ -85,7 +85,7 @@
                                                 </div>
                                                 <div class="field">
                                                     <div class="label">Gender</div>
-                                                    <select class="form-control" name="gender">
+                                                    <select id="gender" class="form-control" name="gender">
                                                             <option>Male</option>
                                                             <option>Female</option>
                                                         </select>
@@ -94,18 +94,11 @@
                                                 </div>
 
 
-                                                <div class="field">
-                                                <div class="label">nationality</div>
-                                                <select id="nationality" name="nationality" class="form-control form-select" aria-label="Ethiopia" name="nationality">
-                                                    <option value="Ethiopia" selected>Ethiopia</option>
-                                                    <option value="kenya">kenya</option>
-                                                    <option value="somaliya">somaliya</option>
-                                                    <option value="uganda">uganda</option>
-                                                    <option value="syriya">syria</option>
-                                                </select>
-                                                <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
-
-                                                </div>
+                    <div class="field">
+                            <div class="label">citizen</div>
+                            <input type="text" id="citizen"  name="citizen" class="form-control" placeholder="Cityzenship">
+                            <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
+                    </div>
                                             </div>
                                           <div class="col-4">
                                                 <div class="field">
@@ -494,7 +487,7 @@
                                         </div>
 
                                         </div>
-                                       <button type="submit" class=" submitBtn btn btn-primary">submit</button>
+                                       <button type="button" id="editButton" class=" submitBtn btn btn-primary">submit</button>
 
                                     </div>
                                     <!-- <div class="page">

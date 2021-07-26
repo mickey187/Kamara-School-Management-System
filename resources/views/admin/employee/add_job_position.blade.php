@@ -27,13 +27,13 @@
             <div class="col-6">
               <div class="form-group">
                 <label for="exampleFormControlInput1">Position Name</label>
-                <input type="text" name ="employee_position" class="form-control" id="employee_position" placeholder="position Name"
+                <input type="text" name ="employee_position" class="form-control" id="employee_position2" placeholder="position Name"
                 @if (isset($edit_emp_position))
                     value="{{$edit_emp_position->position_name}}"
                 @endif
                 >
               </div>
-              <button type="submit" class="btn btn-primary btn-md">
+              <button type="button" id="saveBtn" class="btn btn-primary btn-md">
                                 @if (isset($edit_emp_position))
                                 Save Changes
                                 @else

@@ -9,41 +9,42 @@ const submitBtn = document.querySelector(".submitBtn");
 const progressText = document.querySelectorAll(".step p");
 const progressCheck = document.querySelectorAll(".step .check");
 const bullet = document.querySelectorAll(".step .bullet");
-const teacher = document.getElementById('job_position_selecter');
+const teacher = document.getElementById("job_position_selecter");
 
 
 let max = 4;
 let current = 1;
 
-teacher.addEventListener("change", function(){
-    const place_of_study = document.getElementById('place_of_study');
-    const teacher_traning_year = document.getElementById('teacher_traning_year');
-    const debut_as_a_teacher = document.getElementById('debut_as_a_teacher');
-    const date_of_study = document.getElementById('date_of_study');
-    const teacher_traning_institute = document.getElementById('teacher_traning_institute');
-    const field_of_study = document.getElementById('field_of_study');
-    const teacher_traning_program = document.getElementById('teacher_traning_program');
+// teacher.addEventListener("change", function(){
+//     console.log('Clicked')
+//     const place_of_study = document.getElementById('place_of_study');
+//     const teacher_traning_year = document.getElementById('teacher_traning_year');
+//     const debut_as_a_teacher = document.getElementById('debut_as_a_teacher');
+//     const date_of_study = document.getElementById('date_of_study');
+//     const teacher_traning_institute = document.getElementById('teacher_traning_institute');
+//     const field_of_study = document.getElementById('field_of_study');
+//     const teacher_traning_program = document.getElementById('teacher_traning_program');
 
-    if(teacher.value==="1"){
-        place_of_study.style.display = "block";
-        teacher_traning_year.style.display = "block";
-        debut_as_a_teacher.style.display = "block";
-        teacher_traning_institute.style.display = "block";
-        date_of_study.style.display = "block";
-        field_of_study.style.display = "block";
-        teacher_traning_program.style.display = "block";
+//     if(teacher.value==="1"){
+//         place_of_study.style.display = "block";
+//         teacher_traning_year.style.display = "block";
+//         debut_as_a_teacher.style.display = "block";
+//         teacher_traning_institute.style.display = "block";
+//         date_of_study.style.display = "block";
+//         field_of_study.style.display = "block";
+//         teacher_traning_program.style.display = "block";
        
-    }else{
-        place_of_study.style.display = "none";
-        teacher_traning_year.style.display = "none";
-        debut_as_a_teacher.style.display = "none";
-        teacher_traning_institute.style.display = "none";
-        date_of_study.style.display = "none";
-        field_of_study.style.display = "none";
-        teacher_traning_program.style.display = "none";
-    }
+//     }else{
+//         place_of_study.style.display = "none";
+//         teacher_traning_year.style.display = "none";
+//         debut_as_a_teacher.style.display = "none";
+//         teacher_traning_institute.style.display = "none";
+//         date_of_study.style.display = "none";
+//         field_of_study.style.display = "none";
+//         teacher_traning_program.style.display = "none";
+//     }
 
-});
+// });
 window.addEventListener("load", function(){
     const place_of_study = document.getElementById('place_of_study');
     const teacher_traning_year = document.getElementById('teacher_traning_year');
