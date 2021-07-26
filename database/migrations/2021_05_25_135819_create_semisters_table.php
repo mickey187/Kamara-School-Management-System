@@ -15,9 +15,9 @@ class CreateSemistersTable extends Migration
     {
         Schema::create('semisters', function (Blueprint $table) {
             $table->id();
-            $table->integer('semister');
-            $table->string('term');
-            $table->string('year');
+            $table->integer('semister')->nullable(false);
+            $table->string('term')->nullable(false);
+            $table->boolean('current_semister')->default(false);
             $table->timestamps();
         });
     }

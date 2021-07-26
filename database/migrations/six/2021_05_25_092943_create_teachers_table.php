@@ -23,6 +23,7 @@ class CreateTeachersTable extends Migration
             $table->foreign('academic_background_id') ->references('id')->on('academic_background_infos')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('teacher_training_info_id');
             $table->foreign('teacher_training_info_id') ->references('id')->on('training_institution_infos')->onUpdate('cascade')->onDelete('cascade');
+            // $table->integer('teacher_id') ->unique()->nullable(false);
             $table->date('debut_as_a_teacher') ->nullable(false);
             $table->timestamps();
     });

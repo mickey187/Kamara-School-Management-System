@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
             <thead>
                 <tr class="info">
                     <th>No.</th>
@@ -39,7 +39,6 @@
                     <th>Subject</th>
                     <th>Test Load</th>
                     <th>action</th>
-
                 </tr>
             </thead>
 
@@ -58,6 +57,7 @@
                         <button class="btn btn-sm btn-info "><span><i class="fas fa-pencil-alt" aria-hidden="true"></i></span></button>
                         <button class="btn btn-sm btn-danger"><span><i class="fa fa-trash" aria-hidden="true"></i></span></button></td>
                     </tr>
+
                 @endforeach
             </tbody>
             </table>

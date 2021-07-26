@@ -36,6 +36,7 @@
 
     <link rel="stylesheet" href="{{ asset('main.css') }}">
     <link rel="stylesheet" href="{{ asset('addclass.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.css') }}">
 
     <!-- DataTables -->
 
@@ -63,7 +64,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <h2 class="text-bold">Kamara School</h2>
-                
+
                <?php
 
                $role_name = Auth::user()->roles;
@@ -76,14 +77,14 @@
                echo $role_name;
                ?>
                 @if($role_name == 'Student')
-                
+
                 <h1>Hello Student</h1>
-                
+
             @endif
 
             </ul>
 
-            
+
 
 
             <!-- Right navbar links -->
@@ -140,7 +141,7 @@
                                     <a href="#"><i class="fa fa-user"></i> My profile</a>
                                 </div>
 
-                                
+
                                 <div class="col-6 text-right">
                                     {{-- <a href="{{route('logout')}}"><i class="fa fa-sign-out-alt"></i> logout</a> --}}
                                     <form action="{{url('/logout')}}" method="post">
@@ -148,7 +149,7 @@
                                         <input type="submit" value="logout" class="btn btn-success">
                                     </form>
                                 </div>
-                           
+
                             </div>
                             <!-- /.row -->
                         </li>
@@ -473,8 +474,8 @@
                             </ul>
                         </li>
 
-                        
-                         
+
+
 
 
 
@@ -583,7 +584,6 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            @include('sweetalert::alert')
                             @yield('content')
                         </div>
                     </div>
@@ -628,7 +628,9 @@
 
 <!-- select 2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="sweetalert2.all.min.js"></script>
 <script>
+
 $(function() {
 
     $('.select2').select2()
@@ -719,11 +721,15 @@ $(function() {
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
     
-    {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
+    <script src="{{ asset('dist/js/script.js') }}"></script>
     <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/teacher.js') }}"></script>
     <script src="{{ asset('dist/css/checkbox.css') }}"></script>
     <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
+    <script src="{{ asset('dist/js/semister_status.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
@@ -754,7 +760,7 @@ $(function() {
             });
         });
 
-        
+
 
 
        //  $('#modal_view').on('show.bs.modal', function (event) {

@@ -3,12 +3,12 @@
 
 
 const slidePage = document.querySelector(".slidePage");
-const firstNextBtn = document.querySelector(".nextBtn");
-const prevBtnSec = document.querySelector(".prev-1");
-const nextBtnSec = document.querySelector(".next-1");
-const prevBtnThird = document.querySelector(".prev-2");
-const nextBtnThird = document.querySelector(".next-2");
-const prevBtnFourth = document.querySelector(".prev-3");
+const firstNextBtn = document.querySelector(".Emp_nextBtn");
+const prevBtnSec = document.querySelector(".Emp_prev-1");
+const nextBtnSec = document.querySelector(".Emp_next-1");
+const prevBtnThird = document.querySelector(".Emp_prev-2");
+const nextBtnThird = document.querySelector(".Emp_next-2");
+const prevBtnFourth = document.querySelector(".Emp_prev-3");
 const addBtn = document.querySelector(".submitBtn");
 
 firstNextBtn.addEventListener("click", function(){

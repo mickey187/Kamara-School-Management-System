@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.finance_view')
 @section('content')
 
 
@@ -10,11 +10,11 @@
     <section class="content">
       <div class="container-fluid mt-3">
 
-<form action="{{url('/addPaymentLoad')}}" method="post">
+<form action="{{url('finance/addPaymentLoad')}}" method="post">
     @csrf
     <div class="row">
         <div class="col-6">
-
+         
           <div class="form-group">
             <label for="exampleFormControlInput1">Payment Type</label>
             <select name="select_payment_type" id="payment_type" class="form-control">
@@ -27,7 +27,7 @@
 
           <div class="form-group">
               <label for="">Select Class</label>
-            <select name="select_class" id="class_id" class="form-control">
+            <select  id="class_id" class="select2" multiple="multiple" style="width: 100%"data-placeholder="Select Class" name="select_classes[]">
                 @foreach ($class as $row)
                     <option value="{{$row->id}}">{{$row->class_label}}</option>
                 @endforeach

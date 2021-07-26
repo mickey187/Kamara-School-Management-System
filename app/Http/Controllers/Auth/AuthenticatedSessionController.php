@@ -32,7 +32,35 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+     $roles =  Auth::user()->roles;
+     $role_name = null;
+     foreach ($roles as $row) {
+
+         $role_name = $row->role_name;
+     }
+
+
+
+        switch ($role_name) {
+            case 'finance':
+                return redirect()->route('finance/financeDashboard');
+                break;
+            case 'Teacher':
+                return redirect('teacherDashBoard');
+                break;
+            case 'student':
+                return "This is Student";
+                break;
+            case 'admin':
+                return redirect()->intended(RouteServiceProvider::HOME);
+                break;
+            default:
+                return 'Default';
+           // return redirect()->intended(RouteServiceProvider::HOME);
+                break;
+        }
+
+       // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
@@ -49,6 +77,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

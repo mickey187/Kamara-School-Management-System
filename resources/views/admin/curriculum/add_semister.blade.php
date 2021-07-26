@@ -10,54 +10,73 @@
                 <form action="{{url('addSemisterI')}}">
                     @csrf
                     <div class="row" style="margin-top: 10px">
-                        <div class="col-6 form">
-                            <div class="form-group">
+                        <div class="row col-12 form">
+                            <div class="col-4form-group">
                                 <label>Add Semister</label>
                                 <input class="form-control" type="text" name="semister" placeholder="semister">
                             </div>
-                            <div class="form-group">
+                            <div class="col-4 form-group">
                                 <div class="form-group">
                                     <label>Add Term</label>
                                     <input class="form-control" type="text" name="term" placeholder="Term">
                                 </div>
                             </div>
-                            <div class="form-group ">
-                                <label for="select_class">Select Class Label</label>
-                                <select class="form-control select2" name="year"  data-placholder="year">
-                                    <option value="2013">2013</option>
-                                    <option value="2014">2014</option>
-                                </select>
-                              </div>
                               <div class="form-group">
-                                <div class="col-6">
-                                    <div class="form-group">
+                                <div class="row col-6">
+                                    <div class="form-group"><br>
                                         <button type="submit" class="btn btn-primary btn-md btn-block" >Submit</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group pl-3">
+                            <label for="inputEmail4">Grade</label>
+                            <select name="grade" id="inputState" class="form-control">
+                              @foreach ($semister as $row)
+                              <option  value="{{ $row->id }}"
+                                @if ($row->current_semister==true)
+                                    selected
+                                @endif
+                                >{{'Semister '.$row->semister.' '.$row->term}}</option>
+                              @endforeach
+                            </select>
+                          </div>
                 </form>
                 <div class="table">
-                    <table id="example1"  class="table table-bordered table-striped">
+                    <table  class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Semister</th>
                                 <th>Term</th>
-                                <th>Year</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="semister_page">
                             <?php
                                 $count = 0;
+                                $isCurrent = false;
                             ?>
                             @foreach ($semister as $row)
+                            @if ($row->current_semister == true)
+                                <?php
+                                    $isCurrent = 'true';
+                                ?>
+                                <tr class="bg-secondary ">
+                                    <td class="">{{ $count = $count + 1 }}</td>
+                                    <td>{{ $row->semister }}</td>
+                                    <td>{{ $row->term }}</td>
+                                </tr>
+                            @else
+                                <?php
+                                    $isCurrent = 'false';
+                                ?>
                                 <tr>
                                     <td>{{ $count = $count + 1 }}</td>
                                     <td>{{ $row->semister }}</td>
                                     <td>{{ $row->term }}</td>
-                                    <td>{{ $row->year }}</td>
                                 </tr>
+                            @endif
+
                             @endforeach
                         </tbody>
                         <tfoot></tfoot>

@@ -12,15 +12,18 @@ use App\Models\employee_emergency_contact;
 use App\Models\address;
 use App\Models\employee;
 use App\Models\academic_background_info;
+use App\Models\assasment_type;
 use App\Models\attendance;
 use App\Models\classes;
 use App\Models\section;
 use App\Models\stream;
+use App\Models\student;
 use App\Models\subject;
 use App\Models\teacher_course_load;
 use App\Models\training_institution_info;
 use App\Models\teacher;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -30,8 +33,15 @@ class TeacherController extends Controller
     {
         $this->middleware('auth');
     }
+    public function teacherDashBoard(){
+        $user_id =  Auth::id();
+        $user = User::find($user_id);
+        $employee = employee::where('employee_id',$user->user_id)->first();
+        $assasment = assasment_type::all();
+      // return $teacher;
+          return view('teacher.teacher_dashboard')->with('employee',$employee)->with('assasment',$assasment);
+    }
 
-    
     public function form()
     {
         $employee = DB::table('employees')
@@ -65,7 +75,7 @@ class TeacherController extends Controller
         $address->phone_number = request('phone1');
         $address->alternative_phone_number = request('phone2');
         $address->house_number = request('house_number');
-        $address->update();    
+        $address->update();
 
         $employee_religion = employee_religion::find($employee->employee_religion_id);
         $employee_religion->religion_name = request('employee_religion');
@@ -99,7 +109,7 @@ class TeacherController extends Controller
         $employee->hire_type =request('hire_type');
         $employee->job_trainning =request('job_trainning');
         $employee->update();
-      
+
         $teacher = teacher::find($employee->id);
         //echo $employee->id ;
         $academic_background = academic_background_info::find($teacher->academic_background_id);
@@ -107,17 +117,17 @@ class TeacherController extends Controller
         $academic_background->place_of_study = request('place_of_study');
         $academic_background->date_of_study = request('date_of_study');
         $academic_background->update();
-            
+
         $training_institution_info = training_institution_info::find($teacher->teacher_training_info_id);
         $training_institution_info->teacher_traning_program = request('teacher_traning_program');
         $training_institution_info->teacher_traning_year = request('teacher_traning_year');
         $training_institution_info->teacher_traning_institute = request('teacher_traning_institute');
         $training_institution_info->update();
-    
+
         $teacher->debut_as_a_teacher = request('debut_as_a_teacher');
         $teacher->update();
-        
-  
+
+
 
         return redirect('listTeacher');
     }
@@ -129,13 +139,13 @@ class TeacherController extends Controller
         //  $academic_background->place_of_study = request('place_of_study');
         //  $academic_background->date_of_study = request('date_of_study');
         //  $academic_background->update();
-        
+
         //  $training_institution_info = training_institution_info::find($teacher->teacher_training_info_id);
         // $training_institution_info->teacher_traning_program = request('teacher_traning_program');
         // $training_institution_info->teacher_traning_year = request('teacher_traning_year');
         // $training_institution_info->teacher_traning_institute = request('teacher_traning_institute');
         // $training_institution_info->update();
-        
+
         //  $teacher->id = request('teacher_name');
         //  $teacher->debut_as_a_teacher = request('debut_as_a_teacher');
         //  $teacher->update();
@@ -146,7 +156,7 @@ class TeacherController extends Controller
          $academic_background->place_of_study = request('place_of_study');
          $academic_background->date_of_study = request('date_of_study');
          $academic_background->save();
-         
+
     }
     public function insertTrainingInstitutionInfo(){
         $training_institution_info = new training_institution_info();
@@ -165,14 +175,14 @@ class TeacherController extends Controller
     public function insertTeacherCourseLoad(){
         $section_fk = section::latest('created_at')->pluck('id')->first();
         $subject_fk = subject::latest('created_at')->pluck('id')->first();
-        
+
     }
     public function insertTeacher(){
         $subject_fk = subject::latest('created_at')->pluck('id')->first();
         $teacher_course_load_fk = teacher_course_load::latest('created_at')->pluck('id')->first();
         $academic_background_fk = academic_background_info::latest('created_at')->pluck('id')->first();
         $training_institution_info_fk = training_institution_info::latest('created_at')->pluck('id')->first();
-     
+
         $teacher = new teacher();
         $teacher->id = request('select_teacher');
         $teacher->academic_backgroud_id = $academic_background_fk;
@@ -183,4 +193,33 @@ class TeacherController extends Controller
         $teacher->save();
 
     }
+
+    public function myStudent($id){
+        $course_load = teacher_course_load::where('teacher_id',$id)->get();
+        $array = array();
+        foreach($course_load as $row){
+            $student = DB::table('sections')
+            ->join('students','sections.student_id','=','students.id')
+            ->join('classes','students.class_id','=','classes.id')
+            ->join('streams','students.stream_id','=','streams.id')
+            ->where('students.class_id',$row->class_id)
+            ->where('section_name',$row->section)->get();
+             $array += array($row->section=> $student);
+        }
+        $user_id =  Auth::id();
+        $user = User::find($user_id);
+        $employee = employee::where('employee_id',$user->user_id)->first();
+         return view('teacher.view_student')->with('courses',$array)->with('employee',$employee);
+    }
+    function getClassAndSection($class_Label, $section){
+        $section = DB::table('sections')
+                    ->join('classes','sections.class_id','=','classes.id')
+                    ->join('students','sections.student_id','=','students.id')
+                    ->where('class_label',$class_Label)
+                    ->where('section_name',$section)
+                    ->get(['students.id as id','students.first_name','students.middle_name','students.last_name','students.student_id','students.gender']);
+        return response()->json($section);
+    }
+
+
 }

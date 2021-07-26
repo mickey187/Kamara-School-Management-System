@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.finance_view')
 @section('content')
 
 
@@ -10,7 +10,7 @@
     <section class="content">
       <div class="container-fluid mt-3">
 
-<form action="{{url('/addPaymentType')}}" method="post">
+<form action="{{url('finance/addPaymentType')}}" method="post">
     @csrf
     <div class="row">
         <div class="col-6">

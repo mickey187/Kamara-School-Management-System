@@ -487,7 +487,7 @@
                                         </div>
 
                                         </div>
-                                       <button type="button" id="editButton" class=" submitBtn btn btn-primary">submit</button>
+                                       <button type="submit" id="editButton" class=" submitBtn btn btn-primary">submit</button>
 
                                     </div>
                                     <!-- <div class="page">

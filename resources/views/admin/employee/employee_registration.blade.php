@@ -134,7 +134,7 @@
                                           </div>
                                         </div>
                                        <div class="field ">
-                                            <button value="1" class="nextBtn btn btn-primary" type="button">Next</button>
+                                            <button value="1" class="Emp_nextBtn btn btn-primary" type="button">Next</button>
                                         </div>
 
                                     </div>
@@ -252,8 +252,8 @@
                                             </div>
                                         </div>
                                         <div class="field btns">
-                                            <button type="button" class="prev-1 prev btn btn-primary">Previous</button>
-                                            <button type="button" class="next-1 next btn btn-primary">Next</button>
+                                            <button type="button" class="Emp_prev-1 prev btn btn-primary">Previous</button>
+                                            <button type="button" class="Emp_next-1 next btn btn-primary">Next</button>
                                         </div>
                                     </div>
                                         <div class="page">
@@ -411,8 +411,8 @@
                                         </div>
                                         </div>
                                          <div class="field btns">
-                                            <button type="button" class="prev-2 prev btn btn-primary">Previous</button>
-                                            <button type="button" class="next-2 next btn btn-primary">Next</button>
+                                            <button type="button" class="Emp_prev-2 prev btn btn-primary">Previous</button>
+                                            <button type="button" class="Emp_next-2 next btn btn-primary">Next</button>
                                         </div>
                                         </div>
 
@@ -516,7 +516,7 @@
 
 
                                         <div class="field btns">
-                                            <button type="button" class="prev-3 prev btn btn-primary">Previous</button>
+                                            <button type="button" class="Emp_prev-3 prev btn btn-primary">Previous</button>
                                             <button type="submit" id="addBtn" class=" submitBtn btn btn-primary">submit</button>
                                         </div>
                                     </div>

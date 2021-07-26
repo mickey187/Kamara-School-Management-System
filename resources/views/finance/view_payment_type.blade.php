@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.finance_view')
 
 @section('content')
 
