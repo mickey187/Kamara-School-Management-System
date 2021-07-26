@@ -111,10 +111,6 @@
                         </div>
 
                     </div>
-                    {{-- <div class="modal-footer justify-content-between"> --}}
-                     {{-- <p id="id"></p> --}}
-                        {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> --}}
-                    {{-- </div> --}}
                 </div>
                 {{-- <p class="text-primary float-left" type="button"  onclick="colapse();"><i class="fas fa-arrow-alt-circle-up"></i></p> --}}
                 <div class="col-4 text-lg float-left">Teacher Classes </div>
@@ -133,22 +129,6 @@
                         </table>
                     </div>
                 </div>
-                {{-- <div class="row col-12 form-group">
-                    <div class="col-4 text-lg float-right"><label>Home Room Classes</label> </div>
-                    <div class="col-8 float-left">
-                        <table class="table table-bordered table-striped table-sm">
-                            <thead>
-                                <th>Grade</th>
-                                <th>Section</th>
-                            </thead>
-                            <tbody id="home_room">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                </div> --}}
-
                 </div>
                 <!-- /.modal-content -->
               </div>
@@ -176,6 +156,9 @@
                     <div class="col-1 text-lg float-right"><label>Name</label> </div>
                     <div class="col-4 float-left"><h3 class="text-lg" id="full_name" ></h3></div>
                     <div id="teacher_id2" class="float-left" hidden ><h3 class="text-lg" id="id" ></h3></div>
+                    <div id="teacher_id3" class="float-left" hidden ><h3 class="text-lg" id="section" ></h3></div>
+                    <div id="teacher_id4" class="float-left" hidden ><h3 class="text-lg" id="stream" ></h3></div>
+
                 </div>
                 <div style="display: block" id="add_mode">
                     <div class=" row col-12">

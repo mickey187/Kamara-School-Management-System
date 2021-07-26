@@ -57,8 +57,9 @@ function getHomeRoom(id){
             console.log(data);
             data.forEach(d => {
                // alert(d.class_label);
+
                 row+='<div class="col-4">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.id+','+d.class_label+','+d.section+'">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.id+','+d.class_label+','+d.section+','+d.stream+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
                         '<label>'+d.class_label+' '+d.section+'</label><br>'+
@@ -87,11 +88,13 @@ function getHomeRoomStudent(nb){
     teacher_id = data[0];
     section = data[2];
     class_name = data[1];
+    stream = data[3];
+   // alert(stream)
     // alert(data[0]);
     // alert(teacher_id+" "+section);
     $.ajax({
         type: 'GET',
-        url: 'getHomeRoomStudent/'+teacher_id+'/'+section+'/'+class_name,
+        url: 'getHomeRoomStudent/'+teacher_id+'/'+section+'/'+class_name+'/'+stream,
         dataType : 'json',
         success:function (data) {
             var section1 = JSON.parse(JSON.stringify(data.section));

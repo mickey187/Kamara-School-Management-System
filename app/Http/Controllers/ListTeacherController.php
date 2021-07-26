@@ -31,7 +31,7 @@ class ListTeacherController extends Controller
         $this->middleware('auth');
     }
 
-    
+
      public function listTeacher(){
         $teach_list= DB::table('teachers')
                  ->join('academic_background_infos','teachers.academic_background_id','=','academic_background_infos.id')
@@ -39,8 +39,9 @@ class ListTeacherController extends Controller
                 ->get(['first_name','middle_name','last_name','teachers.id','field_of_study','place_of_study','date_of_study']);
         $subject = subject::all();
         $class = classes::all();
+        $stream = stream::all();
         //echo $teach_list;
-                 return view('admin.teacher.listTeacher')->with('teach_list',$teach_list)->with('subject',$subject)
+                 return view('admin.teacher.listTeacher')->with('teach_list',$teach_list)->with('subject',$subject)->with('stream',$stream)
                  ->with('class',$class);
     }
     public function teacher_classes($id){

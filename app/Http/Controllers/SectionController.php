@@ -100,6 +100,7 @@ class SectionController extends Controller
                 $section = new section();
                 $section->class_id = $row->class_id;
                 $section->student_id = $row->id;
+                $section->stream_id = $row->stream_id;
                 $section->section_name = strtoupper($alphabet[$section_label]);
                 $section->save();
                 if($count_ > $size){
@@ -129,20 +130,24 @@ class SectionController extends Controller
     public function findSection($id){
         $val = '';
         $count = 0;
+        // $section = DB::table('sections')
+        //             ->join('streams','sections.stream_id','=','streams.id')->get(['section_name','stream_type','streams.id']);
         $section = section::where('class_id',$id)->get();
+
         $sectionArray = array();
         foreach($section as $row){
+            $str = stream::where('id',$row->stream_id)->get()->first();
             if($count == 0 || $val == ''){
                 $val = $row->section_name;
                 //$sectionArray += array('name'.$count => $row->section_name);
-                $sectionArray[$count] = $row->section_name;
+                $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
                 $count = $count + 1;
             }elseif($val === $row->section_name){
                 continue;
             }elseif($row->section_name !== $val){
                 $val = $row->section_name;
                 //$sectionArray += array('name'.$count => $row->section_name);
-                  $sectionArray[$count] = $row->section_name;
+                $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
                 $count = $count + 1;
             }
         }
@@ -153,16 +158,18 @@ class SectionController extends Controller
             $split_section = explode(',',$section);
             $i = 0;
             for($i;$i<sizeof($split_section)-1;$i++){
+                 $split_stream = explode('-',$split_section[$i]);
                  $validate = teacher_course_load::where('teacher_id',$teacher)
                  ->where('class_id',$class)
                  ->where('subject_id',$subject)
-                 ->where('section',$split_section[$i])->get();
+                 ->where('section',$split_stream[1])->get();
                  if(sizeof( $validate) === 0){
                     $teacher_course_load = new teacher_course_load();
                     $teacher_course_load->teacher_id = $teacher;
                     $teacher_course_load->subject_id = $subject;
                     $teacher_course_load->class_id = $class;
-                    $teacher_course_load->section = $split_section[$i];
+                    $teacher_course_load->section = $split_stream[1];
+                    $teacher_course_load->stream = $split_stream[0];
                     $teacher_course_load->save();
                  }else{
                     $response = 'NotInserted';
@@ -205,7 +212,9 @@ class SectionController extends Controller
                 'subject_name',
                 'class_id',
                 'teacher_course_loads.id as id',
-                'teacher_course_loads.teacher_id as teacher_id']);
+                'teacher_course_loads.teacher_id as teacher_id',
+                'teacher_course_loads.stream']);
+
         return response()->json(['teacher_courses'=>$teacher_course,'hoom_room'=>$teacher_home_room]);
     }
     public function deleteCourseLoad($load_id){
@@ -235,18 +244,25 @@ class SectionController extends Controller
         $teacher_home_room = DB::table('home_rooms')
         ->join('classes','home_rooms.class_id','classes.id')
         ->where('employee_id',$teacher_id)
-        ->get(['class_label','section','home_rooms.id as id']);
+        ->get(['class_label','section','home_rooms.id as id','stream']);
         return response()->json($teacher_home_room);
     }
 
 
-    public function getHomeRoomStudent($teacher_id,$section,$class_name){
+    public function getHomeRoomStudent($teacher_id,$section,$class_name,$stream){
+        $getStreamId = stream::where('stream_type',$stream)->get()->first();
+        $stream_id = (int)$getStreamId->id;
+        //error_log("Stream ID: ".$getStreamId->id);
         $sec = DB::table('sections')
                 ->join('classes','sections.class_id','=','classes.id')
                 ->join('students','sections.student_id','=','students.id')
+                ->join('streams','sections.stream_id','=','streams.id')
                 ->where('section_name',$section)
                 ->where('class_label',$class_name)
+                ->where('streams.id',$stream_id)
                 ->get();
+                error_log("Stream ID: ".$stream_id);
+
         $mark = DB::table('student_mark_lists')
                 ->join('students','student_mark_lists.student_id','=','students.id')
                 ->join('classes','student_mark_lists.class_id','=','classes.id')
@@ -255,13 +271,16 @@ class SectionController extends Controller
                 ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
                 ->get();
         $semister = semister::all();
+
         return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
     }
 
-    public function getCourseLoadStudent($teacher_id,$section,$class_id,$course_load_id){
+    public function getCourseLoadStudent($teacher_id,$section,$class_id,$course_load_id,$stream){
         $subject = '';
         $assasment = '';
-
+        //error_log($stream);
+        $check_stream = stream::where('stream_type',$stream)->get()->first();
+        //error_log($check_stream->id);
         $course_load = DB::table('teacher_course_loads')
                         ->join('subjects','teacher_course_loads.subject_id','=','subjects.id')
                         ->where('teacher_id',$teacher_id)
@@ -277,6 +296,7 @@ class SectionController extends Controller
                 ->join('classes','sections.class_id','=','classes.id')
                 ->join('students','sections.student_id','=','students.id')
                 ->where('section_name',$section)
+                ->where('sections.stream_id',$check_stream->id)
                 ->where('classes.id',$class_id)
                 ->get(['first_name',
                         'middle_name',
@@ -307,7 +327,6 @@ class SectionController extends Controller
                         'subjects.id as subject_id',
                         'semisters.id as semid',
                         'student_mark_lists.mark']);
-
                 $semister = semister::all();
         return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister,'subject'=>$subject]);
        //return response()->json([$course_load]);
@@ -335,7 +354,7 @@ class SectionController extends Controller
         $i = 0;
         $j = 0;
         for($i;$i<sizeof($split_section)-1;$i++){
-
+            $split_stream = explode('-',$split_section[$i]);
              $validate = home_room::where('employee_id',$teacher)
              ->where('class_id',$class)
              ->where('section',$split_section[$i])->get();
@@ -343,7 +362,8 @@ class SectionController extends Controller
                 $home = new home_room();
                 $home->employee_id = $teacher;
                 $home->class_id = $class;
-                $home->section = $split_section[$i];
+                $home->section = $split_stream[1];
+                $home->stream = $split_stream[0];
                 $home->save();
                 $j =$j + 1;
              }else{

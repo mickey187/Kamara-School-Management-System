@@ -1,4 +1,5 @@
 function getCourseLoad(id){
+
     $.ajax({
         type: 'GET',
         url: 'getCourseLoad/'+id,
@@ -9,8 +10,9 @@ function getCourseLoad(id){
             var data1 = JSON.parse(JSON.stringify(data.teacher_courses));
             console.log(data1);
             data1.forEach(d => {
+               // alert("Teacher Courses "+d.stream)
                 row+='<div class="col-4">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section+','+d.teacher_id+'">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section+','+d.teacher_id+','+d.stream+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
                           '<label>'+d.class_label+' '+d.section+'</label><br>'+
@@ -40,11 +42,13 @@ function getCourseLoadStudent(nb){
     section = data[2];
     teacher_id = data[3];
     course_load_id = data[0];
+    stream = data[4];
+   // alert(stream)
     // stream_id = data[4];
     //alert('class_id: '+class_id+' section: '+section+' teacher: '+teacher_id+' course load: '+course_load_id)
     $.ajax({
         type: 'GET',
-        url: 'getCourseLoadStudent/'+teacher_id+'/'+section+'/'+class_id+'/'+course_load_id,
+        url: 'getCourseLoadStudent/'+teacher_id+'/'+section+'/'+class_id+'/'+course_load_id+'/'+stream,
         dataType : 'json',
         success:function (data) {
                 var section1 = JSON.parse(JSON.stringify(data.section));

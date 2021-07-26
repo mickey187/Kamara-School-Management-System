@@ -5,6 +5,8 @@ $('#modal-teacher-home-room').on('show.bs.modal', function(event) {
     var split = detail.split(",")
     modal.find('.modal-body #full_name').text(split[0])
     modal.find('.modal-body #id').text(split[1])
+    modal.find('.modal-body #section').text(split[2])
+    modal.find('.modal-body #stream').text(split[3])
     modal.find('.modal-footer button').val(detail);
 
     $.ajax({
