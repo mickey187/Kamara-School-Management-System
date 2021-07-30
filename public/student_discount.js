@@ -9,7 +9,7 @@ $( "#search" ).click(function() {
         
         success:function (data) {
            var rows = '';
-           // console.log(data);
+            console.log(data);
             var data1 = JSON.parse(JSON.stringify(data.student_data));
             var data2 = JSON.parse(JSON.stringify(data.student_payment));
             console.log(data1)
@@ -35,7 +35,7 @@ $( "#search" ).click(function() {
                         '<td>'+d.amount+'</td>'+
                         '<td>'+
                         '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
-                        'data-target="#add_discount" data-disount_data="'+student_id+','+d.load_id+','+d.payment_type+','+d.amount+'" >'+
+                        'data-target="#add_discount" data-disount_data="'+student_id+','+d.payment_load_id+','+d.payment_type+','+d.amount+'" >'+
                         '<i class="fas fa-percent"></i>'+
                         '</button>'+
                         '</td>'

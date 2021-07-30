@@ -27,4 +27,9 @@ class student extends Model
                             'class_id',
                             'stream_id'
                         ];
+
+    public function payment_loads()
+    {
+        return $this->belongsToMany(payment_load::class);
+    }    
 }

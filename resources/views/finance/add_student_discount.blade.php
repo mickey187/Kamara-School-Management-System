@@ -72,7 +72,7 @@
                         <div class="form-group">
                           <label for="d_percent">Enter Discount in Percent(%)</label>
                           <input type="hidden" name="student_id" id="student_id">
-                          <input type="hidden" name="load_id" id="load_id">
+                          <input type="hidden" name="payment_load_id" id="load_id">
                           <input type="number" name="discount_amount" id="d_percent" class="form-control" placeholder="Enter Discount">
                           
                         </div>

@@ -65,7 +65,7 @@ Route::post('/addPaymentLoad',[FinanceController::class, 'AddPaymentLoad']);
 
 Route::get('/viewPaymentLoad',[FinanceController::class, 'viewPaymentLoad']);
 
-Route::get('/fetchload/{class_id}/{pay_type}/{stud_id}',[FinanceController::class, 'fetchLoad']);
+Route::get('/fetchload/{class_id}/{pay_type}/{stud_id}/{selected_individual_payment}',[FinanceController::class, 'fetchLoad']);
 
 Route::get('/fetchTotalPaymentLoad/{class_id}/{stud_id}',[FinanceController::class, 'fetchTotalPaymentLoad']);
 
@@ -88,6 +88,8 @@ Route::get('/indexAddStudentPayment',[FinanceController::class, 'indexAddStudent
 Route::get('/viewStudentPayment',[FinanceController::class, 'viewStudentPayment']);
 
 Route::post('/addStudentPayment',[FinanceController::class, 'addStudentPayment']);
+
+Route::get('/makeIndividualPayment/{student_id_for_payment}/{month}',[FinanceController::class, 'makeIndividualPayment']);
 
 
 

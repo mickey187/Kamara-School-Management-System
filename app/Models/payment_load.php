@@ -13,4 +13,9 @@ class payment_load extends Model
         'class_id',
         'amount'
     ];
+
+    public function students()
+    {
+        return $this->belongsToMany(student::class);
+    }
 }

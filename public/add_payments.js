@@ -1,13 +1,10 @@
 // const { split } = require("lodash");
 
 var send_pay_total_detail = [];
-var student_id_for_total_payment = null;
+var send_pay_for_individual_detail = [];
+var student_id_for_payment = null;
 // the below code launches make payment modal
 $('#make_payment').on('show.bs.modal', function (event) {
-
-  
-  
-
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var recipient = button.data('payment_data') // Extract info from data-* attributes
@@ -15,13 +12,11 @@ $('#make_payment').on('show.bs.modal', function (event) {
     $('#payment_load').empty();
     $('#submit_payment').hide();
     $('#pay_total').hide();
-
-    
+  
     var modal = $(this)
 
-    
-
     data_array = recipient.split(",");
+    student_id_for_payment = data_array[3];
 
     modal.find('.modal-footer #submit_payment').val(data_array[3])
 
@@ -30,7 +25,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
 
       if (payment_type_id == 'total') {
 
-        
+       
         fetchTotalPaymentLoad(data_array[1],data_array[3]);
         console.log("selected total");
         $('#pay_total').show();
@@ -41,10 +36,15 @@ $('#make_payment').on('show.bs.modal', function (event) {
       else{
       
       console.log(data_array[3])
-      fetchPaymentLoad(data_array[1],payment_type_id,data_array[3]);
+      var selected_individual_payment = $("#payment_type option:selected").text();
+      //alert(selected_individual_payment);
+      fetchPaymentLoad(data_array[1],payment_type_id,data_array[3],selected_individual_payment);
       $('#submit_payment').show();
+      
       $('#pay_total').hide();
       }
+      
+      
       
   });
      // payment_type_id = $("#payment_type option").filter(":selected").val();
@@ -65,67 +65,63 @@ $('#make_payment').on('show.bs.modal', function (event) {
       url: 'fetchTotalPaymentLoad/'+class_id+'/'+stud_id,
       dataType: 'json',
       success: function (data) {
+       // console.log(data);
         var rows = '';
+        var rows2 = '';
         
-        console.log(data);
+        //console.log(data);
         var data1 = JSON.parse(JSON.stringify(data.result_load));
         //console.log(data1);
-       // Array.prototype.push.apply(send_pay_total_detail, data1);
+       
        send_pay_total_detail = data1.slice();
+       console.log("ICEEEEEEEEEEE");
+       console.log(send_pay_total_detail);
 
-        student_id_for_total_payment = stud_id;
+        
        
         data1.forEach(payment_load =>{
-          hidden_select = '<div class="form-group">'+
-                          '<select name="select_payment_type" id="payment_type_total" name="pay_type[]"class="form-control" multiple hidden>'+
-                          '<option value="'+payment_load+'"selected></option>'+
-                          '</select>'+
-                           '</div>'
+
+          if (payment_load.amount != 0) {
+            rows2 += '<h5 class ="text-success">'+payment_load.payment_type+': '+payment_load.amount+' Birr</h3>';
+            $('#individual_load').html(rows2);
+          } else if(payment_load.amount == 0){
+            rows2 += '<h5 class ="text-success">'+payment_load.payment_type+': Already Paid</h3>';
+          }
+
+          
+          
 
         });
+          
+          $('#individual_load').html(rows2);
         
         var data2 = JSON.parse(JSON.stringify(data.total_load));
-            data2.forEach(d=>{
-              rows = '<h3 class ="text-success">Total: '+d.total_load+' Birr</h3>';
-            })
-        //var rows = '<h3 class ="text-success">Total: '+data2+' Birr</h3>';
+            
+              rows = '<h3 class ="text-success">Total: '+data2+' Birr</h3>';
+            
+       
+        
         $('#payment_load').html(rows);
+        $('#individual_load').show();
 
-        // $('#pay_total').click(function () { 
-        //   var month = $('#select_month').val();
-        //   $.ajax({
-        //     type: 'GET',
-        //     url: '/makeTotalPayment/'+stud_id+'/'+month,
-        //     data: {'detail':data1},
-        //     dataType:'json',
-        //     success: function (response) {
-
-        //       // $('.close').click();
-        //       // Swal.fire(
-        //       //   'Payed Successfully!',
-                
-        //       // );
-             
-              
-        //     }
-        //   });
-           
-        //  });
+       
         
       }
     });
   }
 
 
-  function fetchPaymentLoad(class_id, pay_type, stud_id) {
+  function fetchPaymentLoad(class_id, pay_type, stud_id,selected_individual_payment) {
     $.ajax({
         type: 'GET', 
-        url: 'fetchload/'+class_id+'/'+pay_type+'/'+stud_id,
+        url: 'fetchload/'+class_id+'/'+pay_type+'/'+stud_id+'/'+selected_individual_payment,
         dataType : 'json',
         
         success:function (data) {
            var rows = '';
-            console.log(data);
+            //console.log(data);
+            send_pay_for_individual_detail = data.slice();
+            console.log(send_pay_for_individual_detail);
             
             data.forEach(d => {
                
@@ -137,15 +133,16 @@ $('#make_payment').on('show.bs.modal', function (event) {
                   
                 }
                 else{
-                 rows += '<h3 class ="text-success">'+d.payment_type+': '+d.amount+' birr'+ '</h3>'+
-                          '<input value="'+d.load_id+'" hidden name="load_id">' +
-                          '<input value="'+d.amount+'" hidden name="amount">' 
+                 rows += '<h3 class ="text-success">'+d.payment_type+': '+d.amount+' birr'+ '</h3>'
+                          
                         }
            });
+           $('#individual_load').hide();
           $('#payment_load').html(rows);
            
         },
         error:function (data) {
+          console.log("Error");
 
         }
      }); 
@@ -182,10 +179,34 @@ $('#make_payment').on('show.bs.modal', function (event) {
       dataType : 'json',
       
       success:function (data) {
+        var data1 = JSON.parse(JSON.stringify(data.result_history));
+        var data2 = JSON.parse(JSON.stringify(data.unpaid_bill));
+        var data3 = JSON.parse(JSON.stringify(data.compared));
+        var data4 = JSON.parse(JSON.stringify(data.student_missing_payment_coll));
+        var data5 = JSON.parse(JSON.stringify(data.sliced));
+       // datax = JSON.parse(JSON.stringify(data5));
          var rows = '';
-          console.log(data);
+         var counter = 0;
+         var unpaid_bill_html_string = '';
+          console.log(data1);
+          console.log(data5);
+          console.log(data4);
+          data4.forEach(d => {
+            if (d.status == 'unpaid') {
+              
+            counter++;
+            unpaid_bill_html_string += '<h5 class="text-danger">payment type id: '
+                                        +d.payment_type_id+' payment_load_id: '+d.payment_load_id+
+                                        ' amount: '+d.amount_payed+' payment_month: '+d.payment_month+
+                                        ' status: '+d.status+' </h5>'
+               }                          
+           // unpaid_bill_html_string += '<h5 class="text-danger">payment type id'+d.payment_month+'</h5>'
+            
+          });
+          $('#unpaid_bill').html(unpaid_bill_html_string);
+          $('#num_of_unpaid_bill').text(counter)
           var split = null;
-          data.forEach(d => {
+          data1.forEach(d => {
              var str = d.payment_month
              split = str.split('-');
              switch (split[1]) {
@@ -240,12 +261,12 @@ $('#make_payment').on('show.bs.modal', function (event) {
                default:
                  break;
              }
-             console.log(split[1]+' '+split[0]);
+            // console.log(split[1]+' '+split[0]);
              var month_year = split[1] +' '+split[0];
              d.payment_month = month_year;
-             console.log(d.payment_month);
+             //console.log(d.payment_month);
           });
-           data.forEach(d => {
+           data1.forEach(d => {
              
               // rows+= 
                rows += '<tr>'+
@@ -273,7 +294,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
     
     $.ajax({
       type: 'GET',
-      url: 'makeTotalPayment/'+student_id_for_total_payment+'/'+month,
+      url: 'makeTotalPayment/'+student_id_for_payment+'/'+month,
       data: {'detail':send_pay_total_detail},
       dataType:'json',
       cache: false,
@@ -296,3 +317,30 @@ $('#make_payment').on('show.bs.modal', function (event) {
     });
      
    });
+
+   $('#submit_payment').click(function () { 
+    var month = $('#select_month').val();
+    $.ajax({
+      type: 'GET',
+      url: 'makeIndividualPayment/'+student_id_for_payment+'/'+month,
+      data: {'detail':send_pay_for_individual_detail},
+      dataType:'json',
+      cache: false,
+      success: function (response) {
+        console.log(response);
+       
+       
+        
+        Swal.fire(
+          'Payed Successfully!',
+          
+        );
+        $('.close').click();
+        
+        //$('#view_payment_history').modal('show')
+       // location.reload();
+       
+        
+      }
+    });
+  });
