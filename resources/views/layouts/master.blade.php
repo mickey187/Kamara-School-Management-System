@@ -757,7 +757,7 @@ $(function() {
 
     <script>
         $(function() {
-            
+
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -793,13 +793,7 @@ $(function() {
 //   modal.find('.modal-body #subjectname_view').text("subject name: "+spit[3]);
 //   modal.find('.modal-footer button').val(spit[0])
 
-
-
-
     </script>
-
-
-
     <script>
         $(function () {
           $("#img-pro").change(function(){
@@ -813,7 +807,7 @@ $(function() {
             $("#img-pro").click();
           });
         })
-      </script>
+    </script>
 </body>
 
 </html>
