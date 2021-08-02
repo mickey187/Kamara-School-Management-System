@@ -708,7 +708,7 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 {{--employee validation --}}
-{{-- 
+{{--
      <script src="{{ asset('dist/validation/add_employee_validation.js') }}"></script>
      <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
      <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script> --}}
@@ -716,7 +716,7 @@ $(function() {
 
 
     <script src="{{asset('dist/js/addclass.js')}}"></script>
-    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script>  --}}
+    <script src="{{ asset('dist/js/employee.js') }}"></script>
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
