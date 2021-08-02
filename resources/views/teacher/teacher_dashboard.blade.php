@@ -7,7 +7,7 @@
 @endforeach --}}
 
 <div class="row card  d-flex justify-content-center  ">
-    <div class="card-header bg-orange"><label id="teacherDashboardTitle">Dashboard</label> </div>
+    <div class="card-header bg-orange "><label class="text-white text-lg" id="teacherDashboardTitle">Dashboard</label> <div id="generator" class="float-right"></div></div>
 <div class="d-flex justify-content-center ">
 <div class="col-12 row " id="dashboard">
     <div class="col-lg-3" style="margin-top: 20px;">
@@ -40,6 +40,7 @@
     </div>
     <div class="col-lg-3" style="margin-top: 20px;">
         <a style="cursor: pointer;" onclick="getCourseLoad('{{ $employee->id }}');" >
+
             <div class="small-box bg-primary">
                 <div class="inner p-3">
                   <p>My Classes</p><br>
@@ -183,4 +184,101 @@
     </div>
 </div>
 
+
+<!-- /.modal-dialog-Generate Excel File -->
+<div class="modal_class">
+    <div class="modal fade" id="modal-generate-excel">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="title">Excel File Generator</h4>
+                    <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row col-12 form-group">
+                        <div class="col-6">
+                            <label>Assasment</label>
+                            <select  class="form-control" id="generateAs">
+                                @foreach ($assasment as $row)
+                                    <option value="{{ $row->assasment_type }}">{{ $row->assasment_type }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label>Test Load</label>
+                            <input type="Number"  class="form-control" id="courseExcel">
+                            <input hidden type="text"  class="form-control" id="classExcel">
+                            <input hidden type="text"  class="form-control" id="generateSub">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="generateMarkList()" class="btn btn-primary">Generate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- import Excel file modal--}}
+<div class="modal_class">
+    <div class="modal fade" id="modal-import-excel">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="title">Import Excel</h4>
+                    <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <form action="{{ url('importExcel') }}" method="POST" enctype="multipart/form-data">
+                    <div class="row col-12 form-group">
+                        {{-- @csrf --}}
+                        {{-- <input type="text" name="_import" id="import"> --}}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input hidden type="text" name="data" id="exportdata">
+                        <div class="col-12">
+                            <input id="input-id" name="exel" type="file" class="file"  data-allowed-file-extensions='["csv", "xlsx","xls"]'>
+                        </div>
+                    </div>
+                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- Promote Student Modal --}}
+<div class="modal_class">
+    <div class="modal fade" id="modal-promote-student">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="title">Promote Students</h4>
+                    <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row col-12 form-group">
+                        <div class="col-12">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

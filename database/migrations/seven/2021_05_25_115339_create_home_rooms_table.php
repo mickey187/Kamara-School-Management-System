@@ -27,7 +27,8 @@ class CreateHomeRoomsTable extends Migration
             $table->foreign('employee_id') ->references('id')->on('employees');
             $table->unsignedBigInteger('attendance_id')->nullable(true);
             $table->foreign('attendance_id') ->references('id')->on('attendances');
-            $table->string('section');
+            $table->string('section')->nullable(true);
+            $table->string('stream')->nullable(true);
             $table->timestamps();
         });
     }

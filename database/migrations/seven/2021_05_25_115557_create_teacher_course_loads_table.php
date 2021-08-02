@@ -21,6 +21,7 @@ class CreateTeacherCourseLoadsTable extends Migration
             $table->foreign('subject_id')->references('id')->on('subjects');
             $table->unsignedBigInteger('class_id') ->nullable(true);
             $table->foreign('class_id')->references('id')->on('classes');
+            $table->string('stream') ->nullable(true);
             $table->string('section') ->nullable(true);
             $table->timestamps();
         });

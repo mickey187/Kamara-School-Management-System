@@ -12,8 +12,10 @@ use App\Models\student;
 use App\Models\student_mark_list;
 use App\Models\teacher;
 use App\Models\teacher_course_load;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 
 class SectionController extends Controller
 {
@@ -100,6 +102,7 @@ class SectionController extends Controller
                 $section = new section();
                 $section->class_id = $row->class_id;
                 $section->student_id = $row->id;
+                $section->stream_id = $row->stream_id;
                 $section->section_name = strtoupper($alphabet[$section_label]);
                 $section->save();
                 if($count_ > $size){
@@ -129,20 +132,24 @@ class SectionController extends Controller
     public function findSection($id){
         $val = '';
         $count = 0;
+        // $section = DB::table('sections')
+        //             ->join('streams','sections.stream_id','=','streams.id')->get(['section_name','stream_type','streams.id']);
         $section = section::where('class_id',$id)->get();
+
         $sectionArray = array();
         foreach($section as $row){
+            $str = stream::where('id',$row->stream_id)->get()->first();
             if($count == 0 || $val == ''){
                 $val = $row->section_name;
                 //$sectionArray += array('name'.$count => $row->section_name);
-                $sectionArray[$count] = $row->section_name;
+                $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
                 $count = $count + 1;
             }elseif($val === $row->section_name){
                 continue;
             }elseif($row->section_name !== $val){
                 $val = $row->section_name;
                 //$sectionArray += array('name'.$count => $row->section_name);
-                  $sectionArray[$count] = $row->section_name;
+                $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
                 $count = $count + 1;
             }
         }
@@ -153,16 +160,18 @@ class SectionController extends Controller
             $split_section = explode(',',$section);
             $i = 0;
             for($i;$i<sizeof($split_section)-1;$i++){
+                 $split_stream = explode('-',$split_section[$i]);
                  $validate = teacher_course_load::where('teacher_id',$teacher)
                  ->where('class_id',$class)
                  ->where('subject_id',$subject)
-                 ->where('section',$split_section[$i])->get();
+                 ->where('section',$split_stream[1])->get();
                  if(sizeof( $validate) === 0){
                     $teacher_course_load = new teacher_course_load();
                     $teacher_course_load->teacher_id = $teacher;
                     $teacher_course_load->subject_id = $subject;
                     $teacher_course_load->class_id = $class;
-                    $teacher_course_load->section = $split_section[$i];
+                    $teacher_course_load->section = $split_stream[1];
+                    $teacher_course_load->stream = $split_stream[0];
                     $teacher_course_load->save();
                  }else{
                     $response = 'NotInserted';
@@ -205,7 +214,9 @@ class SectionController extends Controller
                 'subject_name',
                 'class_id',
                 'teacher_course_loads.id as id',
-                'teacher_course_loads.teacher_id as teacher_id']);
+                'teacher_course_loads.teacher_id as teacher_id',
+                'teacher_course_loads.stream']);
+
         return response()->json(['teacher_courses'=>$teacher_course,'hoom_room'=>$teacher_home_room]);
     }
     public function deleteCourseLoad($load_id){
@@ -235,33 +246,62 @@ class SectionController extends Controller
         $teacher_home_room = DB::table('home_rooms')
         ->join('classes','home_rooms.class_id','classes.id')
         ->where('employee_id',$teacher_id)
-        ->get(['class_label','section','home_rooms.id as id']);
+        ->get(['class_label','section','home_rooms.id as id','stream']);
         return response()->json($teacher_home_room);
     }
 
 
-    public function getHomeRoomStudent($teacher_id,$section,$class_name){
+    public function getHomeRoomStudent($teacher_id,$section,$class_name,$stream){
+        $getStreamId = stream::where('stream_type',$stream)->get()->first();
+        $stream_id = (int)$getStreamId->id;
+        //error_log("Stream ID: ".$getStreamId->id);
         $sec = DB::table('sections')
                 ->join('classes','sections.class_id','=','classes.id')
                 ->join('students','sections.student_id','=','students.id')
+                ->join('streams','sections.stream_id','=','streams.id')
                 ->where('section_name',$section)
                 ->where('class_label',$class_name)
-                ->get();
+                ->where('streams.id',$stream_id)
+                ->get([
+                    'students.student_id',
+                    'first_name',
+                    'middle_name',
+                    'last_name',
+                    'gender'
+                ]);
+                error_log("Stream ID: ".$stream_id);
+
         $mark = DB::table('student_mark_lists')
                 ->join('students','student_mark_lists.student_id','=','students.id')
                 ->join('classes','student_mark_lists.class_id','=','classes.id')
                 ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
                 ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
                 ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
-                ->get();
+                ->get([
+                    'students.student_id',
+                    'first_name',
+                    'middle_name',
+                    'last_name',
+                    'semister',
+                    'term',
+                    'subject_name',
+                    'test_load',
+                    'mark'
+                ]);
         $semister = semister::all();
-        return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
-    }
+        // return response()->json($this->getTheTotalAvarage($mark));
+         //return response()->json(['section'=>$sec,'mark'=>$this->getTheTotalAvarage($mark),'semister'=>$semister]);
+         return response()->json(['section'=>$this->getTheTotalAvarage($sec),'mark'=>$mark,'semister'=>$semister]);
 
-    public function getCourseLoadStudent($teacher_id,$section,$class_id,$course_load_id){
+//          return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
+        }
+
+    public function getCourseLoadStudent($teacher_id,$section,$class_id,$course_load_id,$stream){
         $subject = '';
         $assasment = '';
-
+        //error_log($stream);
+        $check_stream = stream::where('stream_type',$stream)->get()->first();
+        //error_log($check_stream->id);
         $course_load = DB::table('teacher_course_loads')
                         ->join('subjects','teacher_course_loads.subject_id','=','subjects.id')
                         ->where('teacher_id',$teacher_id)
@@ -277,11 +317,13 @@ class SectionController extends Controller
                 ->join('classes','sections.class_id','=','classes.id')
                 ->join('students','sections.student_id','=','students.id')
                 ->where('section_name',$section)
+                ->where('sections.stream_id',$check_stream->id)
                 ->where('classes.id',$class_id)
                 ->get(['first_name',
                         'middle_name',
                         'last_name',
                         'gender',
+                        'sections.stream_id',
                         'sections.student_id as ssection_id',
                         'students.student_id',
                         'students.id as studid',
@@ -307,7 +349,6 @@ class SectionController extends Controller
                         'subjects.id as subject_id',
                         'semisters.id as semid',
                         'student_mark_lists.mark']);
-
                 $semister = semister::all();
         return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister,'subject'=>$subject]);
        //return response()->json([$course_load]);
@@ -335,7 +376,7 @@ class SectionController extends Controller
         $i = 0;
         $j = 0;
         for($i;$i<sizeof($split_section)-1;$i++){
-
+            $split_stream = explode('-',$split_section[$i]);
              $validate = home_room::where('employee_id',$teacher)
              ->where('class_id',$class)
              ->where('section',$split_section[$i])->get();
@@ -343,7 +384,8 @@ class SectionController extends Controller
                 $home = new home_room();
                 $home->employee_id = $teacher;
                 $home->class_id = $class;
-                $home->section = $split_section[$i];
+                $home->section = $split_stream[1];
+                $home->stream = $split_stream[0];
                 $home->save();
                 $j =$j + 1;
              }else{
@@ -371,6 +413,90 @@ class SectionController extends Controller
         $semister2->update();
         $semister3 = semister::all();
         return response()->json($semister3);
+    }
+
+    public function getTheTotalAvarage($sec){
+         $item = collect();
+        foreach($sec as $row){
+            $newSemister = 0;
+            $subject = array();
+            $semister_one_total = 0;
+            $semister_one_load = 0;
+            $semister_two_total= 0;
+            $semister_two_load= 0;
+            $semister_three_total= 0;
+            $semister_three_load= 0;
+            $semister_four_total= 0;
+            $semister_four_load= 0;
+            $all_total = 0;
+                $student = student::where('student_id',$row->student_id)->get()->first();
+                $mark= student_mark_list::where('student_id',$student->id)->get();
+                $semister = semister::all();
+                foreach($semister as $sem){
+                    foreach($mark as $ma){
+                        if($sem->id == $ma->semister_id and $newSemister==0){
+                            $semister_one_total = $semister_one_total + $ma->mark;
+                            $semister_one_load = $semister_one_load + 1;
+                            if(!(in_array($ma->subject_id, $subject))){
+                                array_push($subject, $ma->subject_id);
+                            }
+                        }elseif($sem->id == $ma->semister_id and $newSemister==1){
+                            $semister_two_total = $semister_two_total + $ma->mark;
+                            $semister_two_load = $semister_two_load + 1;
+                            if(!(in_array($ma->subject_id, $subject))){
+                                array_push($subject, $ma->subject_id);
+                            }
+                        }elseif($sem->id == $ma->semister_id and $newSemister==2){
+                            $semister_three_total = $semister_three_total + $ma->mark;
+                            $semister_three_load = $semister_three_load + 1;
+                            if(!(in_array($ma->subject_id, $subject))){
+                                array_push($subject, $ma->subject_id);
+                            }
+                        }if($sem->id == $ma->semister_id and $newSemister==3){
+                            $semister_four_total = $semister_four_total + $ma->mark;
+                            $semister_four_load = $semister_four_load + 1;
+                            if(!(in_array($ma->subject_id, $subject))){
+                                array_push($subject, $ma->subject_id);
+                            }
+                        }
+                    }
+                    $newSemister = $newSemister + 1;
+                }
+            // }
+            error_log("How Much Is it: ". $subject[0]);
+
+
+            if((int) $semister_one_total <= (int) $semister_one_load or
+             ((int)$semister_two_total <= (int)$semister_two_load) or
+             (int)$semister_three_total <= (int)$semister_three_load or
+             (int)$semister_four_total <= (int)$semister_four_load)
+            {
+            }else{
+                $semister_one_total = ((int) $semister_one_total /  count($subject));
+                $semister_two_total = ((int)$semister_two_total / count($subject));
+                $semister_three_total = ((int)$semister_three_total / count($subject));
+                $semister_four_total = ((int)$semister_four_total / count($subject));
+            }
+                $item2 = collect([
+                "first_name"=>$row->first_name,
+                "middle_name"=>$row->middle_name,
+                "last_name"=>$row->last_name,
+                "student_id"=>$row->student_id,
+                // "term"=>$row->term,
+                // "semister"=>$row->semister,
+                // "subject_name"=>$row->subject_name,
+                // "test_load"=>$row->test_load,
+                // "mark"=>$row->mark,
+                "gender"=>$row->gender,
+                "semister_one_total"=>$semister_one_total,
+                "semister_two_total"=>$semister_two_total,
+                "semister_three_total"=>$semister_three_total,
+                "semister_four_total"=>$semister_four_total,
+                "all_total"=>''
+                ]);
+            $item->push($item2);
+        }
+        return $item;
     }
 }
 

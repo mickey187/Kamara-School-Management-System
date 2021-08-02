@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
+
 <div class="card card-orange">
   <div class="card-header">
     <h3 class="card-title"> <i class="fas fa-tachometer-alt"></i> 
@@ -23,13 +24,13 @@
             @else
             {{url('addrole')}}
         @endif "
-         method="post">
+         method="get">
           @csrf      
           <div class="row">
             <div class="col-6">
               <div class="form-group">
-                <label for="exampleFormControlInput1">Role Name</label>
-                <input type="text" name ="rolename" class="form-control" id="rolename" placeholder="Role Name"
+                <label for="exampleFormControlInput1">rol Name</label>
+                <input type="text" name ="rolename" class="form-control" id="rolename" placeholder="role Name"
                 @if (isset($edit_role))
                     value="{{$edit_role->role_name}}"
                 @endif

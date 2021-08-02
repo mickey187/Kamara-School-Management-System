@@ -54,14 +54,17 @@ function getHomeRoom(id){
         dataType : 'json',
         success:function (data) {
             row = '';
+            row2 = '';
             console.log(data);
             data.forEach(d => {
                // alert(d.class_label);
-                row+='<div class="col-4">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.id+','+d.class_label+','+d.section+'">'+
+
+                row+='<div class="col-4 mt-2">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.id+','+d.class_label+','+d.section+','+d.stream+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
                         '<label>'+d.class_label+' '+d.section+'</label><br>'+
+                        '<label>Stream '+d.stream+'</label><br>'+
                         '</div>'+
                         '<div class="icon"><br>'+
                           '<i class="fas fa-users"></i>'+
@@ -72,8 +75,12 @@ function getHomeRoom(id){
                     '</div>'+
                 '</button>'+
                 '</div>';
-           });
-             $('#dashboard').html(row);
+            });
+            row2 += 'Dashboard / Home Room';
+            generator =''
+            $('#generator').html(generator);
+            $('#teacherDashboardTitle').html(row2);
+            $('#dashboard').html(row);
         },
         error:function (data) {
             console.log("it is not works fine");
@@ -87,17 +94,20 @@ function getHomeRoomStudent(nb){
     teacher_id = data[0];
     section = data[2];
     class_name = data[1];
+    stream = data[3];
+   // alert(stream)
     // alert(data[0]);
     // alert(teacher_id+" "+section);
     $.ajax({
         type: 'GET',
-        url: 'getHomeRoomStudent/'+teacher_id+'/'+section+'/'+class_name,
+        url: 'getHomeRoomStudent/'+teacher_id+'/'+section+'/'+class_name+'/'+stream,
         dataType : 'json',
         success:function (data) {
             var section1 = JSON.parse(JSON.stringify(data.section));
             var mark1 = JSON.parse(JSON.stringify(data.mark));
             var semister1 = JSON.parse(JSON.stringify(data.semister));
             var count = 1;
+            row2 = '';
             console.log(data);
             row = '<div class=" card col-12">'+
                   '<section class="content">'+
@@ -121,16 +131,22 @@ function getHomeRoomStudent(nb){
               '</section><br>'+
                   '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1" class="table table-striped table-lg"'+
                     '<thead>'+
-                        '<th>No</th>'+
-                        '<th>Full Name</th>'+
-                        '<th>Gender</th>'+
+                        '<th class="text-center">No</th>'+
+                        '<th class="text-center">Full Name</th>'+
+                        '<th class="text-center">Gender</th>'+
+                        '<th class="text-center">Yearly Avarage</th>'+
+                        '<th class="text-center">Status</th>'+
                     '</thead>'+'<tbody>'
 
             section1.forEach(d => {
+                newSemister = 0;
+
                 row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle"  aria-expanded="false">'+
-                        '<td>'+count+'</td>'+
-                        '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
-                        '<td>'+d.gender+'</td>'+
+                        '<td class="text-center">'+count+'</td>'+
+                        '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
+                        '<td class="text-center">'+d.gender+'</td>'+
+                        '<td class="text-center">not set</td>'+
+                        '<td class="text-center">not set</td>'+
                      '</tr>'+
                      '<td colspan="12" class="hiddenRow">'
                 semister1.forEach(d3 =>{
@@ -140,7 +156,7 @@ function getHomeRoomStudent(nb){
                     replace_td='';
                     row+='<div class="d-flex justify-content-center">'+
                     '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
-                    '<table class="table  table-striped table-sm">'+
+                    '<table class="table bordered table-striped table-sm">'+
                         '<thead class="text-dark">'+
                             '<div class="row card-sm card  card-sm bg-secondary">'+
                                 '<div class="">'+
@@ -189,9 +205,32 @@ function getHomeRoomStudent(nb){
 
                     });
                     subject = [];
-                    row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+(all_total/all_percent).toFixed(2)+'</td></tr></tbody>'+
-                    '</table></div>'+
-                     '</div>'
+                    if(newSemister==0){
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+d.semister_one_total+'</td></tr></tbody>'+
+                        '</table></div>'+
+                         '</div>'
+                         newSemister = newSemister + 1;
+
+                    }else if(newSemister==1){
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+d.semister_two_total+'</td></tr></tbody>'+
+                        '</table></div>'+
+                         '</div>'
+                         newSemister = newSemister + 1;
+
+                    }else if(newSemister==2){
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+d.semister_three_total+'</td></tr></tbody>'+
+                        '</table></div>'+
+                         '</div>'
+                         newSemister = newSemister + 1;
+
+                    }else if(newSemister==3){
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+d.semister_four_total+'</td></tr></tbody>'+
+                        '</table></div>'+
+                         '</div>'
+                         newSemister = newSemister + 1;
+
+                    }
+
                      all_percent = 0;
                      all_total = 0;
                 })
@@ -201,7 +240,16 @@ function getHomeRoomStudent(nb){
                 count++;
            });
            row+='</tbody></table></div></div></div>';
-            $('#dashboard').html(row);
+           row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
+           generator ='<button  class="shadow p-1 rounded  btn btn-primary btn-sm"'+
+                                'data-toggle="modal"'+
+                                'data-excel=""'+
+                                'data-target="#modal-promote-student"'+
+                            '>Promote Students <i class="fas fa-exchange-alt"></i></button>';
+
+           $('#teacherDashboardTitle').html(row2);
+           $('#generator').html(generator);
+           $('#dashboard').html(row);
         },
         error:function (data) {
             console.log("it is not works fine");

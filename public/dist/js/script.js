@@ -1,3 +1,8 @@
+
+
+
+
+
 const slidePage = document.querySelector(".slidePage");
 const firstNextBtn = document.querySelector(".nextBtn");
 const firstNextBtn2 = document.querySelector(".nextBtn").childNodes[0].text;

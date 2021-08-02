@@ -91,7 +91,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="cancel_delete_role" data-dismiss="modal">Cancel</button>
-                    <form action="{{url('/deleterole')}}" method="POST">
+                    <form action="{{url('/deleterole')}}" method="get">
                       @csrf
 
                     <button type="submit" class="btn btn-danger" id="delete_role_btn" name="delete_btn">Delete</button>

@@ -332,24 +332,52 @@
                                         <p>Employee List</p>
                                     </a>
                                 </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                     <a href="/addTeacherForm" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Teacher</p>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a href="/listTeacher" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Teacher List</p>
                                     </a>
                                 </li>
+                                 <li class="nav-item">
+                                    <a href="/addReligionPage" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Religion</p>
+                                    </a>
+                                </li>
+
+                                 <li class="nav-item">
+                                    <a href="/viewReligion" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View Religion</p>
+                                    </a>
+                                </li>
+
                                 <li class="nav-item">
+                                    <a href="/indexAddJobPosition" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add position</p>
+                                    </a>
+                                </li>
+
+                                 <li class="nav-item">
+                                    <a href="/viewJobPosition" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>view position</p>
+                                    </a>
+                                </li>
+
+                                {{-- <li class="nav-item">
                                     <a href="/addHomeRoom" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Home Room</p>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 
@@ -586,6 +614,9 @@
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+
+    {{-- <script src="{{ asset('plugins/jquery-validation/jquery.validation.min.js') }}"></script>
+     <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script> --}}
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -675,11 +706,21 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+{{--employee validation --}}
+{{-- 
+     <script src="{{ asset('dist/validation/add_employee_validation.js') }}"></script>
+     <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
+     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script> --}}
+
+
+
     <script src="{{asset('dist/js/addclass.js')}}"></script>
-    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
+    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script>  --}}
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
+
     <script src="{{ asset('dist/js/script.js') }}"></script>
     <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/teacher.js') }}"></script>
@@ -692,6 +733,13 @@ $(function() {
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
+
+     {{-- <script src="{{ asset('validation.js') }}"></script> --}}
+
+
+    <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
+    <script src="{{ asset('dist/js/view_religion_value.js') }}"></script>
+    <script src="{{ asset('dist/js/view_job_position.js') }}"></script>
 
     <script>
         $(function() {
