@@ -15,6 +15,7 @@
                             <th>Full name</th>
                             <th>Sex</th>
                             <th>Grade</th>
+                            <th>Section</th>
                             <th>Stream</th>
                             <th>Action</th>
                         </tr>
@@ -32,6 +33,7 @@
                                 <td>{{$row->first_name.' '.$row->middle_name.' '.$row->last_name}}</td>
                                 <td>{{$row->gender}}</td>
                                 <td>{{$row->class_label}}</td>
+                                <td>{{ $row->section_name }}</td>
                                 <td>{{ $row->stream_type }}</td>
                                 <td>
                                     @php
@@ -136,6 +138,6 @@
         </div>
 
 
-        
+
 
 @endsection

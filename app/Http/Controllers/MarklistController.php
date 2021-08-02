@@ -90,6 +90,9 @@ class MarklistController extends Controller
         ->with('semister',$semister);
     }
 
+
+
+
     public function sample_student(Request $request){
         Excel::import(new StudentImport, $request->excel);
          return "Student inserted";

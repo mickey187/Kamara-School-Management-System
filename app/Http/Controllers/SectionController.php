@@ -12,8 +12,10 @@ use App\Models\student;
 use App\Models\student_mark_list;
 use App\Models\teacher;
 use App\Models\teacher_course_load;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 
 class SectionController extends Controller
 {
@@ -260,7 +262,13 @@ class SectionController extends Controller
                 ->where('section_name',$section)
                 ->where('class_label',$class_name)
                 ->where('streams.id',$stream_id)
-                ->get();
+                ->get([
+                    'students.student_id',
+                    'first_name',
+                    'middle_name',
+                    'last_name',
+                    'gender'
+                ]);
                 error_log("Stream ID: ".$stream_id);
 
         $mark = DB::table('student_mark_lists')
@@ -269,11 +277,24 @@ class SectionController extends Controller
                 ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
                 ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
                 ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
-                ->get();
+                ->get([
+                    'students.student_id',
+                    'first_name',
+                    'middle_name',
+                    'last_name',
+                    'semister',
+                    'term',
+                    'subject_name',
+                    'test_load',
+                    'mark'
+                ]);
         $semister = semister::all();
+        // return response()->json($this->getTheTotalAvarage($mark));
+         //return response()->json(['section'=>$sec,'mark'=>$this->getTheTotalAvarage($mark),'semister'=>$semister]);
+         return response()->json(['section'=>$this->getTheTotalAvarage($sec),'mark'=>$mark,'semister'=>$semister]);
 
-        return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
-    }
+//          return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister]);
+        }
 
     public function getCourseLoadStudent($teacher_id,$section,$class_id,$course_load_id,$stream){
         $subject = '';
@@ -302,6 +323,7 @@ class SectionController extends Controller
                         'middle_name',
                         'last_name',
                         'gender',
+                        'sections.stream_id',
                         'sections.student_id as ssection_id',
                         'students.student_id',
                         'students.id as studid',
@@ -391,6 +413,90 @@ class SectionController extends Controller
         $semister2->update();
         $semister3 = semister::all();
         return response()->json($semister3);
+    }
+
+    public function getTheTotalAvarage($sec){
+         $item = collect();
+        foreach($sec as $row){
+            $newSemister = 0;
+            $subject = array();
+            $semister_one_total = 0;
+            $semister_one_load = 0;
+            $semister_two_total= 0;
+            $semister_two_load= 0;
+            $semister_three_total= 0;
+            $semister_three_load= 0;
+            $semister_four_total= 0;
+            $semister_four_load= 0;
+            $all_total = 0;
+                $student = student::where('student_id',$row->student_id)->get()->first();
+                $mark= student_mark_list::where('student_id',$student->id)->get();
+                $semister = semister::all();
+                foreach($semister as $sem){
+                    foreach($mark as $ma){
+                        if($sem->id == $ma->semister_id and $newSemister==0){
+                            $semister_one_total = $semister_one_total + $ma->mark;
+                            $semister_one_load = $semister_one_load + 1;
+                            if(!(in_array($ma->subject_id, $subject))){
+                                array_push($subject, $ma->subject_id);
+                            }
+                        }elseif($sem->id == $ma->semister_id and $newSemister==1){
+                            $semister_two_total = $semister_two_total + $ma->mark;
+                            $semister_two_load = $semister_two_load + 1;
+                            if(!(in_array($ma->subject_id, $subject))){
+                                array_push($subject, $ma->subject_id);
+                            }
+                        }elseif($sem->id == $ma->semister_id and $newSemister==2){
+                            $semister_three_total = $semister_three_total + $ma->mark;
+                            $semister_three_load = $semister_three_load + 1;
+                            if(!(in_array($ma->subject_id, $subject))){
+                                array_push($subject, $ma->subject_id);
+                            }
+                        }if($sem->id == $ma->semister_id and $newSemister==3){
+                            $semister_four_total = $semister_four_total + $ma->mark;
+                            $semister_four_load = $semister_four_load + 1;
+                            if(!(in_array($ma->subject_id, $subject))){
+                                array_push($subject, $ma->subject_id);
+                            }
+                        }
+                    }
+                    $newSemister = $newSemister + 1;
+                }
+            // }
+            error_log("How Much Is it: ". $subject[0]);
+
+
+            if((int) $semister_one_total <= (int) $semister_one_load or
+             ((int)$semister_two_total <= (int)$semister_two_load) or
+             (int)$semister_three_total <= (int)$semister_three_load or
+             (int)$semister_four_total <= (int)$semister_four_load)
+            {
+            }else{
+                $semister_one_total = ((int) $semister_one_total /  count($subject));
+                $semister_two_total = ((int)$semister_two_total / count($subject));
+                $semister_three_total = ((int)$semister_three_total / count($subject));
+                $semister_four_total = ((int)$semister_four_total / count($subject));
+            }
+                $item2 = collect([
+                "first_name"=>$row->first_name,
+                "middle_name"=>$row->middle_name,
+                "last_name"=>$row->last_name,
+                "student_id"=>$row->student_id,
+                // "term"=>$row->term,
+                // "semister"=>$row->semister,
+                // "subject_name"=>$row->subject_name,
+                // "test_load"=>$row->test_load,
+                // "mark"=>$row->mark,
+                "gender"=>$row->gender,
+                "semister_one_total"=>$semister_one_total,
+                "semister_two_total"=>$semister_two_total,
+                "semister_three_total"=>$semister_three_total,
+                "semister_four_total"=>$semister_four_total,
+                "all_total"=>''
+                ]);
+            $item->push($item2);
+        }
+        return $item;
     }
 }
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StreamController;
 use App\Http\Controllers\SubjectGroupController;
 use App\Http\Controllers\EmployeeRegistrationController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\HomeRoomController;
 use App\Http\Controllers\ListEmployeeController;
@@ -311,6 +312,9 @@ Route::get('singleAddMarkList/{student_id}/{class_id}/{semister_id}/{assasment_i
 
 Route::post('/import',[MarklistController::class, 'import'])->name('import');
 
+Route::post('importExcel',[ExcelController::class, 'importExcel'])->name('importExcel');
+// Route::post('/importExcel/{gclass}/{gstream}/{gsection}',[ExcelController::class, 'importExcel'])->name('importExcel');
+
 Route::get('addAssasment',[MarklistController::class, 'addAssasment']);
 
 Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
@@ -346,13 +350,14 @@ Route::get('setCurrentSemister/{id}',[SectionController::class, 'setCurrentSemis
 
 //For Testing
 
-Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');
 
-Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');
 
 Route::get('addSemister',[SectionController::class, 'semister']);
 
 Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
+Route::get('exportstudent/{class}/{stream}/{section}/{assasmnet}/{courseLoad}/{subject}', [ExcelController::class, 'export']);
 
 require __DIR__.'/auth.php';
