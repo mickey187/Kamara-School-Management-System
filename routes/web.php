@@ -10,6 +10,7 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StreamController;
 use App\Http\Controllers\SubjectGroupController;
 use App\Http\Controllers\EmployeeRegistrationController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\HomeRoomController;
 use App\Http\Controllers\ListEmployeeController;
@@ -62,6 +63,8 @@ Route::middleware(['role:admin,finance,null'])->prefix('finance')->group(functio
 
 Route::get('/financeDashboard',[FinanceController::class, 'financeDashboard'])->name('finance/financeDashboard');
 
+Route::get('/getYealyEarnings',[FinanceController::class, 'getYealyEarnings'])->name('finance/getYealyEarnings');
+
 Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
 
 Route::get('/viewPaymentType',[FinanceController::class, 'viewPaymentType']);
@@ -74,7 +77,7 @@ Route::post('/addPaymentLoad',[FinanceController::class, 'AddPaymentLoad']);
 
 Route::get('/viewPaymentLoad',[FinanceController::class, 'viewPaymentLoad']);
 
-Route::get('/fetchload/{class_id}/{pay_type}/{stud_id}',[FinanceController::class, 'fetchLoad']);
+Route::get('/fetchload/{class_id}/{pay_type}/{stud_id}/{selected_individual_payment}',[FinanceController::class, 'fetchLoad']);
 
 Route::get('/fetchTotalPaymentLoad/{class_id}/{stud_id}',[FinanceController::class, 'fetchTotalPaymentLoad']);
 
@@ -97,6 +100,8 @@ Route::get('/indexAddStudentPayment',[FinanceController::class, 'indexAddStudent
 Route::get('/viewStudentPayment',[FinanceController::class, 'viewStudentPayment']);
 
 Route::post('/addStudentPayment',[FinanceController::class, 'addStudentPayment']);
+
+Route::get('/makeIndividualPayment/{student_id_for_payment}/{month}',[FinanceController::class, 'makeIndividualPayment']);
 
 
 
@@ -311,6 +316,9 @@ Route::get('singleAddMarkList/{student_id}/{class_id}/{semister_id}/{assasment_i
 
 Route::post('/import',[MarklistController::class, 'import'])->name('import');
 
+Route::post('importExcel',[ExcelController::class, 'importExcel'])->name('importExcel');
+// Route::post('/importExcel/{gclass}/{gstream}/{gsection}',[ExcelController::class, 'importExcel'])->name('importExcel');
+
 Route::get('addAssasment',[MarklistController::class, 'addAssasment']);
 
 Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
@@ -321,9 +329,9 @@ Route::get('editMarkStudentList/{id}/{mark}/{load}/{assasment}',[MarklistControl
 
 Route::get('sectionForm',[SectionController::class, 'index']);
 
-Route::get('getHomeRoomStudent/{teacher_id}/{section}/{class_name}',[SectionController::class, 'getHomeRoomStudent']);
+Route::get('getHomeRoomStudent/{teacher_id}/{section}/{class_name}/{stream}',[SectionController::class, 'getHomeRoomStudent']);
 
-Route::get('getCourseLoadStudent/{teacher_id}/{section}/{class_id}/{course_load_id}',[SectionController::class, 'getCourseLoadStudent']);
+Route::get('getCourseLoadStudent/{teacher_id}/{section}/{class_id}/{course_load_id}/{stream}',[SectionController::class, 'getCourseLoadStudent']);
 
 Route::get('setSection',[SectionController::class, 'setSection']);
 
@@ -346,13 +354,14 @@ Route::get('setCurrentSemister/{id}',[SectionController::class, 'setCurrentSemis
 
 //For Testing
 
-Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');
 
-Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');;
+Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');
 
 Route::get('addSemister',[SectionController::class, 'semister']);
 
 Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
+Route::get('exportstudent/{class}/{stream}/{section}/{assasmnet}/{courseLoad}/{subject}', [ExcelController::class, 'export']);
 
 require __DIR__.'/auth.php';

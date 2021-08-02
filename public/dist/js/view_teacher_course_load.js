@@ -1,4 +1,5 @@
 function getCourseLoad(id){
+
     $.ajax({
         type: 'GET',
         url: 'getCourseLoad/'+id,
@@ -9,13 +10,15 @@ function getCourseLoad(id){
             var data1 = JSON.parse(JSON.stringify(data.teacher_courses));
             console.log(data1);
             data1.forEach(d => {
-                row+='<div class="col-4">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section+','+d.teacher_id+'">'+
+               // alert("Teacher Courses "+d.stream)
+                row+='<div class="col-4 mt-2">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section+','+d.teacher_id+','+d.stream+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
                           '<label>'+d.class_label+' '+d.section+'</label><br>'+
-                          '<label>'+d.subject_name+'</label>'+
-                        '</div>'+
+                          '<label>'+d.subject_name+'</label><br>'+
+                          '<label> Stream '+d.stream+'</label>'+
+                          '</div>'+
                         '<div class="icon"><br>'+
                           '<i class="fas fa-users"></i>'+
                         '</div>'+
@@ -26,6 +29,10 @@ function getCourseLoad(id){
                 '</button>'+
                 '</div>';
            });
+           row2 += 'Dashboard / Course Load';
+           generator =''
+           $('#generator').html(generator);
+           $('#teacherDashboardTitle').html(row2);
            $('#dashboard').html(row);
         },
         error:function (data) {
@@ -40,11 +47,13 @@ function getCourseLoadStudent(nb){
     section = data[2];
     teacher_id = data[3];
     course_load_id = data[0];
+    stream = data[4];
+   // alert(stream)
     // stream_id = data[4];
     //alert('class_id: '+class_id+' section: '+section+' teacher: '+teacher_id+' course load: '+course_load_id)
     $.ajax({
         type: 'GET',
-        url: 'getCourseLoadStudent/'+teacher_id+'/'+section+'/'+class_id+'/'+course_load_id,
+        url: 'getCourseLoadStudent/'+teacher_id+'/'+section+'/'+class_id+'/'+course_load_id+'/'+stream,
         dataType : 'json',
         success:function (data) {
                 var section1 = JSON.parse(JSON.stringify(data.section));
@@ -53,6 +62,7 @@ function getCourseLoadStudent(nb){
                 var subject = JSON.parse(JSON.stringify(data.subject));
                // var assasment_name = JSON.parse(JSON.stringify(data.assasment));
                 var count = 1;
+                row2 = '';
                 console.log(data);
                 row = '<div class="card  col-12">'+
                       '<section class="content">'+
@@ -143,9 +153,24 @@ function getCourseLoadStudent(nb){
                             '</tr>'
                     count++;
                });
+               row2 += 'Dashboard / Course Load / '+stream+' Section '+section;
+               generator ='<button  class="shadow p-1 rounded  btn btn-primary btn-sm"'+
+                                'data-toggle="modal"'+
+                                'data-excel="'+class_id+','+stream+','+section+','+subject+'"'+
+                                'data-target="#modal-generate-excel"'+
+                            '>GENERATE MARK LIST <i class="fas fa-download"></i></button>'+
+                        '<button  class="shadow p-1 ml-1  rounded  btn btn-success btn-sm"'+
+                                'data-toggle="modal"'+
+                                'data-excel2="'+class_id+','+stream+','+section+','+course_load_id+'"'+
+                                'data-target="#modal-import-excel"'+
+                        '>UPLOAD MARK LIST <i class="fas fa-upload"></i></button>'
+
                row+='</tbody></table></div>';
-                $('#dashboard').html(row);
-        },
+               $('#teacherDashboardTitle').html(row2);
+               $('#dashboard').html(row);
+               $('#generator').html(generator);
+
+            },
         error:function (data) {
             console.log("it is not works fine");
         }
@@ -211,12 +236,7 @@ function saveEditedValue(){
             $('#'+data).html(row);
             $('#editTotalMl'+vl1).html(row2);
             Swal.fire("Updated!", "You Updated Successfuly!", "success");
-            // $("#mark").val('')
-            // $("#load").val('')
             closer();
-            // $('#modal-editMark').on('hidden.bs.modal', function (e) {
-            //     $(this).find('input').val('');
-            //   });
         }
     })
 
@@ -268,6 +288,7 @@ function sendMarkList(){
     var term = $("#term2").val().trim();
     console.log("First student id: "+student)
     console.log("First Semister: "+semister)
+
    // alert('Assasment: '+assasment+' student: '+student+' Class: '+class_id+' Load: '+load+' Mark: '+mark+' Subject: '+subject+' Semister'+semister)
    $.ajax({
        type: 'GET',
@@ -331,3 +352,6 @@ function sendMarkList(){
        }
    })
 }
+
+
+

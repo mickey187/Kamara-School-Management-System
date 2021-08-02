@@ -12,8 +12,8 @@ class HomeRoomController extends Controller
     {
         $this->middleware('auth');
     }
-    
-     function openView(){
+
+    function openView(){
         return view('admin.teacher.home_room');
     }
 }

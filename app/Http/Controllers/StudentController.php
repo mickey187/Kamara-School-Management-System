@@ -153,6 +153,8 @@ class StudentController extends Controller{
         $stud_sec = DB::table('students')
         ->join('classes','students.class_id','=','classes.id')
         ->join('streams','streams.id','=','students.stream_id')
+        ->join('sections','students.id','=','sections.student_id')
+       // ->join('streams','sections.stream_id','=','streams.id')
         ->get([
             'students.id',
             'students.student_id',
@@ -162,7 +164,8 @@ class StudentController extends Controller{
             'students.gender',
             'students.image',
             'classes.class_label',
-            'stream_type'
+            'stream_type',
+            'section_name'
         ]);
         return view('admin.student.view_student')->with('student_list',$stud_sec);
     }

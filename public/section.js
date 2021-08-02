@@ -105,10 +105,12 @@ $("#singleClassId").change(function () {
             var size = '';
             var count = 0;
             data.forEach(d => {
+                splitterStream = d.split("-");
+                
                 //console.log(d);
                 rows += '<label class="PillList-item">'+
                         '<input id="selectedSection" type="checkbox" name="feature" value="'+d+'">'+
-                        '<span class="PillList-label" > Section '+d+
+                        '<span class="PillList-label" >'+'Stream '+splitterStream[0]+' Section '+splitterStream[1]+
                         '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>'+
                         '</span>'+
                         '</label>'
