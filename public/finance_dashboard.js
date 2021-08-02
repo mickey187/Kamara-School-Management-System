@@ -6,6 +6,9 @@ $(window).on("load", function () {
         
         dataType: "json",
         success: function (response) {
+            
+            
+
             console.log(response);
             var ctx = $('#myChart');
 var myChart = new Chart(ctx, {

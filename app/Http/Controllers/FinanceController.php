@@ -14,6 +14,11 @@ use App\Models\student_payment_load;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use DateTime;
+use Andegna;
+
+
+
 
 
 class FinanceController extends Controller
@@ -26,7 +31,11 @@ class FinanceController extends Controller
 
     //Finance Dashboard function
     public function financeDashboard(){
-        
+        $gregorian = new DateTime('tomorrow');
+
+// just pass it to Andegna\DateTime constractor and you will get $ethiopian date
+$ethipic = new Andegna\DateTime($gregorian);
+//dd($ethipic->format(Andegna\Constants::DATE_GEEZ_ORTHODOX));
         $total_value_this_month = 0;
         $total_value_this_year = 0;  
         $total_payment_collected_this_month = student_payment::where('payment_month',"20".Carbon::now()->format('y-m'))->get(['amount_payed']);

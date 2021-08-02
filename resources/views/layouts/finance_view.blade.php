@@ -474,6 +474,9 @@ $(function() {
         <!-- ChartJS -->
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
 
+     <!-- Ethiopic Date -->
+    <script src="{{ asset('plugins/ethiopic-date/index.js') }}"></script>
+
     <script src="{{ asset('finance_dashboard.js') }}"></script>
 
 
