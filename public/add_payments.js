@@ -153,6 +153,8 @@ $('#make_payment').on('show.bs.modal', function (event) {
   $('#view_payment_history').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var recipient = button.data('payment_history') // Extract info from data-* attributes
+    $('#unpaid_payment').empty();
+    $('#payment_history').empty();
 
     
     
@@ -192,18 +194,83 @@ $('#make_payment').on('show.bs.modal', function (event) {
           console.log(data5);
           console.log(data4);
           data4.forEach(d => {
+
+            var str = d.payment_month
+             split = str.split('-');
+             switch (split[1]) {
+               case '01':
+                split[1] = 'January';
+                 
+                 break;
+                 case '02':
+                   split[1] = 'February';
+                   break;
+
+                 case '03':
+                  split[1] = 'March';
+                   break;
+
+                   case '04':
+                    split[1] = 'April';
+                    break;
+
+                    case '05':
+                      split[1] = 'May';
+                   break;
+
+                   case '06':
+                    split[1] = 'June';
+                   break;
+
+                   case '07':
+                    split[1] = 'July';
+                   break;
+                   case '08':
+                    split[1] = 'August';
+                   break;
+
+                   case '09':
+                    split[1] = 'September';
+                   break;
+
+                   case '10':
+                    split[1] = 'October';
+                   break;
+
+                   case '11':
+                    split[1] = 'November';
+                   break;
+
+                   case '12':
+                    split[1] = 'December';
+                   break;
+
+             
+               default:
+                 break;
+             }
+            // console.log(split[1]+' '+split[0]);
+             var month_year = split[1] +' '+split[0];
+             d.payment_month = month_year;
             if (d.status == 'unpaid') {
               
             counter++;
-            unpaid_bill_html_string += '<h5 class="text-danger">payment type id: '
-                                        +d.payment_type_id+' payment_load_id: '+d.payment_load_id+
-                                        ' amount: '+d.amount_payed+' payment_month: '+d.payment_month+
-                                        ' status: '+d.status+' </h5>'
+            // unpaid_bill_html_string += '<h5 class="text-danger">payment type: '
+            //                             +d.payment_type+
+            //                             ' amount: '+d.amount_payed+' unpaid_month: '+d.payment_month+
+            //                             ' status: '+d.status+' </h5>'
+
+            unpaid_bill_html_string +=  '<tr>'+                                        
+                                        '<td>'+d.payment_type +'</td>'+
+                                        '<td>'+d.amount_payed +'</td>'+
+                                        '<td>'+d.payment_month +'</td>'+
+                                        '<td>'+d.status+'</td>'+
+                                        '</tr>'
                }                          
            // unpaid_bill_html_string += '<h5 class="text-danger">payment type id'+d.payment_month+'</h5>'
             
           });
-          $('#unpaid_bill').html(unpaid_bill_html_string);
+          $('#unpaid_payment').html(unpaid_bill_html_string);
           $('#num_of_unpaid_bill').text(counter)
           var split = null;
           data1.forEach(d => {
@@ -301,13 +368,42 @@ $('#make_payment').on('show.bs.modal', function (event) {
       success: function (response) {
         console.log(response);
        
+       if (response == "successful") {
+        $('.close').click();
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Paid Successfully!',
+        
+        });
+       }
+
+       else if(response == "already paid"){
+        $('.close').click();
+        Swal.fire({
+          icon: 'warning',
+          title: 'Warning',
+          text: 'This student has already paid for this month',
+          
+        });
+      }
+
+        else if(response == null){
+          $('.close').click();
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            footer: '<a href="">Why do I have this issue?</a>'
+          });
+        }
        
         
-        Swal.fire(
-          'Payed Successfully!',
+        // Swal.fire(
+        //   'Payed Successfully!',
           
-        );
-        $('.close').click();
+        // );
+        
         
         //$('#view_payment_history').modal('show')
        // location.reload();
@@ -327,15 +423,43 @@ $('#make_payment').on('show.bs.modal', function (event) {
       dataType:'json',
       cache: false,
       success: function (response) {
-        console.log(response);
+       // console.log(response);
        
        
-        
-        Swal.fire(
-          'Payed Successfully!',
+        if (response == "successful") {
+          $('.close').click();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Paid Successfully!',
           
-        );
-        $('.close').click();
+          });
+         }
+  
+         else if(response == "already paid"){
+          $('.close').click();
+          Swal.fire({
+            icon: 'warning',
+            title: 'Warning',
+            text: 'This student has already paid for this month',
+            
+          });
+        }
+  
+          else if(response == null){
+            $('.close').click();
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+              footer: '<a href="">Why do I have this issue?</a>'
+            });
+          }
+        // Swal.fire(
+        //   'Payed Successfully!',
+          
+        // );
+        // $('.close').click();
         
         //$('#view_payment_history').modal('show')
        // location.reload();

@@ -53,6 +53,8 @@ Route::middleware(['role:admin,finance,null'])->prefix('finance')->group(functio
 
 Route::get('/financeDashboard',[FinanceController::class, 'financeDashboard'])->name('finance/financeDashboard');
 
+Route::get('/getYealyEarnings',[FinanceController::class, 'getYealyEarnings'])->name('finance/getYealyEarnings');
+
 Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
 
 Route::get('/viewPaymentType',[FinanceController::class, 'viewPaymentType']);

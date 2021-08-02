@@ -27,13 +27,143 @@ class FinanceController extends Controller
     //Finance Dashboard function
     public function financeDashboard(){
         
-        $total_value = 0;  
-        $total_payment_collected = student_payment::where('payment_month',"20".Carbon::now()->format('y-m'))->get(['amount_payed']);
-        //return $total_payment_collected;
-        foreach ($total_payment_collected as $total) {
-            $total_value = $total_value + $total->amount_payed;
+        $total_value_this_month = 0;
+        $total_value_this_year = 0;  
+        $total_payment_collected_this_month = student_payment::where('payment_month',"20".Carbon::now()->format('y-m'))->get(['amount_payed']);
+        $total_payment_collected_this_year = student_payment::get(['amount_payed','created_at']);
+        foreach ($total_payment_collected_this_year as $total) {
+            if ($total->created_at->format('Y') == "20".Carbon::now()->format('y')) {
+                $total_value_this_year = $total_value_this_year + $total->amount_payed;
+               error_log("foreverrrrrrrrrrrr");
+            }
+           
         }
-        return view('finance.finance_dashboard')->with('total_value',number_format($total_value));
+        //return $total_payment_collected;
+        foreach ($total_payment_collected_this_month as $total) {
+            $total_value_this_month = $total_value_this_month + $total->amount_payed;
+        }
+        return view('finance.finance_dashboard')->with('total_value_this_month',number_format($total_value_this_month))
+                                                ->with('total_value_this_year',number_format($total_value_this_year));
+    }
+
+    public function getYealyEarnings(){
+        $each_month_earnings = [];
+        $months_of_the_year = [];
+        for ($i=0; $i <12; $i++) { 
+            switch ($i) {
+                case 0:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-01";
+                    break;
+
+                case 1:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-02";
+                    break;
+
+                case 2:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-03";
+                    break;
+
+                case 3:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-04";
+                    break;
+
+                case 4:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-05";
+                    break;
+
+                case 5:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-06";
+                    break;
+
+                case 6:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-07";
+                    break;
+
+                case 7:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-08";
+                    break;
+
+                 case 8:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-09";
+                    break;
+
+                case 9:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-10";
+                    break;
+
+                case 10:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-11";
+                    break;
+
+                case 11:
+                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-12";
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+            // if ($i == 9) {
+            //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-10";
+               
+            // }
+            // else if ( $i == 10) {
+            //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-11";
+               
+            // }
+            // else if ($i == 11) {
+            //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-12";
+                
+            // }
+
+            // else if ($i == 0) {
+            //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-01";
+            //     continue;
+                
+            // }
+
+            // elseif ($i == 8) {
+            //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-09";
+            // }
+
+            // else if($i == 1 || $i == 2 || $i == 3 || $i == 4 || $i == 5 || $i == 6 || $i == 7) {
+            //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-0".$i;
+                
+                
+                
+            // }
+
+            // else {
+            //     continue;
+            // }
+          /* 0 = 2021-01
+             1 = 2021-02
+             2 = 2021-03
+             3 = 2021-04
+             4 = 2021-05
+             5 = 2021-06
+             6 = 2021-07
+             7 = 2021-08
+             8 = 2021-09
+             9 = 2021-10
+             10 = 2021-11
+             11 = 2021-12
+          */
+            error_log($months_of_the_year[$i]);
+        }
+        $length = count($months_of_the_year);
+        error_log($length);
+        for ($i=0; $i < $length ; $i++) { 
+            $each_month_earnings[$i] = student_payment::where('payment_month',$months_of_the_year[$i])->sum('amount_payed');
+        }
+        // foreach ($months_of_the_year as $key) {
+        //     $each_month_earnings[] = student_payment::where('payment_month',$key)->sum('amount_payed');
+        //     error_log($key);
+        // }
+        
+
+        return response()->json($each_month_earnings);
+
     }
     //indexAddPaymentType function
     public function indexAddPaymentType(){
@@ -303,70 +433,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             return response()->json($result_load);
 
 }
-  /*  public function fetchLoad($class_id, $pay_type, $stud_id){
-
-        $result_load = DB::table('payment_loads')
-        ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
-        ->join('classes','payment_loads.class_id','=','classes.id')
-        ->where('class_id',$class_id)
-        ->where('payment_type_id',$pay_type)
-        ->get(['payment_loads.id as load_id','payment_type','class_label','amount','recurring_type']);
-
-        $load_id_value = 0;
-
-        foreach ($result_load as $key) {
-           
-            $load_id_value = $key->load_id;
-
-            if (!student_transportation::where('student_id',$stud_id)->exists()) {
-                $payment_load_id = student_transportation::pluck('payment_load_id')->first();
-                if ($key->load_id == $payment_load_id) {
-                    $key->amount = 0;
-                }
-              }
-            }
-            foreach ($result_load as $key) {
-                # code...
-            
-              if ($key->recurring_type == 'non-recurring') {
-                  if (student_payment::where('student_id',$stud_id)->where('payment_load_id',$key->load_id)->exists()) {
-                      $key->amount = "already payed";
-                  }
-              }
-            }
-        
-
-    if (student_discount::where('student_id',$stud_id)->where('payment_load_id',$load_id_value)->exists()) {
-            
-
-           $fetch_discount = student_discount::where('student_id',$stud_id)->where('payment_load_id',$load_id_value)->get(['discount_percent']);
-           $discount_value = 0;
-           foreach ($fetch_discount as $key) {
-               $discount_value = $key->discount_percent ;
-           }
-
-           foreach ($result_load as $key) {
-               $temp = $key->amount;
-               $temp = $temp* $discount_value/100;
-               $key->amount = $key->amount-$temp;
-           }
-
-        }
-
-        
-
-        
-            // foreach ($result_load as $key) {
-            //     $temp = $key->amount;
-            //     $temp = $temp * $discount/100;
-            //     $key->amount = $key->amount - $temp;
-            //  }
-        
-    
-        
-    
-         return response()->json($result_load);
-    }*/
+  
 
     public function fetchPaymentHistory($stud_id){
 
@@ -389,11 +456,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         $compare =  DB::table('student_payments')
                     ->where('student_id',$stud_id)
                     ->get(['student_id','payment_type_id','payment_load_id','amount_payed','payment_month']);
-        #student_payment::where('student_id',$stud_id)->get(['student_id','payment_type_id','payment_load_id'
-                                        #,'amount_payed','payment_month']);
-                   
-                       
-        //    $compared = $compare->diffAssoc($student_payment_load);
+       
             error_log("testtttttttt".ltrim(Carbon::now()->format('m'),"0") );
            $current_month = ltrim(Carbon::now()->format('m'),"0");
            $previous_month = [];
@@ -415,28 +478,22 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
 
                 foreach ($previous_month as $key2  ) {
                    // $student_payment_load['unpaid-'.$key->payment_type."-".$key2] = $key->amount;
-                    $student_payment_load[] = ['student_id'=>$key->student_id,
-                                             'payment_type_id'=>$key->payment_type_id,
-                                             'payment_load_id'=>$key->payment_load_id,                                            
-                                             'amount_payed'=>$key->amount,
-                                             'payment_month'=>$key2
+                    // $student_payment_load[] = ['student_id'=>$key->student_id,
+                    //                          'payment_type_id'=>$key->payment_type_id,
+                    //                          'payment_load_id'=>$key->payment_load_id,                                            
+                    //                          'amount_payed'=>$key->amount,
+                    //                          'payment_month'=>$key2
                     
-                                            ]; 
+                    //                         ]; 
                     $student_missing_payment_coll->push([ 'student_id'=>$key->student_id,
                     'payment_type_id'=>$key->payment_type_id,
                     'payment_load_id'=>$key->payment_load_id,                                            
                     'amount_payed'=>$key->amount,
                     'payment_month'=>$key2,
-                    'status'=>'unknown'
+                    'status'=>'unknown',
+                    'payment_type'=>$key->payment_type,
                      ]);
-                    // $student_missing_payment_coll = collect([
-                    //    [ 'student_id'=>$key->student_id,
-                    //     'payment_type_id'=>$key->payment_type_id,
-                    //     'payment_load_id'=>$key->payment_load_id,                                            
-                    //     'amount_payed'=>$key->amount,
-                    //     'payment_month'=>$key2 ]
-                        
-                    // ]);
+                    
                 
                 }
                 
@@ -454,13 +511,16 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                             $counter++;
                         
                         error_log("hurraaaaaaaaaaay it checked".$counter);
+                        
+
                         $student_missing_payment_coll->push([
 
                             'payment_type_id'=>$key['payment_type_id'],
                             'payment_load_id'=>$key['payment_load_id'],                                            
                             'amount_payed'=>$key['amount_payed'],
                             'payment_month'=>$key['payment_month'],
-                            'status'=>'unpaid'
+                            'status'=>'unpaid',
+                            'payment_type'=>$key['payment_type']
                         ]);
 
                     }
@@ -469,22 +529,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             }
             $sliced[] = $student_missing_payment_coll->slice($array_length2);
             
-          // $sliced = $student_payment_load->slice($array_length);
           
-           // foreach ($result_history as $individual_load) {
-                foreach ($sliced as $compare) {
-                   // error_log("hurraaaaaaaaaaay it checked".$compare);
-                    // if (student_payment::where('student_id',$stud_id)
-                    //                     ->where('payment_load_id',$compare->payment_load_id)
-                    //                     ->where('payment_type_id',$compare->payment_type_id)
-                    //                     ->where('payment_month',$compare->payment_month)
-                    //                     ->exists()) {
-                    //                         $counter++;
-                    //     error_log("hurraaaaaaaaaaay it checked".$counter);
-                    // }
-                    
-                }
-           // }
 
             error_log($student_missing_payment_coll."from here");
   
@@ -500,17 +545,36 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
        
         $res = null;
         $count = 0;
+        $status = null;
        
         foreach ($total_payment as $key) {
              if (!$key['amount'] == 0) {
+                 if (!student_payment::where('payment_type_id',$key['payment_type_id'])
+                                      ->where('payment_load_id',$key['payment_load_id'])
+                                      ->where('payment_month',$month)
+                                      ->where('amount_payed',$key['amount'])
+                                      ->exists()) {
+                 
+                     
+                 
             $student_payment = new student_payment();
             $student_payment->student_id = $stud_id;
             $student_payment->payment_type_id = $key['payment_type_id'];
             $student_payment->payment_load_id = $key['payment_load_id'];
             $student_payment->amount_payed = $key['amount'];
             $student_payment->payment_month = $month;
-            $student_payment->save();
-            //$total_payment = [];
+            if ($student_payment->save()) {
+                $status = "successful";
+                    }
+            
+                }
+                else if(student_payment::where('payment_type_id',$key['payment_type_id'])
+                                        ->where('payment_load_id',$key['payment_load_id'])
+                                        ->where('payment_month',$month)
+                                        ->where('amount_payed',$key['amount'])
+                                        ->exists()){
+                    $status = "already paid";
+                }
             }
 
             
@@ -521,15 +585,20 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
           }
           $student_payment = student_payment::all();
          
-          return response()->json($student_payment);
+          return response()->json($status);
         
 
     }
     public function makeIndividualPayment(Request $req, $stud_id, $month){
         $individual_payment = $req->detail;
-
+        $status = null;
         foreach ($individual_payment as $key) {
-            
+            if (!$key['amount'] == 0) {
+                if (!student_payment::where('payment_type_id',$key['payment_type_id'])
+                                      ->where('payment_load_id',$key['payment_load_id'])
+                                      ->where('payment_month',$month)
+                                      ->where('amount_payed',$key['amount'])
+                                      ->exists()) {
             $student_payment = new student_payment();
             $student_payment->student_id = $stud_id;
             $student_payment->payment_type_id = $key['payment_type_id'];
@@ -537,13 +606,27 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             $student_payment->amount_payed = $key['amount'];
             $student_payment->payment_month = $month;
             if ($student_payment->save()) {
+                $status = "successful";
                 
-                return response()->json($student_payment);
+                }
             }
+            else if(student_payment::where('payment_type_id',$key['payment_type_id'])
+                                    ->where('payment_load_id',$key['payment_load_id'])
+                                    ->where('payment_month',$month)
+                                    ->where('amount_payed',$key['amount'])
+                                    ->exists()){
+                                        $status = "already paid";
 
-          }
+            }
+        }
+        elseif ($key['amount'] == 0) {
+            $status = "already paid";
+        }       
         
+
     }
+    return response()->json($status);
+}
 
     public function addStudentPayment(Request $req){
         //return $req;

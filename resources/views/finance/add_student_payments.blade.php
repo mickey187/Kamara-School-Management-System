@@ -93,7 +93,21 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body" id="unpaid_bill" style="display: none;">
-                                 
+                                  <table class="table table-bordered table-striped mt-5" id="example3">
+                                    <thead>
+                                      <tr>
+                                        
+                                        <th>payment type</th>            
+                                        <th>amount</th>  
+                                        <th>unpaid month</th>
+                                        <th>status</th>
+                                                                                                              
+                                      </tr>
+                                      </thead>
+                                      <tbody id="unpaid_payment">
+             
+                                      </tbody>
+                                  </table>
                                 </div>
                                 <!-- /.card-body -->
                               </div>
