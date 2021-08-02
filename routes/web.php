@@ -120,7 +120,7 @@ Route::get('editsubject/{id}', [SubjectController::class, 'editSubject'])->name(
 
 Route::post('editsubjectvalue/{id}', [SubjectController::class, 'editSubjectValue']);
 
-Route::post('addsubject', [SubjectController::class, 'addSubject']);
+Route::get('addsubject/{subject}', [SubjectController::class, 'addSubject']);
 
 Route::post('deletesubject', [SubjectController::class, 'deleteSubject']);
 

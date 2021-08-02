@@ -707,21 +707,13 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-{{--employee validation --}}
-
-     <script src="{{ asset('dist/validation/add_employee_validation.js') }}"></script>
-     <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
-     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
-
-
-
     <script src="{{asset('dist/js/addclass.js')}}"></script>
-    <script src="{{ asset('dist/js/employee.js') }}"></script> 
+    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script>  --}}
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
     
-    <script src="{{ asset('dist/js/script.js') }}"></script>
+   
     <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/teacher.js') }}"></script>
     <script src="{{ asset('dist/css/checkbox.css') }}"></script>
@@ -735,14 +727,37 @@ $(function() {
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
     
      {{-- <script src="{{ asset('validation.js') }}"></script> --}}
+
+
+     {{-- student validation --}}
+     
+    {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
+
+    
+    {{-- <script src="{{ asset('dist/validation/add_student_validation.js') }}"></script>  --}}
+
+    {{-- Curriculum validation --}}
+    <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script> 
+    <script src="{{ asset('dist/validation/add_subject_validation.js') }}"></script> 
+     
+
+     {{--employee validation --}}
+
+      
+
+      <script src="{{ asset('dist/validation/add_employee_validation.js') }}"></script> 
+     <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
+     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
        
 
     <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
     <script src="{{ asset('dist/js/view_religion_value.js') }}"></script>
-    <script src="{{ asset('dist/js/view_job_position.js') }}"></script>
+    <script src="{{ asset('dist/js/view_job_position.js') }}"></script> 
+
 
     <script>
         $(function() {
+            
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -759,9 +774,6 @@ $(function() {
                 "responsive": true,
             });
         });
-
-
-
 
        //  $('#modal_view').on('show.bs.modal', function (event) {
 //   var button = $(event.relatedTarget) // Button that triggered the modal

@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\subject;
 use App\Models\stream;
 use App\Models\subject_group;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database;
 
 
 class SubjectController extends Controller
@@ -36,17 +36,20 @@ class SubjectController extends Controller
     //    // $result = subject_group::all();
     //    return redirect()->route('viewsubjectgroup')->with('subject_group',$subject_group);
     // }
-    function addSubject(Request $req)
+    function addSubject($subject)
     {
+        $subject = new subject();
+        $subject->subject_name = $subject;
 
-        $subject = new subject;
-        $subject->subject_name = $req->subjectname;
-
-
-        $subject->save();
-        $subject_list = subject::all();
-        return redirect('/viewSubject')->with('subject_list',$subject_list);;
+        if ($subject->save()) {
+            $subject_list = subject::all();
+            // $subject->save();
+            // $subject_list = subject::all();
+            return redirect('/viewSubject')->with('subject_list', $subject_list);
+            
+        }
     }
+
 
     function viewsubject(){
       // $subject_list = subject::all();
