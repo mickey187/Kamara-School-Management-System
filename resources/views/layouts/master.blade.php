@@ -736,6 +736,7 @@ $(function() {
 
      {{-- <script src="{{ asset('validation.js') }}"></script> --}}
 
+<<<<<<< HEAD
 
      {{-- student validation --}}
      
@@ -757,6 +758,8 @@ $(function() {
      <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
      <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
        
+=======
+>>>>>>> 0d04969d8aad10b01fa7b38d059af97c6765f0a6
 
     <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
     <script src="{{ asset('dist/js/view_religion_value.js') }}"></script>
