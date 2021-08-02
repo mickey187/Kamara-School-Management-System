@@ -16,9 +16,10 @@ var emp_employee_religion = document.getElementById('employee_religion').value.t
           onSuccess()
       }
  })
+
  function setEror(){
-     alert('error')
+     alert('religion can not be null')
  }
  function onSuccess(){
-     alert('success')
+     alert('you are successfuly enter religion')
  }

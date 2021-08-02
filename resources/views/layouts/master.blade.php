@@ -709,9 +709,10 @@ $(function() {
 
 {{--employee validation --}}
 {{--
+
      <script src="{{ asset('dist/validation/add_employee_validation.js') }}"></script>
      <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
-     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script> --}}
+     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
 
 
 
@@ -737,12 +738,35 @@ $(function() {
      {{-- <script src="{{ asset('validation.js') }}"></script> --}}
 
 
+     {{-- student validation --}}
+
+    {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
+
+
+    {{-- <script src="{{ asset('dist/validation/add_student_validation.js') }}"></script>  --}}
+
+    {{-- Curriculum validation --}}
+    <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/add_subject_validation.js') }}"></script>
+
+
+     {{--employee validation --}}
+
+
+
+      <script src="{{ asset('dist/validation/add_employee_validation.js') }}"></script>
+     <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
+     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
+
+
     <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
     <script src="{{ asset('dist/js/view_religion_value.js') }}"></script>
     <script src="{{ asset('dist/js/view_job_position.js') }}"></script>
 
+
     <script>
         $(function() {
+
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -759,9 +783,6 @@ $(function() {
                 "responsive": true,
             });
         });
-
-
-
 
        //  $('#modal_view').on('show.bs.modal', function (event) {
 //   var button = $(event.relatedTarget) // Button that triggered the modal
@@ -781,13 +802,7 @@ $(function() {
 //   modal.find('.modal-body #subjectname_view').text("subject name: "+spit[3]);
 //   modal.find('.modal-footer button').val(spit[0])
 
-
-
-
     </script>
-
-
-
     <script>
         $(function () {
           $("#img-pro").change(function(){
@@ -801,7 +816,7 @@ $(function() {
             $("#img-pro").click();
           });
         })
-      </script>
+    </script>
 </body>
 
 </html>

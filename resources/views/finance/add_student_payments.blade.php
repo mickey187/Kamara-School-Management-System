@@ -47,7 +47,7 @@
 
                    <button class="btn btn-info btn-sm" data-toggle="modal" 
                    data-target="#make_payment" 
-                    data-payment_data="{{$row->student_id}},{{$row->class_id}},{{$row->first_name."  ".$row->middle_name."  ".$row->last_name}},{{$row->student_table_id}},{{$row->discount}}">
+                    data-payment_data="{{$row->student_id}},{{$row->class_id}},{{$row->first_name."  ".$row->middle_name."  ".$row->last_name}},{{$row->student_table_id}}">
                     <i class="fa fa-dollar-sign"></i>
                     
                   </button>
@@ -78,6 +78,41 @@
                     <div class="modal-body">
                       <div class="row">
                         <div class="col-12">
+                                 
+
+                            <div class="col-md-12">
+                              <div class="card card-warning collapsed-card">
+                                <div class="card-header">
+                                  <h3 class="card-title">Unpaid Bills <span id="num_of_unpaid_bill" class="badge badge-danger">4</span></h3>
+                  
+                                  <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                    </button>
+                                  </div>
+                                  <!-- /.card-tools -->
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body" id="unpaid_bill" style="display: none;">
+                                  <table class="table table-bordered table-striped mt-5" id="example3">
+                                    <thead>
+                                      <tr>
+                                        
+                                        <th>payment type</th>            
+                                        <th>amount</th>  
+                                        <th>unpaid month</th>
+                                        <th>status</th>
+                                                                                                              
+                                      </tr>
+                                      </thead>
+                                      <tbody id="unpaid_payment">
+             
+                                      </tbody>
+                                  </table>
+                                </div>
+                                <!-- /.card-body -->
+                              </div>
+                              <!-- /.card -->
+                            </div>
                           
                           <table class="table table-bordered table-striped mt-5" id="example3">
                             <thead>
@@ -115,8 +150,8 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <form action="{{url('finance/addStudentPayment')}}" method="post">
-                      @csrf
+                    {{-- <form action="{{url('finance/addStudentPayment')}}" method="post">
+                      @csrf --}}
                     <div class="modal-body">
                       <div class="row">
                           <div class="col-6">
@@ -138,7 +173,10 @@
 
                             </div>
 
-                            <label for="#payment_load">Amount to be Payed for</label>
+                            <label for="">Amount to be Payed for</label>
+                            <div class="form-group" id="individual_load">
+
+                            </div>
                             <div class="form-group" id="payment_load">
 
                             </div>
@@ -161,7 +199,7 @@
                       <button type="submit" class="btn btn-primary" id="submit_payment" name="submit" >Submit</button>
                     
                     </div>
-                  </form>
+                  {{-- </form> --}}
                   </div>
                 </div>
               </div>

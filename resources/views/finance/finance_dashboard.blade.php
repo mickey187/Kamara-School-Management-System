@@ -15,9 +15,9 @@
           
             <div class="small-box bg-success" role="button">
                 <div class="inner">
-                  <h3>{{$total_value." Birr"}}</h3>
+                  <h3>{{$total_value_this_year." Birr"}}</h3>
   
-                  <p>Toatal Payments Collected <br> This Month</p>
+                  <p>Toatal Payments Collected <br> This Year</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-coins"></i>
@@ -32,7 +32,7 @@
 
             <div class="small-box bg-warning" role="button">
                 <div class="inner">
-                  <h3>{{$total_value." Birr"}}</h3>
+                  <h3>{{$total_value_this_month." Birr"}}</h3>
   
                   <p>Toatal Payments Collected <br>This Month</p>
                 </div>
@@ -49,7 +49,7 @@
 
             <div class="small-box bg-danger" role="button">
                 <div class="inner">
-                  <h3>{{$total_value." Birr"}}</h3>
+                  <h3>{{$total_value_this_month." Birr"}}</h3>
   
                   <p>Toatal Payments Collected <br>This Month</p>
                 </div>
@@ -61,6 +61,12 @@
               
 
         </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12" >
+        <canvas id="myChart" width="800" height="400"></canvas>
+      </div>
     </div>
 
 

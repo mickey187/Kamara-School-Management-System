@@ -26,8 +26,8 @@
           <div class="row">
             <div class="col-6">
               <div class="form-group">
-                <label for="exampleFormControlInput1">Add Class Label</label>
-                <input type="text" name ="class_label" class="form-control" id="exampleFormControlInput1" placeholder="Class label"
+                <label for="addClass">Add Class Label</label>
+                <input type="text" name ="class_label" class="form-control" id="addClass" placeholder="Class label"
                 @if (isset($class_label))
                   value="{{$class_label->class_label}}"
 
@@ -35,8 +35,8 @@
               </div>
               <div class="col-6">
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Add Priority</label>
-                    <input type="number" name ="class_priority" min="1" max="15" class="form-control" id="exampleFormControlInput1" placeholder="priority" >
+                    <label for="addPriority">Add Priority</label>
+                    <input type="number" name ="class_priority" min="1" max="15" class="form-control" id="addPriority" placeholder="priority" >
                   </div>
               </div>
             </div>
@@ -66,7 +66,7 @@
           <div class="row">
             <div class="col-6">
 
-              <button type="submit" class="btn btn-primary btn-md btn-block">
+              <button type="button" id="addClassBtn" class="btn btn-primary btn-md btn-block">
                 @if (isset($class_label))
                 Save Changes
 

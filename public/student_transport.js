@@ -1,8 +1,20 @@
+
+$(window).on("load", function () {
+  $("#student_tranport_div").hide();
+});
+$('#show_student_transport_list').click(function () { 
+  $("#student_tranport_div").show();
+  
+});
+
 var stud_id = null;
 var payment_load_id = null;
 var student_table_id = null;
+
+
 $("#search_transport").click(function () { 
      stud_id = $("#search_input_transport").val();
+     $('#inner_div').empty();
     
 
     $.ajax({
@@ -40,29 +52,19 @@ $("#search_transport").click(function () {
                 //          '<h5 class="text-info" id="stud_name">'+c.class_label+'</h3>'
 
             });
-            $('#card_register').prepend(insert)
+            //$('#card_register').prepend(insert)
+            $('#inner_div').html(insert)
             data2.forEach(d => {
 
                 
 
-                // rows += '<div class="card" style="width: 28rem;">'+
-                //         '<div class="card-body">'+
-                //         '<h5 class="card-title">Card title</h5>'+
-                //         //'<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>'+
-                //         '<h3 class="text-info" id="stud_name">'+c.first_name+' '+c.middle_name+' '+c.last_name+'</h3>'+
-                //         '<h3 class="text-info" id="stud_name">'+c.class_label+'</h3>'+
-                //         // '<p class="card-text">Some quick example e card</p>'+
-                //         '<input type="button" class="btn btn-sm btn-success" value="Register">'+
-                //         // '<a href="#" class="card-link">Card link</a>'+
-                //         '<a href="#" class="card-link">Another link</a>'+
-                //         '</div>'+
-                //         '</div>'
+                
 
                     
                  
                  
            });
-        // $('#stud_card').html(rows);
+        
            
         },
         error:function (data) {
@@ -78,21 +80,39 @@ $('#register_transport').click(function () {
  //alert('student id: '+stud_id+' pay_id: '+payment_load_id);
     $.ajax({
       type: 'GET',
-      url: 'registerForTransport/'+student_table_id+'/'+payment_load_id,
+      url: '/finance/registerForTransport/'+student_table_id+'/'+payment_load_id,
       dataType: 'json',
       success: function (data) {
         console.log(data);
-        Swal.fire(
-          'Registered Successfully!',
+        if (data == 'success') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Registered Successfully!',
           
-        );
+          })
+        }
+        else if(data == 'already exists'){
+          Swal.fire({
+            icon: 'warning',
+            title: 'Warning',
+            text: 'This student is already registered for Transportation',
+            
+          })
+        }
+        
        
         
         
       },
 
       error: function(data){
-
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
       }
     });
 });

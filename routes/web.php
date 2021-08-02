@@ -63,6 +63,8 @@ Route::middleware(['role:admin,finance,null'])->prefix('finance')->group(functio
 
 Route::get('/financeDashboard',[FinanceController::class, 'financeDashboard'])->name('finance/financeDashboard');
 
+Route::get('/getYealyEarnings',[FinanceController::class, 'getYealyEarnings'])->name('finance/getYealyEarnings');
+
 Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentType']);
 
 Route::get('/viewPaymentType',[FinanceController::class, 'viewPaymentType']);
@@ -75,7 +77,7 @@ Route::post('/addPaymentLoad',[FinanceController::class, 'AddPaymentLoad']);
 
 Route::get('/viewPaymentLoad',[FinanceController::class, 'viewPaymentLoad']);
 
-Route::get('/fetchload/{class_id}/{pay_type}/{stud_id}',[FinanceController::class, 'fetchLoad']);
+Route::get('/fetchload/{class_id}/{pay_type}/{stud_id}/{selected_individual_payment}',[FinanceController::class, 'fetchLoad']);
 
 Route::get('/fetchTotalPaymentLoad/{class_id}/{stud_id}',[FinanceController::class, 'fetchTotalPaymentLoad']);
 
@@ -99,6 +101,8 @@ Route::get('/viewStudentPayment',[FinanceController::class, 'viewStudentPayment'
 
 Route::post('/addStudentPayment',[FinanceController::class, 'addStudentPayment']);
 
+Route::get('/makeIndividualPayment/{student_id_for_payment}/{month}',[FinanceController::class, 'makeIndividualPayment']);
+
 
 
 Route::get('/indexAddStudentDiscount',[FinanceController::class, 'indexAddStudentDiscount']);
@@ -121,7 +125,7 @@ Route::get('editsubject/{id}', [SubjectController::class, 'editSubject'])->name(
 
 Route::post('editsubjectvalue/{id}', [SubjectController::class, 'editSubjectValue']);
 
-Route::post('addsubject', [SubjectController::class, 'addSubject']);
+Route::get('addsubject/{subject}', [SubjectController::class, 'addSubject']);
 
 Route::post('deletesubject', [SubjectController::class, 'deleteSubject']);
 

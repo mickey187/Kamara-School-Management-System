@@ -21,7 +21,7 @@
         {{url('editsubjectvalue/'.$editSubject->id)}}
        @else
         {{url('addsubject')}}
-     @endif " method="post">
+     @endif " method="get">
           @csrf
             <div class="row">
                 <div class="col-6">
@@ -32,16 +32,16 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="exampleFormControlInput1">Subject Name</label>
+                        <label for="subjectName">Subject Name</label>
                         <input type="text" name ="subjectname" class="form-control"
                          @if (isset($editSubject))
                          value="{{$editSubject->subject_name}}"               
                         
-                     @endif   id="exampleFormControlInput1" placeholder="Subject Name">
+                     @endif   id="subjectName" placeholder="Subject Name">
                       </div>
 
                   
-                      <button type="submit" class="btn btn-primary btn-md btn-block">
+                      <button type="button" id="saveSubject" class="btn btn-primary btn-md btn-block">
                         @if (isset($editSubject))
                         Save Changes
 

@@ -201,9 +201,15 @@
            visibility: hidden;
        }
        
-       .field.success i.fa-check-circle {
+       .field.warning i.fa-exclamation-circle {
            visibility: visible;
-           color: #2ecc71;
+           color: #ffa600;
+       }
+       
+
+       .field.success i.fa-check-circle {
+        visibility: visible;
+        color: #2ecc71;
        }
        
        .field.error i.fa-exclamation-circle {
@@ -219,6 +225,11 @@
        .field.error small {
            visibility: visible;
            color: #fa1313;
+       }
+
+        .field.warning small {
+           visibility: visible;
+           color: #ffa600;
        }
        
        .field.success input {

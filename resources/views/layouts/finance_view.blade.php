@@ -401,7 +401,7 @@
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- ChartJS -->
+    
 
 <!-- select 2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
@@ -470,6 +470,13 @@ $(function() {
 
         <!-- finance_master -->
         <script src="{{ asset('finance_master.js') }}"></script>
+
+        <!-- ChartJS -->
+    <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+
+    <script src="{{ asset('finance_dashboard.js') }}"></script>
+
+
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
