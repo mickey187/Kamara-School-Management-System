@@ -106,7 +106,7 @@ $("#singleClassId").change(function () {
             var count = 0;
             data.forEach(d => {
                 splitterStream = d.split("-");
-                
+
                 //console.log(d);
                 rows += '<label class="PillList-item">'+
                         '<input id="selectedSection" type="checkbox" name="feature" value="'+d+'">'+
@@ -137,7 +137,7 @@ $("#assignTeacherToClsss").click(function () {
     var assignSubject = $("#selectedSubject").val();
     var teacher_id = (document.getElementById('teacher_id').textContent).trim();
 
-   // alert("Teacher ID:"+teacher_id+' '+"section:"+section+" Grade ID:"+assignClass+" Subjects ID:"+assignSubject);
+    alert("Teacher ID:"+teacher_id+' '+"section:"+section+" Grade ID:"+assignClass+" Subjects ID:"+assignSubject);
 
     $.ajax({
         type: 'GET',
@@ -198,3 +198,5 @@ $("#singleClassId2").change(function () {
         }
      });
 });
+
+

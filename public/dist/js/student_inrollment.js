@@ -2,11 +2,13 @@ const input = document.getElementById("inroll_id");
 const findButton = document.getElementById("enroll_student");
 
 findButton.addEventListener("click", function() {
+    alert("sa")
     fetchStudent(input.value);
-    
+
 })
 
 function fetchStudent(id) {
+
     $.ajax({
         type: 'GET',
         url: 'findStudent/'+id,
@@ -59,6 +61,28 @@ function fetchStudent(id) {
         $('#student_detal').html(student);
         $('#student_image').html(image);
 
+
+        },
+        error:function (data) {
+
+        }
+     });
+  }
+
+  function register(v){
+      alert(v);
+    const registration = document.getElementById('register1').textContent;
+    registerStudent(registration);
+}
+
+function registerStudent(id) {
+    $.ajax({
+        type: 'GET',
+        url: 'register/'+id,
+        dataType : 'json',
+
+        success:function (data) {
+          alert('good');
 
         },
         error:function (data) {

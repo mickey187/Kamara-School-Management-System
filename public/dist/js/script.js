@@ -36,10 +36,6 @@ let current = 1;
 let maxp = 2;
 let currentp = 1;
 
-function register(v){
-    const registration = document.getElementById('register1').textContent;
-    registerStudent(registration);
-}
 
 
 function checkinputs() {
@@ -279,18 +275,3 @@ submitBtnP.addEventListener("click", function() {
 });
 
 
-function registerStudent(id) {
-    $.ajax({
-        type: 'GET',
-        url: 'register/'+id,
-        dataType : 'json',
-
-        success:function (data) {
-          alert('good');
-
-        },
-        error:function (data) {
-
-        }
-     });
-  }

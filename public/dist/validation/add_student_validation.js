@@ -16,7 +16,7 @@ studFirstName.oninput=function(){
         if ((studFirstName.value).length >= 3){
             setSuccessFor(studFirstName);
         }if((studFirstName.value).length < 3){
-            setDefaultFor(studFirstName,"please stop messing arround enter only valid input");   
+            setDefaultFor(studFirstName,"please stop messing arround enter only valid input");
         }if((studFirstName.value).length > 20  ){
             setErorFor(studFirstName,"you reach maximum length");
         }
@@ -80,12 +80,12 @@ firstNextBtn.addEventListener("click",function(){
     var studBirthPlace = document.getElementById("studentBirthPlace")
     var studGender = document.getElementById("studentGender")
     var studCitizen = document.getElementById("studentCitizen")
-    var studGrade = document.getElementById("studentGrade")
+    // var studGrade = document.getElementById("studentGrade")
     var studImage =document.getElementById("img-pro")
 
-     if(studImage.value.trim() === ''){         
+     if(studImage.value.trim() === ''){
 
-        setErorFor(studImage,"Image can not be empty")   
+        setErorFor(studImage,"Image can not be empty")
      }else{
          setSuccessFor(studImage)
      }
@@ -137,12 +137,12 @@ firstNextBtn.addEventListener("click",function(){
         }else{
             setSuccessFor(studCitizen)
         }
-        if((studGrade.value).length<3){
-            setDefaultFor(studGrade,"grade can not be min length")
+        // if((studGrade.value).length == ''){
+        //     setDefaultFor(studGrade,"grade can not be min length")
 
-        }else{
-            setSuccessFor(studGrade)
-        }
+        // }else{
+        //     setSuccessFor(studGrade)
+        // }
 
      if(
          studImage.value.trim() === '' ||
@@ -153,8 +153,8 @@ firstNextBtn.addEventListener("click",function(){
          (studBirthPlace.value).length < 3 ||
 
          (studGender.value).length < 3 ||
-         (studCitizen.value).length < 3 ||
-         (studGrade.value).length < 3 
+         (studCitizen.value).length < 3 
+        //  (studGrade.value).length < 3
      ){
 
 
@@ -166,22 +166,22 @@ firstNextBtn.addEventListener("click",function(){
             current += 1;
      }
 })
-function setDefaultFor(input, message) {              
+function setDefaultFor(input, message) {
 
     const formControll = input.parentElement;
     const small = formControll.querySelector('small');
     small.innerText = message;
     formControll.className = 'field warning';
-     
+
 }
 
-function setErorFor(input, message) {              
+function setErorFor(input, message) {
 
     const formControll = input.parentElement;
     const small = formControll.querySelector('small');
     small.innerText = message;
     formControll.className = 'field error';
-     
+
 }
 
 function setSuccessFor(input) {
@@ -203,7 +203,7 @@ studPreviousSchool.oninput=function(){
     if ((studPreviousSchool.value).length >= 3){
             setSuccessFor(studPreviousSchool);
         }if((studFirstName.value).length < 3){
-            setDefaultFor(studPreviousSchool,"please enter the valid name");   
+            setDefaultFor(studPreviousSchool,"please enter the valid name");
         }if((studFirstName.value).length > 20  ){
             setErorFor(studPreviousSchool,"you reach maximum length");
         }
@@ -261,7 +261,7 @@ studTransferReason.oninput=function(){
         setDefaultFor(studNativeLanguage,"please enter the valid native language")
     }if((studNativeLanguage.value).length > 20){
         setErorFor(studNativeLanguage,"you reach max length")
-    }     
+    }
   };
 
   var studDisability = document.getElementById('studentDisability')
@@ -272,7 +272,7 @@ studTransferReason.oninput=function(){
         setDefaultFor(studDisability,"please enter the valid disability")
     }if((studDisability.value).length > 20){
         setErorFor(studDisability,"you reach max length")
-    } 
+    }
   };
 
   var studMedicalCondition = document.getElementById('studentMedicalCondition')
@@ -283,19 +283,30 @@ studTransferReason.oninput=function(){
         setDefaultFor(studMedicalCondition,"please enter the valid medical condition")
     }if((studMedicalCondition.value).length > 20){
         setErorFor(studMedicalCondition,"you reach max length")
-    } 
+    }
   };
 
   var studBloodType = document.getElementById('studentBloodType')
   studBloodType.oninput=function(){
-      if((studBloodType.value).length >= 3){
+      if((studBloodType.value).length > 0){
         setSuccessFor(studBloodType);
     }if((studBloodType.value).length < 3){
         setDefaultFor(studBloodType,"please enter the valid blood type")
-    }if((studBloodType.value).length > 20){
+    }if((studBloodType.value).length > 2){
         setErorFor(studBloodType,"you reach max length")
     }
   };
+
+//   var studStream = document.getElementById('studentStream')
+//   studStream.oninput=function(){
+//     if((studStream.value).length >= 12){
+//       setSuccessFor(studStream);
+//   }if((studStream.value).length < 1){
+//       setDefaultFor(studStream,"please enter the valid stream type")
+//   }if((studStream.value).length > 4){
+//       setErorFor(studStream,"you reach max length")
+//   }
+// };
 
 nextBtnSec.addEventListener("click",function(){
     var studPreviousSchool = document.getElementById('studentPreviousSchool')
@@ -307,10 +318,13 @@ nextBtnSec.addEventListener("click",function(){
     var studDisability = document.getElementById('studentDisability')
     var studMedicalCondition = document.getElementById('studentMedicalCondition')
     var studBloodType = document.getElementById('studentBloodType')
+    // var studStream = document.getElementById('studentStream')
+
+
 
     if((studPreviousSchool.value).length<3){
     setDefaultFor(studPreviousSchool,"student previos school can not be min length")
-        
+
    }else{
         setSuccessFor(studPreviousSchool)
     }
@@ -370,6 +384,11 @@ nextBtnSec.addEventListener("click",function(){
     }else{
         setSuccessFor(studBloodType)
     }
+    // if((studStream.value == '')){
+    //     setDefaultFor(studStream,"student stream type can not be null ")
+    // }else{
+    //     setSuccessFor(studStream)
+    // }
         // alert('before')
     if(
         (studPreviousSchool.value).length < 3 ||
@@ -380,12 +399,13 @@ nextBtnSec.addEventListener("click",function(){
         (studNativeLanguage.value). length < 3  ||
         (studDisability.value). length < 3  ||
         (studMedicalCondition.value). length < 3  ||
-        (studBloodType.value). length < 3 
+        (studBloodType.value). length < 3
+        // (studStream.value). length < 3
     ){
-        
+
     }
     else{
-       
+
         slidePage.style.marginLeft = "-50%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
@@ -393,7 +413,7 @@ nextBtnSec.addEventListener("click",function(){
             current += 1;
     }
 
-  
+
 });
 
 var paFirstName = document.getElementById('parentFirstName')
@@ -648,7 +668,7 @@ submitBtn.addEventListener("click", function() {
              bullet[current - 1].classList.add("active");
              progressText[current - 1].classList.add("active");
              progressCheck[current - 1].classList.add("active");
-             current += 1;   
+             current += 1;
               setTimeout(function() {
         alert("You're successfully inserted your data");
         location.reload();
@@ -666,10 +686,9 @@ function alphaOnly(event) {
 
 
 
-   
 
-    
-    
 
-     
-   
+
+
+
+

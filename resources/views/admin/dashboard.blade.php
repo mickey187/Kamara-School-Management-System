@@ -2,23 +2,21 @@
 @section('content')
 
 <div class="card card-orange">
-    <div class="card-header">
+    <div class="card-header" id="dashboardTitle">
         <h3 class="card-title"><i class="fas fa-tachometer-alt"></i>Dashboard</h3>
     </div>
     <div class="card-body">
-        <section class="content">
+        <section class="content" id="dashboardSection">
             <div class="conatiner-fluid mt-3">
-           
-
                 <div class="row">
                     <div class="col-lg-2 col-6">
 
-                    
+
                       <!-- small box -->
                       <div class="small-box bg-info">
                         <div class="inner">
                           <h3>1556</h3>
-          
+
                           <p>Total Students</p>
                         </div>
                         <div class="icon">
@@ -33,7 +31,7 @@
                       <div class="small-box bg-orange">
                         <div class="inner">
                           <h3>350</h3>
-          
+
                           <p>Employee</p>
                         </div>
                         <div class="icon">
@@ -49,7 +47,7 @@
                       ">
                         <div class="inner">
                           <h3>200</h3>
-          
+
                           <p>Teachers</p>
                         </div>
                         <div class="icon">
@@ -64,7 +62,7 @@
                       <div class="small-box bg-orange">
                         <div class="inner">
                           <h3>65</h3>
-          
+
                           <p>Parents</p>
                         </div>
                         <div class="icon">
@@ -94,7 +92,7 @@
               <div class="small-box bg-orange">
                 <div class="inner">
                   <h3>350</h3>
-  
+
                   <p>Add Event</p>
                 </div>
                 <div class="icon">
@@ -103,17 +101,36 @@
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+              <div id='wrap'>
+                  <div class="col-lg-3" style="margin-top: 20px;">
+                      <a  style="cursor: pointer;" onclick="studentSkill();">
+                          <div class="small-box bg-primary">
+                              <div class="inner p-3">
+                                <p>Student Basic Skill</p><br>
+                              </div>
+                              <div class="icon"><br>
+                                <i class="fas fa-users"></i>
+                              </div>
+                              <a  class="small-box-footer">More info
+                                  <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                      </a>
                   </div>
-                  
+              </div>
+            </div>
+          </div>
 
                 <div class="row">
                   <div class="col-6">
                     <div class="card card-secondary">
                       <div class="card-header">
                         <h3 class="card-title">Student's Gender</h3>
-        
+
                         <div class="card-tools">
-                          
+
                         </div>
                       </div>
                       <div class="card-body">
@@ -123,14 +140,14 @@
                     </div>
                   </div>
 
-                 
+
                   <div class="card card-secondary col-6">
                     <div class="card-header">
                       <h3 class="card-title">Student Status</h3>
-      
+
                       <div class="card-tools">
-                        
-                        
+
+
                       </div>
                     </div>
                     <div class="card-body">
@@ -140,22 +157,9 @@
                     </div>
                     <!-- /.card-body -->
                   </div>
-                 
-                  
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div id='wrap'>
 
-                      <div id='calendar'></div>
-                      
-                      <div style='clear:both'></div>
-                      </div>
-                  </div>
-                </div>
-                
-                         
 
+                </div>
             </div>
         </section>
     </div>

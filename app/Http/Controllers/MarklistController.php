@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentsCardExport;
+use App\Exports\StudentsCardPerTermExport;
 use Illuminate\Http\Request;
 use App\Imports\MarklistImport;
 use App\Imports\StudentImport;
 use App\Models\assasment_type;
 use App\Models\classes;
+use App\Models\section;
 use App\Models\semister;
+use App\Models\stream;
 use App\Models\student;
 use App\Models\student_mark_list;
 use App\Models\subject;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class MarklistController extends Controller
 {
@@ -77,21 +82,18 @@ class MarklistController extends Controller
             return response()->json("Error");
         }
     }
-    public function import(Request $request){
-        Excel::import(new MarklistImport, $request->Excel);
-        $ass = assasment_type::all();
-        $classes = classes::all();
-        $sub = subject::all();
-        $semister = semister::all();
-        return view('admin.curriculum.add_marklist')
-        ->with('assasment',$ass)
-        ->with('classes',$classes)
-        ->with('subject',$sub)
-        ->with('semister',$semister);
-    }
-
-
-
+    // public function import(Request $request){
+    //     Excel::import(new MarklistImport(), $request->Excel);
+    //     $ass = assasment_type::all();
+    //     $classes = classes::all();
+    //     $sub = subject::all();
+    //     $semister = semister::all();
+    //     return view('admin.curriculum.add_marklist')
+    //     ->with('assasment',$ass)
+    //     ->with('classes',$classes)
+    //     ->with('subject',$sub)
+    //     ->with('semister',$semister);
+    // }
 
     public function sample_student(Request $request){
         Excel::import(new StudentImport, $request->excel);
@@ -123,4 +125,127 @@ class MarklistController extends Controller
       //  return response()->json($mark);
 
     }
+
+
+    public function generateTotalCard(){
+
+        $data = explode(",",request("data"));
+        $getTerm ='';
+        if(request('get_term')=="All"){
+            $getTerm = request('get_term');
+        }else{
+            $getTerm = (int)request('get_term');
+        }
+        $class2 = classes::where('class_label',$data[0])->get()->first();
+        $stream2 = stream::where('stream_type',$data[1])->get()->first();
+        $studentCardCollection = collect();
+        $getAllSubject = subject::all();
+        $getAllSemister = semister::all();
+        $getStudent = DB::table('sections')
+                        ->join('students','sections.student_id','=','students.id')
+                        ->join('classes','sections.class_id','=','classes.id')
+                        ->join('streams','sections.stream_id','=','streams.id')
+                        ->where('sections.class_id',(int) $class2->id)
+                        ->where('sections.stream_id',(int) $stream2->id)
+                        ->where('sections.section_name',(string) $data[2])
+                        ->get(['students.id','first_name','middle_name','last_name']);
+        if($getTerm=="All"){
+            foreach($getStudent as $student){
+                $oneStudentCard = collect();
+                foreach($getAllSemister as $semister){
+                    $oneSemisterCard = collect();
+                    foreach($getAllSubject as $subject){
+                        $subjectTotalMark = 0;
+                        $subjectTotalLoad = 0;
+                        $getStudentMark = DB::table('student_mark_lists')
+                                            ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
+                                            ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                                            ->where('student_id',$student->id)
+                                            ->where('semister_id',$semister->id)
+                                            ->where('subject_id',$subject->id)
+                                            ->where('academic_year','2021')
+                                            ->get();
+                        foreach($getStudentMark as $mark){
+                            $subjectTotalMark = $subjectTotalMark + $mark->mark;
+                            $subjectTotalLoad = $subjectTotalLoad + $mark->test_load;
+                        }
+                         $item = (object) [
+                             "name"=>$student->first_name.' '.$student->middle_name.' '.$student->last_name,
+                             "subject"=>$subject->subject_name,
+                             "total"=>$subjectTotalMark,
+                             "load"=>$subjectTotalLoad,
+                             "semister"=>$semister->id];
+                         $oneSemisterCard->push($item);
+                    }
+                    foreach($oneSemisterCard as $card){
+                        $semisterCard = (object) ["name"=>$card->name,"subject"=>$card->subject,"total"=>$card->total,"load"=>$card->load,"semister"=>$semister->id];
+                        $oneStudentCard->push($semisterCard);
+                    }
+                }
+                foreach($oneStudentCard as $studentCard){
+                    $studentCard = (object) ["name"=>$studentCard->name,"semister"=>$studentCard->semister,"subject"=>$studentCard->subject,"total"=>$studentCard->total,"load"=>$studentCard->load];
+                    $studentCardCollection->push($studentCard);
+                }
+            }
+            // return $getTerm;
+
+            return $this->generateExcelForStudentAllYearCard($studentCardCollection,$class2->id,$stream2->id,$data[2]);
+        }else {
+            // return $getTerm;
+
+            return $this->generateExcelForStudentCard($getStudent,$class2->id,$stream2->id,$data[2],$getTerm);
+        }
+    }
+
+
+    public function generateExcelForStudentAllYearCard($studentData,$class,$stream,$section){
+            $clas = classes::find($class);
+            $str = stream::find($stream);
+            // $objDrawing = new PHPExcel_Worksheet_Drawing;
+            // $objDrawing->setPath(public_path('img/headerKop.png')); //your image path
+            // $objDrawing->setCoordinates('A2');
+            // $objDrawing->setWorksheet($sheet);
+            return Excel::download(new StudentsCardExport($studentData,$class,$stream,$section), $clas->class_label.'_'.$str->stream_type.'_'.$section.'.xlsx');
+    }
+    public function generateExcelForStudentCard($getStudent,$class2,$stream2,$section,$getTerm){
+        $getAllSubject = subject::all();
+        $clas = classes::find($class2);
+         $str = stream::find($stream2);
+        $studentCardCollection = collect();
+        foreach($getStudent as $student){
+            $oneStudentCard = collect();
+            foreach($getAllSubject as $subject){
+                $subjectTotalMark = 0;
+                $subjectTotalLoad = 0;
+                $getStudentMark = DB::table('student_mark_lists')
+                                    ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
+                                    ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                                    ->where('student_id',$student->id)
+                                    ->where('semister_id',$getTerm)
+                                    ->where('subject_id',$subject->id)
+                                    ->where('academic_year','2021')
+                                    ->get();
+                foreach($getStudentMark as $mark){
+                    $subjectTotalMark = $subjectTotalMark + $mark->mark;
+                    $subjectTotalLoad = $subjectTotalLoad + $mark->test_load;
+                }
+                 $item = (object) [
+                     "name"=>$student->first_name.' '.$student->middle_name.' '.$student->last_name,
+                     "subject"=>$subject->subject_name,
+                     "total"=>$subjectTotalMark,
+                     "load"=>$subjectTotalLoad,
+                     "semister"=>$getTerm
+                    ];
+                 $oneStudentCard->push($item);
+            }
+            foreach($oneStudentCard as $studentCard){
+                $studentCard = (object) ["name"=>$studentCard->name,"semister"=>$studentCard->semister,"subject"=>$studentCard->subject,"total"=>$studentCard->total,"load"=>$studentCard->load];
+                $studentCardCollection->push($studentCard);
+            }
+            // error_log($studentCardCollection->name);
+        }
+        return Excel::download(new StudentsCardPerTermExport($studentCardCollection,$class2,$stream2,$section,$getTerm), $clas->class_label.'_'.$str->stream_type.'_'.$section.'.xlsx');
+    }
 }
+
+

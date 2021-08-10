@@ -17,7 +17,7 @@
   <section class="content">
     <div class="container-fluid mt-3">
                <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
-               
+
                         <div class="formcontainer">
                             <div class="form-outer">
 
@@ -40,8 +40,8 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">First name</div>
-                                                    <input type="text" id="first_name" name="first_name" class="form-control" 
-                                                    
+                                                    <input type="text" id="emp_first_name" name="first_name" class="form-control"
+
                                                        onkeydown="return alphaOnly(event);"
                                                         onblur="if (this.value == '')"
                                                         onfocus="if (this.value == '') {this.value = '';}"
@@ -57,14 +57,8 @@
                                                 </div>
                                                 <div class="field">
                                                     <div class="label">Birth Date</div>
-                                                    <input type="date"  name="birth_date" class="form-control" id="birth_date" 
+                                                    <input type="date"  name="birth_date" class="form-control" id="emp_birth_date"
                                                     placeholder="Enter your birth date"
-
-                                                        onkeydown="return alphaOnly(event);"
-                                                        onblur="if (this.value == '')"
-                                                        onfocus="if (this.value == '') {this.value = '';}"
-                                                        required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->birth_date }}"
                                                         @else
@@ -74,13 +68,8 @@
                                                     </div>
                                                 <div class="field">
                                                     <div class="label">Education Status</div>
-                                                    <input type="text" id="education_status" name="education_status" class="form-control" id="hired_date" 
+                                                    <input type="text" id="emp_education_status" name="education_status" class="form-control" id="hired_date"
                                                     placeholder="Enter your education status"
-
-                                                        onkeydown="return alphaOnly(event);"
-                                                        onblur="if (this.value == '')"
-                                                        onfocus="if (this.value == '') {this.value = '';}"
-                                                        required size="30" minlength="3" maxlength="21"
 
                                                         @if(isset($edit_employee))
                                                             value="{{ $edit_employee->education_status }}"
@@ -95,7 +84,7 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Middle name</div>
-                                                    <input type="text" id="middle_name" name="middle_name" class="form-control"
+                                                    <input type="text" id="emp_middle_name" name="middle_name" class="form-control"
                                                      placeholder="Middle name"
 
                                                         onkeydown="return alphaOnly(event);"
@@ -112,7 +101,7 @@
                                                 </div>
                                                 <div class="field">
                                                     <div class="label">Gender</div>
-                                                    <select id="gender" class="form-control" name="gender">
+                                                    <select id="emp_gender" class="form-control" name="gender">
                                                             <option>Male</option>
                                                             <option>Female</option>
                                                         </select>
@@ -123,14 +112,8 @@
 
                                                            <div class="field">
                                                             <div class="label">Citizenship</div>
-                                                               <input id="citizen" type="text" name="citizen" class="form-control"
+                                                               <input id="emp_citizen" type="text" name="citizen" class="form-control"
                                                                 placeholder="Cityzenship"
-
-                                                                    onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                                      @if(isset($edit_employee))
                                                                             value="{{ $edit_employee->citizen  }}"
                                                                         @else
@@ -142,7 +125,7 @@
                                           <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Last name</div>
-                                                    <input type="text" id="last_name" name="last_name"  class="form-control" 
+                                                    <input type="text" id="emp_last_name" name="last_name"  class="form-control"
                                                     placeholder="Last name"
 
                                                       onkeydown="return alphaOnly(event);"
@@ -169,14 +152,8 @@
                                                 </div>
                                                 <div class="field">
                                                     <div class="label">Hired Date</div>
-                                                    <input type="date" name="hired_date" class="form-control" id="hired_date" 
+                                                    <input type="date" name="hired_date" class="form-control" id="hired_date"
                                                     placeholder="Enter your hired date"
-
-                                                     onkeydown="return alphaOnly(event);"
-                                                    onblur="if (this.value == '')"
-                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                    required size="30" minlength="3" maxlength="21"
-
                                                     @if(isset($edit_employee))
                                                         value="{{ $edit_employee->hired_date }}"
                                                     @else
@@ -201,14 +178,8 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Job Trainning</div>
-                                                    <input type="text" id="job_trainning" name="job_trainning" class="form-control"  
+                                                    <input type="text" id="job_trainning" name="job_trainning" class="form-control"
                                                     placeholder="Enter your job trainning"
-
-                                                     onkeydown="return alphaOnly(event);"
-                                                    onblur="if (this.value == '')"
-                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                    required size="30" minlength="3" maxlength="21"
-
                                                        @if(isset($edit_employee))
                                                          value="{{ $edit_employee->job_trainning }}"
                                                        @else
@@ -218,14 +189,8 @@
                                                     </div>
                                                 <div class="field">
                                                     <div class="label">Previous Employment</div>
-                                                    <input type="text" id="previous_employment" name="previous_employment" class="form-control" 
+                                                    <input type="text" id="previous_employment" name="previous_employment" class="form-control"
                                                      placeholder="Enter your previous employment"
-
-                                                      onkeydown="return alphaOnly(event);"
-                                                      onblur="if (this.value == '')"
-                                                      onfocus="if (this.value == '') {this.value = '';}"
-                                                     required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->previous_employment }}"
                                                         @else
@@ -236,14 +201,8 @@
 
                                                 <div class="field">
                                                     <div class="label">Special Skill</div>
-                                                    <input type="text" id="special_skill" name="special_skill" class="form-control" 
+                                                    <input type="text" id="special_skill" name="special_skill" class="form-control"
                                                      placeholder="Enter your special skill"
-
-                                                      onkeydown="return alphaOnly(event);"
-                                                       onblur="if (this.value == '')"
-                                                       onfocus="if (this.value == '') {this.value = '';}"
-                                                       required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->special_skill }}"
                                                         @else
@@ -255,14 +214,8 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Net Salary</div>
-                                                    <input type="text" id="net_salary" name="net_salary" class="form-control"  
+                                                    <input type="text" id="net_salary" name="net_salary" class="form-control"
                                                     placeholder="Enter your net salary"
-
-                                                     onkeydown="return alphaOnly(event);"
-                                                     onblur="if (this.value == '')"
-                                                     onfocus="if (this.value == '') {this.value = '';}"
-                                                    required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->net_salary }}"
                                                         @else
@@ -272,14 +225,8 @@
                                                     </div>
                                                 <div class="field">
                                                     <div class="label">Hire Type</div>
-                                                    <input type="text" id="hire_type" name="hire_type" class="form-control"  
+                                                    <input type="text" id="hire_type" name="hire_type" class="form-control"
                                                     placeholder="Enter your hire type"
-
-                                                     onkeydown="return alphaOnly(event);"
-                                                     onblur="if (this.value == '')"
-                                                     onfocus="if (this.value == '') {this.value = '';}"
-                                                     required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->hire_type }}"
                                                         @else
@@ -309,13 +256,8 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Emergency Contact</div>
-                                                     <input type="text" id="emergency_contact" name="emergency_contact" class="form-control"  
+                                                     <input type="text" id="emergency_contact" name="emergency_contact" class="form-control"
                                                      placeholder="Enter your past emergency contact name"
-
-                                                      onkeydown="return alphaOnly(event);"
-                                                      onblur="if (this.value == '')"
-                                                      onfocus="if (this.value == '') {this.value = '';}"
-                                                       required size="30" minlength="3" maxlength="21"
 
                                                       @if(isset($edit_employee))
                                                          value="{{  $edit_employee->contact_name }}"
@@ -329,11 +271,6 @@
                                                      <input type="text" id="relation" name="relation" class="form-control"
                                                        placeholder="Enter your relation"
 
-                                                        onkeydown="return alphaOnly(event);"
-                                                         onblur="if (this.value == '')"
-                                                          onfocus="if (this.value == '') {this.value = '';}"
-                                                           required size="30" minlength="3" maxlength="21"
-
                                                        @if(isset($edit_employee))
                                                          value="{{ $edit_employee->relation }}"
                                                        @else
@@ -343,14 +280,8 @@
                                                     </div>
                                               <div class="field">
                                                     <div class="label">Past Job Position</div>
-                                                     <input type="text" id="past_job_position" name="past_job_position" class="form-control" 
+                                                     <input type="text" id="past_job_position" name="past_job_position" class="form-control"
                                                      placeholder="Enter your past job position"
-
-                                                                    onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                       @if(isset($edit_employee))
                                                          value="{{ $edit_employee->past_job_position }}"
                                                       @else
@@ -373,18 +304,12 @@
                                         </div>
                                         <div class="row col-12">
                                              <div class="col-4">
-                                               
+
 
                                                 <div class="field">
                                                     <div class="label">Past Employment Place</div>
                                                     <input type="text" id="past_employment_place" name="past_employment_place" class="form-control"
                                                       placeholder="Enter your past employment place"
-
-                                                                     onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($edit_employee))
                                                         value="{{  $edit_employee->past_employee_place }}"
                                                         @else
@@ -453,12 +378,6 @@
                                                     <div class="label">debut_as_a_teacher</div>
                                                         <input  type="date" name="debut_as_a_teacher" id="debut_as_a_teacher_val" class="form-control"  aria-describedby="debut_as_a_teacher"
                                                          placeholder="Enter your debut as a teacher"
-
-                                                                    onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->debut_as_a_teacher }}"
                                                         @else
@@ -470,12 +389,6 @@
                                                     <div class="label">field_of_study</div>
                                                             <input type="text" name="field_of_study" id="field_of_study_val"  class="form-control"
                                                              placeholder="Enter your field of study"
-
-                                                                    onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->field_of_study }}"
                                                         @else
@@ -485,14 +398,8 @@
                                                 </div>
                                                                                                 <div class="field" id="teacher_traning_program">
                                                     <div class="label">teacher_traning_program</div>
-                                                    <input type="text" name="teacher_traning_program" id="teacher_traning_program_val"  class="form-control" 
+                                                    <input type="text" name="teacher_traning_program" id="teacher_traning_program_val"  class="form-control"
                                                     placeholder="Enter your teacher training program"
-
-                                                                     onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($teacher))
                                                             value="{{ $teacher->teacher_traning_program }}"
                                                             @else
@@ -506,12 +413,6 @@
                                                     <div class="label">place_of_study</div>
                                                     <input type="text" name="place_of_study" id="place_of_study_val"  class="form-control"
                                                      placeholder="Enter your place of study"
-
-                                                                     onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->place_of_study }}"
                                                         @endif
@@ -520,14 +421,8 @@
 
                                                 <div class="field" id="date_of_study">
                                                     <div class="label">date_of_study</div>
-                                                    <input type="date" name="date_of_study" id="date_of_study_val"  class="form-control" 
+                                                    <input type="date" name="date_of_study" id="date_of_study_val"  class="form-control"
                                                     placeholder="Enter your date of study"
-
-                                                                     onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->date_of_study }}"
                                                         @endif
@@ -541,12 +436,6 @@
                                                     <div class="label">teacher_traning_year</div>
                                                         <input type="date" name="teacher_traning_year" id="teacher_traning_year_val"  class="form-control"
                                                          placeholder="Enter your teacher training year"
-
-                                                                     onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                             @if(isset($teacher))
                                                                 value="{{  $teacher->teacher_traning_year }}"
                                                             @else
@@ -556,14 +445,8 @@
                                                 </div>
                                                 <div class="field" id="teacher_traning_institute">
                                                     <div class="label">teacher_traning_institute</div>
-                                                    <input type="text" name="teacher_traning_institute" id="teacher_traning_institute_val"  class="form-control" 
+                                                    <input type="text" name="teacher_traning_institute" id="teacher_traning_institute_val"  class="form-control"
                                                     placeholder="Enter your teacher training institute"
-
-                                                                    onkeydown="return alphaOnly(event);"
-                                                                    onblur="if (this.value == '')"
-                                                                    onfocus="if (this.value == '') {this.value = '';}"
-                                                                    required size="30" minlength="3" maxlength="21"
-
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->teacher_traning_institute }}"
                                                         @else
@@ -590,14 +473,8 @@
                                         <div class="col-4">
                                          <div class="field">
                                             <div class="label">City</div>
-                                            <input type="text" id="city" name="City" class="form-control" 
+                                            <input type="text" id="city" name="City" class="form-control"
                                             placeholder="City"
-
-                                                 onkeydown="return alphaOnly(event);"
-                                                 onblur="if (this.value == '')"
-                                                onfocus="if (this.value == '') {this.value = '';}"
-                                                required size="30" minlength="3" maxlength="21"
-
                                              @if(isset($edit_employee))
                                                value="{{ $edit_employee->city }}"
                                                @else
@@ -609,12 +486,6 @@
                                             <div class="label">Sub city</div>
                                             <input type="text" id="sub_city" name="sub_city" class="form-control"
                                              placeholder="Subcity"
-
-                                              onkeydown="return alphaOnly(event);"
-                                             onblur="if (this.value == '')"
-                                             onfocus="if (this.value == '') {this.value = '';}"
-                                             required size="30" minlength="3" maxlength="21"
-                                                                    
                                              @if(isset($edit_employee))
                                                value="{{ $edit_employee->subcity }}"
                                                @else
@@ -704,6 +575,5 @@
                             </section>
                             </div>
                             </div>
-
 
 @endsection

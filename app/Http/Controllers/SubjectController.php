@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use App\Models\classes;
 use Illuminate\Http\Request;
 use App\Models\subject;
 use App\Models\stream;
 use App\Models\subject_group;
+use App\Models\SubjectGroup;
 use Illuminate\Database;
-
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
@@ -43,20 +45,49 @@ class SubjectController extends Controller
 
         if ($subject->save()) {
             $subject_list = subject::all();
+            $classes = classes::all();
             // $subject->save();
             // $subject_list = subject::all();
-            return redirect('/viewSubject')->with('subject_list', $subject_list);
-            
+            $subjects = subject::all();
+            $subject_group = DB::table('subject_groups')
+            ->join('classes','subject_groups.class_id','=','classes.id')
+            ->join('subjects','subject_groups.subject_id','=','subjects.id')
+            ->get();
+            return view('admin/curriculum/view_subjects')->with('subject_list',$subject_list)->with('classes',$classes)->with('subjects',$subjects)->with('subject_group',$subject_group);
+
         }
     }
+    function subjectGroup($classes,$subjects)
+    {
+        $class = explode(",",$classes);
+        $subject = explode(",",$subjects);
+        for($count = 0; $count<sizeOf($class)-1; $count++){
+            for($count2 = 0; $count2<sizeOf($subject)-1; $count2++){
+                $subject_group = new SubjectGroup();
+                $subject_group->class_id = $class[$count];
+                $subject_group->subject_id = $subject[$count2];
+                $subject_group->save();
+            }
+        }
+        $allSubjectGroup = DB::table('subject_groups')
+                            ->join('classes','subject_groups.class_id','=','classes.id')
+                            ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                            ->get();
+        return response()->json($allSubjectGroup);
+    }
+
 
 
     function viewsubject(){
       // $subject_list = subject::all();
       $subject_list = subject::all();
-
-
-        return view('admin/curriculum/view_subjects')->with('subject_list',$subject_list);
+    $classes = classes::all();
+    $subjects = subject::all();
+    $subject_group = DB::table('subject_groups')
+    ->join('classes','subject_groups.class_id','=','classes.id')
+    ->join('subjects','subject_groups.subject_id','=','subjects.id')
+    ->get();
+    return view('admin/curriculum/view_subjects')->with('subject_list',$subject_list)->with('classes',$classes)->with('subjects',$subjects)->with('subject_group',$subject_group);
     }
 
     function editSubject($id){
