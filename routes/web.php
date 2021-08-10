@@ -1,10 +1,7 @@
 <?php
-
-
 use App\Http\Controllers\AddJobPositionController;
 use App\Http\Controllers\AddReligionController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StreamController;
@@ -21,45 +18,16 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StudentPersonalDevelopmentController;
 use GrahamCampbell\ResultType\Success;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('generatedox',[StudentController::class, 'generateDocx']);
 
- Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
-// Route::get('/', function () {
-//     return view('/admin/dashboard');
-// });
 
-//  Route::get('/student', function () {
-//      return view('/layouts/student_view_dashboard');
-//  });
-Route::get("/student", function(){
-   return view ("layouts/student_dashboard");
-});
-
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
-// require __DIR__.'/auth.php';
-
+Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
 
 Route::redirect('/', '/login');
 
-//Finance Route Group
 Route::middleware(['role:admin,finance,null'])->prefix('finance')->group(function () {
 
 Route::get('/financeDashboard',[FinanceController::class, 'financeDashboard'])->name('finance/financeDashboard');
@@ -114,7 +82,6 @@ Route::post('/addStudentPayment',[FinanceController::class, 'addStudentPayment']
 Route::get('/makeIndividualPayment/{student_id_for_payment}/{month}',[FinanceController::class, 'makeIndividualPayment']);
 
 
-
 Route::get('/indexAddStudentDiscount',[FinanceController::class, 'indexAddStudentDiscount']);
 
 Route::post('/addStudentDiscount',[FinanceController::class, 'addStudentDiscount']);
@@ -137,8 +104,6 @@ Route::get('/searchStudentForPaymentRegistration/{stud_id}',[FinanceController::
 
 Route::get('/registerStudentForPayment/{stud_id}',[FinanceController::class, 'registerStudentForPayment']);
 });
-
-
 //subject
 Route::get('/subject', [SubjectController::class, 'index']);
 
@@ -148,21 +113,18 @@ Route::get('editsubject/{id}', [SubjectController::class, 'editSubject'])->name(
 
 Route::post('editsubjectvalue/{id}', [SubjectController::class, 'editSubjectValue']);
 
-Route::post('addsubject', [SubjectController::class, 'addSubject']);
+Route::get('addsubject/{subject}', [SubjectController::class, 'addSubject']);
 
 Route::post('deletesubject', [SubjectController::class, 'deleteSubject']);
 
-
 //subject group
+Route::get('subjectGroup/{classes}/{subjects}', [SubjectController::class, 'subjectGroup']);
 
 Route::get('/addsubjectgroup', [SubjectController::class, 'indexSubjectGroup'])->name('addsubjectgroup');
 
 Route::get('viewsubjectgroup', [SubjectController::class, 'viewSubjectGroup'])->name('viewsubjectgroup');
 
 Route::post('addsubjectgroup', [SubjectController::class, 'addSubjectGroup']);
-
-
-
 
 //class
 
@@ -187,20 +149,28 @@ Route::post('addStream', [StreamController::class, 'addStream']);
 
 // Employee Controller
 Route::get('/addReligionPage',[AddReligionController::class,'addReligionPage']);
+
 Route::get('addReligion/{religion}',[AddReligionController::class,'addReligion']);
+
 Route::get('/viewReligion',[AddReligionController::class,'viewReligion'])->name('viewReligion');
+
 Route::get('editReligion/{id}', [AddReligionController::class, 'editReligion'])->name('editReligion');
+
 Route::get('editReligionValue/{id}',[AddReligionController::class,'editReligionValue']);
+
 Route::get('/deleteReligion', [AddReligionController::class, 'deleteReligion']);
 
 Route::get('/indexAddJobPosition',[AddJobPositionController::class,'indexAddJobPosition']);
+
 Route::get('addJobPosition/{position}',[AddJobPositionController::class,'addJobPosition']);
+
 Route::get('/viewJobPosition',[AddJobPositionController::class,'viewJobPosition'])->name('viewJobPosition');
+
 Route::get('editJobPosition/{id}', [AddJobPositionController::class, 'editJobPosition'])->name('editJobPosition');
+
 Route::get('editPositionValue/{id}',[AddJobPositionController::class,'editPositionValue']);
+
 Route::get('/deleteJobPosition', [AddJobPositionController::class, 'deleteJobPosition']);
-
-
 
 Route::get('/addEmployee',[EmployeeRegistrationController::class, 'store']);
 
@@ -241,9 +211,6 @@ Route::get('/editstream/{id}', [StreamController::class, 'editStream'])->name('/
 
 Route::post('/editstreamvalue/{id}', [StreamController::class, 'editStreamValue']);
 
-
-
-
 Route::get('addclasslabel', [ClassController::class, 'indexClassLabel']);
 
 Route::post('addclasslabel', [ClassController::class, 'addClassLabel']);
@@ -283,7 +250,6 @@ Route::get('editrole/{id}', [RoleController::class, 'editRole'])->name('editrole
 Route::get('editrolevalue/{id}', [RoleController::class, 'editRoleValue']);
 
 Route::get('/deleterole', [RoleController::class, 'deleteRole']);
-
 
 // Student
 
@@ -374,7 +340,6 @@ Route::get('deleteHomeRoom/{hoom_room_id}',[SectionController::class, 'deleteHom
 
 Route::get('setCurrentSemister/{id}',[SectionController::class, 'setCurrentSemister']);
 
-
 //For Testing
 
 Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');
@@ -386,5 +351,12 @@ Route::get('addSemister',[SectionController::class, 'semister']);
 Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
 Route::get('exportstudent/{class}/{stream}/{section}/{assasmnet}/{courseLoad}/{subject}', [ExcelController::class, 'export']);
+
+Route::get('generateStudentCard', [MarklistController::class, 'generateTotalCard']);
+
+// Student Traits
+
+Route::get('addStudentTraits/{value}', [StudentPersonalDevelopmentController::class, 'addStudentTraits']);
+
 
 require __DIR__.'/auth.php';

@@ -33,10 +33,8 @@
                         <button type="button" class="btn bg-primary btn-sm"
                             data-toggle="modal"
                             data-target="#modal-teacher"
-                            data-teacher="
-                                        {{ $row->first_name.' '.$row->middle_name.' '.$row->last_name }},
-                                        {{ $row->id }}
-                                        ">
+                            data-teacher="{{ $row->first_name.' '.$row->middle_name.' '.$row->last_name }},{{ $row->id }}">
+
                                         <i class="fa fa-pen">Assign Classes</i></button>
                             <button type="button" class="btn bg-primary btn-sm"
                                 data-toggle="modal"
@@ -60,7 +58,7 @@
 </div>
     <div class="modal_teacher">
         <div class="modal fade " id="modal-teacher">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-xl">
             <div class="modal-content ">
               <div class="modal-header">
                 <h4 class="modal-title">Assign Classes</h4>
@@ -144,7 +142,7 @@
 
     <div class="modal_teacher2">
         <div class="modal fade " id="modal-teacher-home-room">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-xl">
             <div class="modal-content ">
               <div class="modal-header">
                 <h4 class="modal-title">Home Room</h4>

@@ -48,6 +48,7 @@ function getCourseLoadStudent(nb){
     teacher_id = data[3];
     course_load_id = data[0];
     stream = data[4];
+    getSubject = '';
    // alert(stream)
     // stream_id = data[4];
     //alert('class_id: '+class_id+' section: '+section+' teacher: '+teacher_id+' course load: '+course_load_id)
@@ -60,6 +61,9 @@ function getCourseLoadStudent(nb){
                 var mark1 = JSON.parse(JSON.stringify(data.mark));
                 var semister1 = JSON.parse(JSON.stringify(data.semister));
                 var subject = JSON.parse(JSON.stringify(data.subject));
+                getSubject = subject;
+                // console.log("wwwwwwwwwwww "+getSubject);
+
                // var assasment_name = JSON.parse(JSON.stringify(data.assasment));
                 var count = 1;
                 row2 = '';
@@ -161,7 +165,7 @@ function getCourseLoadStudent(nb){
                             '>GENERATE MARK LIST <i class="fas fa-download"></i></button>'+
                         '<button  class="shadow p-1 ml-1  rounded  btn btn-success btn-sm"'+
                                 'data-toggle="modal"'+
-                                'data-excel2="'+class_id+','+stream+','+section+','+course_load_id+'"'+
+                                'data-excel2="'+class_id+','+stream+','+section+','+course_load_id+','+getSubject+'"'+
                                 'data-target="#modal-import-excel"'+
                         '>UPLOAD MARK LIST <i class="fas fa-upload"></i></button>'
 
@@ -262,7 +266,7 @@ function addMarkList(val){
     var mark_id = splitter[6];
 
 
-  //alert(subject)
+//   alert(subject)
   //  alert('Student: '+student+' Class: '+class_id+' Semister: '+semister)
     $('#modal-addMarkList').modal('show');
     $("#modal-addMarkList").click(function () {

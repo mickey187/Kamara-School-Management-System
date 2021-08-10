@@ -2,17 +2,17 @@ $('#modal-dashboard').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget);
     var detail = button.data('detail3');
     var data = detail.split(",");
-    if(data[0] == "My Student")
-        $('#title').html(data[0]);
-    else if(data[0] == "Home Room"){
-        $('#title').html(data[0]);
-        fetchCourseLoad(data[1].trim())
-    }else if(data[0] == "Course Load"){
-        $('#title').html(data[0]);
-    }else if(data[0] == "Profile"){
-        $('#title').html(data[0]);
-        $('#full_name').html(data[1]);
-    }
+    // if(data[0] == "My Student")
+    //     $('#title').html(data[0]);
+    // else if(data[0] == "Home Room"){
+    //     $('#title').html(data[0]);
+    //     fetchCourseLoad(data[1].trim())
+    // }else if(data[0] == "Course Load"){
+    //     $('#title').html(data[0]);
+    // }else if(data[0] == "Profile"){
+    //     $('#title').html(data[0]);
+    //     $('#full_name').html(data[1]);
+    // }
 });
 
 function fetchCourseLoad(id){
@@ -47,7 +47,7 @@ function fetchCourseLoad(id){
 }
 
 function getHomeRoom(id){
-    //alert(id);
+    // alert(id);
     $.ajax({
         type: 'GET',
         url: 'getHomeRoom/'+(id),
@@ -57,10 +57,10 @@ function getHomeRoom(id){
             row2 = '';
             console.log(data);
             data.forEach(d => {
-               // alert(d.class_label);
+                // alert(d.id);
 
                 row+='<div class="col-4 mt-2">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.id+','+d.class_label+','+d.section+','+d.stream+'">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.employee_id+','+d.class_label+','+d.section+','+d.stream+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
                         '<label>'+d.class_label+' '+d.section+'</label><br>'+
@@ -140,7 +140,6 @@ function getHomeRoomStudent(nb){
 
             section1.forEach(d => {
                 newSemister = 0;
-
                 row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle"  aria-expanded="false">'+
                         '<td class="text-center">'+count+'</td>'+
                         '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
@@ -206,25 +205,25 @@ function getHomeRoomStudent(nb){
                     });
                     subject = [];
                     if(newSemister==0){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+d.semister_one_total+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_one_total).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==1){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+d.semister_two_total+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_two_total).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==2){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+d.semister_three_total+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_three_total).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==3){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+d.semister_four_total+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_four_total).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
@@ -241,12 +240,16 @@ function getHomeRoomStudent(nb){
            });
            row+='</tbody></table></div></div></div>';
            row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
-           generator ='<button  class="shadow p-1 rounded  btn btn-primary btn-sm"'+
+           generator =  '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"'+
+                                'data-toggle="modal"'+
+                                'data-card1="'+class_name+','+stream+','+section+','+teacher_id+'"'+
+                                'data-target="#modal-generate-card"'+
+                        '>Generate Card <i class="fas fa-card"></i></button>'+
+                        '<button  class="shadow p-1 rounded  btn btn-primary btn-sm"'+
                                 'data-toggle="modal"'+
                                 'data-excel=""'+
                                 'data-target="#modal-promote-student"'+
-                            '>Promote Students <i class="fas fa-exchange-alt"></i></button>';
-
+                        '>Promote Students <i class="fas fa-exchange-alt"></i></button>';
            $('#teacherDashboardTitle').html(row2);
            $('#generator').html(generator);
            $('#dashboard').html(row);

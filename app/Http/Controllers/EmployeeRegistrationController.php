@@ -133,7 +133,7 @@ class EmployeeRegistrationController extends Controller
         $employee->middle_name = request('middle_name');
         $employee->last_name = request('last_name');
         $employee->gender = request('gender');
-        $employee->birth_date =request ('birth_date');
+        $employee->birth_date = request('birth_date');
         $employee->education_status =request('education_status');
         $employee->nationality =request('citizen');
         $employee->marrage_status =request('marriage_status');

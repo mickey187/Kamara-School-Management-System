@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class ClassSeeder extends Seeder
 {
@@ -16,9 +16,9 @@ class ClassSeeder extends Seeder
     public function run()
     {
         //
-        for ($i=1; $i < 4; $i++) { 
+        for ($i=1; $i < 4; $i++) {
             # code...
-        
+
         DB::table('classes')->insert([
             'class_label' => 'KG '.$i,
             'priority' => $i,
@@ -27,9 +27,9 @@ class ClassSeeder extends Seeder
         ]);
     }
     $priority = 4;
-    for ($i=1; $i < 9; $i++) { 
+    for ($i=1; $i < 9; $i++) {
         # code...
-    
+
     DB::table('classes')->insert([
         'class_label' => 'Grade '.$i,
         'priority' => $priority,
@@ -39,6 +39,6 @@ class ClassSeeder extends Seeder
     $priority++;
 }
 
-        
+
     }
 }
