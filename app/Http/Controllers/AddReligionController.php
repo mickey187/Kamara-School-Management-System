@@ -15,7 +15,6 @@ class AddReligionController extends Controller
     public function addReligion($religiion)
     {
         $religion =new employee_religion();
-        //$religion->religion_name = request('employee_religion');
         $religion->religion_name = $religiion;
         if ($religion->save()) {
             $view_religion = employee_religion::all();

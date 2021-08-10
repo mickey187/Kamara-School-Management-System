@@ -16,6 +16,7 @@ use App\Models\assasment_type;
 use App\Models\attendance;
 use App\Models\classes;
 use App\Models\section;
+use App\Models\semister;
 use App\Models\stream;
 use App\Models\student;
 use App\Models\subject;
@@ -36,10 +37,15 @@ class TeacherController extends Controller
     public function teacherDashBoard(){
         $user_id =  Auth::id();
         $user = User::find($user_id);
-        $employee = employee::where('employee_id',$user->user_id)->first();
+        $employee = DB::table('employees')
+                    ->join('addresses','employees.address_id','=','addresses.id')
+                    ->where('employee_id',$user->user_id)
+                    ->get(['employees.id as id', 'first_name','middle_name','last_name','email','phone_number','house_number','alternative_phone_number','p_o_box','gender','city','subcity'])->first();
+        // $employee = employee::where('employee_id',$user->user_id)->first();
         $assasment = assasment_type::all();
+        $semister = semister::all();
       // return $teacher;
-          return view('teacher.teacher_dashboard')->with('employee',$employee)->with('assasment',$assasment);
+          return view('teacher.teacher_dashboard')->with('employee',$employee)->with('assasment',$assasment)->with('semister',$semister);
     }
 
     public function form()

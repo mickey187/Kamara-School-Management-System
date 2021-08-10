@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {

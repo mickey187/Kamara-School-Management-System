@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class RoleUserSeeder extends Seeder
 {

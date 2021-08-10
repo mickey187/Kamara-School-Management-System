@@ -246,7 +246,7 @@ class SectionController extends Controller
         $teacher_home_room = DB::table('home_rooms')
         ->join('classes','home_rooms.class_id','classes.id')
         ->where('employee_id',$teacher_id)
-        ->get(['class_label','section','home_rooms.id as id','stream']);
+        ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream']);
         return response()->json($teacher_home_room);
     }
 
@@ -312,7 +312,6 @@ class SectionController extends Controller
         foreach($course_load as $row){
             $subject = $row->subject_name;
         }
-      //  error_log($course_load_id->subject_name);
         $sec = DB::table('sections')
                 ->join('classes','sections.class_id','=','classes.id')
                 ->join('students','sections.student_id','=','students.id')
@@ -350,6 +349,7 @@ class SectionController extends Controller
                         'semisters.id as semid',
                         'student_mark_lists.mark']);
                 $semister = semister::all();
+        // error_log("errrrreeeeeeeeeeeee".$subject);
         return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister,'subject'=>$subject]);
        //return response()->json([$course_load]);
     }
@@ -429,6 +429,7 @@ class SectionController extends Controller
             $semister_four_total= 0;
             $semister_four_load= 0;
             $all_total = 0;
+
                 $student = student::where('student_id',$row->student_id)->get()->first();
                 $mark= student_mark_list::where('student_id',$student->id)->get();
                 $semister = semister::all();
@@ -462,16 +463,12 @@ class SectionController extends Controller
                     }
                     $newSemister = $newSemister + 1;
                 }
+
             // }
-            error_log("How Much Is it: ". $subject[0]);
+            // error_log("How Much Is it: ". $subject[0]);
 
-
-            if((int) $semister_one_total <= (int) $semister_one_load or
-             ((int)$semister_two_total <= (int)$semister_two_load) or
-             (int)$semister_three_total <= (int)$semister_three_load or
-             (int)$semister_four_total <= (int)$semister_four_load)
-            {
-            }else{
+            error_log("blaaaaaaaaaaaaaa".$semister_one_total);
+            if(!count($subject) <= 0 or !count($subject) <= 0 or !count($subject)<= 0 or !count($subject) <= 0){
                 $semister_one_total = ((int) $semister_one_total /  count($subject));
                 $semister_two_total = ((int)$semister_two_total / count($subject));
                 $semister_three_total = ((int)$semister_three_total / count($subject));
@@ -494,8 +491,10 @@ class SectionController extends Controller
                 "semister_four_total"=>$semister_four_total,
                 "all_total"=>''
                 ]);
+
             $item->push($item2);
         }
+
         return $item;
     }
 }

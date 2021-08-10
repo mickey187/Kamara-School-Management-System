@@ -94,3 +94,27 @@ $("#assignTeacherHomeRoom").click(function () {
      });
 
 });
+
+$('#modal-generate-card').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget)
+    var detail = button.data('card1')
+    // alert(detail);
+    var modal = $(this)
+    var split = detail.split(",")
+    // alert(split[2])
+    modal.find('.modal-body #class_id').val(detail)
+    // $.ajax({
+    //     type: 'GET',
+    //     url: 'generateStudentCard/'+split[0].trim()+'/'+split[1].trim()+'/'+split[2].trim()+'/'+split[3].trim(),
+    //     dataType : 'json',
+    //     success:function (data) {
+    //         data.forEach(d =>{
+    //             console.log(d);
+    //         })
+    //         // console.log(data);
+    //     },
+    //     error:function (data) {
+    //         console.log("it is not works fine");
+    //     }
+    //  });
+});
