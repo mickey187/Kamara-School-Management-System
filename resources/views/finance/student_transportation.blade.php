@@ -31,7 +31,7 @@
 
             </div>
 
-            <div class="card" style="width: 28rem;">
+            <div class="card" style="width: 28rem;" id="outer_card">
                 <div class="card-body" id="card_register">
                   <div id="inner_div">
 

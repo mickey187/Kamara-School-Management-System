@@ -1,3 +1,5 @@
+
+$('#student_detail_row').hide();
 $( "#search" ).click(function() {
 
     var stud_id = $("#search_input").val();
@@ -45,6 +47,7 @@ $( "#search" ).click(function() {
                  
                  
            });
+           $('#student_detail_row').show();
          $('#table_data').html(rows);
            
         },

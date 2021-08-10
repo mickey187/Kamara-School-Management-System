@@ -1,5 +1,5 @@
 
-$(window).on("load", function () {
+// $(window).on("load", function () {
     $.ajax({
         type: "GET",
         url: "/finance/getYealyEarnings",
@@ -9,7 +9,7 @@ $(window).on("load", function () {
             
             
 
-            console.log(response);
+            // console.log(response);
             var ctx = $('#myChart');
 var myChart = new Chart(ctx, {
     type: 'bar',
@@ -49,5 +49,5 @@ var myChart = new Chart(ctx, {
             
         }
     });
-});
+// });
 

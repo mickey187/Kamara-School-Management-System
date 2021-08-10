@@ -57,6 +57,7 @@ Route::get("/student", function(){
 // require __DIR__.'/auth.php';
 
 
+Route::redirect('/', '/login');
 
 //Finance Route Group
 Route::middleware(['role:admin,finance,null'])->prefix('finance')->group(function () {
@@ -69,11 +70,19 @@ Route::get('/indexAddPaymentType',[FinanceController::class, 'indexAddPaymentTyp
 
 Route::get('/viewPaymentType',[FinanceController::class, 'viewPaymentType']);
 
-Route::post('/addPaymentType',[FinanceController::class, 'addPaymentType']);
+Route::get('/addPaymentType',[FinanceController::class, 'addPaymentType']);
+
+Route::get('/editPaymentType',[FinanceController::class, 'editPaymentType']);
+
+Route::get('/deletePaymentType',[FinanceController::class, 'deletePaymentType']);
 
 Route::get('/indexAddPaymentLoad',[FinanceController::class, 'indexAddPaymentLoad']);
 
-Route::post('/addPaymentLoad',[FinanceController::class, 'AddPaymentLoad']);
+Route::get('/addPaymentLoad/{class_selected}',[FinanceController::class, 'AddPaymentLoad'])->name('addPaymentLoad');
+
+Route::get('/editPaymentLoad',[FinanceController::class, 'editPaymentLoad'])->name('editPaymentLoad');
+
+Route::get('/deletePaymentLoad',[FinanceController::class, 'deletePaymentLoad']);
 
 Route::get('/viewPaymentLoad',[FinanceController::class, 'viewPaymentLoad']);
 
@@ -93,6 +102,7 @@ Route::get('/fetchstudentTransportLoad/{stud_id}',[FinanceController::class, 'fe
 
 Route::get('/registerForTransport/{student_table_id}/{payment_load_id}',[FinanceController::class, 'registerForTransport']);
 
+Route::get('/showStudentsRegsiteredForTransport',[FinanceController::class, 'showStudentsRegsiteredForTransport']);
 
 
 Route::get('/indexAddStudentPayment',[FinanceController::class, 'indexAddStudentPayment']);
@@ -111,8 +121,21 @@ Route::post('/addStudentDiscount',[FinanceController::class, 'addStudentDiscount
 
 Route::get('fetchstudent/{stud_id}',[FinanceController::class, 'fetchStudent']);
 
-Route::get('/viewStudentDiscount',[FinanceController::class, 'viewStudentDiscount']);
+Route::get('/showStudentsWithDiscount',[FinanceController::class, 'showStudentsWithDiscount']);
 
+Route::get('/showStudentsRegisteredForSchoolTrip',[FinanceController::class, 'showStudentsRegisteredForSchoolTrip']);
+
+Route::get('/showStudentsRegisteredForGraduation',[FinanceController::class, 'showStudentsRegisteredForGraduation']);
+
+Route::get('/showStudentsRegisteredForSummerCamp',[FinanceController::class, 'showStudentsRegisteredForSummerCamp']);
+
+Route::get('/showStudentsRegisteredForTutorial',[FinanceController::class, 'showStudentsRegisteredForTutorial']);
+
+Route::get('/studentPayment',[FinanceController::class, 'studentPayment']);
+
+Route::get('/searchStudentForPaymentRegistration/{stud_id}',[FinanceController::class, 'searchStudentForPaymentRegistration']);
+
+Route::get('/registerStudentForPayment/{stud_id}',[FinanceController::class, 'registerStudentForPayment']);
 });
 
 
