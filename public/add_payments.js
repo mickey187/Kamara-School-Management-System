@@ -82,10 +82,10 @@ $('#make_payment').on('show.bs.modal', function (event) {
         data1.forEach(payment_load =>{
 
           if (payment_load.amount != 0) {
-            rows2 += '<h5 class ="text-success">'+payment_load.payment_type+': '+payment_load.amount+' Birr</h3>';
+            rows2 += '<h5 class ="text-success ml-3">'+payment_load.payment_type+': '+payment_load.amount+' Birr</h3>';
             $('#individual_load').html(rows2);
           } else if(payment_load.amount == 0){
-            rows2 += '<h5 class ="text-success">'+payment_load.payment_type+': Already Paid</h3>';
+            rows2 += '<h5 class ="text-success ml-3">'+payment_load.payment_type+': Already Paid</h3>';
           }
 
           
@@ -97,7 +97,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
         
         var data2 = JSON.parse(JSON.stringify(data.total_load));
             
-              rows = '<h3 class ="text-success">Total: '+data2+' Birr</h3>';
+              rows = '<h3 class ="text-success ml-3">Total: '+data2+' Birr</h3>';
             
        
         
@@ -350,6 +350,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
                        '<td>'+d.first_name +' '+ d.middle_name +' '+ d.last_name +'</td>'+
                        '<td>'+d.payment_type +'</td>'+
                        '<td>'+d.amount_payed +'</td>'+
+                       '<td>'+d.fs_number +'</td>'+
                        '<td>'+d.payment_month +'</td>'+
                        '</tr>'
                        
@@ -368,10 +369,11 @@ $('#make_payment').on('show.bs.modal', function (event) {
 
   $('#pay_total').click(function () { 
     var month = $('#year_month').val();
+    var fs_number = $('#fs_number_input').val();
     
     $.ajax({
       type: 'GET',
-      url: 'makeTotalPayment/'+student_id_for_payment+'/'+month,
+      url: 'makeTotalPayment/'+student_id_for_payment+'/'+month+'/'+fs_number,
       data: {'detail':send_pay_total_detail},
       dataType:'json',
       cache: false,
@@ -414,10 +416,13 @@ $('#make_payment').on('show.bs.modal', function (event) {
    });
 
    $('#submit_payment').click(function () { 
+     
     var month = $('#year_month').val();
+    var fs_number = $('#fs_number_input').val();
+    
     $.ajax({
       type: 'GET',
-      url: 'makeIndividualPayment/'+student_id_for_payment+'/'+month,
+      url: 'makeIndividualPayment/'+student_id_for_payment+'/'+month+'/'+fs_number,
       data: {'detail':send_pay_for_individual_detail},
       dataType:'json',
       cache: false,
@@ -609,3 +614,41 @@ $('.btn').click(function(){
       break;
   }
 });
+
+$('#fs_number_input').focusout(function(){
+  var fs_number = $('#fs_number_input').val();
+checkFsNumberExists(fs_number);
+});
+
+function checkFsNumberExists(fs_number){
+
+  $.ajax({
+    type: "GET",
+    url: "/finance/checkFsNumberExists/"+fs_number,
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+      if (data == "already exists") {
+        $('#validation_message_for_fs_num_input').removeAttr("class");
+        $('#validation_message_for_fs_num_input').addClass("text-danger ");
+        $('#fs_number_input').removeClass("border border-success");
+        $('#fs_number_input').addClass("border border-danger");
+     
+        
+        $('#validation_message_for_fs_num_input').text("fs number already exists");
+        //alert("fs number already exists");
+      }
+      else if (data == "good") {
+        $('#validation_message_for_fs_num_input').removeAttr("class");
+        $('#validation_message_for_fs_num_input').addClass("text-success");
+        $('#fs_number_input').removeClass("border border-danger");
+        $('#fs_number_input').addClass("border border-success");
+        $('#validation_message_for_fs_num_input').text("you are good to go");
+        //alert("you are good to go");
+      }
+      
+      
+    }
+  });
+}
+

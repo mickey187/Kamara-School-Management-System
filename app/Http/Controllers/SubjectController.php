@@ -109,7 +109,7 @@ class SubjectController extends Controller
       //  echo $edit;
 
        // $sub =array();
-        $edit->stream_id = $req->stream_id;
+
         $edit->subject_name = $req->subjectname;
 
 

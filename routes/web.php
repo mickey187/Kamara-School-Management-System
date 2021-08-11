@@ -60,7 +60,7 @@ Route::get('/fetchTotalPaymentLoad/{class_id}/{stud_id}',[FinanceController::cla
 
 Route::get('/fetchpaymenthistory/{stud_id}',[FinanceController::class, 'fetchPaymentHistory']);
 
-Route::get('/makeTotalPayment/{stud_id}/{month}',[FinanceController::class, 'makeTotalPayment']);
+Route::get('/makeTotalPayment/{stud_id}/{month}/{fs_number}',[FinanceController::class, 'makeTotalPayment']);
 
 
 
@@ -79,8 +79,7 @@ Route::get('/viewStudentPayment',[FinanceController::class, 'viewStudentPayment'
 
 Route::post('/addStudentPayment',[FinanceController::class, 'addStudentPayment']);
 
-Route::get('/makeIndividualPayment/{student_id_for_payment}/{month}',[FinanceController::class, 'makeIndividualPayment']);
-
+Route::get('/makeIndividualPayment/{student_id_for_payment}/{month}/{fs_number}',[FinanceController::class, 'makeIndividualPayment']);
 
 Route::get('/indexAddStudentDiscount',[FinanceController::class, 'indexAddStudentDiscount']);
 
@@ -103,6 +102,9 @@ Route::get('/studentPayment',[FinanceController::class, 'studentPayment']);
 Route::get('/searchStudentForPaymentRegistration/{stud_id}',[FinanceController::class, 'searchStudentForPaymentRegistration']);
 
 Route::get('/registerStudentForPayment/{stud_id}',[FinanceController::class, 'registerStudentForPayment']);
+
+Route::get('/checkFsNumberExists/{fs_number}',[FinanceController::class, 'checkFsNumberExists']);
+
 });
 //subject
 Route::get('/subject', [SubjectController::class, 'index']);
@@ -113,7 +115,7 @@ Route::get('editsubject/{id}', [SubjectController::class, 'editSubject'])->name(
 
 Route::post('editsubjectvalue/{id}', [SubjectController::class, 'editSubjectValue']);
 
-Route::get('addsubject/{subject}', [SubjectController::class, 'addSubject']);
+Route::post('/addsubject', [SubjectController::class, 'addSubject']);
 
 Route::post('deletesubject', [SubjectController::class, 'deleteSubject']);
 

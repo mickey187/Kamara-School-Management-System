@@ -20,8 +20,8 @@
           @if (isset($editSubject))
         {{url('editsubjectvalue/'.$editSubject->id)}}
        @else
-        {{url('addsubject')}}
-     @endif " method="get">
+        {{url('/addsubject')}}
+     @endif " method="POST">
           @csrf
             <div class="row">
                 <div class="col-6">
