@@ -643,7 +643,7 @@ function checkFsNumberExists(fs_number){
         $('#validation_message_for_fs_num_input').addClass("text-success");
         $('#fs_number_input').removeClass("border border-danger");
         $('#fs_number_input').addClass("border border-success");
-        $('#validation_message_for_fs_num_input').text("you are good to go");
+        $('#validation_message_for_fs_num_input').text("valid fs number");
         //alert("you are good to go");
       }
       
