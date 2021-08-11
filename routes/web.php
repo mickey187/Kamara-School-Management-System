@@ -322,7 +322,7 @@ Route::get('getHomeRoomStudent/{teacher_id}/{section}/{class_name}/{stream}',[Se
 
 Route::get('getCourseLoadStudent/{teacher_id}/{section}/{class_id}/{course_load_id}/{stream}',[SectionController::class, 'getCourseLoadStudent']);
 
-Route::get('setSection',[SectionController::class, 'setSection']);
+Route::get('setSection/{class_id}/{stream_id}/{section}/{room}',[SectionController::class, 'setSection']);
 
 Route::get('findSection/{id}',[SectionController::class, 'findSection']);
 

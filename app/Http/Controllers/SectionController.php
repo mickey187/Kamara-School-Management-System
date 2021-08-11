@@ -41,7 +41,9 @@ class SectionController extends Controller
         ->join('streams','streams.id','=','students.stream_id')
         ->where('sections.class_id',$class_id)
         ->where('students.stream_id',$stream_id)
-        ->get();
+        ->get(['students.student_id','stream_type','section_name','class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+
+        // ->get();
         foreach($class as $row){
             if(($label == '') || ($label != $row->section_name)){
                 $label = $row->section_name;
@@ -50,31 +52,94 @@ class SectionController extends Controller
         }
         if($label==''){
             $status = 'false';
+
             $class = DB::table('students')
                 ->join('classes','classes.id','=','students.class_id')
                 ->join('streams','streams.id','=','students.stream_id')
                 ->where('students.class_id',$class_id)
                 ->where('students.stream_id',$stream_id)
-                ->get();
+                ->get(['students.student_id','stream_type','classes.class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+            //    foreach($class as $row){
+            //         $class->$row = $row->push(collect(["section_name"=>"Undifind"]));
+            //    }
+                // ->get();
         }else{
             $status = 'true';
         }
         return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
     }
-    public function setSection(Request $request){
+    public function setSection($class_id,$stream_id,$section,$room){
 
-        if($request->section_type=='Alphabet'){
-            $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('first_name','ASC')->get();
-            $this->sectionLogic($student,$request->student_size);
-            $class = classes::all();
-            $stream = stream::all();
-            return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
-        }else if($request->section_type=='RegistrationDate'){
-            $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('created_at','ASC')->get();
-            $this->sectionLogic($student,$request->student_size);
-            $class = classes::all();
-            $stream = stream::all();
-            return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
+        if($section == 'Alphabet'){
+            $student = student::where('class_id',$class_id)->where('stream_id',$stream_id)->orderBy('first_name','ASC')->get();
+            $this->sectionLogic($student,$room);
+            $label = '';
+            $status = '';
+            $section = array();
+            $class = DB::table('sections')
+            ->join('students','students.id','=','sections.student_id')
+            ->join('classes','classes.id','=','sections.class_id')
+            ->join('streams','streams.id','=','students.stream_id')
+            ->where('sections.class_id',$class_id)
+            ->where('students.stream_id',$stream_id)
+            ->get(['students.student_id','stream_type','section_name','class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+            // ->get();
+
+            foreach($class as $row){
+                if(($label == '') || ($label != $row->section_name)){
+                    $label = $row->section_name;
+                    array_push($section,$row->section_name);
+                }
+            }
+            if($label==''){
+                $status = 'false';
+                // $class = DB::table('students')
+                //     ->join('classes','classes.id','=','students.class_id')
+                //     ->join('streams','streams.id','=','students.stream_id')
+                //     ->where('students.class_id',$class_id)
+                //     ->where('students.stream_id',$stream_id)
+                //     ->get(['students.student_id','streams.stream_type','students.class_id as section_name','class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+                //     // ->get();
+                    error_log("");
+            }else{
+                $status = 'true';
+            }
+            return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
+            // return response()->json("Set With Alaphabet");
+            // return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
+        }else if($section == 'RegistrationDate'){
+            $student = student::where('class_id',$class_id)->where('stream_id',$stream_id)->orderBy('created_at','ASC')->get();
+            $this->sectionLogic($student,$room);
+            $label = '';
+            $status = '';
+            $section = array();
+            $class = DB::table('sections')
+            ->join('students','students.id','=','sections.student_id')
+            ->join('classes','classes.id','=','sections.class_id')
+            ->join('streams','streams.id','=','students.stream_id')
+            ->where('sections.class_id',$class_id)
+            ->where('students.stream_id',$stream_id)
+            ->get();
+            foreach($class as $row){
+                if(($label == '') || ($label != $row->section_name)){
+                    $label = $row->section_name;
+                    array_push($section,$row->section_name);
+                }
+            }
+            if($label==''){
+                $status = 'false';
+                $class = DB::table('students')
+                    ->join('classes','classes.id','=','students.class_id')
+                    ->join('streams','streams.id','=','students.stream_id')
+                    ->where('students.class_id',$class_id)
+                    ->where('students.stream_id',$stream_id)
+                    ->get();
+            }else{
+                $status = 'true';
+            }
+            return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
+            // return response()->json("Set With Registration Date");
+            // return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
         }
         // $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('first_name','ASC')->get();
 
