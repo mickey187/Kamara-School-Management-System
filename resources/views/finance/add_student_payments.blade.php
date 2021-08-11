@@ -119,7 +119,8 @@
                               <tr>
                                 <th>name</th>
                                 <th>payment type</th>            
-                                <th>amount</th>  
+                                <th>amount</th>
+                                <th>fs number</th>  
                                 <th>payment month</th>
                                                                                                       
                               </tr>
@@ -142,7 +143,7 @@
 
 
               <div class="modal fade" id="make_payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Make Payment  </h5>
@@ -156,8 +157,7 @@
                       <div class="row">
                           <div class="col-6">
 
-                            <h4 id="student_id" class="text-primary"></h4>
-                            <h4 id="student_name" class="text-info"></h4>
+                            
                             
 
                             <label for="payment_type">Select Payment Type</label>
@@ -173,13 +173,14 @@
 
                             </div>
 
-                            <label for="">Amount to be Payed for</label>
-                            <div class="form-group" id="individual_load">
-
+                            <label for="fs_number_input">Enter FS Number</label>
+                            <div class="form-group">
+                              <input type="number" class="form-control" placeholder="Enter FS Number" id="fs_number_input" name="fs_number">
+                            
+                              <small id="validation_message_for_fs_num_input"></small>
                             </div>
-                            <div class="form-group" id="payment_load">
 
-                            </div>
+                            
 
                             {{-- <label for="select_month">Select Recurring Month</label>
                             <div class="form-group">
@@ -270,6 +271,28 @@
                            
 
                            
+                          </div>
+
+                          <div class="col-6">
+                            <h5>Payment Detail</h5>
+                            <div class="card">
+                              <div class="card-body" >
+                               
+                                <h4 id="student_id" class="text-info mt-3 ml-3"></h4>
+                                <h4 id="student_name" class="text-info mt-1 ml-3"></h4>
+
+                                <label for="" class="ml-3">Amount to be Payed for</label>
+                            <div class="form-group" id="individual_load" class="ml-3">
+
+                            </div>
+                            <div class="form-group" id="payment_load" class="ml-3">
+
+                            </div>
+                             
+
+                          </div>
+                        </div>
+
                           </div>
                       </div>
                       

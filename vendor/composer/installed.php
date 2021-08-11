@@ -1530,7 +1530,7 @@
     ),
     'reference' => '804d7db45a2e9cc43fa55198b9e3d59a396926f3',
     'name' => 'laravel/laravel',
-  ),
+  // ),
   'versions' => 
   array (
     'asm89/stack-cors' => 

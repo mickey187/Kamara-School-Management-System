@@ -27,7 +27,11 @@ class CreateStudentPaymentsTable extends Migration
 
             $table->integer('amount_payed')->nullable(false);
 
+            $table->integer('fs_number')->nullable(false);
+
             $table->string('payment_month')->nullable(false);
+
+            $table->unique(['payment_load_id','fs_number','payment_month']);
 
             $table->timestamps();
         });

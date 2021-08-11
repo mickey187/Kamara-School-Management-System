@@ -472,13 +472,14 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                     ->join('payment_loads','student_payments.payment_load_id','=','payment_loads.id')
                                     ->where('student_payments.student_id',$stud_id)
                                     ->orderBy('payment_month','DESC')
-                                    ->get(['first_name','middle_name','last_name','payment_type','amount_payed','payment_month','student_payments.created_at']);
+                                    ->get(['first_name','middle_name','last_name','payment_type','amount_payed',
+                                    'payment_month','student_payments.created_at','fs_number']);
 
 //         foreach ($result_history as $key) {
-//             $gregorian = new DateTime($key->payment_month);
+// $gregorian = new DateTime(ltrim(Carbon::now()->format('m'),"0"));
 
-// // just pass it to Andegna\DateTime constractor and you will get $ethiopian date
-// $ethipic = new Andegna\DateTime($gregorian);
+// just pass it to Andegna\DateTime constractor and you will get $ethiopian date
+// $ethipic = new Andegna\DateTime();
 
 // error_log($ethipic->format(DATE_COOKIE));
 
@@ -496,18 +497,24 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                     ->get(['student_id','payment_type_id','payment_load_id','amount_payed','payment_month']);
        
             error_log("testtttttttt".ltrim(Carbon::now()->format('m'),"0") );
-           $current_month = ltrim(Carbon::now()->format('m'),"0");
+            $now1 = \Andegna\DateTimeFactory::now();
+           $current_month_year = $now1->getYear()."-".$now1->getMonth();
+           $current_month = ltrim($now1->getMonth(),"0");
            $previous_month = [];
 
             for ($i = 0; $i <= $current_month -1; $i++){ 
-                  $previous_month[$i] = date("Y-m", strtotime( date( 'Y-m-01' )." -$i months"));
+                  $previous_month[$i] = date("Y-m", strtotime( date( $current_month_year )." -$i months"));
            
             }
             $length = count($previous_month);
 
             for ($i=1; $i < $length ; $i++) { 
                 
-                 error_log($previous_month[$i]);
+                // $gregorian = new DateTime($previous_month[$i]);
+                // $ethipic = new Andegna\DateTime($gregorian);
+                
+                error_log("from thereeeeeeeeeee");
+                 error_log("from hereeeeeeeeeeeeeee".$previous_month[$i]);
 
             }
             $array_length = count($student_payment_load);
@@ -575,7 +582,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                         ,'student_missing_payment_coll'=>$student_missing_payment_coll,'sliced'=>$sliced]);
     }
 
-    public function makeTotalPayment(Request $req, $stud_id, $month){
+    public function makeTotalPayment(Request $req, $stud_id, $month, $fs_number){
 
         error_log("Heyyyyyyyyyyyy".$req);
         $total_payment = $req->detail;
@@ -591,6 +598,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                       ->where('payment_load_id',$key['payment_load_id'])
                                       ->where('payment_month',$month)
                                       ->where('amount_payed',$key['amount'])
+                                      ->where('fs_number',$fs_number)
                                       ->exists()) {
                  
                      
@@ -601,6 +609,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             $student_payment->payment_load_id = $key['payment_load_id'];
             $student_payment->amount_payed = $key['amount'];
             $student_payment->payment_month = $month;
+            $student_payment->fs_number = $fs_number;
             if ($student_payment->save()) {
                 $status = "successful";
                     }
@@ -610,6 +619,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                         ->where('payment_load_id',$key['payment_load_id'])
                                         ->where('payment_month',$month)
                                         ->where('amount_payed',$key['amount'])
+                                        ->where('fs_number',$fs_number)
                                         ->exists()){
                     $status = "already paid";
                 }
@@ -627,7 +637,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         
 
     }
-    public function makeIndividualPayment(Request $req, $stud_id, $month){
+    public function makeIndividualPayment(Request $req, $stud_id, $month, $fs_number){
         $individual_payment = $req->detail;
         $status = null;
         foreach ($individual_payment as $key) {
@@ -643,6 +653,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             $student_payment->payment_load_id = $key['payment_load_id'];
             $student_payment->amount_payed = $key['amount'];
             $student_payment->payment_month = $month;
+            $student_payment->fs_number = $fs_number;
             if ($student_payment->save()) {
                 $status = "successful";
                 
@@ -961,4 +972,18 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
 
         return response()->json($student_tutorial);
     }
+
+    public function checkFsNumberExists($fs_number){
+        $message = null;
+        if (student_payment::where('fs_number',$fs_number)->exists()) {
+            $message = "already exists";
+            return response()->json($message);
+        }
+        else if (!student_payment::where('fs_number',$fs_number)->exists()) {
+            $message = "good";
+            return response()->json($message);
+        }
+    }
 }
+
+
