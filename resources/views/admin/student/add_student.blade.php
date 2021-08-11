@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('dist/css/student/student.css') }}">
 <div class="formcontainer">
     <div class="form-outer">
         <div class="">
@@ -11,7 +11,7 @@
         </div><br>
         <form action="{{ url('new_student') }}" role="form" method="POST" enctype="multipart/form-data" onsubmit="return=fa">
             @csrf
-            <div class="page slidePage">
+            <div class="page movePages">
                 <div class="row col-12">
                     <div class="" style="margin-left: 15px;">
                         <div class="card card-header">
@@ -41,7 +41,7 @@
                                     </select> <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                 </div>
                                 <div class="col-4">
-                                    <div class="label">Avarage</div>
+                                    <div class="label">Average</div>
                                     <input type="number" id="average" name="average" class="form-control" placeholder="50.00" min="50" max="100">
                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                 </div>
@@ -104,16 +104,14 @@
                 <div class="row col-4">
                     <div class="col-12">
                         <div class="field col-12">
-                            <div class="label">Birth place</div>
-                            <select id="studentBirthPlace" name="birthPlace" class="form-control select2bs4">
-                                    <option selected="selected">Adama</option>
-                                    <option>Harer</option>
-                                    <option>Addis Ababa </option>
-                                    <option>Hawada</option>
-                                    <option>Bahir Dar</option>
-                                    <option>Dilla</option>
-                                    <option>Dire Dawa</option>
-                                    </select>
+                             <div class="label">Birth place</div>
+                                <input type="text" id="studentBirthPlace" name="birthPlace" class="form-control"
+                                 placeholder="birth place" required
+                                 
+                                 onkeydown="return allCharacter(event);"
+                                onblur="if (this.value == '') "
+                                onfocus="if (this.value == '') {this.value = '';}"
+                                placeholder="Birth place" required size="30" minlength="2" maxlength="21">
                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                         </div>
                         <div class="field col-12">
@@ -131,7 +129,7 @@
                              onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
-                                 size="30" minlength="3" maxlength="21">
+                                 size="30" minlength="2" maxlength="21">
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field col-12 row">
@@ -148,7 +146,7 @@
                             </div>
                             <div class="col-8">
                                 <div class="label">Stream</div>
-                            <select  id="studentGrade" type="number" name="stream" class="form-control" placeholder="Grade">
+                            <select  id="studentStream" type="number" name="stream" class="form-control" placeholder="Grade">
                                 <option>Stream</option>
                                 @foreach ($streams as $stream)
                                     <option value="{{ $stream->id }}">{{$stream->stream_type }}</option>
@@ -165,7 +163,7 @@
 
 
                 <div class="field ">
-                    <button id="studentBasic" value="2" class="stud_nextBtn btn btn-primary btn-lg" type="button">Next</button>
+                    <button id="studentBasic" value="2" class="studentNextButton btn btn-primary btn-lg" type="button">Next</button>
                 </div>
 
             </div>
@@ -183,7 +181,7 @@
                             <input type="text" name="previousSchool" id="studentPreviousSchool" class="form-control" 
                             placeholder="Previous School"
 
-                             onkeydown="return alphaOnly(event);"
+                             onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
                                  size="30" minlength="3" maxlength="21">
@@ -197,7 +195,7 @@
                              onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
-                                 size="30" minlength="3" maxlength="21">
+                                 size="30" minlength="2" maxlength="21">
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
@@ -205,10 +203,10 @@
                             <input type="text" name="expelsionStatus" id="studentExpelsiionStatus" class="form-control" 
                             placeholder="Expelsion status"
                             
-                             onkeydown="return alphaOnly(event);"
+                             onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
-                                 size="30" minlength="3" maxlength="21">
+                                 size="30" minlength="2" maxlength="21">
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="row col-12" style="padding-bottom: 10px;">
@@ -217,10 +215,10 @@
                                 <input type="text" name="sespensionStatus" id="studentSespensionStatus" class="form-control" 
                                 placeholder="Sespension status"
                                 
-                                 onkeydown="return alphaOnly(event);"
+                                 onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
-                                 size="30" minlength="3" maxlength="21">
+                                 size="30" minlength="2" maxlength="21">
                                 <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                             </div>
                             <div class="field col-6">
@@ -231,7 +229,7 @@
                                  onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
-                                 size="30" minlength="3" maxlength="21">
+                                 size="30" minlength="2" maxlength="21">
                                 <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                             </div>
                         </div>
@@ -259,10 +257,10 @@
                             <input type="text" name="disability" id="studentDisability" class="form-control" 
                             placeholder="Disability"
                             
-                             onkeydown="return alphaOnly(event);"
+                             onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
-                               size="30" minlength="3" maxlength="21">
+                               size="30" minlength="2" maxlength="21">
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
@@ -270,10 +268,10 @@
                             <input type="text" name="medicalCondtion" id="studentMedicalCondition" class="form-control" 
                             placeholder="Medical condtion"
                             
-                             onkeydown="return alphaOnly(event);"
+                             onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
-                                 size="30" minlength="3" maxlength="21">
+                                 size="30" minlength="2" maxlength="21">
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
@@ -281,18 +279,18 @@
                             <input type="text" name="bloodType" id="studentBloodType" class="form-control" 
                             placeholder="Blood type"
                             
-                             onkeydown="return alphaOnly(event);"
+                             onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
-                                size="30" minlength="3" maxlength="21">
+                                size="4" minlength="" maxlength="5">
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                     </div>
                 </div>
                 <div class="field btns">
-                    <button type="button" class="btn btn-primary stud_prev-1 prev">Previous</button>
-                    <button id ="studentBasic" type="button" class="btn btn-primary stud_next-1 next">Continue</button>
-                    <button  type="submit" name="student" class="btn btn-primary stud_sub_next-1 next" value="student">Save</button>
+                    <button type="button" class="btn btn-primary studentPreviousButton prev ">Previous</button>
+                    <button id ="studentBasic" type="button" class="btn btn-primary studentSecondNextButton next">Next</button>
+                    {{-- <button  type="submit" name="student" class="btn btn-primary stud_sub_next-1 next" value="student">Save</button> --}}
                 </div>
             </div>
             <div class="page">
@@ -350,7 +348,7 @@
                             <input type="text" name="pRelation" id="parentRelation" class="form-control" 
                             placeholder="Relation"
                             
-                             onkeydown="return alphaOnly(event);"
+                             onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == 'Type Letters Only') {this.value = '';}"
                                size="30" minlength="3" maxlength="21">
@@ -359,7 +357,8 @@
                         <div class="field">
                             <div class="label">Emergency contact</div>
                             <input type="number" name="pEmergency" id="parentEmergencyContact" class="form-control" 
-                            placeholder="Transfer reason">
+                            placeholder="Emergency contact">
+                            
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
@@ -370,8 +369,8 @@
                     </div>
                 </div>
                 <div class="field btns">
-                    <button type="button" class="btn btn-primary stud_prev-2 prev">Previous</button>
-                    <button type="button" class="btn btn-primary stud_next-2 next">Next</button>
+                    <button type="button" class="btn btn-primary studentSecondPreviousButton prev">Previous</button>
+                    <button type="button" class="btn btn-primary studentThirdNextButton next">Next</button>
                 </div>
             </div>
             <div class="page">
@@ -385,9 +384,9 @@
                         <div class="field">
                             <div class="label">City</div>
                             <input type="text" name="city" id="parentCity" class="form-control" 
-                            placeholder="City"
+                            placeholder="City" required
                             
-                            onkeydown="return alphaOnly(event);"
+                            onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == 'Type Letters Only') {this.value = '';}"
                                size="30" minlength="3" maxlength="21">
@@ -396,9 +395,9 @@
                         <div class="field">
                             <div class="label">Sub city</div>
                             <input type="text" name="subcity" id="parentSubCity" class="form-control" 
-                            placeholder="Subcity"
+                            placeholder="Subcity" required
                             
-                             onkeydown="return alphaOnly(event);"
+                             onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == 'Type Letters Only') {this.value = '';}"
                                size="30" minlength="3" maxlength="21">
@@ -406,12 +405,14 @@
                         </div>
                         <div class="field">
                             <div class="label">Kebele</div>
-                            <input type="text" name="kebele" id="parentKebele" class="form-control" placeholder="Kebele">
+                            <input type="number" name="kebele" id="parentKebele" class="form-control"
+                             placeholder="Kebele" required>
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
                             <div class="label">House number</div>
-                            <input type="number" name="houseNumber" id="parentHouseNumber" class="form-control" placeholder="House number">
+                            <input type="number" name="houseNumber" id="parentHouseNumber" class="form-control"
+                             placeholder="House number" required>
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                     </div>
@@ -419,30 +420,34 @@
 
                         <div class="field">
                             <div class="label">P.O.Box</div>
-                            <input type="number" name="p_o_box" id="parentPOB" class="form-control" placeholder="P.O.Box">
+                            <input type="number" name="p_o_box" id="parentPOB" class="form-control"
+                             placeholder="P.O.Box" required>
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
                             <div class="label">Email</div>
-                            <input type="email" name="email" id="parentEmail" class="form-control" placeholder="Email">
+                            <input type="email" name="email" id="parentEmail" class="form-control"
+                             placeholder="Email" required>
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
                             <div class="label">Phone</div>
-                            <input type="number" name="phone1" id="parentPhone1" class="form-control" placeholder="Phone">
+                            <input type="number" name="phone1" id="parentPhone1" class="form-control"
+                             placeholder="Phone" required>
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
                             <div class="label">Alternative Phone</div>
-                            <input type="number" name="phone2" id="parentPhone2" class="form-control" placeholder="Alternative phone">
+                            <input type="number" name="phone2" id="parentPhone2" class="form-control"
+                             placeholder="Alternative phone" required>
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                     </div>
                 </div>
 
                 <div class="field btns">
-                    <button  type="button" class="btn btn-primary stud_prev-3 prev">Previous</button>
-                    <button type="submit" class="btn btn-primary stud_submitBtn ">submit</button>
+                    <button  type="button" class="btn btn-primary studentThirdPreviousButton prev">Previous</button>
+                    <button type="submit" class="btn btn-primary studentSubmitButton ">submit</button>
                 </div>
             </div>
 

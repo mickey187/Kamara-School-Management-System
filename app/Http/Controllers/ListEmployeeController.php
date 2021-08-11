@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\academic_background_info;
 use App\Models\address;
 use App\Models\employee;
 use App\Models\employee_emergency_contact;
@@ -10,6 +11,7 @@ use App\Models\employee_job_position;
 use App\Models\employee_religion;
 use App\Models\Role;
 use App\Models\teacher;
+use App\Models\training_institution_info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -80,20 +82,31 @@ class ListEmployeeController extends Controller
     {
         //  return request();
           $id = request('delete');
+          error_log($id);
         $delete_employee = employee::find($id);
-        $delete_employee_role = Role::find($delete_employee->role_id );
-        $delete_employee_role->delete();
-        $delete_employee_job_position = employee_job_position::find($delete_employee->employee_job_position_id);
-        $delete_employee_job_position->delete();
+        if($delete_employee->delete()){
+            $teacher = teacher::find($id);
+            if($teacher){
+                if($teacher->delete()){
+                    $delete_teacher_background = academic_background_info::find($teacher->academic_background_id);
+                    $delete_teacher_background->delete();
+                    $delete_teacher_training = training_institution_info::find($teacher->teacher_training_info_id);
+                    $delete_teacher_training->delete();
+                }
+            }
+    //      $delete_employee_role = Role::find($delete_employee->role_id );
+    //    $delete_employee_role->delete();
+        // $delete_employee_job_position = employee_job_position::find($delete_employee->employee_job_position_id);
+        // $delete_employee_job_position->delete();
         $delete_employee_emergency = employee_emergency_contact::find($delete_employee->employee_emergency_contact_id);
         $delete_employee_emergency->delete();
         $delete_employee_experiance = employee_job_experience::find($delete_employee->job_experience_id);
         $delete_employee_experiance->delete();
-        $delete_employee_religion = employee_religion::find($delete_employee->employee_religion_id);
-        $delete_employee_religion->delete();
+        // $delete_employee_religion = employee_religion::find($delete_employee->employee_religion_id);
+        // $delete_employee_religion->delete();
         $delete_employee_address = address::find($delete_employee->address_id);
         $delete_employee_address->delete();
-        $delete_employee->delete();
+        }
 
          echo $id.' deleted successfuly';
         $emp_list = DB::table('employees')

@@ -164,6 +164,8 @@ Route::post('addStream', [StreamController::class, 'addStream']);
 
 // Employee Controller
 Route::get('/addReligionPage',[AddReligionController::class,'addReligionPage']);
+// Route::get('addReligion',[AddReligionController::class,'addReligion']);
+
 Route::get('addReligion/{religion}',[AddReligionController::class,'addReligion']);
 Route::get('/viewReligion',[AddReligionController::class,'viewReligion'])->name('viewReligion');
 Route::get('editReligion/{id}', [AddReligionController::class, 'editReligion'])->name('editReligion');
