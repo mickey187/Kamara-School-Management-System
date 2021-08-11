@@ -13,7 +13,7 @@ $('#delete_employee').on('show.bs.modal', function (event) {
     modal.find('.modal-body #employee_name').text("employee name: "+spit[1]);
     modal.find('.modal-body #employee_job_position').text("job position: "+spit[2]);
     modal.find('.modal-footer #delete_employee').val(spit[0])
-    console.log('heloooooooooooooooooooooooooooooooooo');
+    console.log('heloooooooooooooooooooooooooooooooooo'+spit[0]);
    
   });
 

@@ -168,7 +168,7 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Net Salary</div>
-                                                    <input type="text" name="net_salary" class="form-control" id="net_salary" placeholder="Enter your net salary"
+                                                    <input type="number" name="net_salary" class="form-control" id="net_salary" placeholder="Enter your net salary"
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->net_salary }}"
                                                         @else

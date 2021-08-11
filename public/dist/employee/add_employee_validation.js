@@ -16,7 +16,7 @@ const emp_addBtn = document.querySelector(".submitBtn");
      if ((emp_first_name.value).length >= 3){
             setSuccessFor(emp_first_name);
         }if((emp_first_name.value).length < 3){
-            setDefaultFor(emp_first_name,"please stop messing arround enter only valid input");
+            setDefaultFor(emp_first_name,"please enter only valid input");   
         }if((emp_first_name.value).length > 20  ){
             setErorFor(emp_first_name,"you reach maximum length");
         }
@@ -235,7 +235,7 @@ emp_previous_employment.oninput=function(){
      if ((emp_net_salary.value).length >= 3){
             setSuccessFor(emp_net_salary);
         }if((emp_net_salary.value).length < 3){
-            setDefaultFor(emp_net_salary,"please stop messing arround enter only valid input");
+            setDefaultFor(emp_net_salary,"please enter only valid input");   
         }if((emp_net_salary.value).length > 20  ){
             setErorFor(emp_net_salary,"you reach maximum length");
         }
@@ -246,7 +246,7 @@ emp_previous_employment.oninput=function(){
       if ((emp_hire_type.value).length >= 3){
             setSuccessFor(emp_hire_type);
         }if((emp_hire_type.value).length < 3){
-            setDefaultFor(emp_hire_type,"please stop messing arround enter only valid input");
+            setDefaultFor(emp_hire_type,"please enter only valid input");   
         }if((emp_hire_type.value).length > 20  ){
             setErorFor(emp_hire_type,"you reach maximum length");
         }
@@ -257,7 +257,7 @@ emp_previous_employment.oninput=function(){
      if ((emp_religion.value).length >= 3){
             setSuccessFor(emp_religion);
         }if((emp_religion.value).length < 3){
-            setDefaultFor(emp_religion,"please stop messing arround enter only valid input");
+            setDefaultFor(emp_religion,"please enter only valid input");   
         }if((emp_religion.value).length > 20  ){
             setErorFor(emp_religion,"you reach maximum length");
         }
@@ -268,7 +268,7 @@ emp_previous_employment.oninput=function(){
      if ((emp_emergency_contact.value).length >= 3){
             setSuccessFor(emp_emergency_contact);
         }if((emp_emergency_contact.value).length < 3){
-            setDefaultFor(emp_emergency_contact,"please stop messing arround enter only valid input");
+            setDefaultFor(emp_emergency_contact,"please enter only valid input");   
         }if((emp_emergency_contact.value).length > 20  ){
             setErorFor(emp_emergency_contact,"you reach maximum length");
         }
@@ -290,7 +290,7 @@ emp_past_job_position.oninput=function(){
     if ((emp_past_job_position.value).length >= 3){
             setSuccessFor(emp_past_job_position);
         }if((emp_past_job_position.value).length < 3){
-            setDefaultFor(emp_past_job_position,"please stop messing arround enter only valid input");
+            setDefaultFor(emp_past_job_position,"please enter only valid input");   
         }if((emp_past_job_position.value).length > 20  ){
             setErorFor(emp_past_job_position,"you reach maximum length");
         }
@@ -395,18 +395,9 @@ emp_past_employment_place.oninput=function(){
         setErorFor(emp_past_employment_place,"you reach max length")
     }
 }
- var emp_role = document.getElementById('role_selecter')
- emp_role.oninput=function(){
-     if((emp_role.value).length >= 3){
-        setSuccessFor(emp_role);
-    }if((emp_role.value).length < 3){
-        setDefaultFor(emp_role,"please enter the valid reason")
-    }if((emp_role.value).length > 20){
-        setErorFor(emp_role,"you reach max length")
-    }
- };
-
+// 
  var emp_job_position = document.getElementById('job_position_selecter')
+
  emp_job_position.oninput=function(){
      if((emp_job_position.value).length >= 3){
         setSuccessFor(emp_job_position);
@@ -527,8 +518,6 @@ emp_nextBtnThird.addEventListener("click", function() {
 
     }
 
-
-
     if(teach_debut.value.length<3){
         setDefaultFor(teach_debut,"teacher debut day can not be min length")
     }else{
@@ -571,30 +560,50 @@ emp_nextBtnThird.addEventListener("click", function() {
         setSuccessFor(teach_traning_institiute)
     }
 
+    if(emp_job_position.value.trim()=="1"){
+        if(
+            
+        emp_past_employment_place.value.length < 3||
+            // emp_role.value.trim() === '' ||
+            emp_job_position.value.trim() === '' ||
+            teach_debut.value.length < 3 ||
+            teach_field_of_study.value.length < 3 ||
+            teach_place_of_study.value.length < 3 ||
+            teach_date_of_study.value.length < 3 ||
+            teach_traning_program.value.length < 3 ||
+            teach_traning_year.value.length < 3 ||
+            teach_traning_institiute.value.length < 3 
 
-    if(
-       emp_past_employment_place.value.length < 3||
-        emp_role.value.trim() === '' ||
-        emp_job_position.value.trim() === '' ||
-        teach_debut.value.length < 3 ||
-        teach_field_of_study.value.length < 3 ||
-        teach_place_of_study.value.length < 3 ||
-        teach_date_of_study.value.length < 3 ||
-        teach_traning_program.value.length < 3 ||
-        teach_traning_year.value.length < 3 ||
-        teach_traning_institiute.value.length < 3
-
-    ){
-        // setEror()
+        ){
+            // setEror()
+        }else{
+            // onSuccess()
+                slidePage.style.marginLeft = "-75%";
+                bullet[current - 1].classList.add("active");
+                progressText[current - 1].classList.add("active");
+                progressCheck[current - 1].classList.add("active");
+                current += 1;
+        }
     }else{
-        // onSuccess()
-            emp_slidePage.style.marginLeft = "-75%";
-            bullet[current - 1].classList.add("active");
-            progressText[current - 1].classList.add("active");
-            progressCheck[current - 1].classList.add("active");
-            current += 1;
+       if(
+            
+        emp_past_employment_place.value.length < 3
+            // emp_role.value.trim() === ''  
+
+        ){
+            // setEror()
+        }else{
+            // onSuccess()
+                slidePage.style.marginLeft = "-75%";
+                bullet[current - 1].classList.add("active");
+                progressText[current - 1].classList.add("active");
+                progressCheck[current - 1].classList.add("active");
+                current += 1;
+        }
     }
 
+
+  
 });
 
 emp_prevBtnThird.addEventListener("click", function() {
@@ -623,17 +632,49 @@ emp_city.oninput=function(){
     }
 };
 var emp_sub_city = document.getElementById('sub_city')
-sub_city.oninput=function(){
-     if((sub_city.value).length >= 3){
-        setSuccessFor(sub_city);
-    }if((sub_city.value).length < 3){
-        setDefaultFor(sub_city,"please enter the valid city")
-    }if((sub_city.value).length > 20){
-        setErorFor(sub_city,"you reach max length")
+emp_sub_city.oninput=function(){
+     if((emp_sub_city.value).length >= 3){
+        setSuccessFor(emp_sub_city);
+    }if((emp_sub_city.value).length < 3){
+        setDefaultFor(emp_sub_city,"please enter the valid city")
+    }if((emp_sub_city.value).length > 20){
+        setErorFor(emp_sub_city,"you reach max length")
     }
 };
 
-emp_addBtn.addEventListener("click", function() {
+// var emp_kebele = document.getElementById('kebele')
+// emp_kebele.oninput=function(){
+//      if((emp_kebele.value).length = 2){
+//         setSuccessFor(emp_kebele);
+//     }if((emp_kebele.value).length >= 3){
+//         setDefaultFor(emp_kebele,"please enter the valid number")
+//     }if((emp_kebele.value).length > 2){
+//         setErorFor(emp_kebele,"you reach max length")
+//     }
+// };
+
+// var emp_phone = document.getElementById('phone1')
+// emp_phone.oninput=function(){
+//      if((emp_phone.value).length >=10 ){
+//         setSuccessFor(emp_phone);
+//     }if((emp_phone.value).length < 10){
+//         setDefaultFor(emp_phone,"please enter the valid number")
+//     }if((emp_phone.value).length >13){
+//         setErorFor(emp_phone,"you reach max length")
+//     }
+// }
+
+// var emp_alt_phone = document.getElementById('phone2')
+// emp_alt_phone.oninput=function(){
+//      if((emp_alt_phone.value).length >=10 ){
+//         setSuccessFor(emp_alt_phone);
+//     }if((emp_alt_phone.value).length < 10){
+//         setDefaultFor(emp_alt_phone,"please enter the valid number")
+//     }if((emp_alt_phone.value).length >13){
+//         setErorFor(emp_alt_phone,"you reach max length")
+//     }
+// }
+addBtn.addEventListener("click", function() {
     var emp_city = document.getElementById('city')
     var emp_sub_city = document.getElementById('sub_city')
     var emp_kebele = document.getElementById('kebele')
@@ -656,8 +697,8 @@ emp_addBtn.addEventListener("click", function() {
         setSuccessFor(emp_sub_city)
     }
 
-    if(emp_kebele.value.trim() === ''){
-        setErorFor(emp_kebele,"employee kebele can not be null")
+    if(emp_kebele.value.trim() === '' ){
+        setDefaultFor(emp_kebele,"employee kebele reach max length")
 
     }else{
         setSuccessFor(emp_kebele)
@@ -684,21 +725,23 @@ emp_addBtn.addEventListener("click", function() {
         setSuccessFor(emp_email)
     }
 
-    if(emp_phone.value.trim() === ''){
-        setErorFor(emp_phone,"employee phone number can not be null")
+    if(emp_phone.value.trim () === ''){
+        setDefaultFor(emp_phone,"employee phone number can not be null")
 
     }else{
         setSuccessFor(emp_phone)
     }
 
-    if(emp_alt_phone.value.trim()=== ''){
-        setErorFor(emp_alt_phone,"employee phone number 2 can not be null")
+    if(emp_alt_phone.value.trim() === ''){
+        setDefaultFor(emp_alt_phone,"employee phone number 2 can not be null")
 
+    }else{
+        setSuccessFor(emp_alt_phone)
     }
 
     if(
-        emp_city.value.trim() === '' ||
-        emp_sub_city.value.trim() === '' ||
+        emp_city.value.length < 3 ||
+        emp_sub_city.value.length < 3 ||
         emp_kebele.value.trim() === '' ||
         emp_house_number.value.trim() === '' ||
         emp_POBox.value.trim() === '' ||
@@ -709,20 +752,37 @@ emp_addBtn.addEventListener("click", function() {
         // setEror()
     }else
     {
+        // alert('bvvvvvvvvvvvvv');
         // onSuccess()
             emp_slidePage.style.marginLeft = "-75%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
             progressCheck[current - 1].classList.add("active");
             current += 1;
-            setTimeout(function() {
-        alert("You're successfully inserted your data");
-        location.reload();
-    }, 800);
+    //         setTimeout(function() {
+    //     alert("You're successfully inserted your data");
+    //     location.reload();
+    // }, 800);
     }
 
 
 });
+
+function alphaOnly(event) {
+  var key = event.keyCode;
+  return ((key >= 65 && key <= 90) || key == 8);
+};
+
+
+// $('.equipCatValidation').on('keydown keyup change', function(e){
+//     if ($(this).val() > 100
+//         && e.keyCode !== 46 // keycode for delete
+//         && e.keyCode !== 8 // keycode for backspace
+//        ) {
+//        e.preventDefault();
+//        $(this).val(100);
+//     }
+// });
 
 
 const teacher = document.getElementById("job_position_selecter");

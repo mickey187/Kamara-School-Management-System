@@ -166,29 +166,6 @@ firstNextBtn.addEventListener("click",function(){
             current += 1;
      }
 })
-function setDefaultFor(input, message) {
-
-    const formControll = input.parentElement;
-    const small = formControll.querySelector('small');
-    small.innerText = message;
-    formControll.className = 'field warning';
-
-}
-
-function setErorFor(input, message) {
-
-    const formControll = input.parentElement;
-    const small = formControll.querySelector('small');
-    small.innerText = message;
-    formControll.className = 'field error';
-
-}
-
-function setSuccessFor(input) {
-    const formControll = input.parentElement;
-    formControll.className = 'field success';
-    // alert('success')
-}
 
 prevBtnSec.addEventListener("click", function() {
     slidePage.style.marginLeft = "0%";
@@ -266,9 +243,9 @@ studTransferReason.oninput=function(){
 
   var studDisability = document.getElementById('studentDisability')
   studDisability.oninput=function(){
-       if((studDisability.value).length >= 3){
+       if((studDisability.value).length >= 2){
         setSuccessFor(studDisability);
-    }if((studDisability.value).length < 3){
+    }if((studDisability.value).length < 2){
         setDefaultFor(studDisability,"please enter the valid disability")
     }if((studDisability.value).length > 20){
         setErorFor(studDisability,"you reach max length")
@@ -288,11 +265,11 @@ studTransferReason.oninput=function(){
 
   var studBloodType = document.getElementById('studentBloodType')
   studBloodType.oninput=function(){
-      if((studBloodType.value).length > 0){
+      if((studBloodType.value).length < 3){
         setSuccessFor(studBloodType);
-    }if((studBloodType.value).length < 3){
+    }if((studBloodType.value).length > 3){
         setDefaultFor(studBloodType,"please enter the valid blood type")
-    }if((studBloodType.value).length > 2){
+    }if((studBloodType.value).length > 3){
         setErorFor(studBloodType,"you reach max length")
     }
   };
@@ -343,7 +320,7 @@ nextBtnSec.addEventListener("click",function(){
         setSuccessFor(studExpelsionStatus)
     }
 
-    if((studSespensionStatus.value).length<3){
+    if((studSespensionStatus.value).length < 3){
         setDefaultFor(studSespensionStatus,"student sespension status can not be min length")
 
     }else{
@@ -378,8 +355,8 @@ nextBtnSec.addEventListener("click",function(){
         setSuccessFor(studMedicalCondition)
     }
 
-    if((studBloodType.value).length<3){
-        setDefaultFor(studBloodType,"student blod typecan not be min length")
+    if((studBloodType.value).length > 3){
+        setDefaultFor(studBloodType,"student blod type can not be maximum length")
 
     }else{
         setSuccessFor(studBloodType)
@@ -399,8 +376,7 @@ nextBtnSec.addEventListener("click",function(){
         (studNativeLanguage.value). length < 3  ||
         (studDisability.value). length < 3  ||
         (studMedicalCondition.value). length < 3  ||
-        (studBloodType.value). length < 3
-        // (studStream.value). length < 3
+        (studBloodType.value).length > 3 
     ){
 
     }
@@ -677,7 +653,29 @@ submitBtn.addEventListener("click", function() {
 
 });
 
+function setDefaultFor(input, message) {              
 
+    const formControll = input.parentElement;
+    const small = formControll.querySelector('small');
+    small.innerText = message;
+    formControll.className = 'field warning';
+     
+}
+
+function setErorFor(input, message) {              
+
+    const formControll = input.parentElement;
+    const small = formControll.querySelector('small');
+    small.innerText = message;
+    formControll.className = 'field error';
+     
+}
+
+function setSuccessFor(input) {
+    const formControll = input.parentElement;
+    formControll.className = 'field success';
+    // alert('success')
+}
 
 function alphaOnly(event) {
   var key = event.keyCode;
