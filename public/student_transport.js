@@ -11,10 +11,11 @@ var stud_id = null;
 var payment_load_id = null;
 var student_table_id = null;
 
-
+$('#outer_card').hide();
 $("#search_transport").click(function () { 
      stud_id = $("#search_input_transport").val();
-     $('#inner_div').empty();
+    
+    // $('#inner_div').empty();
     
 
     $.ajax({
@@ -29,6 +30,16 @@ $("#search_transport").click(function () {
             var data2 = JSON.parse(JSON.stringify(data.payment_load));
             console.log(data1)
             console.log(data2)
+            if (data1.length < 1) {
+             var html_str = '<h5 class="text-danger">STUDENT NOT FOUND!</h5>';
+              $('#inner_div').html(html_str);
+              $('#register_transport').hide();
+              $('#outer_card').show();
+            }
+            else{
+
+            
+            
 
             var insert = '';
             var student_id ='';
@@ -38,36 +49,27 @@ $("#search_transport").click(function () {
                 student_table_id = c.student_table_id;
                 data2.forEach(d=>{
                   payment_load_id = d.payment_load_id;
-                  insert = //'<div class="card" style="width: 28rem;">'+
-                  //'<div class="card-body">'+
+                  insert += 
                   '<h5 class="text-info" id="stud_name">Name: '+c.first_name+' '+c.middle_name+' '+c.last_name+'</h3>'+
                   '<h5 class="text-info" id="stud_name">Class Label: '+c.class_label+'</h3>'+
                   '<h5 class="text-info" id="stud_name">Payment Type: '+d.payment_type+'</h3>'+
                   '<h5 class="text-info" id="stud_name">Amount: '+d.amount+'</h3><br>'
-                  // '<button class="btn btn-sm btn-success" id="register_transport">Register</button>'+  
-                  // '</div>'+
-                  // '</div>'
-                })
-                // insert = '<h3 class="text-info" id="stud_name">'+c.first_name+' '+c.middle_name+' '+c.last_name+'</h3>'+
-                //          '<h5 class="text-info" id="stud_name">'+c.class_label+'</h3>'
+                  
+                });
+               
 
             });
             //$('#card_register').prepend(insert)
+            $('#outer_card').show();
             $('#inner_div').html(insert)
-            data2.forEach(d => {
-
-                
-
-                
-
-                    
-                 
-                 
-           });
-        
+            $('#register_transport').show();
            
+            
+          }
         },
         error:function (data) {
+
+
 
         }
      })

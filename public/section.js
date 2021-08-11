@@ -20,13 +20,16 @@ function fetch(class_id, stream_id) {
             var section = JSON.parse(JSON.stringify(data.sections));
             var status = JSON.parse(JSON.stringify(data.status));
             var data = JSON.parse(JSON.stringify(data.classes));
+            data.forEach(d=> {
+                Object.assign(d,{action:"<input type='checkbox'>"});
+            });
             // Swal.fire(
             //     'Registered Successfully!',
             //   );
-            console.log(status)
+            // console.log(status)
             console.log(data)
             if(status == 'true'){
-
+                $("#sectionningPage").hide();
                 section.forEach(d =>{
                     sec +=  '<label class="PillList-item">'+
                             '<input id="selectedSection" type="checkbox" name="feature" checked disabled value="'+d+'">'+
@@ -35,52 +38,81 @@ function fetch(class_id, stream_id) {
                             '</span>'+
                             '</label>'
                 })
-               // console.log(data);
-                data.forEach(d => {
-                    counter = counter+1;
-                    no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
-                    rows += '<tr>'+
-                            // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
-                            '<td>'+d.student_id+'</td>'+
-                            '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
-                            '<td>'+d.class_label+'</td>'+
-                            '<td>'+d.stream_type+'</td>'+
-                            '<td>'+d.section_name+'</td>'+
-                            '<td>'+
-                            // '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
-                            // 'data-target="#add_discount" data-disount_data="'+student_id+','+d.load_id+','+d.payment_type+','+d.amount+'" >'+
-                            // '<i class="fas fa-percent"></i>'+
-                            // '</button>'+
-                            '</td>'
-                            '</tr>'
-               });
 
-               $('#student_list').html(rows);
-               $('#counter').html(no);
+
+
+                $("#example1").DataTable({
+                    // "processing": true,
+                    // "serverSide": true,
+                    // "ajax":"/finance/showStudentsRegsiteredForTransport",
+                    "destroy":true,
+                    "data":data,
+                    "columns": [
+                        { "data": "student_id" },
+                        { "data": "full_name" },
+                        { "data": "class_label" },
+                        {"data": "stream_type"},
+                        {"data": "section_name"},
+                        {"data": "action"},
+
+                    ],
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "ordering": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
+
+            //    console.log("Incomming: "+section);
+            //     data.forEach(d => {
+            //         counter = counter+1;
+            //         no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
+            //         rows += '<tr>'+
+            //                 // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
+            //                 '<td>'+d.student_id+'</td>'+
+            //                 '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
+            //                 '<td>'+d.class_label+'</td>'+
+            //                 '<td>'+d.stream_type+'</td>'+
+            //                 '<td>'+d.section_name+'</td>'+
+            //                 '<td>'+
+            //                 // '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
+            //                 // 'data-target="#add_discount" data-disount_data="'+student_id+','+d.load_id+','+d.payment_type+','+d.amount+'" >'+
+            //                 // '<i class="fas fa-percent"></i>'+
+            //                 // '</button>'+
+            //                 '</td>'
+            //                 '</tr>'
+            //    });
+
+            //    $('#student_list').html(rows);
+            //    $('#counter').html(no);
                $('#sections').html(sec);
             }else{
-                data.forEach(d => {
-                    counter = counter+1;
-                    no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
-                    rows += '<tr>'+
-                            // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
-                            '<td>'+d.student_id+'</td>'+
-                            '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
-                            '<td>'+d.class_label+'</td>'+
-                            '<td>'+d.stream_type+'</td>'+
-                            '<td>'+d.section_name+'</td>'+
-                            '<td>'+
-                            '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
-                            'data-target="#add_discount" " >'+
-                            '<i class="fas fa-percent"></i>'+
-                            '</button>'+
-                            '</td>'
-                            '</tr>'
-               });
+                $("#sectionningPage").show();
 
-               $('#student_list').html(rows);
-               $('#counter').html(no);
-               $('#sections').html(sec);
+
+                $("#example1").DataTable({
+                    // "processing": true,
+                    // "serverSide": true,
+                    // "ajax":"/finance/showStudentsRegsiteredForTransport",
+                    "destroy":true,
+                    "data":data,
+                    "columns": [
+                        { "data": "student_id" },
+                        { "data": "full_name" },
+                        { "data": "class_label" },
+                        {"data": "stream_type"},
+                        {"data": "section_name"},
+                        {"data": "action"},
+
+                    ],
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "ordering": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
+               $('#sections').html("Section Not Set For Selected Student!");
+            //    $('#sections').html(sec);
             }
 
         },
@@ -106,7 +138,7 @@ $("#singleClassId").change(function () {
             var count = 0;
             data.forEach(d => {
                 splitterStream = d.split("-");
-                
+
                 //console.log(d);
                 rows += '<label class="PillList-item">'+
                         '<input id="selectedSection" type="checkbox" name="feature" value="'+d+'">'+
@@ -137,7 +169,7 @@ $("#assignTeacherToClsss").click(function () {
     var assignSubject = $("#selectedSubject").val();
     var teacher_id = (document.getElementById('teacher_id').textContent).trim();
 
-   // alert("Teacher ID:"+teacher_id+' '+"section:"+section+" Grade ID:"+assignClass+" Subjects ID:"+assignSubject);
+    alert("Teacher ID:"+teacher_id+' '+"section:"+section+" Grade ID:"+assignClass+" Subjects ID:"+assignSubject);
 
     $.ajax({
         type: 'GET',
@@ -198,3 +230,100 @@ $("#singleClassId2").change(function () {
         }
      });
 });
+
+
+$("#section_type").change(function(){
+    class_name = $("#class").val();
+    stream_name = $("#stream").val();
+    alert(class_name+" - "+stream_name);
+});
+$("#setSection").click(function(){
+    class_name = $("#class").val();
+    stream_name = $("#stream").val();
+    section = $("#section_type").val();
+    room = $("#room_size").val();
+    alert(class_name+" - "+stream_name+" - "+section+" - "+room);
+$.ajax({
+    type: "GET",
+    url: "setSection/"+class_name+"/"+stream_name+"/"+section+"/"+room,
+    dataType: "JSON",
+    success: function (response) {
+        // alert(response);
+        swal.fire("Sectioning Complited","success");
+        var section = JSON.parse(JSON.stringify(response.sections));
+        var status = JSON.parse(JSON.stringify(response.status));
+        var data = JSON.parse(JSON.stringify(response.classes));
+        swapClass(section,status,data);
+    }
+});
+})
+
+function swapClass(section,status,data){
+    var rows = '';
+    var sec = '';
+    var counter = 0;
+
+    // Swal.fire(
+    //     'Registered Successfully!',
+    //   );
+    console.log(status)
+    console.log(data)
+    if(status == 'true'){
+        section.forEach(d =>{
+            sec +=  '<label class="PillList-item">'+
+                    '<input id="selectedSection" type="checkbox" name="feature" checked disabled value="'+d+'">'+
+                    '<span class="PillList-label" > Section '+d+
+                    '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>'+
+                    '</span>'+
+                    '</label>'
+        })
+    //    console.log("Incomming: "+section);
+        data.forEach(d => {
+            counter = counter+1;
+            no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
+            rows += '<tr>'+
+                    // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
+                    '<td>'+d.student_id+'</td>'+
+                    '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
+                    '<td>'+d.class_label+'</td>'+
+                    '<td>'+d.stream_type+'</td>'+
+                    '<td>'+d.section_name+'</td>'+
+                    '<td>'+
+                    // '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
+                    // 'data-target="#add_discount" data-disount_data="'+student_id+','+d.load_id+','+d.payment_type+','+d.amount+'" >'+
+                    // '<i class="fas fa-percent"></i>'+
+                    // '</button>'+
+                    '</td>'
+                    '</tr>'
+       });
+
+       $('#student_list').html(rows);
+       $('#counter').html(no);
+       $('#sections').html(sec);
+    }else{
+        data.forEach(d => {
+            counter = counter+1;
+            no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
+            rows += '<tr>'+
+                    // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
+                    '<td>'+d.student_id+'</td>'+
+                    '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
+                    '<td>'+d.class_label+'</td>'+
+                    '<td>'+d.stream_type+'</td>'+
+                    '<td>'+d.section_name+'</td>'+
+                    '<td>'+
+                    '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
+                    'data-target="#add_discount" " >'+
+                    '<i class="fas fa-percent"></i>'+
+                    '</button>'+
+                    '</td>'
+                    '</tr>'
+       });
+
+       $('#student_list').html(rows);
+       $('#counter').html(no);
+       $('#sections').html("Section Not Set For Selected Student!");
+    //    $('#sections').html(sec);
+    }
+
+}

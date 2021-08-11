@@ -48,7 +48,19 @@
                                                 {{ $row->gender }},
                                                 {{ $img }},
                                                 {{ $row->student_id }},
-                                                {{ $row->class_label }}
+                                                {{ $row->class_label }},
+                                                {{ $row->disablity }},
+                                                {{ $row->medical_condtion }},
+                                                {{ $row->blood_type }},
+                                                {{ $row->transfer_reason }},
+                                                {{ $row->suspension_status }},
+                                                {{ $row->expulsion_status }},
+                                                {{ $row->previous_special_education }},
+                                                {{ $row->citizenship }},
+                                                {{ $row->previous_school }},
+                                                {{ $row->native_tongue }},
+                                                {{ $row->birth_year }}
+
                                                 {{-- {{ $row->emergency_contact_priority }} --}}
                                     ">
                                     <i class="fa fa-eye "></i></a>
@@ -66,30 +78,171 @@
 
 
 <div class="modal fade card-outline " id="modal-student">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
-        <div class="card-header  bg-primary">
-            <h3 class="card-title">Student Registration</h3>
+        <div class="card-header ">
+            <h3 class="card-title" id="full_name"> Student Details</h3>
           </div>
         <div class="modal-body">
+                    <div class="container">
+                        <div class="main-body">
+                              <div class="row gutters-sm">
+                                <div class="col-md-4 mb-3">
+                                  <div class="card">
+                                    <div class="card-body">
+                                      <div class="d-flex flex-column align-items-center text-center">
+                                        <img class="rounded-circle" width="150" id="image" alt="User profile picture">
+                                        {{-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"> --}}
+                                        <div class="mt-3">
+                                          <h4 id="full_name"></h4>
+                                          <p class="text-secondary mb-1" id="gender"></p>
+                                          <p class="text-muted font-size-sm" id="grade"></p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                  <div class="card mb-3">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Full Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="full_name"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Student ID</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                        <h6 id="stID"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Grade</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="grade"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Birth Year</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="birth_year"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Citizenship</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="citizen"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Language</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="language"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Previous School</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="prev_school"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Education History</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="edu_history"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Expelsion Status</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="expulsion_status"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Suspension Status</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="suspension_status"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Transfer Reason</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="transfer_reason"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Disablity</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="disablity"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Medical Condtion</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="medical_condtion"></h6>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Blood Type</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <h6 id="blood_type"></h6>
+                                        </div>
+                                      </div>
+                                      {{-- <hr>
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <button class="btn btn-info " href="#">Edit</button>
+                                        </div>
+                                      </div> --}}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
 
-                <div class="text-center">
-                    <img class="profile-user-img img-fluid " id="image" alt="User profile picture">
-                  </div>
-                  <h3 class="profile-username text-center" id="full_name"></h3>
-                  <p class="text-muted text-center" id="gender"></p>
-                    <ul class="list-group list-group-unbordered mb-3">
-                            <li class="">
-                            <b>ID</b> <p id="stID" class="">Not Set</p>
-                            </li>
-                            <li class="">
-                            <b>Grade</b> <p id="grade">
-                            </li>
-                            <li class="">
-                            <b>Section</b> <a class="text-center">Not Set</a>
-                            </li>
-                    </ul>
-
+                            </div>
+                        </div>
         </div>
         <div class="modal-footer">
 
@@ -104,7 +257,7 @@
     <!-- /.modal-dialog -->
     <div class="modal_delete">
         <div class="modal fade" id="modal_default">
-          <div class="modal-dialog">
+          <div class="modal-dialog ">
             <div class="modal-content">
               <div class="modal-header">
                 <h4 class="modal-title">Delete Subject</h4>

@@ -82,10 +82,10 @@ $('#make_payment').on('show.bs.modal', function (event) {
         data1.forEach(payment_load =>{
 
           if (payment_load.amount != 0) {
-            rows2 += '<h5 class ="text-success">'+payment_load.payment_type+': '+payment_load.amount+' Birr</h3>';
+            rows2 += '<h5 class ="text-success ml-3">'+payment_load.payment_type+': '+payment_load.amount+' Birr</h3>';
             $('#individual_load').html(rows2);
           } else if(payment_load.amount == 0){
-            rows2 += '<h5 class ="text-success">'+payment_load.payment_type+': Already Paid</h3>';
+            rows2 += '<h5 class ="text-success ml-3">'+payment_load.payment_type+': Already Paid</h3>';
           }
 
           
@@ -97,7 +97,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
         
         var data2 = JSON.parse(JSON.stringify(data.total_load));
             
-              rows = '<h3 class ="text-success">Total: '+data2+' Birr</h3>';
+              rows = '<h3 class ="text-success ml-3">Total: '+data2+' Birr</h3>';
             
        
         
@@ -186,6 +186,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
         var data3 = JSON.parse(JSON.stringify(data.compared));
         var data4 = JSON.parse(JSON.stringify(data.student_missing_payment_coll));
         var data5 = JSON.parse(JSON.stringify(data.sliced));
+        console.log(data1);
        // datax = JSON.parse(JSON.stringify(data5));
          var rows = '';
          var counter = 0;
@@ -199,50 +200,55 @@ $('#make_payment').on('show.bs.modal', function (event) {
              split = str.split('-');
              switch (split[1]) {
                case '01':
-                split[1] = 'January';
+                split[1] = 'መስከረም';
                  
                  break;
                  case '02':
-                   split[1] = 'February';
+                   split[1] = 'ጥቅምት';
                    break;
 
                  case '03':
-                  split[1] = 'March';
+                  split[1] = 'ህዳር';
                    break;
 
                    case '04':
-                    split[1] = 'April';
+                    split[1] = 'ታህሳስ';
                     break;
 
                     case '05':
-                      split[1] = 'May';
+                      split[1] = 'ጥር';
                    break;
 
                    case '06':
-                    split[1] = 'June';
+                    split[1] = 'የካቲት';
                    break;
 
                    case '07':
-                    split[1] = 'July';
+                    split[1] = 'መጋቢት';
                    break;
                    case '08':
-                    split[1] = 'August';
+                    split[1] =  'ሚያዚያ';
+                    
                    break;
 
                    case '09':
-                    split[1] = 'September';
+                    split[1] = 'ግንቦት';
                    break;
 
                    case '10':
-                    split[1] = 'October';
+                    split[1] = 'ሰኔ';
                    break;
 
                    case '11':
-                    split[1] = 'November';
+                    split[1] = 'ሃምሌ';
                    break;
 
                    case '12':
-                    split[1] = 'December';
+                    split[1] = 'ነሃሴ';
+                   break;
+
+                   case '13':
+                    split[1] = 'ጷግሜ';
                    break;
 
              
@@ -278,50 +284,54 @@ $('#make_payment').on('show.bs.modal', function (event) {
              split = str.split('-');
              switch (split[1]) {
                case '01':
-                split[1] = 'January';
+                split[1] = 'መስከረም';
                  
                  break;
                  case '02':
-                   split[1] = 'February';
+                   split[1] = 'ጥቅምት';
                    break;
 
                  case '03':
-                  split[1] = 'March';
+                  split[1] = 'ህዳር';
                    break;
 
                    case '04':
-                    split[1] = 'April';
+                    split[1] = 'ታህሳስ';
                     break;
 
                     case '05':
-                      split[1] = 'May';
+                      split[1] = 'ጥር';
                    break;
 
                    case '06':
-                    split[1] = 'June';
+                    split[1] = 'የካቲት';
                    break;
 
                    case '07':
-                    split[1] = 'July';
+                    split[1] = 'መጋቢት';
                    break;
                    case '08':
-                    split[1] = 'August';
+                    split[1] = 'ሚያዚያ';
                    break;
 
                    case '09':
-                    split[1] = 'September';
+                    split[1] = 'ግንቦት';
                    break;
 
                    case '10':
-                    split[1] = 'October';
+                    split[1] = 'ሰኔ';
                    break;
 
                    case '11':
-                    split[1] = 'November';
+                    split[1] = 'ሃምሌ';
                    break;
 
                    case '12':
-                    split[1] = 'December';
+                    split[1] = 'ነሃሴ';
+                   break;
+
+                   case '13':
+                    split[1] = 'ጷግሜ';
                    break;
 
              
@@ -340,6 +350,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
                        '<td>'+d.first_name +' '+ d.middle_name +' '+ d.last_name +'</td>'+
                        '<td>'+d.payment_type +'</td>'+
                        '<td>'+d.amount_payed +'</td>'+
+                       '<td>'+d.fs_number +'</td>'+
                        '<td>'+d.payment_month +'</td>'+
                        '</tr>'
                        
@@ -357,11 +368,12 @@ $('#make_payment').on('show.bs.modal', function (event) {
 
 
   $('#pay_total').click(function () { 
-    var month = $('#select_month').val();
+    var month = $('#year_month').val();
+    var fs_number = $('#fs_number_input').val();
     
     $.ajax({
       type: 'GET',
-      url: 'makeTotalPayment/'+student_id_for_payment+'/'+month,
+      url: 'makeTotalPayment/'+student_id_for_payment+'/'+month+'/'+fs_number,
       data: {'detail':send_pay_total_detail},
       dataType:'json',
       cache: false,
@@ -398,27 +410,19 @@ $('#make_payment').on('show.bs.modal', function (event) {
           });
         }
        
-        
-        // Swal.fire(
-        //   'Payed Successfully!',
-          
-        // );
-        
-        
-        //$('#view_payment_history').modal('show')
-       // location.reload();
-       
-        
-      }
+     }
     });
      
    });
 
    $('#submit_payment').click(function () { 
-    var month = $('#select_month').val();
+     
+    var month = $('#year_month').val();
+    var fs_number = $('#fs_number_input').val();
+    
     $.ajax({
       type: 'GET',
-      url: 'makeIndividualPayment/'+student_id_for_payment+'/'+month,
+      url: 'makeIndividualPayment/'+student_id_for_payment+'/'+month+'/'+fs_number,
       data: {'detail':send_pay_for_individual_detail},
       dataType:'json',
       cache: false,
@@ -468,3 +472,183 @@ $('#make_payment').on('show.bs.modal', function (event) {
       }
     });
   });
+
+  //ethio date picker
+
+  // $('#month1').click(function () { 
+    
+  //   $('#month_year').prepend($('#month1').text()+", ");
+    
+  // });
+
+$('#ehtio_month_picker').hide();
+$('#calendar').click(function(){
+
+  if ($('#ehtio_month_picker').is(":visible")) {
+    $('#ehtio_month_picker').hide();
+  }
+  else{$('#ehtio_month_picker').show();
+}
+  
+});
+
+$('.btn').click(function(){
+
+  
+  var month_id = $(this).attr("id");
+  var year_month = null;
+  switch (month_id) {
+    case 'month1':
+      
+      
+      $('#month').text($(this).text());
+      year_month = $('#year').text()+"-"+$(this).val();
+      //$('#year_month').val($('#year').text()+"-"+$(this).val());
+      $('#year_month').val(year_month);
+
+      break;
+    
+      case 'month2':
+        
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+        break;
+
+      case 'month2':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month3':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month4':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month5':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month6':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month7':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month8':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month9':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month10':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+  
+      case 'month11':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month12':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'month13':
+      
+        $('#month').text($(this).text());
+        $('#year_month').val($('#year').text()+"-"+$(this).val());
+      break;
+
+      case 'next_year':
+      
+        var next_year = parseInt($('#year').text()) + 1;
+        var current_year = $('#year_month').val().slice(4);
+        var concatenated = next_year + current_year;
+        
+        $('#year_month').val(concatenated);
+
+        
+        $('#year').text(next_year.toString());
+       // $('#year').text($(this).text());
+      break;
+
+      case 'last_year':
+      
+        var next_year = parseInt($('#year').text()) - 1;
+        var current_year = $('#year_month').val().slice(4);
+        var concatenated = next_year + current_year;
+        
+        $('#year_month').val(concatenated);
+        
+        $('#year').text(next_year.toString());
+      break;
+
+    default:
+      break;
+  }
+});
+
+$('#fs_number_input').focusout(function(){
+  var fs_number = $('#fs_number_input').val();
+checkFsNumberExists(fs_number);
+});
+
+function checkFsNumberExists(fs_number){
+
+  $.ajax({
+    type: "GET",
+    url: "/finance/checkFsNumberExists/"+fs_number,
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+      if (data == "already exists") {
+        $('#validation_message_for_fs_num_input').removeAttr("class");
+        $('#validation_message_for_fs_num_input').addClass("text-danger ");
+        $('#fs_number_input').removeClass("border border-success");
+        $('#fs_number_input').addClass("border border-danger");
+     
+        
+        $('#validation_message_for_fs_num_input').text("fs number already exists");
+        //alert("fs number already exists");
+      }
+      else if (data == "good") {
+        $('#validation_message_for_fs_num_input').removeAttr("class");
+        $('#validation_message_for_fs_num_input').addClass("text-success");
+        $('#fs_number_input').removeClass("border border-danger");
+        $('#fs_number_input').addClass("border border-success");
+        $('#validation_message_for_fs_num_input').text("you are good to go");
+        //alert("you are good to go");
+      }
+      
+      
+    }
+  });
+}
+

@@ -7,11 +7,11 @@
 @endforeach --}}
 
 <div class="row card  d-flex justify-content-center  ">
-    <div class="card-header bg-orange "><label class="text-white text-lg" id="teacherDashboardTitle">Dashboard</label> <div id="generator" class="float-right"></div></div>
+    <div class="card-header bg-orange "><label class="text-white text-lg" id="teacherDashboardTitle">Dashboard</label> <div id="generator" class="float-right"><form action="generatedox" method="GET">@csrf <input class="btn btn-primary btn-sm" value="WORD" type="submit" id="wordgenerator1"></form></div></div>
 <div class="d-flex justify-content-center ">
 <div class="col-12 row " id="dashboard">
     <div class="col-lg-3" style="margin-top: 20px;">
-        <a style="cursor: pointer;" onclick="getHomeRoom1();">
+        <a  style="cursor: pointer;" onclick="getHomeRoom1();">
             <div class="small-box bg-primary">
                 <div class="inner p-3">
                   <p>My Students</p><br>
@@ -19,9 +19,8 @@
                 <div class="icon"><br>
                   <i class="fas fa-users"></i>
                 </div>
-                <a  class="small-box-footer"
-                       >More info
-                        <i class="fas fa-arrow-circle-right"></i></a>
+                <a  class="small-box-footer">More info
+                    <i class="fas fa-arrow-circle-right"></i></a>
               </div>
         </a>
     </div>
@@ -70,6 +69,7 @@
 </div>
 </div>
 
+
 <!-- /.modal-dialog -->
 <div class="modal_class">
     <div class="modal fade" id="modal-dashboard">
@@ -87,8 +87,85 @@
                     <div class="row col-lg-12 text-center" id="classes">
 
                     </div>
+                    <div class="container">
+                        <div class="main-body">
+                              <div class="row gutters-sm">
+                                <div class="col-md-4 mb-3">
+                                  <div class="card">
+                                    <div class="card-body">
+                                      <div class="d-flex flex-column align-items-center text-center">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                                        <div class="mt-3">
+                                          <h4>{{ $employee->first_name.' '.$employee->middle_name.' '.$employee->last_name }}</h4>
+                                          <p class="text-secondary mb-1">{{ $employee->gender }}</p>
+                                          <p class="text-muted font-size-sm"> City: {{ $employee->city }},{{ $employee->subcity }}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                  <div class="card mb-3">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Full Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ $employee->first_name.' '.$employee->middle_name.' '.$employee->last_name }}
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Email</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                          {{ $employee->email }}
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Phone</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                          {{ $employee->phone_number }}
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">Mobile</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                          {{ $employee->alternative_phone_number }}
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <h6 class="mb-0">POBox</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                          {{ $employee->p_o_box }}
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <button class="btn btn-info " href="#">Edit</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                        </div>
                     {{-- </section> --}}
-                    <br><br>
+
                     <div class="modal-footer justify-content-between">
                     </div>
                 </div>
@@ -99,7 +176,7 @@
 
 
 <div class="modal fade" id="modal-editMark" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <div id="title">Edit Mark List</div>
@@ -141,7 +218,7 @@
 <!-- /.modal-dialog -->
 <div class="modal_class">
     <div class="modal fade" id="modal-addMarkList">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content ">
                 <div class="modal-header">
                     <h4 class="modal-title" id="title">Add Mark List</h4>
@@ -188,7 +265,7 @@
 <!-- /.modal-dialog-Generate Excel File -->
 <div class="modal_class">
     <div class="modal fade" id="modal-generate-excel">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content ">
                 <div class="modal-header">
                     <h4 class="modal-title" id="title">Excel File Generator</h4>
@@ -226,7 +303,7 @@
 {{-- import Excel file modal--}}
 <div class="modal_class">
     <div class="modal fade" id="modal-import-excel">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content ">
                 <div class="modal-header">
                     <h4 class="modal-title" id="title">Import Excel</h4>
@@ -259,7 +336,7 @@
 {{-- Promote Student Modal --}}
 <div class="modal_class">
     <div class="modal fade" id="modal-promote-student">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content ">
                 <div class="modal-header">
                     <h4 class="modal-title" id="title">Promote Students</h4>
@@ -281,4 +358,43 @@
         </div>
     </div>
 </div>
+
+{{-- Generate Card For Students --}}
+
+<div class="modal_class">
+    <div class="modal fade" id="modal-generate-card">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title">Generate Excel File</h4>
+                    <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row col-12 form-group">
+                        <div class="col-12">
+                        </div>
+                    </div>
+                    <center><form action="generateStudentCard" method="GET">
+                        @csrf
+                        <input hidden class="form-control" type="text" name="data" id="class_id">
+                        <select class="form-control col-6 m-3" type="text" name="get_term">
+                            @foreach ($semister as $sem)
+                            <option value="{{ $sem->id }}">Semister {{ $sem->semister }} {{ $sem->term }}</option>
+                            @endforeach
+                            <option value="All">One Year</option>
+                        </select>
+                        <input name="generate_one_year_card" class="btn btn-primary  col-6" type="submit" value="Generate Card">
+
+                    </form></center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

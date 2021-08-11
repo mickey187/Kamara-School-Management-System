@@ -127,7 +127,7 @@
                                         <option>2013</option>
                                     </select><br>
                                     <div id="register1" hidden><p id="id"></p></div>
-                                    <button onclick="register(this);" type="button" class="col-6 btn btn-primary"  value="" data-dismiss="modal">Register</button>
+                                    <button onclick="register(this);" type="button" class="col-6 btn btn-primary"  value="bn" data-dismiss="modal">Register</button>
                         </div>
                         <div class="modal-footer">
 

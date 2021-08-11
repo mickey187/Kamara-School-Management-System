@@ -2,16 +2,16 @@
 
 
 
-const slidePage = document.querySelector(".slidePage");
-const firstNextBtn = document.querySelector(".Emp_nextBtn");
-const prevBtnSec = document.querySelector(".Emp_prev-1");
-const nextBtnSec = document.querySelector(".Emp_next-1");
-const prevBtnThird = document.querySelector(".Emp_prev-2");
-const nextBtnThird = document.querySelector(".Emp_next-2");
-const prevBtnFourth = document.querySelector(".Emp_prev-3");
-const addBtn = document.querySelector(".submitBtn");
+const emp_slidePage = document.querySelector(".slidePage");
+const emp_firstNextBtn = document.querySelector(".Emp_nextBtn");
+const emp_prevBtnSec = document.querySelector(".Emp_prev-1");
+const emp_nextBtnSec = document.querySelector(".Emp_next-1");
+const emp_prevBtnThird = document.querySelector(".Emp_prev-2");
+const emp_nextBtnThird = document.querySelector(".Emp_next-2");
+const emp_prevBtnFourth = document.querySelector(".Emp_prev-3");
+const emp_addBtn = document.querySelector(".submitBtn");
 
- var emp_first_name = document.getElementById('first_name')
+ var emp_first_name = document.getElementById('emp_first_name')
  emp_first_name.oninput=function(){
      if ((emp_first_name.value).length >= 3){
             setSuccessFor(emp_first_name);
@@ -22,18 +22,18 @@ const addBtn = document.querySelector(".submitBtn");
         }
  };
 
- var emp_middle_name = document.getElementById('middle_name')
+ var emp_middle_name = document.getElementById('emp_middle_name')
 emp_middle_name.oninput=function(){
     if ((emp_middle_name.value).length >= 3){
             setSuccessFor(emp_middle_name);
         }if((emp_middle_name.value).length < 3){
-            setDefaultFor(emp_middle_name,"please stop messing arround enter only valid input");   
+            setDefaultFor(emp_middle_name,"please stop messing arround enter only valid input");
         }if((emp_middle_name.value).length > 20  ){
             setErorFor(emp_middle_name,"you reach maximum length");
         }
 };
 
-var emp_last_name = document.getElementById('last_name')
+var emp_last_name = document.getElementById('emp_last_name')
 emp_last_name.oninput=function(){
         if((emp_last_name.value).length>= 3){
         setSuccessFor(emp_last_name);
@@ -43,7 +43,7 @@ emp_last_name.oninput=function(){
         setErorFor(emp_last_name,"you reach the max length")
     }
 };
-var emp_birth_date = document.getElementById('birth_date')
+var emp_birth_date = document.getElementById('emp_birth_date')
 emp_birth_date.oninput=function(){
      if((emp_birth_date.value).length >=3){
         setSuccessFor(emp_birth_date);
@@ -54,7 +54,8 @@ emp_birth_date.oninput=function(){
     }
 };
 
-var emp_citizen = document.getElementById('citizen')
+var emp_citizen = document.getElementById('emp_citizen')
+
 emp_citizen.oninput=function(){
     if((emp_citizen.value).length >= 3){
         setSuccessFor(emp_citizen);
@@ -65,7 +66,7 @@ emp_citizen.oninput=function(){
     }
 };
 
-var emp_education_status = document.getElementById('education_status')
+var emp_education_status = document.getElementById('emp_education_status')
 emp_education_status.oninput=function(){
          if((emp_education_status.value).length >= 3){
         setSuccessFor(emp_education_status);
@@ -87,90 +88,80 @@ emp_hired_date.oninput=function(){
     }
 };
 
-firstNextBtn.addEventListener("click", function(){
-    var emp_first_name = document.getElementById('first_name')
-    var emp_middle_name = document.getElementById('middle_name')
-    var emp_last_name = document.getElementById('last_name')
-    var emp_birth_date = document.getElementById('birth_date')
-    var emp_gender = document.getElementById('gender')
+emp_firstNextBtn.addEventListener("click", function(){
+    var emp_first_name = document.getElementById('emp_first_name')
+    var emp_middle_name = document.getElementById('emp_middle_name')
+    var emp_last_name = document.getElementById('emp_last_name')
+    var emp_birth_date = document.getElementById('emp_birth_date')
+    var emp_gender = document.getElementById('emp_gender')
     var emp_marriage_status = document.getElementById('marriage_status')
-    var emp_citizen = document.getElementById('citizen')
+    var emp_citizen = document.getElementById('emp_citizen')
     var emp_education_status = document.getElementById('education_status')
     var emp_hired_date = document.getElementById('hired_date')
 
-    if(emp_first_name.value.length<3 ){
-        setDefaultFor(emp_first_name,"First name can not be min length")
-    }else{
-        setSuccessFor(emp_first_name)
-    }
+    // if(emp_first_name.value.length<3 ){
+    //     setDefaultFor(emp_first_name,"First name can not be min length")
+    // }else{
+    //     setSuccessFor(emp_first_name)
+    // }
 
-       if(emp_middle_name.value.length<3){
-        setDefaultFor(emp_middle_name,"Middle name can not be min length")
-    }else{
-        setSuccessFor(emp_middle_name)
-    }
+    //    if(emp_middle_name.value.length<3){
+    //     setDefaultFor(emp_middle_name,"Middle name can not be min length")
+    // }else{
+    //     setSuccessFor(emp_middle_name)
+    // }
 
-         if(emp_last_name.value.length<3){
-        setDefaultFor(emp_last_name,"Last name can not be min length")
-    }else{
-        setSuccessFor(emp_last_name)
-    }
+    //      if(emp_last_name.value.length<3){
+    //     setDefaultFor(emp_last_name,"Last name can not be min length")
+    // }else{
+    //     setSuccessFor(emp_last_name)
+    // }
 
-       if(emp_birth_date.value.length<3){
-        setDefaultFor(emp_birth_date,"Birth date can not be min length")
-    }else{
-        setSuccessFor(emp_birth_date)
-    }
+    //    if(emp_birth_date.value.length<3){
+    //     setDefaultFor(emp_birth_date,"Birth date can not be min length")
+    // }else{
+    //     setSuccessFor(emp_birth_date)
+    // }
 
-      if(emp_gender.value.length<3){
-        setDefaultFor(emp_gender,"Gender can not be min length")
-    }else{
-        setSuccessFor(emp_gender)
-    }
+    //   if(emp_gender.value.length<3){
+    //     setDefaultFor(emp_gender,"Gender can not be min length")
+    // }else{
+    //     setSuccessFor(emp_gender)
+    // }
 
-     if(emp_marriage_status.value.length<3){
-        setDefaultFor(emp_marriage_status,"Marriage status can not be min length")
-    }else{
-        setSuccessFor(emp_marriage_status)
-    }
+    //  if(emp_marriage_status.value.length<3){
+    //     setDefaultFor(emp_marriage_status,"Marriage status can not be min length")
+    // }else{
+    //     setSuccessFor(emp_marriage_status)
+    // }
 
-     if(emp_citizen.value.length<3){
-        setDefaultFor(emp_citizen,"Citizenship can not be min length")
-    }else{
-        setSuccessFor(emp_citizen)
-    }
+    //  if(emp_citizen.value.length<3){
+    //     setDefaultFor(emp_citizen,"Citizenship can not be min length")
+    // }else{
+    //     setSuccessFor(emp_citizen)
+    // }
 
-    if(emp_education_status.value.length<3){
-        setDefaultFor(emp_education_status,"Education status can not be min length")
-    }else{
-        setSuccessFor(emp_education_status)
-    }
+    // if(emp_education_status.value.length<3){
+    //     setDefaultFor(emp_education_status,"Education status can not be min length")
+    // }else{
+    //     setSuccessFor(emp_education_status)
+    // }
 
-    if(emp_hired_date.value.length<3){
-        setDefaultFor(emp_hired_date,"Hired date can not be min length")
-    }else{
-        setSuccessFor(emp_hired_date)
-    }
+    // if(emp_hired_date.value.length<3){
+    //     setDefaultFor(emp_hired_date,"Hired date can not be min length")
+    // }else{
+    //     setSuccessFor(emp_hired_date)
+    // }
 
 
-    if(
-        emp_first_name.value.length < 3 ||
-        emp_middle_name.length < 3 ||
-        emp_last_name.value.length < 3 ||
-        emp_birth_date.length < 3 ||
-        emp_gender.value.trim() === '' ||
-        emp_marriage_status.length <3  ||
-        emp_citizen.value.length < 3 ||
-        emp_education_status.value.length <3 ||
-        emp_hired_date.value.length < 3
-        ){
+    if(false){
             // setErorFor(emp_first_name,"First Name is not")
             // setErorFor(emp_middle_name,"Middle Name is Not Found")
             // setErorFor(emp_last_name,"Last Name is Not Found")
         //setEror()
     }else{
 
-         slidePage.style.marginLeft = "-25%";
+         emp_slidePage.style.marginLeft = "-25%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
             progressCheck[current - 1].classList.add("active");
@@ -179,13 +170,13 @@ firstNextBtn.addEventListener("click", function(){
     }
 })
 
-function setDefaultFor(input, message) {              
+function setDefaultFor(input, message) {
 
     const formControll = input.parentElement;
     const small = formControll.querySelector('small');
     small.innerText = message;
     formControll.className = 'field warning';
-     
+
 }
 
 function setErorFor(input, message) {
@@ -200,8 +191,8 @@ function setSuccessFor(input) {
     formControll.className = 'field success';
 }
 
-prevBtnSec.addEventListener("click", function() {
-    slidePage.style.marginLeft = "0%";
+emp_prevBtnSec.addEventListener("click", function() {
+    emp_slidePage.style.marginLeft = "0%";
     bullet[current - 2].classList.remove("active");
     progressText[current - 2].classList.remove("active");
     progressCheck[current - 2].classList.remove("active");
@@ -213,7 +204,7 @@ emp_job_trainning.oninput=function(){
     if ((emp_job_trainning.value).length >= 3){
             setSuccessFor(emp_job_trainning);
         }if((emp_job_trainning.value).length < 3){
-            setDefaultFor(emp_job_trainning,"please stop messing arround enter only valid input");   
+            setDefaultFor(emp_job_trainning,"please stop messing arround enter only valid input");
         }if((emp_job_trainning.value).length > 20  ){
             setErorFor(emp_job_trainning,"you reach maximum length");
         }
@@ -223,7 +214,7 @@ emp_previous_employment.oninput=function(){
     if ((emp_previous_employment.value).length >= 3){
             setSuccessFor(emp_previous_employment);
         }if((emp_previous_employment.value).length < 3){
-            setDefaultFor(emp_previous_employment,"please stop messing arround enter only valid input");   
+            setDefaultFor(emp_previous_employment,"please stop messing arround enter only valid input");
         }if((emp_previous_employment.value).length > 20  ){
             setErorFor(emp_previous_employment,"you reach maximum length");
         }
@@ -233,7 +224,7 @@ emp_previous_employment.oninput=function(){
      if ((emp_special_skill.value).length >= 3){
             setSuccessFor(emp_special_skill);
         }if((emp_special_skill.value).length < 3){
-            setDefaultFor(emp_special_skill,"please stop messing arround enter only valid input");   
+            setDefaultFor(emp_special_skill,"please stop messing arround enter only valid input");
         }if((emp_special_skill.value).length > 20  ){
             setErorFor(emp_special_skill,"you reach maximum length");
         }
@@ -288,7 +279,7 @@ emp_previous_employment.oninput=function(){
      if ((emp_relation.value).length >= 3){
             setSuccessFor(emp_relation);
         }if((emp_relation.value).length < 3){
-            setDefaultFor(emp_relation,"please stop messing arround enter only valid input");   
+            setDefaultFor(emp_relation,"please stop messing arround enter only valid input");
         }if((emp_relation.value).length > 20  ){
             setErorFor(emp_relation,"you reach maximum length");
         }
@@ -304,7 +295,7 @@ emp_past_job_position.oninput=function(){
             setErorFor(emp_past_job_position,"you reach maximum length");
         }
 };
-nextBtnSec.addEventListener("click", function() {
+emp_nextBtnSec.addEventListener("click", function() {
         var emp_job_trainning = document.getElementById('job_trainning')
         var emp_previous_employment = document.getElementById('previous_employment')
         var emp_special_skill = document.getElementById('special_skill')
@@ -383,7 +374,7 @@ nextBtnSec.addEventListener("click", function() {
                 // setEror()
         }else
         {
-            slidePage.style.marginLeft = "-50%";
+            emp_slidePage.style.marginLeft = "-50%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
             progressCheck[current - 1].classList.add("active");
@@ -392,7 +383,7 @@ nextBtnSec.addEventListener("click", function() {
         }
 
 
-    
+
 });
 var emp_past_employment_place = document.getElementById('past_employment_place')
 emp_past_employment_place.oninput=function(){
@@ -490,7 +481,7 @@ emp_past_employment_place.oninput=function(){
     }
     };
 
-nextBtnThird.addEventListener("click", function() {
+emp_nextBtnThird.addEventListener("click", function() {
     var emp_past_employment_place = document.getElementById('past_employment_place')
     var emp_role = document.getElementById('role_selecter')
     var emp_job_position = document.getElementById('job_position_selecter')
@@ -504,7 +495,7 @@ nextBtnThird.addEventListener("click", function() {
 
     if(emp_job_position.value.trim()=== '2'){
 
-       
+
     if( emp_past_employment_place.value.length < 3){
         setDefaultFor( emp_past_employment_place,"employee role can not be min length")
     }else{
@@ -615,15 +606,15 @@ nextBtnThird.addEventListener("click", function() {
   
 });
 
-prevBtnThird.addEventListener("click", function() {
-    slidePage.style.marginLeft = "-25%";
+emp_prevBtnThird.addEventListener("click", function() {
+    emp_slidePage.style.marginLeft = "-25%";
     bullet[current - 2].classList.remove("active");
             progressText[current - 2].classList.remove("active");
             progressCheck[current - 2].classList.remove("active");
             current -= 1;
 });
-prevBtnFourth.addEventListener("click", function() {
-    slidePage.style.marginLeft = "-50%";
+emp_prevBtnFourth.addEventListener("click", function() {
+    emp_slidePage.style.marginLeft = "-50%";
     bullet[current - 2].classList.remove("active");
     progressText[current - 2].classList.remove("active");
     progressCheck[current - 2].classList.remove("active");
@@ -756,14 +747,14 @@ addBtn.addEventListener("click", function() {
         emp_POBox.value.trim() === '' ||
         emp_email.value.trim() === '' ||
         emp_phone.value.trim() === '' ||
-        emp_alt_phone.value.trim() === '' 
+        emp_alt_phone.value.trim() === ''
     ){
         // setEror()
     }else
     {
         // alert('bvvvvvvvvvvvvv');
         // onSuccess()
-            slidePage.style.marginLeft = "-75%";
+            emp_slidePage.style.marginLeft = "-75%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
             progressCheck[current - 1].classList.add("active");
@@ -774,7 +765,7 @@ addBtn.addEventListener("click", function() {
     // }, 800);
     }
 
-   
+
 });
 
 function alphaOnly(event) {
@@ -814,7 +805,7 @@ teacher.addEventListener("change", function(){
         date_of_study.style.display = "block";
         field_of_study.style.display = "block";
         teacher_traning_program.style.display = "block";
-       
+
     }else{
         place_of_study.style.display = "none";
         teacher_traning_year.style.display = "none";

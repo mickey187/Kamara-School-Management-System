@@ -21,7 +21,12 @@ class StudentPaymentLoadSeeder extends Seeder
         
         foreach ($student as $stud) {
             
-            $payment_loads = DB::table('payment_loads')->where('class_id',$stud->class_id)->where('payment_type_id','!=','3')->get();
+            $payment_loads = DB::table('payment_loads')->where('class_id',$stud->class_id)
+            ->where('payment_type_id','!=','4')
+            ->where('payment_type_id','!=','5')
+            ->where('payment_type_id','!=','6')
+            ->where('payment_type_id','!=','7')
+            ->get();
             
             
             

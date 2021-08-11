@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <title>Kamara School Management System | Dashboard</title>
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
 
@@ -263,30 +264,30 @@
                                 <li class="nav-item">
                                     <a href="{{url('finance/indexAddPaymentType')}}" class="nav-link @if (Request::segment(2)== 'indexAddPaymentType') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Payment Type</p>
+                                        <p>Payment Type</p>
                                     </a>
                                 </li>
 
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="{{url('finance/viewPaymentType')}}" class="nav-link @if (Request::segment(2)== 'viewPaymentType') active  @endif">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>View Payment Type</p>
                                         </a>
-                                    </li>
+                                    </li> --}}
 
                                     <li class="nav-item">
                                     <a href="{{url('finance/indexAddPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'indexAddPaymentLoad') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Payment Load</p>
+                                        <p>Payment Load</p>
                                     </a>
                                 </li>
 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{url('finance/viewPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'viewPaymentLoad') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Payment Load</p>
                                     </a>
-                                </li>
+                                </li> --}}
 
                                 <li class="nav-item">
                                     <a href="{{url('finance/indexAddStudentTransportation')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentTransportation') active  @endif">
@@ -298,16 +299,23 @@
                                 <li class="nav-item">
                                     <a href="{{url('finance/indexAddStudentDiscount')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentDiscount') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Student Discount</p>
+                                        <p>Student Discount</p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
+                                    <a href="{{url('finance/studentPayment')}}" class="nav-link @if (Request::segment(2)== 'studentPayment') active  @endif">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Student Payment</p>
+                                    </a>
+                                </li>
+
+                                {{-- <li class="nav-item">
                                     <a href="{{url('finance/viewStudentDiscount')}}" class="nav-link @if (Request::segment(2)== 'viewStudentDiscount') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Student Discount</p>
                                     </a>
-                                </li>
+                                </li> --}}
 
                                 <li class="nav-item">
                                     <a href="{{url('finance/indexAddStudentPayment')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentPayment') active  @endif">
@@ -315,12 +323,12 @@
                                         <p>Add Student Payment</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{url('finance/viewStudentPayment')}}" class="nav-link @if (Request::segment(2)== 'viewStudentPayment') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Student Payment</p>
                                     </a>
-                                </li>
+                                </li> --}}
 
                          </ul>
                         </li>
@@ -471,10 +479,21 @@ $(function() {
         <!-- finance_master -->
         <script src="{{ asset('finance_master.js') }}"></script>
 
+        <!-- payment type -->
+        <script src="{{ asset('payment_type.js') }}"></script>
+
+        <!-- payment load -->
+        <script src="{{ asset('payment_load.js') }}"></script>
+
         <!-- ChartJS -->
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
 
+     <!-- Ethiopic Date -->
+    <script src="{{ asset('plugins/ethiopic-date/index.js') }}"></script>
+
     <script src="{{ asset('finance_dashboard.js') }}"></script>
+
+    <script src="{{ asset('student_payment.js') }}"></script>
 
 
 

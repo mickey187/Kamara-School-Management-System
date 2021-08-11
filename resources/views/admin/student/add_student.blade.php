@@ -24,8 +24,8 @@
                                     <img src="{{ asset('img/default_picture.png') }}" id="dsp-pro" class="img-fluid img-thumbnail" style="height: 200px;" alt="">
                                     <div class="custom-file input" >
                                     <input  type="file" name="image" class="custom-file-input" id="img-pro" required >
-                                         
-                                    <label class="custom-file-label" for="img-pro">Choose image </label>
+
+                                    <label class="custom-file-label" for="img-pro">Choose image</label>
                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                                     </div>
                                 </div>
@@ -61,8 +61,8 @@
                             </div>
                             <div class="field col-12 ">
                                 <div class="label">First name</div>
-                                <input type="text" id="studentFirstName" name="firstName" class="form-control" 
-                               
+                                <input type="text" id="studentFirstName" name="firstName" class="form-control"
+
                                 onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -85,7 +85,7 @@
                                 <div class="label">Last name</div>
                                 <input type="text" id="studentLastName" name="lastName" class="form-control"
                                  placeholder="Last name" required
-                                 
+
                                   onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '') "
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -123,9 +123,9 @@
                         </div>
                         <div class="field col-12">
                             <div class="label">Citizenship</div>
-                            <input id="studentCitizen" type="text" name="citizenship" class="form-control" 
+                            <input id="studentCitizen" type="text" name="citizenship" class="form-control"
                             placeholder="Cityzenship"
-                            
+
                              onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -135,7 +135,7 @@
                         <div class="field col-12 row">
                             <div class="col-4">
                                 <div class="label">Grade</div>
-                            <select  id="studentGrade" type="number" name="grade" class="form-control" placeholder="Grade">
+                            <select  id="studentGrade" type="text" name="grade" class="form-control" placeholder="Grade">
                                 <option> Grade</option>
                                 @foreach ($classes as $class)
                                     <option value="{{ $class->id }}">{{$class->class_label}}</option>
@@ -178,7 +178,7 @@
                     <div class="col-6">
                         <div class="field">
                             <div class="label">Previous School</div>
-                            <input type="text" name="previousSchool" id="studentPreviousSchool" class="form-control" 
+                            <input type="text" name="previousSchool" id="studentPreviousSchool" class="form-control"
                             placeholder="Previous School"
 
                              onkeydown="return allCharacter(event);"
@@ -189,9 +189,9 @@
                         </div>
                         <div class="field">
                             <div class="label">Transfer reason</div>
-                            <input type="text" name="transferReason" id="studentTransferReason" class="form-control" 
+                            <input type="text" name="transferReason" id="studentTransferReason" class="form-control"
                             placeholder="Transfer reason"
-                            
+
                              onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -200,7 +200,7 @@
                         </div>
                         <div class="field">
                             <div class="label">Expelsion status</div>
-                            <input type="text" name="expelsionStatus" id="studentExpelsiionStatus" class="form-control" 
+                            <input type="text" name="expelsionStatus" id="studentExpelsiionStatus" class="form-control"
                             placeholder="Expelsion status"
                             
                              onkeydown="return allCharacter(event);"
@@ -212,7 +212,7 @@
                         <div class="row col-12" style="padding-bottom: 10px;">
                             <div class="field col-6">
                                 <div class="label">Sespension status</div>
-                                <input type="text" name="sespensionStatus" id="studentSespensionStatus" class="form-control" 
+                                <input type="text" name="sespensionStatus" id="studentSespensionStatus" class="form-control"
                                 placeholder="Sespension status"
                                 
                                  onkeydown="return allCharacter(event);"
@@ -223,9 +223,9 @@
                             </div>
                             <div class="field col-6">
                                 <div class="label">Previous special education</div>
-                                <input type="text" name="specialEducation" id="studentSpecialEducation" class="form-control" 
+                                <input type="text" name="specialEducation" id="studentSpecialEducation" class="form-control"
                                 placeholder="Previous special education"
-                                
+
                                  onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -254,7 +254,7 @@
                         </div>
                         <div class="field">
                             <div class="label">Disability</div>
-                            <input type="text" name="disability" id="studentDisability" class="form-control" 
+                            <input type="text" name="disability" id="studentDisability" class="form-control"
                             placeholder="Disability"
                             
                              onkeydown="return allCharacter(event);"
@@ -265,7 +265,7 @@
                         </div>
                         <div class="field">
                             <div class="label">Medical condtion</div>
-                            <input type="text" name="medicalCondtion" id="studentMedicalCondition" class="form-control" 
+                            <input type="text" name="medicalCondtion" id="studentMedicalCondition" class="form-control"
                             placeholder="Medical condtion"
                             
                              onkeydown="return allCharacter(event);"
@@ -276,7 +276,7 @@
                         </div>
                         <div class="field">
                             <div class="label">Blood type</div>
-                            <input type="text" name="bloodType" id="studentBloodType" class="form-control" 
+                            <input type="text" name="bloodType" id="studentBloodType" class="form-control"
                             placeholder="Blood type"
                             
                              onkeydown="return allCharacter(event);"
@@ -303,9 +303,9 @@
                     <div class="col-6">
                         <div class="field ">
                             <div class="label">First name</div>
-                            <input type="text" name="pFirstName" id="parentFirstName" class="form-control" 
-                            placeholder="First name" 
-                            
+                            <input type="text" name="pFirstName" id="parentFirstName" class="form-control"
+                            placeholder="First name"
+
                              onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -314,9 +314,9 @@
                         </div>
                         <div class="field">
                             <div class="label">Middle name</div>
-                            <input type="text" name="pMiddleName" id="parentMiddleName" class="form-control" 
+                            <input type="text" name="pMiddleName" id="parentMiddleName" class="form-control"
                             placeholder="Middle name"
-                            
+
                              onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -326,7 +326,7 @@
                         <div class="field">
                             <div class="label">Last name</div>
                             <input type="text" name="pLastName" id="parentLastName" class="form-control" placeholder="Last name"
-                            
+
                              onkeydown="return alphaOnly(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == 'Type Letters Only') {this.value = '';}"
@@ -345,7 +345,7 @@
                         </div>
                         <div class="field">
                             <div class="label">Relation</div>
-                            <input type="text" name="pRelation" id="parentRelation" class="form-control" 
+                            <input type="text" name="pRelation" id="parentRelation" class="form-control"
                             placeholder="Relation"
                             
                              onkeydown="return allCharacter(event);"

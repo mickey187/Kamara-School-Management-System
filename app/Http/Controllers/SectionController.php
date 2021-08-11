@@ -41,7 +41,9 @@ class SectionController extends Controller
         ->join('streams','streams.id','=','students.stream_id')
         ->where('sections.class_id',$class_id)
         ->where('students.stream_id',$stream_id)
-        ->get();
+        ->get(['students.student_id','stream_type','section_name','class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+
+        // ->get();
         foreach($class as $row){
             if(($label == '') || ($label != $row->section_name)){
                 $label = $row->section_name;
@@ -50,31 +52,94 @@ class SectionController extends Controller
         }
         if($label==''){
             $status = 'false';
+
             $class = DB::table('students')
                 ->join('classes','classes.id','=','students.class_id')
                 ->join('streams','streams.id','=','students.stream_id')
                 ->where('students.class_id',$class_id)
                 ->where('students.stream_id',$stream_id)
-                ->get();
+                ->get(['students.student_id','stream_type','classes.class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+            //    foreach($class as $row){
+            //         $class->$row = $row->push(collect(["section_name"=>"Undifind"]));
+            //    }
+                // ->get();
         }else{
             $status = 'true';
         }
         return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
     }
-    public function setSection(Request $request){
+    public function setSection($class_id,$stream_id,$section,$room){
 
-        if($request->section_type=='Alphabet'){
-            $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('first_name','ASC')->get();
-            $this->sectionLogic($student,$request->student_size);
-            $class = classes::all();
-            $stream = stream::all();
-            return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
-        }else if($request->section_type=='RegistrationDate'){
-            $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('created_at','ASC')->get();
-            $this->sectionLogic($student,$request->student_size);
-            $class = classes::all();
-            $stream = stream::all();
-            return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
+        if($section == 'Alphabet'){
+            $student = student::where('class_id',$class_id)->where('stream_id',$stream_id)->orderBy('first_name','ASC')->get();
+            $this->sectionLogic($student,$room);
+            $label = '';
+            $status = '';
+            $section = array();
+            $class = DB::table('sections')
+            ->join('students','students.id','=','sections.student_id')
+            ->join('classes','classes.id','=','sections.class_id')
+            ->join('streams','streams.id','=','students.stream_id')
+            ->where('sections.class_id',$class_id)
+            ->where('students.stream_id',$stream_id)
+            ->get(['students.student_id','stream_type','section_name','class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+            // ->get();
+
+            foreach($class as $row){
+                if(($label == '') || ($label != $row->section_name)){
+                    $label = $row->section_name;
+                    array_push($section,$row->section_name);
+                }
+            }
+            if($label==''){
+                $status = 'false';
+                // $class = DB::table('students')
+                //     ->join('classes','classes.id','=','students.class_id')
+                //     ->join('streams','streams.id','=','students.stream_id')
+                //     ->where('students.class_id',$class_id)
+                //     ->where('students.stream_id',$stream_id)
+                //     ->get(['students.student_id','streams.stream_type','students.class_id as section_name','class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+                //     // ->get();
+                    error_log("");
+            }else{
+                $status = 'true';
+            }
+            return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
+            // return response()->json("Set With Alaphabet");
+            // return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
+        }else if($section == 'RegistrationDate'){
+            $student = student::where('class_id',$class_id)->where('stream_id',$stream_id)->orderBy('created_at','ASC')->get();
+            $this->sectionLogic($student,$room);
+            $label = '';
+            $status = '';
+            $section = array();
+            $class = DB::table('sections')
+            ->join('students','students.id','=','sections.student_id')
+            ->join('classes','classes.id','=','sections.class_id')
+            ->join('streams','streams.id','=','students.stream_id')
+            ->where('sections.class_id',$class_id)
+            ->where('students.stream_id',$stream_id)
+            ->get();
+            foreach($class as $row){
+                if(($label == '') || ($label != $row->section_name)){
+                    $label = $row->section_name;
+                    array_push($section,$row->section_name);
+                }
+            }
+            if($label==''){
+                $status = 'false';
+                $class = DB::table('students')
+                    ->join('classes','classes.id','=','students.class_id')
+                    ->join('streams','streams.id','=','students.stream_id')
+                    ->where('students.class_id',$class_id)
+                    ->where('students.stream_id',$stream_id)
+                    ->get();
+            }else{
+                $status = 'true';
+            }
+            return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
+            // return response()->json("Set With Registration Date");
+            // return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
         }
         // $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('first_name','ASC')->get();
 
@@ -246,7 +311,7 @@ class SectionController extends Controller
         $teacher_home_room = DB::table('home_rooms')
         ->join('classes','home_rooms.class_id','classes.id')
         ->where('employee_id',$teacher_id)
-        ->get(['class_label','section','home_rooms.id as id','stream']);
+        ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream']);
         return response()->json($teacher_home_room);
     }
 
@@ -312,7 +377,6 @@ class SectionController extends Controller
         foreach($course_load as $row){
             $subject = $row->subject_name;
         }
-      //  error_log($course_load_id->subject_name);
         $sec = DB::table('sections')
                 ->join('classes','sections.class_id','=','classes.id')
                 ->join('students','sections.student_id','=','students.id')
@@ -350,6 +414,7 @@ class SectionController extends Controller
                         'semisters.id as semid',
                         'student_mark_lists.mark']);
                 $semister = semister::all();
+        // error_log("errrrreeeeeeeeeeeee".$subject);
         return response()->json(['section'=>$sec,'mark'=>$mark,'semister'=>$semister,'subject'=>$subject]);
        //return response()->json([$course_load]);
     }
@@ -429,6 +494,7 @@ class SectionController extends Controller
             $semister_four_total= 0;
             $semister_four_load= 0;
             $all_total = 0;
+
                 $student = student::where('student_id',$row->student_id)->get()->first();
                 $mark= student_mark_list::where('student_id',$student->id)->get();
                 $semister = semister::all();
@@ -462,16 +528,12 @@ class SectionController extends Controller
                     }
                     $newSemister = $newSemister + 1;
                 }
+
             // }
-            error_log("How Much Is it: ". $subject[0]);
+            // error_log("How Much Is it: ". $subject[0]);
 
-
-            if((int) $semister_one_total <= (int) $semister_one_load or
-             ((int)$semister_two_total <= (int)$semister_two_load) or
-             (int)$semister_three_total <= (int)$semister_three_load or
-             (int)$semister_four_total <= (int)$semister_four_load)
-            {
-            }else{
+            error_log("blaaaaaaaaaaaaaa".$semister_one_total);
+            if(!count($subject) <= 0 or !count($subject) <= 0 or !count($subject)<= 0 or !count($subject) <= 0){
                 $semister_one_total = ((int) $semister_one_total /  count($subject));
                 $semister_two_total = ((int)$semister_two_total / count($subject));
                 $semister_three_total = ((int)$semister_three_total / count($subject));
@@ -494,8 +556,10 @@ class SectionController extends Controller
                 "semister_four_total"=>$semister_four_total,
                 "all_total"=>''
                 ]);
+
             $item->push($item2);
         }
+
         return $item;
     }
 }

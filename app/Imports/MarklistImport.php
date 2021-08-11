@@ -49,11 +49,11 @@ class MarklistImport implements ToModel,WithHeadingRow,WithStartRow
             error_log("it works fine");
             return new student_mark_list([
                 'semister_id'=>$semister->id,
-                'assasment_type_id'=>$assasment->id,
+                'assasment_type_id'=>1,
                 'subject_id'=>$subject->id,
                 'class_id'=>$student->class_id,
                 'student_id'=>$student->id,
-                'test_load'=>$this->load,
+                'test_load'=>10,
                 'mark'=>floatval($row['mark']),
                 'academic_year'=>2021
             ]);

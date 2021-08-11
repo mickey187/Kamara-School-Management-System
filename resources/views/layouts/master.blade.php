@@ -717,6 +717,7 @@ $(function() {
     {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
     <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/teacher.js') }}"></script>
+    <script src="{{ asset('dist/js/student_skill.js') }}"></script>
     <script src="{{ asset('dist/css/checkbox.css') }}"></script>
     <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
     <script src="{{ asset('dist/js/semister_status.js') }}"></script>
@@ -758,7 +759,6 @@ $(function() {
 
     <script>
         $(function() {
-
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -775,6 +775,9 @@ $(function() {
                 "responsive": true,
             });
         });
+
+
+
 
        //  $('#modal_view').on('show.bs.modal', function (event) {
 //   var button = $(event.relatedTarget) // Button that triggered the modal
@@ -794,7 +797,13 @@ $(function() {
 //   modal.find('.modal-body #subjectname_view').text("subject name: "+spit[3]);
 //   modal.find('.modal-footer button').val(spit[0])
 
+
+
+
     </script>
+
+
+
     <script>
         $(function () {
           $("#img-pro").change(function(){
@@ -808,7 +817,7 @@ $(function() {
             $("#img-pro").click();
           });
         })
-    </script>
+      </script>
 </body>
 
 </html>

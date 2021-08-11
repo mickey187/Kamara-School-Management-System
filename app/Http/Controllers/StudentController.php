@@ -17,16 +17,22 @@ use App\Models\student_class_transfer;
 use App\Models\student_enrolment;
 use App\Models\student_mark_list;
 use App\Models\teacher;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
 class StudentController extends Controller{
+
 
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function generateDocx(){
+
+
     }
 
     public function index(){
@@ -151,6 +157,8 @@ class StudentController extends Controller{
         $student_list = student::all();
         //$stud_sec = classes::all();
         $stud_sec = DB::table('students')
+        ->join('student_backgrounds','students.student_background_id','=','student_backgrounds.id')
+        ->join('student_medical_infos','students.student_medical_info_id','=','student_medical_infos.id')
         ->join('classes','students.class_id','=','classes.id')
         ->join('streams','streams.id','=','students.stream_id')
         ->join('sections','students.id','=','sections.student_id')
@@ -165,13 +173,26 @@ class StudentController extends Controller{
             'students.image',
             'classes.class_label',
             'stream_type',
-            'section_name'
+            'section_name',
+            'disablity',
+            'medical_condtion',
+            'blood_type',
+            'transfer_reason',
+            'suspension_status',
+            'expulsion_status',
+            'previous_special_education',
+            'citizenship',
+            'previous_school',
+            'native_tongue',
+            'birth_year'
         ]);
         return view('admin.student.view_student')->with('student_list',$stud_sec);
     }
 
     public function update(Request $req, $id){
         $student = student::find($id);
+        error_log("Medical Info ID: ".$student->student_medical_info_id);
+
        // return 'DB ='. $student->id. ' FRONT ='.$id;
         $student_background = student_background::find($student->student_background_id);
         $student_background->transfer_reason = Request('transferReason');
@@ -185,9 +206,9 @@ class StudentController extends Controller{
 
         $student_medical_info = student_medical_info::find($student->student_medical_info_id);
         $student_medical_info->disablity = Request('disability');
-        $student_medical_info->medical_condition = Request('medicalCondtion');
+        $student_medical_info->medical_condtion = Request('medicalCondtion');
         $student_medical_info->blood_type = Request('bloodType');
-        $student->update();
+        $student_medical_info->update();
 
         $student->first_name = Request('firstName');
         $student->middle_name = Request('middleName');
@@ -195,8 +216,39 @@ class StudentController extends Controller{
         $student->gender = Request('gender');
         $student->birth_year = Request('birthDate');
         $student->update();
-        $student_list = student::all();
-        return view('admin.student.view_student')->with('student_list',$student_list);
+        // $student_list = student::all();
+        // return view('admin.student.view_student')->with('student_list',$student_list);
+        $stud_sec = DB::table('students')
+        ->join('student_backgrounds','students.student_background_id','=','student_backgrounds.id')
+        ->join('student_medical_infos','students.student_medical_info_id','=','student_medical_infos.id')
+        ->join('classes','students.class_id','=','classes.id')
+        ->join('streams','streams.id','=','students.stream_id')
+        ->join('sections','students.id','=','sections.student_id')
+       // ->join('streams','sections.stream_id','=','streams.id')
+        ->get([
+            'students.id',
+            'students.student_id',
+            'students.first_name',
+            'students.middle_name',
+            'students.last_name',
+            'students.gender',
+            'students.image',
+            'classes.class_label',
+            'stream_type',
+            'section_name',
+            'disablity',
+            'medical_condtion',
+            'blood_type',
+            'transfer_reason',
+            'suspension_status',
+            'expulsion_status',
+            'previous_special_education',
+            'citizenship',
+            'previous_school',
+            'native_tongue',
+            'birth_year'
+        ]);
+        return view('admin.student.view_student')->with('student_list',$stud_sec);
     }
 
     public function delete($id){

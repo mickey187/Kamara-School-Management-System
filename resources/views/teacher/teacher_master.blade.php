@@ -135,7 +135,9 @@
                         <li class="user-body">
                             <div class="row">
                                 <div class="col-6 text-left">
-                                    <a href="#"><i class="fa fa-user"></i> My profile</a>
+                                    <button class="btn btn-primary" data-toggle="modal"
+                                        data-detail3="Profile,{{ $employee->id }}"
+                                        data-target="#modal-dashboard"><i class="fa fa-user" ></i>My profile</button>
                                 </div>
 
 
@@ -143,7 +145,7 @@
                                     {{-- <a href="{{route('logout')}}"><i class="fa fa-sign-out-alt"></i> logout</a> --}}
                                     <form action="{{url('/logout')}}" method="post">
                                         @csrf
-                                        <input type="submit" value="logout" class="btn btn-success">
+                                        <input type="submit" value="logout" class="btn btn-secondary">
                                     </form>
                                 </div>
 
@@ -416,10 +418,6 @@ $(function() {
 
       <!-- student discount js -->
       <script src="{{ asset('student_discount.js') }}"></script>
-
-
-
-
 
     <!-- DataTables  & Plugins -->
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
