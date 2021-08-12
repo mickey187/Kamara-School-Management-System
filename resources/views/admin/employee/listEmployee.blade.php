@@ -42,7 +42,7 @@
 
                          <button class="btn btn-danger btn-sm" data-toggle="modal" 
                             data-target="#delete_employee" 
-                            data-detail=""
+                            {{-- data-detail="" --}}
                             data-delete_employee_data="{{$row->id}},{{$row->first_name.' '.$row->middle_name.' '.$row->last_name}},
                             {{$row->position_name}}">
                             <i class="fa fa-trash" aria-hidden="true"></i>

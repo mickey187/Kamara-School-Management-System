@@ -44,7 +44,7 @@
     {{-- <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -707,11 +707,6 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-{{--employee validation --}}
-
-     <script src="{{ asset('dist/validation/add_employee_validation.js') }}"></script>
-     <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
-     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
 
     <script src="{{asset('dist/js/addclass.js')}}"></script>
     {{-- <script src="{{ asset('dist/js/employee.js') }}"></script>  --}}
@@ -720,27 +715,47 @@ $(function() {
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
 
     {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
-
-    <script src="{{ asset('dist/js/student_inrollment.js') }}"></script>
     <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/teacher.js') }}"></script>
     <script src="{{ asset('dist/js/student_skill.js') }}"></script>
     <script src="{{ asset('dist/css/checkbox.css') }}"></script>
     <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
     <script src="{{ asset('dist/js/semister_status.js') }}"></script>
-    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
-    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
-    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
 
      {{-- <script src="{{ asset('validation.js') }}"></script> --}}
 
-    {{-- <script src="{{ asset('dist/js/view_employee_list.js') }}"></script> --}}
+
+     {{-- student validation --}}
+     
+    {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
+    {{-- <script src="{{ asset('dist/validation/add_student_validation.js') }}"></script>  --}}
+
+    <script src="{{ asset('dist/studentValidation/student.js') }}"></script>
+
+    {{-- Curriculum validation --}}
+    <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script> 
+    <script src="{{ asset('dist/validation/add_subject_validation.js') }}"></script> 
+     
+
+     {{--employee validation --}}
+
+      
+
+      <script src="{{ asset('dist/employee/add_employee_validation.js') }}"></script> 
+     <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
+     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
+       
+
+    <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
     <script src="{{ asset('dist/js/view_religion_value.js') }}"></script>
-    <script src="{{ asset('dist/js/view_job_position.js') }}"></script>
-    <script src="{{ asset('dist/validation/add_student_validation.js') }}"></script>
+    <script src="{{ asset('dist/js/view_job_position.js') }}"></script> 
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script>
         $(function() {

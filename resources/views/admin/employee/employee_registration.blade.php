@@ -40,8 +40,8 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">First name</div>
-                                                    <input type="text" id="emp_first_name" name="first_name" class="form-control"
-
+                                                    <input type="text" id="first_name" name="first_name" class="form-control" 
+                                                    oninput="checkInput()"
                                                        onkeydown="return alphaOnly(event);"
                                                         onblur="if (this.value == '')"
                                                         onfocus="if (this.value == '') {this.value = '';}"
@@ -214,8 +214,14 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Net Salary</div>
-                                                    <input type="text" id="net_salary" name="net_salary" class="form-control"
+                                                    <input type="number" id="net_salary" name="net_salary" class="form-control"  
                                                     placeholder="Enter your net salary"
+
+                                                     {{-- onkeydown="return alphaOnly(event);"
+                                                     onblur="if (this.value == '')"
+                                                     onfocus="if (this.value == '') {this.value = '';}"
+                                                    required size="30" minlength="3" maxlength="21" --}}
+
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->net_salary }}"
                                                         @else
@@ -495,7 +501,9 @@
                                         </div>
                                         <div class="field">
                                             <div class="label">Kebele</div>
-                                            <input type="text" required name="Kebele" id="kebele"  class="form-control" placeholder="Kebele"
+                                            <input type="number" required name="Kebele" id="kebele"  class="form-control" 
+                                            placeholder="Kebele"  maxlength="15"
+
                                              @if(isset($edit_employee))
                                                 value="{{ $edit_employee->kebele }}"
                                                @else
@@ -509,7 +517,8 @@
                                         <div class="col-4">
                                             <div class="field">
                                                 <div class="label">House number</div>
-                                                <input type="text" id="house_number" required name="house_number" class="form-control" placeholder="House number"
+                                                <input type="number" id="house_number" required name="house_number" class="form-control" 
+                                                placeholder="House number" size="10"
                                                  @if(isset($edit_employee))
                                                    value="{{ number_format($edit_employee->house_number) }}"
                                                    @else
@@ -520,7 +529,8 @@
 
                                           <div class="field">
                                             <div class="label">P.O.Box</div>
-                                            <input type="text" id="POBox" required name="POBox" class="form-control" placeholder="P.O.Box"
+                                            <input type="number" id="POBox" required name="POBox" class="form-control"
+                                             placeholder="P.O.Box" size="15"
                                              @if(isset($edit_employee))
                                                value="{{ $edit_employee->p_o_box }}"
                                                @else
@@ -530,7 +540,8 @@
                                         </div>
                                         <div class="field">
                                             <div class="label">Email</div>
-                                            <input type="email" id="email" required name="email" class="form-control" placeholder="Email"
+                                            <input type="email" id="email" required name="email" class="form-control"
+                                             placeholder="Email"
                                              @if(isset($edit_employee))
                                                value="{{ $edit_employee->email }}"
                                                @else
@@ -542,7 +553,9 @@
                                         <div class="col-4">
                                             <div class="field">
                                                 <div class="label">Phone</div>
-                                                <input type="text" id="phone1" required name="phone1" class="form-control" placeholder="Phone"
+                                                <input type="number" id="phone1"   required name="phone1" class="form-control" 
+                                                placeholder="Phone"   maxlength="14"
+
                                                  @if(isset($edit_employee))
                                                    value="{{ $edit_employee->phone_number }}"
                                                    @else
@@ -552,7 +565,8 @@
                                             </div>
                                             <div class="field">
                                                 <div class="label">Alternative Phone</div>
-                                                <input type="text" id="phone2" required name="phone2" class="form-control" placeholder="Alternative phone"
+                                                <input type="number" id="phone2" required name="phone2" class="form-control"
+                                                 placeholder="Alternative phone" maxlength="14"
                                                  @if(isset($edit_employee))
                                                    value="{{ $edit_employee->alternative_phone_number }}"
                                                  @else
