@@ -8,7 +8,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                            <div class="callout callout-info row col-12">
+                            <div class="callout callout-info  col-12">
                                 <h5><i class="fas fa-info"></i> Student Information</h5>
                                 <table id="example1" class="table table-bordered table-striped table-sm">
                                     <thead>
@@ -120,7 +120,7 @@
                                         </div>
                                     </div>
                                   </div>
-                                   <select class="form-select">
+                                   <select class="form-control">
                                         <option>2010</option>
                                         <option>2011</option>
                                         <option>2012</option>
@@ -139,7 +139,7 @@
                       </div>
                       <!-- /.modal-content -->
                 </div>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+                {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 
 
 @endsection

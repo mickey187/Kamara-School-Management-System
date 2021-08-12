@@ -22,6 +22,8 @@ function fetch(class_id, stream_id) {
             var data = JSON.parse(JSON.stringify(data.classes));
             data.forEach(d=> {
                 Object.assign(d,{action:"<input type='checkbox'>"});
+                counter = counter+1;
+                no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
             });
             // Swal.fire(
             //     'Registered Successfully!',
@@ -84,7 +86,7 @@ function fetch(class_id, stream_id) {
             //    });
 
             //    $('#student_list').html(rows);
-            //    $('#counter').html(no);
+               $('#counter').html(no);
                $('#sections').html(sec);
             }else{
                 $("#sectionningPage").show();
@@ -101,7 +103,7 @@ function fetch(class_id, stream_id) {
                         { "data": "full_name" },
                         { "data": "class_label" },
                         {"data": "stream_type"},
-                        {"data": "section_name"},
+                        // {"data": "section_name"},
                         {"data": "action"},
 
                     ],
@@ -112,6 +114,8 @@ function fetch(class_id, stream_id) {
                     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
                 }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
                $('#sections').html("Section Not Set For Selected Student!");
+               $('#counter').html(no);
+
             //    $('#sections').html(sec);
             }
 
@@ -169,7 +173,7 @@ $("#assignTeacherToClsss").click(function () {
     var assignSubject = $("#selectedSubject").val();
     var teacher_id = (document.getElementById('teacher_id').textContent).trim();
 
-    alert("Teacher ID:"+teacher_id+' '+"section:"+section+" Grade ID:"+assignClass+" Subjects ID:"+assignSubject);
+    console.log("Teacher ID:"+teacher_id+' '+"section:"+section+" Grade ID:"+assignClass+" Subjects ID:"+assignSubject);
 
     $.ajax({
         type: 'GET',
@@ -187,9 +191,23 @@ $("#assignTeacherToClsss").click(function () {
                     '</tr>'
                });
                $('#courseLoad').html(row);
-               alert("Class Assigned Seccessfuly")
+            //    swal.fire("Class Assigned Seccessfuly","success")
+               Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Course Assigned Successfuly',
+                showConfirmButton: false,
+                timer: 1500
+              });
             }else{
-                alert("Already Assigned")
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'These Course Already Assigned!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                // alert("Already Assigned")
             }
 
         },
@@ -235,14 +253,14 @@ $("#singleClassId2").change(function () {
 $("#section_type").change(function(){
     class_name = $("#class").val();
     stream_name = $("#stream").val();
-    alert(class_name+" - "+stream_name);
+    // alert(class_name+" - "+stream_name);
 });
 $("#setSection").click(function(){
     class_name = $("#class").val();
     stream_name = $("#stream").val();
     section = $("#section_type").val();
     room = $("#room_size").val();
-    alert(class_name+" - "+stream_name+" - "+section+" - "+room);
+    // alert(class_name+" - "+stream_name+" - "+section+" - "+room);
 $.ajax({
     type: "GET",
     url: "setSection/"+class_name+"/"+stream_name+"/"+section+"/"+room,

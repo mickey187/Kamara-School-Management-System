@@ -24,9 +24,9 @@
                                     <img src="{{ asset('img/default_picture.png') }}" id="dsp-pro" class="img-fluid img-thumbnail" style="height: 200px;" alt="">
                                     <div class="custom-file input" >
                                     <input  type="file" name="image" class="custom-file-input" id="img-pro" required >
-
+                                         <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                                     <label class="custom-file-label" for="img-pro">Choose image</label>
-                                    <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
+
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                              <div class="label">Birth place</div>
                                 <input type="text" id="studentBirthPlace" name="birthPlace" class="form-control"
                                  placeholder="birth place" required
-                                 
+
                                  onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '') "
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -202,7 +202,7 @@
                             <div class="label">Expelsion status</div>
                             <input type="text" name="expelsionStatus" id="studentExpelsiionStatus" class="form-control"
                             placeholder="Expelsion status"
-                            
+
                              onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -214,7 +214,7 @@
                                 <div class="label">Sespension status</div>
                                 <input type="text" name="sespensionStatus" id="studentSespensionStatus" class="form-control"
                                 placeholder="Sespension status"
-                                
+
                                  onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -256,7 +256,7 @@
                             <div class="label">Disability</div>
                             <input type="text" name="disability" id="studentDisability" class="form-control"
                             placeholder="Disability"
-                            
+
                              onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -267,7 +267,7 @@
                             <div class="label">Medical condtion</div>
                             <input type="text" name="medicalCondtion" id="studentMedicalCondition" class="form-control"
                             placeholder="Medical condtion"
-                            
+
                              onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -278,7 +278,7 @@
                             <div class="label">Blood type</div>
                             <input type="text" name="bloodType" id="studentBloodType" class="form-control"
                             placeholder="Blood type"
-                            
+
                              onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
@@ -347,7 +347,7 @@
                             <div class="label">Relation</div>
                             <input type="text" name="pRelation" id="parentRelation" class="form-control"
                             placeholder="Relation"
-                            
+
                              onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == 'Type Letters Only') {this.value = '';}"
@@ -356,9 +356,9 @@
                         </div>
                         <div class="field">
                             <div class="label">Emergency contact</div>
-                            <input type="number" name="pEmergency" id="parentEmergencyContact" class="form-control" 
+                            <input type="number" name="pEmergency" id="parentEmergencyContact" class="form-control"
                             placeholder="Emergency contact">
-                            
+
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
@@ -383,9 +383,9 @@
                     <div class="col-6">
                         <div class="field">
                             <div class="label">City</div>
-                            <input type="text" name="city" id="parentCity" class="form-control" 
+                            <input type="text" name="city" id="parentCity" class="form-control"
                             placeholder="City" required
-                            
+
                             onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == 'Type Letters Only') {this.value = '';}"
@@ -394,9 +394,9 @@
                         </div>
                         <div class="field">
                             <div class="label">Sub city</div>
-                            <input type="text" name="subcity" id="parentSubCity" class="form-control" 
+                            <input type="text" name="subcity" id="parentSubCity" class="form-control"
                             placeholder="Subcity" required
-                            
+
                              onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == 'Type Letters Only') {this.value = '';}"

@@ -2,12 +2,15 @@
 
 namespace App\Exports;
 
+use App\Models\classes;
+use App\Models\semister;
+use App\Models\student;
 use App\Models\StudentTraits;
-use App\Models\subject;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class StudentsCardExport implements WithMultipleSheets
+class StudentsCardPerSemisterExport implements WithMultipleSheets
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -95,10 +98,10 @@ class StudentsCardExport implements WithMultipleSheets
                             }
                         }
                         if($countTraits < sizeof(StudentTraits::all())){
-                            $studentItem = (object) ["subject"=>$sub->subject_name,"term1"=>$term1,"term2"=>$term2,"Semister"=>($term1+$term2)/2,"term3"=>$term3,"term4"=>$term4,"Semister2"=>($term3+$term4)/2,"total"=>($term1+$term2+$term3+$term4)/4,"","",$sub12[$countTraits],"","","",""];
+                            $studentItem = (object) ["subject"=>$sub->subject_name,"term1"=>$term1,"term2"=>$term2,"Semister"=>($term1+$term2)/2,"","",$sub12[$countTraits],"",""];
                             $countTraits++;
                         }else{
-                            $studentItem = (object) ["subject"=>$sub->subject_name,"term1"=>$term1,"term2"=>$term2,"Semister"=>($term1+$term2)/2,"term3"=>$term3,"term4"=>$term4,"Semister2"=>($term3+$term4)/2,"total"=>($term1+$term2+$term3+$term4)/4];
+                            $studentItem = (object) ["subject"=>$sub->subject_name,"term1"=>$term1,"term2"=>$term2,"Semister"=>($term1+$term2)/2,"","","","",""];
                             $countTraits++;
                         }
                         // $studentItem = (object) ["subject"=>$sub->subject_name,"term1"=>$term1,"term2"=>$term2,"Semister"=>($term1+$term2)/2,"term3"=>$term3,"term4"=>$term4,"Semister2"=>($term3+$term4)/2,"total"=>($term1+$term2+$term3+$term4)/4];
@@ -112,46 +115,46 @@ class StudentsCardExport implements WithMultipleSheets
                         $secondSemister = round($allTermThree/$subject->count(),2) + round($allTermFour/$subject->count(),2);
                     }
                     if($countTraits < sizeof(StudentTraits::all())){
-                        $studentItem = (object) ["Total"=>"Total",round($allTermOne,2),round($allTermTwo,2),round(($allTermOne + $allTermTwo)/2,2),round($allTermThree,2),round($allTermFour,2),round(($allTermThree + $allTermFour)/2,2),round($totalTerm,2),"","",$sub12[$countTraits],"","","",""];
+                        $studentItem = (object) ["Total"=>"Total",round($allTermOne,2),round($allTermTwo,2),round(($allTermOne + $allTermTwo)/2,2),"","",$sub12[$countTraits],"",""];
                         $oneStudent->push($studentItem);
                         $countTraits++;
                     }else{
-                        $studentItem = (object) ["Total"=>"Total",round($allTermOne,2),round($allTermTwo,2),round(($allTermOne + $allTermTwo)/2,2),round($allTermThree,2),round($allTermFour,2),round(($allTermThree + $allTermFour)/2,2),round($totalTerm,2)];
+                        $studentItem = (object) ["Total"=>"Total",round($allTermOne,2),round($allTermTwo,2),round(($allTermOne + $allTermTwo)/2,2),"",""];
                         $oneStudent->push($studentItem);
                     }if($countTraits < sizeof(StudentTraits::all())){
-                        $studentItem = (object) ["Avarage"=>"Avarage",round($allTermOne/$subject->count(),2),round($allTermTwo/$subject->count(),2),round($firstSemister/2,2),round($allTermThree/$subject->count(),2),round($allTermFour/$subject->count(),2),round($secondSemister/2,2),round($totalTerm/$subject->count(),2),"","",$sub12[$countTraits],"","","",""];
+                        $studentItem = (object) ["Avarage"=>"Avarage",round($allTermOne/$subject->count(),2),round($allTermTwo/$subject->count(),2),round($firstSemister/2,2),"","",$sub12[$countTraits],"",""];
                         $oneStudent->push($studentItem);
                         $countTraits++;
                     }else{
-                        $studentItem = (object) ["Avarage"=>"Avarage",round($allTermOne/$subject->count(),2),round($allTermTwo/$subject->count(),2),round($firstSemister/2,2),round($allTermThree/$subject->count(),2),round($allTermFour/$subject->count(),2),round($secondSemister/2,2),round($totalTerm/$subject->count(),2)];
+                        $studentItem = (object) ["Avarage"=>"Avarage",round($allTermOne/$subject->count(),2),round($allTermTwo/$subject->count(),2),round($firstSemister/2,2),"",""];
                         $oneStudent->push($studentItem);
                     }if($countTraits < sizeof(StudentTraits::all())){
-                        $studentItem = (object) ["Rank"=>"Rank",0,0,0,0,0,0,0,"","",$sub12[$countTraits],"","","",""];
+                        $studentItem = (object) ["Rank"=>"Rank",0,0,0,"","",$sub12[$countTraits],"",""];
                         $oneStudent->push($studentItem);
                         $countTraits++;
                     }else{
-                        $studentItem = (object) ["Rank"=>"Rank",0,0,0,0,0,0,0];
+                        $studentItem = (object) ["Rank"=>"Rank",0,0,0];
                         $oneStudent->push($studentItem);
                     }if($countTraits < sizeof(StudentTraits::all())){
-                        $studentItem = (object) ["Student"=>"Number of Students",$this->countStudent,$this->countStudent,$this->countStudent,$this->countStudent,$this->countStudent,$this->countStudent,$this->countStudent,"","",$sub12[$countTraits],"","","",""];
+                        $studentItem = (object) ["Student"=>"Number of Students",$this->countStudent,$this->countStudent,$this->countStudent,"","",$sub12[$countTraits],"",""];
                         $oneStudent->push($studentItem);
                         $countTraits++;
                     }else{
-                        $studentItem = (object) ["Student"=>"Number of Students",$this->countStudent,$this->countStudent,$this->countStudent,$this->countStudent,$this->countStudent,$this->countStudent,$this->countStudent];
+                        $studentItem = (object) ["Student"=>"Number of Students",$this->countStudent,$this->countStudent,$this->countStudent];
                         $oneStudent->push($studentItem);
                     }if($countTraits < sizeof(StudentTraits::all())){
-                        $studentItem = (object) ["Conduct"=>"Conduct","","","","","","","","","",$sub12[$countTraits],"","","",""];
+                        $studentItem = (object) ["Conduct"=>"Conduct","","","","","",$sub12[$countTraits],"",""];
                         $oneStudent->push($studentItem);
                         $countTraits++;
                     }else{
-                        $studentItem = (object) ["Conduct"=>"Conduct","","","","",""];
+                        $studentItem = (object) ["Conduct"=>"Conduct","","",""];
                         $oneStudent->push($studentItem);
                     }if($countTraits < sizeof(StudentTraits::all())){
-                        $studentItem = (object) ["Absence"=>"Absence","","","","","","","","","",$sub12[$countTraits],"","","",""];
+                        $studentItem = (object) ["Absence"=>"Absence","","","","","",$sub12[$countTraits],"",""];
                         $oneStudent->push($studentItem);
                         $countTraits++;
                     }else{
-                        $studentItem = (object) ["Absence"=>"Absence","","","","",""];
+                        $studentItem = (object) ["Absence"=>"Absence","","",""];
                         $oneStudent->push($studentItem);
                     }
                     // $studentItem = (object) ["Total"=>"Total",round($allTermOne,2),round($allTermTwo,2),round(($allTermOne + $allTermTwo)/2,2),round($allTermThree,2),round($allTermFour,2),round(($allTermThree + $allTermFour)/2,2),round($totalTerm,2)];
@@ -166,7 +169,7 @@ class StudentsCardExport implements WithMultipleSheets
                     // $oneStudent->push($studentItem);
                     // $studentItem = (object) ["Absence"=>"Absence","","","","",""];
                     // $oneStudent->push($studentItem);
-                    $sheets[] = new PerStudentsCardExport($oneStudent, $this->class,$this->stream,$this->section, $row->first_name.' '.$row->middle_name.' '.$row->last_name);
+                    $sheets[] = new PreStudentsCardPerSemisterExport($oneStudent, $this->class,$this->stream,$this->section, $row->first_name.' '.$row->middle_name.' '.$row->last_name);
             }
             error_log($co);
         return $sheets;
