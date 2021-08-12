@@ -35,25 +35,45 @@ function deleteHomeRoom($val)
 {
      deleteID = $val.value.trim();
     //alert(deleteID);
-    $.ajax({
-        type: 'GET',
-        url: 'deleteHomeRoom/'+deleteID,
-        dataType : 'json',
-        success:function (data) {
-            row = '';
-             console.log(data);
-            data.forEach(d => {
-                row+= '<tr><td>'+d.class_label+' </td>'+' <td>'+d.section+
-                '<td><button onclick="deleteHomeRoom(this);" type="button" class="m-1  btn-danger btn-sm" value="'+d.id+'"><i class="fa fa-trash"></i> </button></td>'+
-                '</tr>'
-           });
-            $('#homeroom').html(row);
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'GET',
+                url: 'deleteHomeRoom/'+deleteID,
+                dataType : 'json',
+                success:function (data) {
+                    row = '';
+                     console.log(data);
+                    data.forEach(d => {
+                        row+= '<tr><td>'+d.class_label+' </td>'+' <td>'+d.section+
+                        '<td><button onclick="deleteHomeRoom(this);" type="button" class="m-1  btn-danger btn-sm" value="'+d.id+'"><i class="fa fa-trash"></i> </button></td>'+
+                        '</tr>'
+                   });
+                    $('#homeroom').html(row);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Successfuly Removed',
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+                },
+                error:function (data) {
+                    console.log("it is not works fine");
+                }
+             });
 
-        },
-        error:function (data) {
-            console.log("it is not works fine");
         }
-     });
+      })
+
 }
 
 
@@ -67,7 +87,7 @@ $("#assignTeacherHomeRoom").click(function () {
     var assignSubject = $("#selectedSubject2").val();
     var teacher_id = (document.getElementById('teacher_id2').textContent).trim();
 
-    alert("Teacher ID:"+teacher_id+' '+"section:"+section+" Grade ID:"+assignClass);
+    console.log("Teacher ID:"+teacher_id+' '+"section:"+section+" Grade ID:"+assignClass);
 
     $.ajax({
         type: 'GET',
@@ -87,6 +107,13 @@ $("#assignTeacherHomeRoom").click(function () {
                });
                $('#homeroom').html(row);
                section = '';
+               Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Home Room Assigned Successfuly',
+                showConfirmButton: false,
+                timer: 1500
+              })
         },
         error:function (data) {
             console.log("it is not works fine");
@@ -103,18 +130,4 @@ $('#modal-generate-card').on('show.bs.modal', function(event) {
     var split = detail.split(",")
     // alert(split[2])
     modal.find('.modal-body #class_id').val(detail)
-    // $.ajax({
-    //     type: 'GET',
-    //     url: 'generateStudentCard/'+split[0].trim()+'/'+split[1].trim()+'/'+split[2].trim()+'/'+split[3].trim(),
-    //     dataType : 'json',
-    //     success:function (data) {
-    //         data.forEach(d =>{
-    //             console.log(d);
-    //         })
-    //         // console.log(data);
-    //     },
-    //     error:function (data) {
-    //         console.log("it is not works fine");
-    //     }
-    //  });
 });

@@ -25,12 +25,11 @@ use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 
-class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,WithEvents,WithColumnWidths,WithCustomStartCell
+class PreStudentsCardPerSemisterExport implements FromCollection,WithTitle,WithHeadings,WithEvents,WithColumnWidths,WithCustomStartCell
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-
 
     public function __construct($student,$class,$stream,$section,$name)
     {
@@ -67,13 +66,11 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
        // $header = array("Class and Section");
         //$header = array('Student ID','Student Full Name');
         return [
-            ["Name Of Student: ".$this->name,"","","","","","","","","","Grade: ".$this->class_label->class_label,"","","",""],
-            ["","","","","","","","","","","Basic Skill And Personal Development","","","","",""],
+            ["Name Of Student: ".$this->name,"","","","","","Grade: ".$this->class_label->class_label,"","","",""],
+            ["","","","","","","Basic Skill And Personal Development"],
             [],
-            ["","First","Second","First","Third","Fourth","Second","","","","","First","Second","Third","Fourth"],
-            ['Subject','Quarter','Quarter','Semister','Quarter ','Quarter','Semister','Average','','',
-                'Traits','Quarter','Quarter','Quarter','Quarter'
-            ]
+            ["","First","Second","First","","","","First","Second"],
+            ['Subject','Quarter','Quarter','Semister','','', 'Traits','Quarter','Quarter']
          ];
     }
 
@@ -87,9 +84,8 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
             'E' => 10,
             'F' => 10,
             'G' => 10,
-            'H' => 10,
+            'H' => 20,
             'I' => 10,
-            'L' => 20,
         ];
     }
 
@@ -99,7 +95,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
             // $event->sheet->setHeight(2, 30);
 
             $event->sheet->styleCells(
-                'B5:I'.$this->subjectSize,
+                'B5:E'.$this->subjectSize,
                 [
                     //Set border Style
                     'borders' => [
@@ -244,93 +240,10 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                         'text-align' => 'center',
                     ],
             ]);
+
+
             $event->sheet->styleCells(
-                'F5:F'.$this->subjectSize+6,
-                [
-                    //Set border Style
-                    'borders' => [
-                        'outline' => [
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => ['argb' => '0492c2'],
-                        ],
-
-                    ],
-
-                    //Set font style
-                    'font' => [
-                        'name'      =>  'Calibri',
-                        'size'      =>  11,
-                        'bold'      =>  false,
-                        'color'     => ['argb' => '0492c2'],
-                        'text-align' => 'center',
-                    ],
-            ]);
-            $event->sheet->styleCells(
-                'G5:G'.$this->subjectSize+6,
-                [
-                    //Set border Style
-                    'borders' => [
-                        'outline' => [
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => ['argb' => '0492c2'],
-                        ],
-
-                    ],
-
-                    //Set font style
-                    'font' => [
-                        'name'      =>  'Calibri',
-                        'size'      =>  11,
-                        'bold'      =>  false,
-                        'color'     => ['argb' => '0492c2'],
-                        'text-align' => 'center',
-                    ],
-            ]);
-            $event->sheet->styleCells(
-                'H5:H'.$this->subjectSize+6,
-                [
-                    //Set border Style
-                    'borders' => [
-                        'outline' => [
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => ['argb' => '0492c2'],
-                        ],
-
-                    ],
-
-                    //Set font style
-                    //Set font style
-                    'font' => [
-                        'name'      =>  'Calibri',
-                        'size'      =>  11,
-                        'bold'      =>  false,
-                        'color'     => ['argb' => '0492c2'],
-                        'text-align' => 'center',
-                    ],
-            ]);
-            $event->sheet->styleCells(
-                'I5:I'.$this->subjectSize+6,
-                [
-                    //Set border Style
-                    'borders' => [
-                        'outline' => [
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => ['argb' => '0492c2'],
-                        ],
-
-                    ],
-
-                    //Set font style
-                    'font' => [
-                        'name'      =>  'Calibri',
-                        'size'      =>  11,
-                        'bold'      =>  false,
-                        'color'     => ['argb' => '0492c2'],
-                        'text-align' => 'center',
-                    ],
-            ]);
-            $event->sheet->styleCells(
-                'L6:P'.$this->getTraitSize,
+                'H6:J'.$this->getTraitSize,
                 [
                     //Set border Style
                     'borders' => [
@@ -361,7 +274,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                 ]
             );
             $event->sheet->styleCells(
-                'B5:I7',
+                'B5:E7',
                 [
                     //Set border Style
                     'borders' => [
@@ -394,7 +307,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                     ],
             ]);
             $event->sheet->styleCells(
-                'L6:P7',
+                'H6:J7',
                 [
                     //Set border Style
                     'borders' => [
@@ -427,7 +340,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                     ],
             ]);
             $event->sheet->styleCells(
-                'L6:L'.$this->getTraitSize,
+                'H6:H'.$this->getTraitSize,
                 [
                     //Set border Style
                     'borders' =>
@@ -440,7 +353,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                     ]
             ]);
             $event->sheet->styleCells(
-                'M6:M'.$this->getTraitSize,
+                'I6:I'.$this->getTraitSize,
                 [
                     //Set border Style
                     'borders' =>
@@ -453,7 +366,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                     ]
             ]);
             $event->sheet->styleCells(
-                'N6:N'.$this->getTraitSize,
+                'J6:J'.$this->getTraitSize,
                 [
                     //Set border Style
                     'borders' =>
@@ -465,22 +378,10 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
 
                     ]
             ]);
-            $event->sheet->styleCells(
-                'O6:O'.$this->getTraitSize,
-                [
-                    //Set border Style
-                    'borders' =>
-                    [
-                            'outline' => [
-                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                                'color' => ['argb' => '0492c2'],
-                            ],
 
-                    ]
-            ]);
             for($x = 8; $x < $this->subjectSize+6; $x++){
                 $event->sheet->styleCells(
-                    'B'.$x.':I'.$x,
+                    'B'.$x.':E'.$x,
                     [
                         //Set border Style
                         'borders' =>
@@ -494,7 +395,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                 ]);
             }
             $event->sheet->styleCells(
-                'C'.($this->subjectSize+1).':I'.($this->subjectSize+6),
+                'C'.($this->subjectSize+1).':E'.($this->subjectSize+6),
                 [
                     //Set border Style
                     // 'borders' => [
@@ -522,7 +423,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                     ],
             ]);
             $event->sheet->styleCells(
-                'I5:I'.($this->subjectSize+6),
+                'E5:E'.($this->subjectSize+6),
                 [
                      //Set background style
                      'fill' => [
@@ -532,17 +433,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                          ]
                     ],
             ]);
-            $event->sheet->styleCells(
-                'H5:H'.($this->subjectSize+6),
-                [
-                     //Set background style
-                     'fill' => [
-                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                        'startColor' => [
-                            'rgb' => 'E0E0E0',
-                         ]
-                    ],
-            ]);
+
             $event->sheet->styleCells(
                 'E5:E'.($this->subjectSize+6),
                 [
@@ -555,7 +446,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
                     ],
             ]);
             $event->sheet->styleCells(
-                'L3:N4',
+                'H3:K4',
                 [
 
                      'font' => [
@@ -582,7 +473,7 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
             }
             for($i = 8;$i<$this->getTraitSize;$i++){
                 $event->sheet->styleCells(
-                    'L'.$i.':P'.$i,
+                    'H'.$i.':J'.$i,
                     [
                         //Set border Style
                         'borders' => [
@@ -598,5 +489,4 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
         },
     ];
 }
-
 }

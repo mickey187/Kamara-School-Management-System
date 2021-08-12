@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kamara School Management System | Dashboard</title>
-    {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->

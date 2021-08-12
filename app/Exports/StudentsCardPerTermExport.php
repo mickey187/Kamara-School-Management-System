@@ -27,6 +27,14 @@ class StudentsCardPerTermExport implements WithMultipleSheets
         $term = semister::find($term);
         $this->term = $term->term;
         $this->grade = classes::where('id',(int)$class)->get()->first();
+        $this->countStudent = count(DB::table('sections')
+        ->join('students','sections.student_id','=','students.id')
+        ->join('classes','sections.class_id','=','classes.id')
+        ->join('streams','sections.stream_id','=','streams.id')
+        ->where('sections.class_id',$this->class)
+        ->where('sections.stream_id',$this->stream)
+        ->where('sections.section_name',$this->section)
+        ->get(['section_name','first_name','middle_name','last_name']));
     }
 
     public function sheets(): array
@@ -127,11 +135,11 @@ class StudentsCardPerTermExport implements WithMultipleSheets
                         $studentItem = (object) ["","Rank"=>"Rank",0,"","",""];
                         $oneStudent->push($studentItem);
                     }if($countTraits < sizeof(StudentTraits::all())){
-                        $studentItem = (object) ["","Number Of Student"=>"Number Of Student",0,"",$sub12[$countTraits],""];
+                        $studentItem = (object) ["","Number Of Student"=>"Number Of Student", $this->countStudent,"",$sub12[$countTraits],""];
                         $oneStudent->push($studentItem);
                         $countTraits++;
                     }else{
-                        $studentItem = (object) ["","Number Of Student"=>"Number Of Student",0,"","",""];
+                        $studentItem = (object) ["","Number Of Student"=>"Number Of Student",$this->countStudent,"","",""];
                         $oneStudent->push($studentItem);
                     }if($countTraits < sizeof(StudentTraits::all())){
                         $studentItem = (object) ["","Conduct"=>"Conduct",0,"",$sub12[$countTraits],""];

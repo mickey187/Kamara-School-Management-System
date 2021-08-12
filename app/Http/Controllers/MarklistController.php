@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\StudentsCardExport;
+use App\Exports\StudentsCardPerSemisterExport;
 use App\Exports\StudentsCardPerTermExport;
 use Illuminate\Http\Request;
 use App\Imports\MarklistImport;
@@ -133,6 +134,8 @@ class MarklistController extends Controller
         $getTerm ='';
         if(request('get_term')=="All"){
             $getTerm = request('get_term');
+        }elseif(request('get_term')=="semisterOne"){
+            $getTerm = request('get_term');
         }else{
             $getTerm = (int)request('get_term');
         }
@@ -190,9 +193,51 @@ class MarklistController extends Controller
             // return $getTerm;
 
             return $this->generateExcelForStudentAllYearCard($studentCardCollection,$class2->id,$stream2->id,$data[2]);
-        }else {
+        }elseif($getTerm=="semisterOne"){
+            //  return $getTerm;
+            foreach($getStudent as $student){
+                $oneStudentCard = collect();
+                foreach($getAllSemister as $semister){
+                    $oneSemisterCard = collect();
+                    foreach($getAllSubject as $subject){
+                        $subjectTotalMark = 0;
+                        $subjectTotalLoad = 0;
+                        $getStudentMark = DB::table('student_mark_lists')
+                                            ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
+                                            ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                                            ->where('student_id',$student->id)
+                                            ->where('semister_id',$semister->id)
+                                            ->where('subject_id',$subject->id)
+                                            ->where('academic_year','2021')
+                                            ->get();
+                        foreach($getStudentMark as $mark){
+                            $subjectTotalMark = $subjectTotalMark + $mark->mark;
+                            $subjectTotalLoad = $subjectTotalLoad + $mark->test_load;
+                        }
+                         $item = (object) [
+                             "name"=>$student->first_name.' '.$student->middle_name.' '.$student->last_name,
+                             "subject"=>$subject->subject_name,
+                             "total"=>$subjectTotalMark,
+                             "load"=>$subjectTotalLoad,
+                             "semister"=>$semister->id];
+                         $oneSemisterCard->push($item);
+                    }
+                    foreach($oneSemisterCard as $card){
+                        $semisterCard = (object) ["name"=>$card->name,"subject"=>$card->subject,"total"=>$card->total,"load"=>$card->load,"semister"=>$semister->id];
+                        $oneStudentCard->push($semisterCard);
+                    }
+                }
+                foreach($oneStudentCard as $studentCard){
+                    $studentCard = (object) ["name"=>$studentCard->name,"semister"=>$studentCard->semister,"subject"=>$studentCard->subject,"total"=>$studentCard->total,"load"=>$studentCard->load];
+                    $studentCardCollection->push($studentCard);
+                }
+            }
             // return $getTerm;
 
+            return $this->generateExcelFirstSemisterCard($studentCardCollection,$class2->id,$stream2->id,$data[2]);
+            // return $this->generateExcelFirstSemisterCard($getStudent,$class2->id,$stream2->id,$data[2],$getTerm);
+
+        }else{
             return $this->generateExcelForStudentCard($getStudent,$class2->id,$stream2->id,$data[2],$getTerm);
         }
     }
@@ -201,12 +246,13 @@ class MarklistController extends Controller
     public function generateExcelForStudentAllYearCard($studentData,$class,$stream,$section){
             $clas = classes::find($class);
             $str = stream::find($stream);
-            // $objDrawing = new PHPExcel_Worksheet_Drawing;
-            // $objDrawing->setPath(public_path('img/headerKop.png')); //your image path
-            // $objDrawing->setCoordinates('A2');
-            // $objDrawing->setWorksheet($sheet);
             return Excel::download(new StudentsCardExport($studentData,$class,$stream,$section), $clas->class_label.'_'.$str->stream_type.'_'.$section.'.xlsx');
     }
+    public function generateExcelFirstSemisterCard($studentData,$class,$stream,$section){
+        $clas = classes::find($class);
+        $str = stream::find($stream);
+        return Excel::download(new StudentsCardPerSemisterExport($studentData,$class,$stream,$section), $clas->class_label.'_'.$str->stream_type.'_'.$section.'.xlsx');
+}
     public function generateExcelForStudentCard($getStudent,$class2,$stream2,$section,$getTerm){
         $getAllSubject = subject::all();
         $clas = classes::find($class2);

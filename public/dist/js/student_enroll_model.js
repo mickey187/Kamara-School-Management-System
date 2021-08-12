@@ -11,7 +11,7 @@ $('#modal-student-enroll').on('show.bs.modal', function(event) {
     modal.find('.modal-body #grade').text(split[4]);
     modal.find('.modal-body #stream_type').text(split[5]);
     modal.find('.modal-body #from').text(split[4]);
-    modal.find('.modal-body #to').text(to);
+    modal.find('.modal-body #to').text("");
     modal.find('.modal-footer button').val(detail);
 
 })

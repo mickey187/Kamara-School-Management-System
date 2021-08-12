@@ -7,7 +7,7 @@
 @endforeach --}}
 
 <div class="row card  d-flex justify-content-center  ">
-    <div class="card-header bg-orange "><label class="text-white text-lg" id="teacherDashboardTitle">Dashboard</label> <div id="generator" class="float-right"><form action="generatedox" method="GET">@csrf <input class="btn btn-primary btn-sm" value="WORD" type="submit" id="wordgenerator1"></form></div></div>
+    <div class="card-header bg-orange "><label class="text-white text-lg" id="teacherDashboardTitle">Dashboard</label> <div id="generator" class="float-right"></div></div>
 <div class="d-flex justify-content-center ">
 <div class="col-12 row " id="dashboard">
     <div class="col-lg-3" style="margin-top: 20px;">
@@ -383,6 +383,7 @@
                             @foreach ($semister as $sem)
                             <option value="{{ $sem->id }}">Semister {{ $sem->semister }} {{ $sem->term }}</option>
                             @endforeach
+                            <option value="semisterOne">Semister One</option>
                             <option value="All">One Year</option>
                         </select>
                         <input name="generate_one_year_card" class="btn btn-primary  col-6" type="submit" value="Generate Card">

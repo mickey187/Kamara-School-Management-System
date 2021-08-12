@@ -434,6 +434,7 @@ class PreStudentsCardPerTermExport implements FromCollection,WithTitle,WithEvent
                     ]
                 );
                 $event->sheet->getDelegate()->getStyle('A1:B1')->getAlignment('center');
+                
             },
         ];
     }
