@@ -81,27 +81,27 @@ studentCitizen.oninput=function(){
     }
 };
 
-var studentGrade = document.getElementById("studentGrade")
-studentGrade.oninput = function(){
-    if((studentGrade.value).length >= 3){
-        setSuccessFor(studentGrade);
-    }if((studentGrade.value).length < 3){
-        setDefaultFor(studentGrade,"enter the correct number")
-    }if((studentGrade.value).length > 20){
-        setErorFor(studentGrade,"you reach the max length")
-    }
-};
+// var studentGrade = document.getElementById("studentGrade")
+// studentGrade.oninput = function(){
+//     if((studentGrade.value).length >= 3){
+//         setSuccessFor(studentGrade);
+//     }if((studentGrade.value).length < 3){
+//         setDefaultFor(studentGrade,"enter the correct number")
+//     }if((studentGrade.value).length > 20){
+//         setErorFor(studentGrade,"you reach the max length")
+//     }
+// };
 
-var studentStream = document.getElementById("studentStream")
-studentStream.oninput = function(){
-    if((studentStream.value).length >= 3){
-        setSuccessFor(studentStream);
-    }if((studentStream.value).length < 3){
-        setDefaultFor(studentStream,"enter the correct number")
-    }if((studentStream.value).length > 20){
-        setErorFor(studentStream,"you reach the max length")
-    }
-};
+// var studentStream = document.getElementById("studentStream")
+// studentStream.oninput = function(){
+//     if((studentStream.value).length >= 3){
+//         setSuccessFor(studentStream);
+//     }if((studentStream.value).length < 3){
+//         setDefaultFor(studentStream,"enter the correct number")
+//     }if((studentStream.value).length > 20){
+//         setErorFor(studentStream,"you reach the max length")
+//     }
+// };
 
 studentFirstNextBtn.addEventListener("click",function(){
     var studentFirstName = document.getElementById("studentFirstName")
@@ -189,8 +189,8 @@ if(
     (studentBirthPlace.value).length < 3 ||
     (studentGender.value).length < 3 ||
     (studentCitizen.value).length < 3 ||
-    (studentGrade.value).length < 3 ||
-    (studentStream.value).length < 3
+    studentGrade.value.trim() === '' ||
+    studentStream.value.trim() === ''
 
     ){
 
@@ -202,7 +202,7 @@ if(
             current += 1;
     }
     
-})
+});
 
 studentFirstPreviousBtn.addEventListener("click", function() {
     movePages.style.marginLeft = "0%";

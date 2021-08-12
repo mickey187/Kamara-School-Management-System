@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use DB;
 use Carbon\Carbon;
 
-class PaymentLoad extends Seeder
+class PaymentLoadSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -88,7 +88,7 @@ class PaymentLoad extends Seeder
                 
                 
                 default:
-                    # code...
+                    
                     break;
             }
             
