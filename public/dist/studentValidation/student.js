@@ -19,7 +19,7 @@ studentFirstName.oninput=function(){
         if ((studentFirstName.value).length >= 3){
             setSuccessFor(studentFirstName);
         }if((studentFirstName.value).length < 3){
-            setDefaultFor(studentFirstName,"please stop messing arround enter only valid input");   
+            setDefaultFor(studentFirstName,"please stop messing arround enter only valid input");
         }if((studentFirstName.value).length > 20  ){
             setErorFor(studentFirstName,"you reach maximum length");
         }
@@ -111,13 +111,13 @@ studentFirstNextBtn.addEventListener("click",function(){
     var studentBirthPlace = document.getElementById("studentBirthPlace")
     var studentGender = document.getElementById("studentGender")
     var studentCitizen = document.getElementById("studentCitizen")
-    var studentGrade = document.getElementById("studentGrade")
-    var studentStream = document.getElementById("studentStream")
+    // var studentGrade = document.getElementById("studentGrade")
+    // var studentStream = document.getElementById("studentStream")
     var studentImage = document.getElementById("img-pro")
 
-    if(studentImage.value.trim() === ''){         
+    if(studentImage.value.trim() === ''){
 
-        setErorFor(studentImage,"Image can not be empty")   
+        setErorFor(studentImage,"Image can not be empty")
      }else{
          setSuccessFor(studentImage)
      }
@@ -134,7 +134,7 @@ if((studentFirstName.value).length<3){
      }else{
             setSuccessFor(studentMiddleName)
         }
-    
+
     if((studentLastName.value).length<3){
             setDefaultFor(studentLastName,"Last name can not be min length")
 
@@ -153,7 +153,7 @@ if((studentFirstName.value).length<3){
 
         }else{
             setSuccessFor(studentBirthPlace)
-        } 
+        }
 
      if((studentGender.value).length<3){
             setDefaultFor(studentGender,"Gender can not be min length")
@@ -168,17 +168,17 @@ if((studentFirstName.value).length<3){
         }else{
             setSuccessFor(studentCitizen)
         }
-      if((studentGrade.value).length<3){
-            setDefaultFor(studentGrade,"grade can not be min length")
+    //   if((studentGrade.value).length<3){
+    //         setDefaultFor(studentGrade,"grade can not be min length")
 
-        }else{
-            setSuccessFor(studentGrade)
-        }
-    if((studentStream.value).length <3){
-        setDefaultFor(studentStream,"stream can not be min length")
-    }else{
-        setSuccessFor(studentStream)
-    }
+    //     }else{
+    //         setSuccessFor(studentGrade)
+    //     }
+    // if((studentStream.value).length <3){
+    //     setDefaultFor(studentStream,"stream can not be min length")
+    // }else{
+    //     setSuccessFor(studentStream)
+    // }
 
 if(
     studentImage.value.trim() === '' ||
@@ -188,9 +188,9 @@ if(
     (studentBirthDate.value).length < 3 ||
     (studentBirthPlace.value).length < 3 ||
     (studentGender.value).length < 3 ||
-    (studentCitizen.value).length < 3 ||
-    studentGrade.value.trim() === '' ||
-    studentStream.value.trim() === ''
+    (studentCitizen.value).length < 3 
+    // studentGrade.value.trim() === '' ||
+    // studentStream.value.trim() === ''
 
     ){
 
@@ -201,7 +201,7 @@ if(
             progressCheck[current - 1].classList.add("active");
             current += 1;
     }
-    
+
 });
 
 studentFirstPreviousBtn.addEventListener("click", function() {
@@ -275,7 +275,7 @@ studentTransferReason.oninput=function(){
         setDefaultFor(studentNativeLanguage,"please enter the valid native language")
     }if((studentNativeLanguage.value).length > 20){
         setErorFor(studentNativeLanguage,"you reach max length")
-    }     
+    }
   };
 
   var studentDisability = document.getElementById('studentDisability')
@@ -286,7 +286,7 @@ studentTransferReason.oninput=function(){
         setDefaultFor(studentDisability,"please enter the valid disability")
     }if((studentDisability.value).length > 20){
         setErorFor(studentDisability,"you reach max length")
-    } 
+    }
   };
 
   var studentMedicalCondition = document.getElementById('studentMedicalCondition')
@@ -297,7 +297,7 @@ studentTransferReason.oninput=function(){
         setDefaultFor(studentMedicalCondition,"please enter the valid medical condition")
     }if((studentMedicalCondition.value).length > 20){
         setErorFor(studentMedicalCondition,"you reach max length")
-    } 
+    }
   };
 
   var studentBloodType = document.getElementById('studentBloodType')
@@ -542,7 +542,7 @@ studentSecondPreviousBtn.addEventListener("click",function(){
 })
 
 studentThirdPreviousBtn.addEventListener("click",function(){
-    
+
     movePages.style.marginLeft = "-50%";
     bullet[current - 2].classList.remove("active");
     progressText[current - 2].classList.remove("active");
@@ -654,7 +654,7 @@ studentSubmitBtn.addEventListener("click", function(){
              bullet[current - 1].classList.add("active");
              progressText[current - 1].classList.add("active");
              progressCheck[current - 1].classList.add("active");
-             current += 1;   
+             current += 1;
               setTimeout(function() {
         alert("You're successfully inserted your data");
         location.reload();
@@ -663,22 +663,22 @@ studentSubmitBtn.addEventListener("click", function(){
 
 });
 
-function setDefaultFor(input, message) {              
+function setDefaultFor(input, message) {
 
     const formControll = input.parentElement;
     const small = formControll.querySelector('small');
     small.innerText = message;
     formControll.className = 'field warning';
-     
+
 }
 
-function setErorFor(input, message) {              
+function setErorFor(input, message) {
 
     const formControll = input.parentElement;
     const small = formControll.querySelector('small');
     small.innerText = message;
     formControll.className = 'field error';
-     
+
 }
 
 function setSuccessFor(input) {
@@ -694,6 +694,6 @@ function alphaOnly(event) {
 
 function allCharacter(event){
     var special = event.keyCode;
-    return ((special >=65  && special <= 90) || special == 8 ||  32 ||  43 || 
+    return ((special >=65  && special <= 90) || special == 8 ||  32 ||  43 ||
     special >=47 && special < 58);
 };

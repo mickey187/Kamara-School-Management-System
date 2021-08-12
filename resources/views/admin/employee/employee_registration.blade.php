@@ -40,7 +40,7 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">First name</div>
-                                                    <input type="text" id="first_name" name="first_name" class="form-control" 
+                                                    <input type="text" id="emp_first_name" name="first_name" class="form-control"
                                                     oninput="checkInput()"
                                                        onkeydown="return alphaOnly(event);"
                                                         onblur="if (this.value == '')"
@@ -142,8 +142,9 @@
                                                 </div>
                                                 <div class="field">
                                                     <div class="label">Marriage Status</div>
-                                                        <select id="marriage_status" class="form-control" name="marriage_status">
-                                                                <option>married</option>
+                                                        <select id="emp_marriage_status" class="form-control" name="marriage_status">
+                                                            <option>Single</option>
+                                                            <option>married</option>
                                                                 <option>divorce</option>
                                                                 <option>widow</option>
                                                             </select>
@@ -152,7 +153,7 @@
                                                 </div>
                                                 <div class="field">
                                                     <div class="label">Hired Date</div>
-                                                    <input type="date" name="hired_date" class="form-control" id="hired_date"
+                                                    <input type="date" name="hired_date" class="form-control" id="emp_hired_date"
                                                     placeholder="Enter your hired date"
                                                     @if(isset($edit_employee))
                                                         value="{{ $edit_employee->hired_date }}"
@@ -178,7 +179,7 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Job Trainning</div>
-                                                    <input type="text" id="job_trainning" name="job_trainning" class="form-control"
+                                                    <input type="text" id="emp_job_trainning" name="job_trainning" class="form-control"
                                                     placeholder="Enter your job trainning"
                                                        @if(isset($edit_employee))
                                                          value="{{ $edit_employee->job_trainning }}"
@@ -189,7 +190,7 @@
                                                     </div>
                                                 <div class="field">
                                                     <div class="label">Previous Employment</div>
-                                                    <input type="text" id="previous_employment" name="previous_employment" class="form-control"
+                                                    <input type="text" id="emp_previous_employment" name="previous_employment" class="form-control"
                                                      placeholder="Enter your previous employment"
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->previous_employment }}"
@@ -201,7 +202,7 @@
 
                                                 <div class="field">
                                                     <div class="label">Special Skill</div>
-                                                    <input type="text" id="special_skill" name="special_skill" class="form-control"
+                                                    <input type="text" id="emp_special_skill" name="special_skill" class="form-control"
                                                      placeholder="Enter your special skill"
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->special_skill }}"
@@ -214,7 +215,7 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Net Salary</div>
-                                                    <input type="number" id="net_salary" name="net_salary" class="form-control"  
+                                                    <input type="number" id="emp_net_salary" name="net_salary" class="form-control"
                                                     placeholder="Enter your net salary"
 
                                                      {{-- onkeydown="return alphaOnly(event);"
@@ -231,7 +232,7 @@
                                                     </div>
                                                 <div class="field">
                                                     <div class="label">Hire Type</div>
-                                                    <input type="text" id="hire_type" name="hire_type" class="form-control"
+                                                    <input type="text" id="emp_hire_type" name="hire_type" class="form-control"
                                                     placeholder="Enter your hire type"
                                                         @if(isset($edit_employee))
                                                         value="{{ $edit_employee->hire_type }}"
@@ -242,7 +243,7 @@
                                                     </div>
                                                 <div class="field">
                                                 <div class="label">Employee Religion</div>
-                                                    <select id="employee_religion" name="employee_religion" class="form-control form-select" aria-label="employee_religion" >
+                                                    <select id="emp_employee_religion" name="employee_religion" class="form-control form-select" aria-label="employee_religion" >
                                                         @foreach( $edit_all as $row )
                                                         {{$row->religion_name}}
                                                             <option value="{{ $row->id }}"
@@ -262,7 +263,7 @@
                                             <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Emergency Contact</div>
-                                                     <input type="text" id="emergency_contact" name="emergency_contact" class="form-control"
+                                                     <input type="text" id="emp_emergency_contact" name="emergency_contact" class="form-control"
                                                      placeholder="Enter your past emergency contact name"
 
                                                       @if(isset($edit_employee))
@@ -274,7 +275,7 @@
                                                     </div>
                                                   <div class="field">
                                                     <div class="label">relation</div>
-                                                     <input type="text" id="relation" name="relation" class="form-control"
+                                                     <input type="text" id="emp_relation" name="relation" class="form-control"
                                                        placeholder="Enter your relation"
 
                                                        @if(isset($edit_employee))
@@ -286,7 +287,7 @@
                                                     </div>
                                               <div class="field">
                                                     <div class="label">Past Job Position</div>
-                                                     <input type="text" id="past_job_position" name="past_job_position" class="form-control"
+                                                     <input type="text" id="emp_past_job_position" name="past_job_position" class="form-control"
                                                      placeholder="Enter your past job position"
                                                       @if(isset($edit_employee))
                                                          value="{{ $edit_employee->past_job_position }}"
@@ -314,7 +315,7 @@
 
                                                 <div class="field">
                                                     <div class="label">Past Employment Place</div>
-                                                    <input type="text" id="past_employment_place" name="past_employment_place" class="form-control"
+                                                    <input type="text" id="emp_past_employment_place" name="past_employment_place" class="form-control"
                                                       placeholder="Enter your past employment place"
                                                         @if(isset($edit_employee))
                                                         value="{{  $edit_employee->past_employee_place }}"
@@ -325,7 +326,7 @@
                                                 </div>
                                                 <div class="field">
                                                 <div class="label">Role</div>
-                                                    <select id="role_selecter" name="employee_role" class="form-control form-select" aria-label="employee_role" name="employee_role">
+                                                    <select id="emp_role_selecter" name="employee_role" class="form-control form-select" aria-label="employee_role" name="employee_role">
                                                             @foreach($edit_all_role as $row)
                                                             {{$row->role_name}}
                                                             <option value="{{$row->id}}"
@@ -341,7 +342,7 @@
 
                                                     <div class="field">
                                                     <div class="label">Job Position</div>
-                                                    <select id="job_position_selecter" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
+                                                    <select id="emp_job_position_selecter" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
                                                         @foreach( $job_position as $row )
                                                         {{ $row->position_name }}
                                                         <option value="{{ $row->id }}"
@@ -380,7 +381,7 @@
 
                                                 </div> --}}
 
-                                                <div class="field" id="debut_as_a_teacher" >
+                                                <div class="field" id="emp_debut_as_a_teacher" >
                                                     <div class="label">debut_as_a_teacher</div>
                                                         <input  type="date" name="debut_as_a_teacher" id="debut_as_a_teacher_val" class="form-control"  aria-describedby="debut_as_a_teacher"
                                                          placeholder="Enter your debut as a teacher"
@@ -391,9 +392,9 @@
                                                         @endif
                                                         ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                                                 </div>
-                                                <div class="field" id="field_of_study">
+                                                <div class="field" id="emp_field_of_study">
                                                     <div class="label">field_of_study</div>
-                                                            <input type="text" name="field_of_study" id="field_of_study_val"  class="form-control"
+                                                            <input type="text" name="field_of_study" id="emp_field_of_study_val"  class="form-control"
                                                              placeholder="Enter your field of study"
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->field_of_study }}"
@@ -402,9 +403,9 @@
                                                         @endif
                                                         ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                                                 </div>
-                                                                                                <div class="field" id="teacher_traning_program">
-                                                    <div class="label">teacher_traning_program</div>
-                                                    <input type="text" name="teacher_traning_program" id="teacher_traning_program_val"  class="form-control"
+                                                <div class="field" id="teacher_traning_program">
+                                                    <div  class="label">teacher_traning_program</div>
+                                                    <input type="text" name="teacher_traning_program" id="emp_teacher_traning_program_val"  class="form-control"
                                                     placeholder="Enter your teacher training program"
                                                         @if(isset($teacher))
                                                             value="{{ $teacher->teacher_traning_program }}"
@@ -417,7 +418,7 @@
                                             <div class="col-4">
                                                 <div class="field" id="place_of_study">
                                                     <div class="label">place_of_study</div>
-                                                    <input type="text" name="place_of_study" id="place_of_study_val"  class="form-control"
+                                                    <input type="text" name="place_of_study" id="emp_place_of_study_val"  class="form-control"
                                                      placeholder="Enter your place of study"
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->place_of_study }}"
@@ -427,7 +428,7 @@
 
                                                 <div class="field" id="date_of_study">
                                                     <div class="label">date_of_study</div>
-                                                    <input type="date" name="date_of_study" id="date_of_study_val"  class="form-control"
+                                                    <input type="date" name="date_of_study" id="emp_date_of_study_val"  class="form-control"
                                                     placeholder="Enter your date of study"
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->date_of_study }}"
@@ -440,7 +441,7 @@
                                             <div class="col-4">
                                                 <div class="field" id="teacher_traning_year">
                                                     <div class="label">teacher_traning_year</div>
-                                                        <input type="date" name="teacher_traning_year" id="teacher_traning_year_val"  class="form-control"
+                                                        <input type="date" name="teacher_traning_year" id="emp_teacher_traning_year_val"  class="form-control"
                                                          placeholder="Enter your teacher training year"
                                                             @if(isset($teacher))
                                                                 value="{{  $teacher->teacher_traning_year }}"
@@ -451,7 +452,7 @@
                                                 </div>
                                                 <div class="field" id="teacher_traning_institute">
                                                     <div class="label">teacher_traning_institute</div>
-                                                    <input type="text" name="teacher_traning_institute" id="teacher_traning_institute_val"  class="form-control"
+                                                    <input type="text" name="teacher_traning_institute" id="emp_teacher_traning_institute_val"  class="form-control"
                                                     placeholder="Enter your teacher training institute"
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->teacher_traning_institute }}"
@@ -479,7 +480,7 @@
                                         <div class="col-4">
                                          <div class="field">
                                             <div class="label">City</div>
-                                            <input type="text" id="city" name="City" class="form-control"
+                                            <input type="text" id="emp_city" name="City" class="form-control"
                                             placeholder="City"
                                              @if(isset($edit_employee))
                                                value="{{ $edit_employee->city }}"
@@ -490,7 +491,7 @@
                                         </div>
                                         <div class="field">
                                             <div class="label">Sub city</div>
-                                            <input type="text" id="sub_city" name="sub_city" class="form-control"
+                                            <input type="text" id="emp_sub_city" name="sub_city" class="form-control"
                                              placeholder="Subcity"
                                              @if(isset($edit_employee))
                                                value="{{ $edit_employee->subcity }}"
@@ -501,7 +502,7 @@
                                         </div>
                                         <div class="field">
                                             <div class="label">Kebele</div>
-                                            <input type="number" required name="Kebele" id="kebele"  class="form-control" 
+                                            <input type="number" required name="Kebele" id="emp_kebele"  class="form-control"
                                             placeholder="Kebele"  maxlength="15"
 
                                              @if(isset($edit_employee))
@@ -517,7 +518,7 @@
                                         <div class="col-4">
                                             <div class="field">
                                                 <div class="label">House number</div>
-                                                <input type="number" id="house_number" required name="house_number" class="form-control" 
+                                                <input type="number" id="emp_house_number" required name="house_number" class="form-control"
                                                 placeholder="House number" size="10"
                                                  @if(isset($edit_employee))
                                                    value="{{ number_format($edit_employee->house_number) }}"
@@ -529,7 +530,7 @@
 
                                           <div class="field">
                                             <div class="label">P.O.Box</div>
-                                            <input type="number" id="POBox" required name="POBox" class="form-control"
+                                            <input type="number" id="emp_POBox" required name="POBox" class="form-control"
                                              placeholder="P.O.Box" size="15"
                                              @if(isset($edit_employee))
                                                value="{{ $edit_employee->p_o_box }}"
@@ -540,7 +541,7 @@
                                         </div>
                                         <div class="field">
                                             <div class="label">Email</div>
-                                            <input type="email" id="email" required name="email" class="form-control"
+                                            <input type="email" id="emp_email" required name="email" class="form-control"
                                              placeholder="Email"
                                              @if(isset($edit_employee))
                                                value="{{ $edit_employee->email }}"
@@ -553,7 +554,7 @@
                                         <div class="col-4">
                                             <div class="field">
                                                 <div class="label">Phone</div>
-                                                <input type="number" id="phone1"   required name="phone1" class="form-control" 
+                                                <input type="number" id="emp_phone1"   required name="phone1" class="form-control"
                                                 placeholder="Phone"   maxlength="14"
 
                                                  @if(isset($edit_employee))
@@ -565,7 +566,7 @@
                                             </div>
                                             <div class="field">
                                                 <div class="label">Alternative Phone</div>
-                                                <input type="number" id="phone2" required name="phone2" class="form-control"
+                                                <input type="number" id="emp_phone2" required name="phone2" class="form-control"
                                                  placeholder="Alternative phone" maxlength="14"
                                                  @if(isset($edit_employee))
                                                    value="{{ $edit_employee->alternative_phone_number }}"
@@ -580,7 +581,7 @@
 
                                         <div class="field btns">
                                             <button type="button" class="Emp_prev-3 prev btn btn-primary">Previous</button>
-                                            <button type="submit" id="addBtn" class=" submitBtn btn btn-primary">submit</button>
+                                            <button type="submit" id="emp_addBtn" class=" submitBtn btn btn-primary">submit</button>
                                         </div>
                                     </div>
 

@@ -97,16 +97,16 @@ class PaymentLoadSeeder extends Seeder
 
         //Registration Fee Load seeder
 
-        // for ($i=1; $i < 14 ; $i++) {
-        //     DB::table('payment_loads')->insert([
-        //         // 'id' => $i,
-        //         'payment_type_id' => 1,
-        //         'class_id' =>$i,
-        //         'amount'=> 300,
-        //         'created_at' => Carbon::now(),
-        //         'updated_at' => Carbon::now(),
-        //      ]);
-        // }
+        for ($i=1; $i < 14 ; $i++) {
+            DB::table('payment_loads')->insert([
+                // 'id' => $i,
+                'payment_type_id' => 1,
+                'class_id' =>$i,
+                'amount'=> 300,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+             ]);
+        }
 
         //Tuition Fee Load Seeder
         $amount = 850;

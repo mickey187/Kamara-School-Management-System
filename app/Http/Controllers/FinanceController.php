@@ -33,8 +33,8 @@ class FinanceController extends Controller
     public function financeDashboard(){
 
         $total_value_this_month = 0;
-        $total_value_this_year = 0;  
-        
+        $total_value_this_year = 0;
+
         $now1 = \Andegna\DateTimeFactory::now();
         $current_year_month = $now1->getYear()."-".$now1->getMonth();
 
@@ -45,7 +45,7 @@ class FinanceController extends Controller
                 $total_value_this_year = $total_value_this_year + $total->amount_payed;
                error_log("foreverrrrrrrrrrrr");
             }
-           
+
         }
         //return $total_payment_collected;
         foreach ($total_payment_collected_this_month as $total) {
@@ -59,7 +59,7 @@ class FinanceController extends Controller
         $each_month_earnings = [];
         $months_of_the_year = [];
         $now1 = \Andegna\DateTimeFactory::now();
-        for ($i=0; $i <13; $i++) { 
+        for ($i=0; $i <13; $i++) {
             switch ($i) {
                 case 0:
                     $months_of_the_year[$i] = $now1->getYear()."-01";
@@ -111,28 +111,28 @@ class FinanceController extends Controller
                 case 12:
                         $months_of_the_year[$i] = $now1->getYear()."-13";
                         break;
-                
+
                 default:
                     # code...
                     break;
             }
             // if ($i == 9) {
             //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-10";
-               
+
             // }
             // else if ( $i == 10) {
             //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-11";
-               
+
             // }
             // else if ($i == 11) {
             //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-12";
-                
+
             // }
 
             // else if ($i == 0) {
             //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-01";
             //     continue;
-                
+
             // }
 
             // elseif ($i == 8) {
@@ -141,9 +141,9 @@ class FinanceController extends Controller
 
             // else if($i == 1 || $i == 2 || $i == 3 || $i == 4 || $i == 5 || $i == 6 || $i == 7) {
             //     $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-0".$i;
-                
-                
-                
+
+
+
             // }
 
             // else {
@@ -166,7 +166,7 @@ class FinanceController extends Controller
         }
         $length = count($months_of_the_year);
         error_log($length);
-        for ($i=0; $i < $length ; $i++) { 
+        for ($i=0; $i < $length ; $i++) {
             $each_month_earnings[$i] = student_payment::where('payment_month',$months_of_the_year[$i])
                                         ->sum('amount_payed');
         }
@@ -174,7 +174,7 @@ class FinanceController extends Controller
         //     $each_month_earnings[] = student_payment::where('payment_month',$key)->sum('amount_payed');
         //     error_log($key);
         // }
-        
+
 
         return response()->json($each_month_earnings);
 
@@ -187,8 +187,8 @@ class FinanceController extends Controller
 
     //Add Payment Type
     public function addPaymentType(Request $req){
-       
-        
+
+
 
         $payment_type = new payment_type();
         $payment_type->payment_type = $req->payment_type;
@@ -196,10 +196,10 @@ class FinanceController extends Controller
         if ($payment_type->save()) {
             $view_payment_type[0] = payment_type::latest()->first();
            error_log($view_payment_type[0]);
-           
+
             return response()->json(['success'=>'success','view_payment_type'=>$view_payment_type]);
-           
-            
+
+
         }
     }
 
@@ -219,7 +219,7 @@ class FinanceController extends Controller
         $payment_type->payment_type = $req->payment_type_edit;
         $payment_type->recurring_type = $req->select_recurring_edit;
         if ($payment_type->save()) {
-            
+
             return response()->json("success");
         }
 
@@ -244,12 +244,12 @@ class FinanceController extends Controller
                                       ->join('classes','students.class_id','=','classes.id')
                                       ->where('payment_type','Transportation Fee')
                                       ->get();
-       
+
 
         return view('finance.student_transportation')->with('student_transport',$student_transport);
     }
 
-  
+
 
 
     public function fetchstudentTransportLoad($stud_id){
@@ -258,13 +258,13 @@ class FinanceController extends Controller
                             ->join('classes','students.class_id','=','classes.id')
                             ->where('student_id',$stud_id)
                             ->get(['students.id as student_table_id','first_name','middle_name','last_name','class_id','class_label']);
-            
-        $class_id = null;                    
+
+        $class_id = null;
 
                             foreach ($student_data as $row) {
 
                                 $class_id = $row->class_id;
-                                
+
                             }
 
         $payment_load = DB::table('payment_loads')
@@ -280,11 +280,11 @@ class FinanceController extends Controller
         $student_payment_load = new student_payment_load();
         $student_payment_load->student_id = $student_table_id;
         $student_payment_load->payment_load_id = $payment_load_id;
-        
+
         if (!student_payment_load::where('student_id',$student_table_id)->where('payment_load_id',$payment_load_id)->exists()) {
             if ($student_payment_load->save()) {
-                
-                
+
+
                 return response()->json("success");
             }
         }
@@ -292,15 +292,15 @@ class FinanceController extends Controller
         else if (student_payment_load::where('student_id',$student_table_id)->where('payment_load_id',$payment_load_id)->exists()) {
             return response()->json("already exists");
         }
-       
-        
+
+
         // $student_transport = new student_transportation();
         // $student_transport->student_id = $student_table_id;
         // $student_transport->payment_load_id = $payment_load_id;
-       
+
         // if ($student_transport->save()) {
         //     $res = student_transportation::all();
-            
+
         // }
 
     }
@@ -312,7 +312,7 @@ class FinanceController extends Controller
                                   ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
                                   ->join('classes','payment_loads.class_id','=','classes.id')
                                   ->get(['payment_loads.id as load_id','payment_type','class_label','amount']);
-                                  
+
        // $student_data = student::get(['id','student_id','first_name','middle_name','last_name','discount','class_id']);
         $student_data = DB::table('students')
                                  ->join('classes','students.class_id','=','classes.id')
@@ -321,10 +321,10 @@ class FinanceController extends Controller
                                  ->orderBy('last_name','ASC')
                                  ->orderBy('classes.id','ASC')
                                  ->get(['students.id as student_table_id','student_id','first_name','middle_name','last_name','discount','class_id','class_label']);
-       
+
             //return $student_data;
-       
-        
+
+
         return view('finance.add_student_payments')->with('student_data',$student_data)
                    ->with('payment_type',$payment_type);
     }
@@ -332,8 +332,8 @@ class FinanceController extends Controller
     public function fetchTotalPaymentLoad($class_id, $stud_id){
         $total_load = 0;
         $discounted_load = 0;
-        
-       
+
+
         $result_load = DB::table('student_payment_load')
                                  ->where('student_id',$stud_id)
                                  ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
@@ -351,27 +351,27 @@ class FinanceController extends Controller
                 if (student_payment::where('student_id',$stud_id)->where('payment_load_id',$individual_load->payment_load_id)->exists()) {
                     $individual_load->amount = 0;
                 }
-                
+
             }
             $total_load = $total_load + $individual_load->amount;
         }
 
         $total = array(['total_load' => $total_load]);
-       
+
         return response()->json(['result_load'=>$result_load,'total_load'=>$total_load]);
 
 
-    
+
     }
 
    /* public function fetchTotalPaymentLoad($class_id, $stud_id){
-        
+
 //fetch general student payment load
         $result_load = DB::table('payment_loads')
         ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
         ->join('classes','payment_loads.class_id','=','classes.id')
         ->where('class_id',$class_id)
-        
+
         ->get(['payment_loads.id as load_id','payment_type','class_label','amount','recurring_type'
         ,'payment_types.id as pay_type_id']);
         $total_load = 0;
@@ -380,22 +380,22 @@ class FinanceController extends Controller
 
 //check for student discount
      if (student_discount::where('student_id',$stud_id)->where('payment_load_id',$key->load_id)->exists()) {
-            
+
                 error_log("Levelllllllllllllllll");
                 $fetch_discount = student_discount::where('student_id',$stud_id)->where('payment_load_id',$key->load_id)->get(['discount_percent']);
                 $discount_value = 0;
                 foreach ($fetch_discount as $row) {
                     $discount_value = $row->discount_percent ;
                 }
-     
-                
+
+
                     $temp = $key->amount;
                     $temp = $temp * $discount_value/100;
                     $key->amount = $key->amount-$temp;
-                    
-                    
-                
-     
+
+
+
+
              }
 //check if non recurring payments are already payed
 
@@ -409,7 +409,7 @@ class FinanceController extends Controller
              if (!student_transportation::where('student_id',$stud_id)->exists()) {
                  foreach ($result_load as $key) {
                      # code...
-                     
+
                      if ($key->payment_type == 'Transportation Fee') {
                          # code...
                          $key->amount = 0;
@@ -422,15 +422,15 @@ class FinanceController extends Controller
              }
 
             }
-            
-        
-//calculate total payment for a student 
+
+
+//calculate total payment for a student
         foreach ($result_load as $row) {
             $total_load = $total_load + $row->amount;
         }
         $total = array(['total_load' => $total_load]);
 
-     
+
 //json response to AJAX REQUEST
         return response()->json(['result_load' => $result_load, 'total_load' => $total]);
 
@@ -458,16 +458,16 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                 if (student_payment::where('student_id',$stud_id)->where('payment_load_id',$individual_load->payment_load_id)->exists()) {
                     $individual_load->amount = 0;
                 }
-                
+
             }
-            
+
         }
-    
+
 
             return response()->json($result_load);
 
 }
-  
+
 
     public function fetchPaymentHistory($stud_id){
 
@@ -500,24 +500,24 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         $compare =  DB::table('student_payments')
                     ->where('student_id',$stud_id)
                     ->get(['student_id','payment_type_id','payment_load_id','amount_payed','payment_month']);
-       
+
             error_log("testtttttttt".ltrim(Carbon::now()->format('m'),"0") );
             $now1 = \Andegna\DateTimeFactory::now();
            $current_month_year = $now1->getYear()."-".$now1->getMonth();
            $current_month = ltrim($now1->getMonth(),"0");
            $previous_month = [];
 
-            for ($i = 0; $i <= $current_month -1; $i++){ 
+            for ($i = 0; $i <= $current_month -1; $i++){
                   $previous_month[$i] = date("Y-m", strtotime( date( $current_month_year )." -$i months"));
-           
+
             }
             $length = count($previous_month);
 
-            for ($i=1; $i < $length ; $i++) { 
-                
+            for ($i=1; $i < $length ; $i++) {
+
                 // $gregorian = new DateTime($previous_month[$i]);
                 // $ethipic = new Andegna\DateTime($gregorian);
-                
+
                 error_log("from thereeeeeeeeeee");
                  error_log("from hereeeeeeeeeeeeeee".$previous_month[$i]);
 
@@ -530,24 +530,21 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                    // $student_payment_load['unpaid-'.$key->payment_type."-".$key2] = $key->amount;
                     // $student_payment_load[] = ['student_id'=>$key->student_id,
                     //                          'payment_type_id'=>$key->payment_type_id,
-                    //                          'payment_load_id'=>$key->payment_load_id,                                            
+                    //                          'payment_load_id'=>$key->payment_load_id,
                     //                          'amount_payed'=>$key->amount,
                     //                          'payment_month'=>$key2
-                    
-                    //                         ]; 
+
+                    //                         ];
                     $student_missing_payment_coll->push([ 'student_id'=>$key->student_id,
                     'payment_type_id'=>$key->payment_type_id,
-                    'payment_load_id'=>$key->payment_load_id,                                            
+                    'payment_load_id'=>$key->payment_load_id,
                     'amount_payed'=>$key->amount,
                     'payment_month'=>$key2,
                     'status'=>'unknown',
                     'payment_type'=>$key->payment_type,
                      ]);
-                    
-                
                 }
-                
-                
+
             }
             $array_length2 = count($student_missing_payment_coll);
             $counter = 0;
@@ -559,14 +556,14 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                         ->where('payment_month',$key['payment_month'])
                                         ->exists()) {
                                             $counter++;
-                        
+
                         error_log("hurraaaaaaaaaaay it checked".$counter);
-                        
+
 
                         $student_missing_payment_coll->push([
 
                             'payment_type_id'=>$key['payment_type_id'],
-                            'payment_load_id'=>$key['payment_load_id'],                                            
+                            'payment_load_id'=>$key['payment_load_id'],
                             'amount_payed'=>$key['amount_payed'],
                             'payment_month'=>$key['payment_month'],
                             'status'=>'unpaid',
@@ -574,15 +571,15 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                         ]);
 
                     }
-                
-                
+
+
             }
             $sliced[] = $student_missing_payment_coll->slice($array_length2);
-            
-          
+
+
 
             error_log($student_missing_payment_coll."from here");
-  
+
         return response()->json(['unpaid_bill'=>$student_payment_load,'result_history'=>$result_history,'compared'=>$compare
                         ,'student_missing_payment_coll'=>$student_missing_payment_coll,'sliced'=>$sliced]);
     }
@@ -591,31 +588,31 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
 
         error_log("Heyyyyyyyyyyyy".$stud_id);
         $total_payment = $req->detail;
-        
-       
+
+
         $res = null;
         $count = 0;
         $status = null;
-       
+
         if (student_payment::where('fs_number',$fs_number)->exists()) {
             $status = "duplicate fs number";
         }
         else if(!student_payment::where('fs_number',$fs_number)->exists()){
 
-        
+
         foreach ($total_payment as $key) {
              if (!$key['amount'] == 0) {
 
-               
+
                  if (!student_payment::where('payment_type_id',$key['payment_type_id'])
                                       ->where('payment_load_id',$key['payment_load_id'])
                                       ->where('payment_month',$month)
                                       ->where('amount_payed',$key['amount'])
                                       ->where('student_id',$stud_id)
                                       ->exists()) {
-                 
-                     
-                 
+
+
+
             $student_payment = new student_payment();
             $student_payment->student_id = $stud_id;
             $student_payment->payment_type_id = $key['payment_type_id'];
@@ -626,7 +623,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             if ($student_payment->save()) {
                 $status = "successful";
                     }
-            
+
                 }
                 else if(student_payment::where('payment_type_id',$key['payment_type_id'])
                                         ->where('payment_load_id',$key['payment_load_id'])
@@ -638,17 +635,17 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                 }
             }
 
-            
-            
+
+
             $count++;
-            
+
 
           }
         }
           $student_payment = student_payment::all();
-         
+
           return response()->json($status);
-        
+
 
     }
     public function makeIndividualPayment(Request $req, $stud_id, $month, $fs_number){
@@ -670,7 +667,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             $student_payment->fs_number = $fs_number;
             if ($student_payment->save()) {
                 $status = "successful";
-                
+
                 }
             }
             else if(student_payment::where('payment_type_id',$key['payment_type_id'])
@@ -684,8 +681,8 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         }
         elseif ($key['amount'] == 0) {
             $status = "already paid";
-        }       
-        
+        }
+
 
     }
     return response()->json($status);
@@ -700,13 +697,13 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         $student_payment->amount_payed = $req->amount;
         $student_payment->payment_month = $req->month;
         $student_payment->save();
-        
+
     }
 
     public function viewStudentPayment(){
 
     }
-    
+
 
     public function indexAddPaymentLoad(){
 
@@ -722,7 +719,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
     }
 
     public function AddPaymentLoad(Request $req,$class_selected){
-        
+
         $status = "";
         $counter = 0;
        $class_array = explode(",",$class_selected);
@@ -740,7 +737,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                             ->orderBy('payment_loads.created_at','DESC')
                             ->limit($counter)
                             ->get(['payment_loads.id as load_id','payment_type','class_label','amount']);
-            
+
         }
        }
        return response()->json(['payment_load'=>$payment_load,'status'=>$status]);
@@ -758,7 +755,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             return response()->json($status);
         }
 
-        
+
 
 
     }
@@ -770,7 +767,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             $status = "success";
             return response()->json($status);
         }
-        
+
 
     }
 
@@ -790,8 +787,8 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
        foreach ($student_data as $key) {
              $class_id = $key->class_id;
        }
-      
-       
+
+
         // $student_payment = DB::table('payment_loads')
         //                             ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
         //                             ->join('classes','payment_loads.class_id','=','classes.id')
@@ -803,7 +800,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                   ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
                                   ->join('students','student_payment_load.student_id','=','students.id')
                                   ->join('classes','students.class_id','=','classes.id')
-                                  ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')                          
+                                  ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
                                   ->where('student_payment_load.student_id',$student_table_id)
                                   ->get();
           return response()->json(['student_data'=>$student_data,'student_payment'=>$student_payment]);
@@ -819,7 +816,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                             ->join('students','student_payment_load.student_id','=','students.id')
                             ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
                             ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
-                            ->where('discount_percent','!=',0)                    
+                            ->where('discount_percent','!=',0)
                             ->get(['students.student_id',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
                             ,'payment_types.payment_type','discount_percent']);
                           //  dd($student_discount);
@@ -827,11 +824,11 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
     }
 
     public function addStudentDiscount(Request $req){
-        
+
 
         $student_discount =  student_payment_load::where('student_id',$req->student_id)
                              ->where('payment_load_id',$req->payment_load_id)->first();
-       
+
         // $student_discount->student_id = $req->student_id;
         // $student_discount->payment_load_id = $req->payment_load_id;
         $student_discount->discount_percent = $req->discount_amount;
@@ -850,7 +847,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                       ->join('classes','students.class_id','=','classes.id')
                                       ->where('payment_type','Transportation Fee')
                                       ->get();
-        
+
 
         return view('finance.student_payment')->with('payment_type',$payment_type);
 
@@ -885,16 +882,16 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         $student_payment_load->student_id = $req->stduent_table_id;
         $student_payment_load->payment_load_id = $payment_load_id[0];
         $student_payment_load->discount_percent = $req->discount_percent;
-        
+
         if (!student_payment_load::where('student_id',$req->stduent_table_id)
             ->where('payment_load_id',$payment_load_id[0])->exists()) {
 
                 if ($student_payment_load->save()) {
-                    
-                    
+
+
                     return response()->json("success");
                 }
-            
+
         }
 
         elseif (student_payment_load::where('student_id',$req->stduent_table_id)
@@ -915,7 +912,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                       ->get([DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
                                    ,'students.student_id as stud_id' ,'payment_type','class_label','amount','discount_percent']);
         error_log($student_transport);
-        //$student_transport_arr = array("data"=>$student_transport); 
+        //$student_transport_arr = array("data"=>$student_transport);
             return response()->json($student_transport);
     }
 
@@ -925,20 +922,20 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                             ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
                             ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
                             ->join('classes','students.class_id','=','classes.id')
-                            ->where('discount_percent','!=',0)                    
+                            ->where('discount_percent','!=',0)
                             ->get(['students.student_id',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
                             ,'class_label','payment_types.payment_type','discount_percent']);
                             return response()->json($student_discount);
     }
 
     public function showStudentsRegisteredForSchoolTrip(){
-        
+
         $student_school_trip = DB::table('student_payment_load')
         ->join('students','student_payment_load.student_id','=','students.id')
         ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
         ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
         ->join('classes','students.class_id','=','classes.id')
-        ->where('payment_type','=','School Trip')                    
+        ->where('payment_type','=','School Trip')
         ->get(['students.student_id',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
         ,'class_label','payment_types.payment_type','discount_percent','amount']);
 
@@ -952,7 +949,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
         ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
         ->join('classes','students.class_id','=','classes.id')
-        ->where('payment_type','=','Graduation Magazine & Gown Fee')                    
+        ->where('payment_type','=','Graduation Magazine & Gown Fee')
         ->get(['students.student_id',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
         ,'class_label','payment_types.payment_type','discount_percent','amount']);
 
@@ -966,7 +963,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
         ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
         ->join('classes','students.class_id','=','classes.id')
-        ->where('payment_type','=','Summer Camp')                    
+        ->where('payment_type','=','Summer Camp')
         ->get(['students.student_id',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
         ,'class_label','payment_types.payment_type','discount_percent','amount']);
 
@@ -980,7 +977,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
         ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
         ->join('classes','students.class_id','=','classes.id')
-        ->where('payment_type','=','Tutorial Fee')                    
+        ->where('payment_type','=','Tutorial Fee')
         ->get(['students.student_id',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
         ,'class_label','payment_types.payment_type','discount_percent','amount']);
 

@@ -745,7 +745,7 @@ $(function() {
 
 
 
-      {{-- <script src="{{ asset('dist/employee/add_employee_validation.js') }}"></script> --}}
+      <script src="{{ asset('dist/employee/add_employee_validation.js') }}"></script>
      <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
      <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
 
