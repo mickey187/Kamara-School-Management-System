@@ -289,7 +289,7 @@
                                     </a>
                                 </li> --}}
 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{url('finance/indexAddStudentTransportation')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentTransportation') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Student Transportation</p>
@@ -301,12 +301,12 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Student Discount</p>
                                     </a>
-                                </li>
+                                </li> --}}
 
                                 <li class="nav-item">
                                     <a href="{{url('finance/studentPayment')}}" class="nav-link @if (Request::segment(2)== 'studentPayment') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Student Payment</p>
+                                        <p>Payment Registration</p>
                                     </a>
                                 </li>
 

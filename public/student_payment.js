@@ -56,6 +56,7 @@ $('#register_student_for_payment').click(function () {
         data: {payment_type_select,class_id,stduent_table_id,discount_percent},
         dataType: "json",
         success: function (data) {
+            console.log(data);
             if (data == "success") {
                 Swal.fire({
                     icon: 'success',

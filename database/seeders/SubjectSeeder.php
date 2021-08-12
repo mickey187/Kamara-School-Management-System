@@ -16,7 +16,7 @@ class SubjectSeeder extends Seeder
     public function run()
     {
         DB::table('subjects')->insert([
-            'subject_name' => 'Physics',
+            'subject_name' => 'Gada',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
