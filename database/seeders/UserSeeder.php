@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Hash;
 class UserSeeder extends Seeder
 {
     /**
@@ -36,6 +36,18 @@ class UserSeeder extends Seeder
             'user_id' => '5678',
             'email_verified_at' => Carbon::now(),
             'password' => '$2y$10$eIzKPnlqejxwbuIdAQStMuExmyqR0mWb3mw9RRJbdPPVCClAS7R3C', //the password is finance1234
+            'remember_token' => Str::random(10),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 4,
+            'name'=> 'teacher',
+            'email' => 'teacher@gmail.com',
+            'user_id' => '6754',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make("teacher1234"), //the password is teacher1234
             'remember_token' => Str::random(10),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
