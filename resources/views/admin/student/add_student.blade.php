@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
-{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
-<link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('dist/css/student/student.css') }}">
 <div class="formcontainer">
     <div class="form-outer">
         <div class="">
@@ -11,28 +11,29 @@
         </div><br>
         <form action="{{ url('new_student') }}" role="form" method="POST" enctype="multipart/form-data" onsubmit="return=fa">
             @csrf
-            <div class="page slidePage">
-
-                        <h3 class="text-center mb-5">Basic information</h3>
-
-
-                <div class=" row col-12">
+            <div class="page movePages">
+                <div class="row col-12">
+                    <div class="" style="margin-left: 15px;">
+                        <div class="card card-header">
+                            <h3 class="card-title">Basic information</h3>
+                        </div><br>
+                    </div>
                     <div class="col-4">
-                            <div class="field col-lg-12 col-sm-12">
+                            <div class="col-lg-12 col-sm-12">
                                 <div class=" col-lg-12 col-md-6 col-sm-6 form-group">
                                     <img src="{{ asset('img/default_picture.png') }}" id="dsp-pro" class="img-fluid img-thumbnail" style="height: 200px;" alt="">
                                     <div class="custom-file input" >
                                     <input  type="file" name="image" class="custom-file-input" id="img-pro" required >
-                                    <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
-
+                                         <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                                     <label class="custom-file-label" for="img-pro">Choose image</label>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="row field col-12" style="margin-top:50px;">
                                 <div class="col-8">
                                     <div class="label">Academic Year</div>
-                                        <select id="academic_year" name="academic_year" class="select2" >
+                                        <select id="academic_year" name="academic_year" class="form-select" >
                                             <option value="2010">2010</option>
                                             <option value="2011">2011</option>
                                             <option value="2012">2012</option>
@@ -97,7 +98,8 @@
                                 <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                             </div>
                         </div>
-                    </div>
+
+                        </div>
 
                 <div class="row col-4">
                     <div class="col-12">
@@ -155,25 +157,24 @@
                             </div>
 
                         </div>
-                        <div class="field ">
-                            <button id="studentBasic" value="2" class="stud_nextBtn btn btn-primary btn-lg" type="button">Next</button>
-                        </div>
                     </div>
                 </div>
                 </div>
 
 
+                <div class="field ">
+                    <button id="studentBasic" value="2" class="studentNextButton btn btn-primary btn-lg" type="button">Next</button>
+                </div>
 
             </div>
 
             <div class="page">
-                {{-- <div class="" style="margin-left: 15px;"> --}}
-                    {{-- <div class="card card-header">
-                        <h3 class="card-title float-right"> Background information</h3>
-                    </div><br> --}}
-                    <h3 class="text-center mb-5">Background information</h3>
-                {{-- </div> --}}
                 <div class="row col-12">
+                    <div class="" style="margin-left: 15px;">
+                        <div class="card card-header">
+                            <h3 class="card-title float-right"> Background information</h3>
+                        </div><br>
+                    </div>
                     <div class="col-6">
                         <div class="field">
                             <div class="label">Previous School</div>
@@ -278,11 +279,10 @@
                             <input type="text" name="bloodType" id="studentBloodType" class="form-control"
                             placeholder="Blood type"
 
-                             {{-- onkeydown="return alphaOnly(event);"
+                             onkeydown="return allCharacter(event);"
                                 onblur="if (this.value == '')"
                                 onfocus="if (this.value == '') {this.value = '';}"
-                                size="30" minlength="2" maxlength="21" --}}
-                                >
+                                size="4" minlength="" maxlength="5">
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                     </div>
@@ -294,14 +294,12 @@
                 </div>
             </div>
             <div class="page">
-                {{-- <div class="" style="margin-left: 15px;">
-                    <div class="card card-header">
-                        <h3 class="card-title">Parent information</h3>
-                    </div><br>
-                </div> --}}
-                <h3 class="text-center mb-5">Parent information</h3>
-
                 <div class="row col-12">
+                    <div class="" style="margin-left: 15px;">
+                        <div class="card card-header">
+                            <h3 class="card-title">Parent information</h3>
+                        </div><br>
+                    </div>
                     <div class="col-6">
                         <div class="field ">
                             <div class="label">First name</div>
@@ -360,7 +358,7 @@
                             <div class="label">Emergency contact</div>
                             <input type="number" name="pEmergency" id="parentEmergencyContact" class="form-control"
                             placeholder="Emergency contact">
-                            
+
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
@@ -376,13 +374,12 @@
                 </div>
             </div>
             <div class="page">
-                {{-- <div class="" style="margin-left: 15px;">
-                    <div class="card card-header">
-                        <h3 class="card-title"> Contact Address</h3>
-                    </div><br>
-                </div> --}}
-                <h3 class="text-center mb-5">Contact Address</h3>
                 <div class="row col-12">
+                    <div class="" style="margin-left: 15px;">
+                        <div class="card card-header">
+                            <h3 class="card-title"> Contact Address</h3>
+                        </div><br>
+                    </div>
                     <div class="col-6">
                         <div class="field">
                             <div class="label">City</div>
