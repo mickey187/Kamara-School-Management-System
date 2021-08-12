@@ -31,14 +31,14 @@ class FinanceController extends Controller
 
     //Finance Dashboard function
     public function financeDashboard(){
-        $gregorian = new DateTime('tomorrow');
 
-// just pass it to Andegna\DateTime constractor and you will get $ethiopian date
-$ethipic = new Andegna\DateTime($gregorian);
-//dd($ethipic->format(Andegna\Constants::DATE_GEEZ_ORTHODOX));
         $total_value_this_month = 0;
         $total_value_this_year = 0;  
-        $total_payment_collected_this_month = student_payment::where('payment_month',"20".Carbon::now()->format('y-m'))->get(['amount_payed']);
+        
+        $now1 = \Andegna\DateTimeFactory::now();
+        $current_year_month = $now1->getYear()."-".$now1->getMonth();
+
+        $total_payment_collected_this_month = student_payment::where('payment_month',$current_year_month)->get(['amount_payed']);
         $total_payment_collected_this_year = student_payment::get(['amount_payed','created_at']);
         foreach ($total_payment_collected_this_year as $total) {
             if ($total->created_at->format('Y') == "20".Carbon::now()->format('y')) {
@@ -58,55 +58,59 @@ $ethipic = new Andegna\DateTime($gregorian);
     public function getYealyEarnings(){
         $each_month_earnings = [];
         $months_of_the_year = [];
-        for ($i=0; $i <12; $i++) { 
+        $now1 = \Andegna\DateTimeFactory::now();
+        for ($i=0; $i <13; $i++) { 
             switch ($i) {
                 case 0:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-01";
+                    $months_of_the_year[$i] = $now1->getYear()."-01";
                     break;
 
                 case 1:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-02";
+                    $months_of_the_year[$i] = $now1->getYear()."-02";
                     break;
 
                 case 2:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-03";
+                    $months_of_the_year[$i] = $now1->getYear()."-03";
                     break;
 
                 case 3:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-04";
+                    $months_of_the_year[$i] = $now1->getYear()."-04";
                     break;
 
                 case 4:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-05";
+                    $months_of_the_year[$i] = $now1->getYear()."-05";
                     break;
 
                 case 5:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-06";
+                    $months_of_the_year[$i] = $now1->getYear()."-06";
                     break;
 
                 case 6:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-07";
+                    $months_of_the_year[$i] = $now1->getYear()."-07";
                     break;
 
                 case 7:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-08";
+                    $months_of_the_year[$i] = $now1->getYear()."-08";
                     break;
 
                  case 8:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-09";
+                    $months_of_the_year[$i] = $now1->getYear()."-09";
                     break;
 
                 case 9:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-10";
+                    $months_of_the_year[$i] = $now1->getYear()."-10";
                     break;
 
                 case 10:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-11";
+                    $months_of_the_year[$i] = $now1->getYear()."-11";
                     break;
 
                 case 11:
-                    $months_of_the_year[$i] = "20".Carbon::now()->format('y')."-12";
+                    $months_of_the_year[$i] = $now1->getYear()."-12";
                     break;
+                case 12:
+                        $months_of_the_year[$i] = $now1->getYear()."-13";
+                        break;
                 
                 default:
                     # code...
@@ -163,7 +167,8 @@ $ethipic = new Andegna\DateTime($gregorian);
         $length = count($months_of_the_year);
         error_log($length);
         for ($i=0; $i < $length ; $i++) { 
-            $each_month_earnings[$i] = student_payment::where('payment_month',$months_of_the_year[$i])->sum('amount_payed');
+            $each_month_earnings[$i] = student_payment::where('payment_month',$months_of_the_year[$i])
+                                        ->sum('amount_payed');
         }
         // foreach ($months_of_the_year as $key) {
         //     $each_month_earnings[] = student_payment::where('payment_month',$key)->sum('amount_payed');
@@ -584,7 +589,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
 
     public function makeTotalPayment(Request $req, $stud_id, $month, $fs_number){
 
-        error_log("Heyyyyyyyyyyyy".$req);
+        error_log("Heyyyyyyyyyyyy".$stud_id);
         $total_payment = $req->detail;
         
        
@@ -592,13 +597,21 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         $count = 0;
         $status = null;
        
+        if (student_payment::where('fs_number',$fs_number)->exists()) {
+            $status = "duplicate fs number";
+        }
+        else if(!student_payment::where('fs_number',$fs_number)->exists()){
+
+        
         foreach ($total_payment as $key) {
              if (!$key['amount'] == 0) {
+
+               
                  if (!student_payment::where('payment_type_id',$key['payment_type_id'])
                                       ->where('payment_load_id',$key['payment_load_id'])
                                       ->where('payment_month',$month)
                                       ->where('amount_payed',$key['amount'])
-                                      ->where('fs_number',$fs_number)
+                                      ->where('student_id',$stud_id)
                                       ->exists()) {
                  
                      
@@ -619,7 +632,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                         ->where('payment_load_id',$key['payment_load_id'])
                                         ->where('payment_month',$month)
                                         ->where('amount_payed',$key['amount'])
-                                        ->where('fs_number',$fs_number)
+                                        ->where('student_id',$stud_id)
                                         ->exists()){
                     $status = "already paid";
                 }
@@ -631,6 +644,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             
 
           }
+        }
           $student_payment = student_payment::all();
          
           return response()->json($status);
