@@ -36,6 +36,7 @@ $('#make_payment').on('show.bs.modal', function (event) {
       else{
       
       console.log(data_array[3])
+      //alert(data_array[3]);
       var selected_individual_payment = $("#payment_type option:selected").text();
       //alert(selected_individual_payment);
       fetchPaymentLoad(data_array[1],payment_type_id,data_array[3],selected_individual_payment);
@@ -396,6 +397,17 @@ $('#make_payment').on('show.bs.modal', function (event) {
           icon: 'warning',
           title: 'Warning',
           text: 'This student has already paid for this month',
+          
+        });
+      }
+
+      else if(response == "duplicate fs number"){
+
+        $('.close').click();
+        Swal.fire({
+          icon: 'warning',
+          title: 'Warning',
+          text: 'Duplicate FS Number',
           
         });
       }

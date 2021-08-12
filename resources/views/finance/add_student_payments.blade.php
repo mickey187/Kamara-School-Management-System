@@ -40,7 +40,7 @@
                    data-target="#view_payment_history" 
                     data-payment_history="{{$row->student_table_id}}">
                      <i class="fa fa-eye" aria-hidden="true"></i>
-                   
+                     
                    </button>
                    
                    

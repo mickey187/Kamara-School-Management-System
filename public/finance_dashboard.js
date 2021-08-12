@@ -14,8 +14,8 @@
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'
-                ,'November', 'December'],
+        labels: ['መስከረም', 'ጥቅምት', 'ህዳር', 'ታህሳስ', 'ጥር', 'የካቲት', 'መጋቢት', 'ሚያዚያ', 'ግንቦት', 'ሰኔ'
+                ,'ሃምሌ', 'ነሃሴ','ጷግሜ'],
         datasets: [{
             label: 'Monthly Earnigs in Birr',
             data:  response,//[12, 19, 3, 5, 2, 3],
@@ -25,7 +25,13 @@ var myChart = new Chart(ctx, {
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(0, 255, 0, 0.2)',
+                'rgba(0, 255, 255, 0.2)',
+                'rgba(128, 0, 0, 0.2)',
+                'rgba(255, 0, 255, 0.2)',
+                'rgba(128, 128, 0, 0.2)',
+                'rgba(255, 65, 0, 0.2)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
