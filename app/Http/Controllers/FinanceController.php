@@ -479,6 +479,20 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             $student_payment->payment_month = $month;
             $student_payment->fs_number = $fs_number;
             if ($student_payment->save()) {
+                $now1 = \Andegna\DateTimeFactory::now();
+                 if (DB::table('student_payments')
+                 ->join('payment_types','student_payments.payment_type_id','=','payment_types.id')
+                 ->join('payment_loads','student_payments.payment_load_id','=','payment_loads.id')
+                 ->where('payment_type','Registration Fee')
+                 ->where('student_payments.student_id',$stud_id)
+                 ->where('payment_month','LIKE',$now1->getYear().'%')
+                 ->exists()) {
+                     error_log("weellllllllllllllllllll it checked");
+                 }
+
+                 else {
+                     error_log("this nigga didn't pay");
+                 }
                 $status = "successful";
                     }
 
@@ -525,6 +539,22 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             $student_payment->fs_number = $fs_number;
             if ($student_payment->save()) {
                 $status = "successful";
+                $now1 = \Andegna\DateTimeFactory::now();
+
+                if (DB::table('student_payments')
+                 ->join('payment_types','student_payments.payment_type_id','=','payment_types.id')
+                 ->join('payment_loads','student_payments.payment_load_id','=','payment_loads.id')
+                 ->where('payment_type','Registration Fee')
+                 ->where('student_payments.student_id',$stud_id)
+                 ->where('payment_month','LIKE',$now1->getYear().'%')
+                 ->exists()) {
+                     error_log("weellllllllllllllllllll it checked");
+                 }
+
+                 else {
+                     error_log("this nigga didn't pay");
+                 }
+                
 
                 }
             }
