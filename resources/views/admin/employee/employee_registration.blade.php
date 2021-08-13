@@ -112,7 +112,17 @@
 
                                                            <div class="field">
                                                             <div class="label">Citizenship</div>
-                                                               <input id="emp_citizen" type="text" name="citizen" class="form-control"
+
+                                                            {{-- <select id="emp_citizen" class="form-control selectpicker countrypicker" data-live-search="true"
+                                                            data-default="ET"
+                                                            @if(isset($edit_employee))
+                                                            data-default="{{ $edit_employee->citizen  }}"
+                                                                        @else
+                                                                        data-default="ET"
+                                                                        @endif>
+                                                            ></select> --}}
+
+                                                            <input id="emp_citizen" type="text" name="citizen" class="form-control"
                                                                 placeholder="Cityzenship"
                                                                      @if(isset($edit_employee))
                                                                             value="{{ $edit_employee->citizen  }}"
@@ -342,7 +352,7 @@
 
                                                     <div class="field">
                                                     <div class="label">Job Position</div>
-                                                    <select id="emp_job_position_selecter" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
+                                                    <select id="emp_job_position_selecter_val" name="job_position" class="form-control form-select" aria-label="job_position" name="job_position">
                                                         @foreach( $job_position as $row )
                                                         {{ $row->position_name }}
                                                         <option value="{{ $row->id }}"
@@ -383,7 +393,7 @@
 
                                                 <div class="field" id="emp_debut_as_a_teacher" >
                                                     <div class="label">debut_as_a_teacher</div>
-                                                        <input  type="date" name="debut_as_a_teacher" id="debut_as_a_teacher_val" class="form-control"  aria-describedby="debut_as_a_teacher"
+                                                        <input  type="date" name="debut_as_a_teacher" id="emp_debut_as_a_teacher_val" class="form-control"  aria-describedby="debut_as_a_teacher"
                                                          placeholder="Enter your debut as a teacher"
                                                         @if(isset($teacher))
                                                         value="{{ $teacher->debut_as_a_teacher }}"

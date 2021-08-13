@@ -96,6 +96,14 @@
 
                     <div class="field">
                             <div class="label">citizen</div>
+                            {{-- <select class="form-control selectpicker countrypicker" data-live-search="true"
+                                                            data-default="ET"
+                                                            @if(isset($edit_employee))
+                                                            data-default="{{ $edit_employee->citizen  }}"
+                                                                        @else
+                                                                        data-default="ET"
+                                                                        @endif>
+                                                            ></select> --}}
                             <input type="text" id="citizen"  name="citizen" class="form-control" placeholder="Cityzenship">
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                     </div>
@@ -314,7 +322,7 @@
                                                         @endif
                                                         ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                                 </div>
-                                            
+
                                                 <div class="field" id="field_of_study">
                                                     <div class="label">field_of_study</div>
                                                             <input type="text" name="field_of_study"  class="form-control" placeholder="Enter your field of study"
@@ -497,8 +505,8 @@
                                             </div>
                                         </div>
                                         <div class="row col-12">
-                                           
-                                        
+
+
                                         <div class="field btns">
                                             <button type="button" class="prev-1 prev btn btn-primary">Previous</button>
                                             <button type="button" class="next-1 next btn btn-primary">Next</button>
@@ -510,12 +518,12 @@
                                                 <h3 class="card-title float-right"> employee job info</h3>
                                             </div>
                                         </div>
-                                        
+
 
 
                                         <div class="field btns">
                                             <button type="button" class="prev-3 prev btn btn-primary">Previous</button>
-                                            
+
                                         </div>
                                     </div> -->
 

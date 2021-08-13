@@ -17,7 +17,8 @@
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpword": "^0.18.2",
         "realrashid/sweet-alert": "^3.2",
-        "sentry/sentry-laravel": "^2.7"
+        "sentry/sentry-laravel": "^2.7",
+        "snapappointments/bootstrap-select": "^1.13"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
