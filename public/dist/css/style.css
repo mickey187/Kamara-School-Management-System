@@ -69,7 +69,7 @@
            height: 80%;
            width: calc(100% + 5px);
            /* margin-top: -20px; */
-           border: none;
+           /* border: none;
            background: #0a6bfc;
            border-radius: 5px;
            color: #fff;
@@ -79,7 +79,7 @@
            text-transform: uppercase;
            cursor: pointer;
            transform: 0.3s ease;
-       }
+       } */
 
        .form-outer form .page .btns button {
            /* margin-top: -20px!important; */

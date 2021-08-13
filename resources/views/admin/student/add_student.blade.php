@@ -19,7 +19,7 @@
                         </div><br>
                     </div>
                     <div class="col-4">
-                            <div class="col-lg-12 col-sm-12">
+                            <div class=" field col-lg-12 col-sm-12">
                                 <div class=" col-lg-12 col-md-6 col-sm-6 form-group">
                                     <img src="{{ asset('img/default_picture.png') }}" id="dsp-pro" class="img-fluid img-thumbnail" style="height: 200px;" alt="">
                                     <div class="custom-file input" >
@@ -97,9 +97,22 @@
                                 <input id="studentBirthDate" type="date" name="birthDate" class="form-control" data-target="#reservationdate" placeholder="Birth date" required/>
                                 <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                             </div>
+                            <div class="field col-sm-12">
+                                <div class="label">Transportation</div>
+
+                                <div class="btn-group btn-group-toggle bg-light" data-toggle="buttons">
+                                    <label class="btn btn-light active">
+                                      <input type="radio" name="transport" id="option1" autocomplete="off" value="yes"> Yes
+                                    </label>
+                                    <label class="btn btn-light">
+                                      <input type="radio" name="transport" id="option2" autocomplete="off" value="no"> No
+                                    </label>
+                                  </div>
+                                <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
+                            </div>
                         </div>
 
-                        </div>
+                    </div>
 
                 <div class="row col-4">
                     <div class="col-12">
@@ -158,12 +171,11 @@
 
                         </div>
                     </div>
-                </div>
+                    <div class="field ">
+                        <button id="studentBasic" value="2" class="studentNextButton btn btn-primary btn-lg" type="button">Next</button>
+                    </div>
                 </div>
 
-
-                <div class="field ">
-                    <button id="studentBasic" value="2" class="studentNextButton btn btn-primary btn-lg" type="button">Next</button>
                 </div>
 
             </div>
