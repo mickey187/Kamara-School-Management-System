@@ -17,6 +17,9 @@ use App\Models\student_class_transfer;
 use App\Models\student_enrolment;
 use App\Models\student_mark_list;
 use App\Models\teacher;
+use App\Models\student_payment_load;
+use App\Models\payment_type;
+use App\Models\payment_load;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,7 +57,8 @@ class StudentController extends Controller{
             'image' => $req->image,
             'class' => $req->grade,
             'stream' => $req->stream,
-            'role' => $req->role
+            'role' => $req->role,
+            'transport' => $req->transport
         );
         echo request('class');
         $student_class_transfer = array(
@@ -381,7 +385,12 @@ class StudentController extends Controller{
         $student->stream_id = $data['stream'];
         $student->student_id = $this->idGeneratorFun();
         $student->save();
+
+
+
+
         $this->addUserAccount($data['first_name'],$student->student_id,$data['role']);
+        $this->registerStudentForPayment($student->id,$data["class"],$req->transport);
     }
 
     public function insertStudentClassTransfer($data){
@@ -499,6 +508,21 @@ class StudentController extends Controller{
         $userAccount->save();
         $roleId = $role_id2;
         $userAccount->roles()->attach($roleId);
+}
+
+
+public function registerStudentForPayment($stud_id, $class_id, $bool){
+
+    if ($bool == 'yes') {
+    $payment_type_id = payment_type::where('payment_type','Transportation Fee')->pluck('id');
+    $payment_load_id = payment_load::where('class_id',$class_id)->where('payment_type_id',$payment_type_id[0])
+                                     ->pluck('id');
+    $student_payment_load = new student_payment_load();
+    $student_payment_load->student_id = $stud_id;
+    $student_payment_load->payment_load_id = $payment_load_id[0];
+    $student_payment_load->save();
+    }
+
 }
 }
 

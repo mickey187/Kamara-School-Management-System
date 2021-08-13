@@ -11,7 +11,7 @@ use App\Models\student_payment;
 use App\Models\student_discount;
 use App\Models\student_transportation;
 use App\Models\student_payment_load;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use DateTime;
