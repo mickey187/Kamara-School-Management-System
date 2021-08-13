@@ -6,6 +6,7 @@ var student_id_for_payment = null;
 // the below code launches make payment modal
 $('#make_payment').on('show.bs.modal', function (event) {
 
+  
     var button = $(event.relatedTarget) // Button that triggered the modal
     var recipient = button.data('payment_data') // Extract info from data-* attributes
     $('#payment_type').attr('selected', 'none');
@@ -17,6 +18,14 @@ $('#make_payment').on('show.bs.modal', function (event) {
 
     data_array = recipient.split(",");
     student_id_for_payment = data_array[3];
+    $.ajax({
+      type: "GET",
+      url: "fetchStudentPaymentLoad/"+student_id_for_payment,      
+      dataType: "json",
+      success: function (response) {
+        console.log(response);
+      }
+    });
 
     modal.find('.modal-footer #submit_payment').val(data_array[3])
 

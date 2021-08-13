@@ -105,6 +105,8 @@ Route::get('/registerStudentForPayment/{stud_id}',[FinanceController::class, 're
 
 Route::get('/checkFsNumberExists/{fs_number}',[FinanceController::class, 'checkFsNumberExists']);
 
+Route::get('/fetchStudentPaymentLoad/{stud_id}',[FinanceController::class, 'fetchStudentPaymentLoad']);
+
 });
 //subject
 Route::get('/subject', [SubjectController::class, 'index']);

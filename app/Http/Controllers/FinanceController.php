@@ -378,6 +378,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
 
             for ($i = 0; $i <= $current_month -1; $i++){
                   $previous_month[$i] = date("Y-m", strtotime( date( $current_month_year )." -$i months"));
+                  
 
             }
             $length = count($previous_month);
@@ -908,6 +909,20 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             $message = "good";
             return response()->json($message);
         }
+    }
+
+    public function fetchStudentPaymentLoad($stud_id){
+        $payment_type_id = collect([]);
+        $payment_types = collect([]);
+        $payment_load_id = student_payment_load::where('student_id',$stud_id)->get(['payment_load_id']);
+        foreach ($payment_load_id as $key) {
+            $payment_type_id->push(['payment_load_id'=>payment_load::where('id',$key->payment_load_id)->value('payment_type_id')]);
+        }
+
+        foreach ($payment_type_id as $key) {
+            $payment_types->push(['payment_type'=>payment_type::where('id',$key)->value('payment_type')]);
+        }
+        return response()->json(['payment_type_id'=>$payment_type_id,'payment_type'=>$payment_types]);
     }
 }
 
