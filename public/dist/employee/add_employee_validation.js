@@ -273,29 +273,98 @@ emp_past_job_position.oninput=function(){
 };
 
 emp_nextBtnSec.addEventListener("click", function() {
-        var emp_job_trainning = document.getElementById('emp_job_trainning')
-        var emp_previous_employment = document.getElementById('emp_previous_employment')
-        var emp_special_skill = document.getElementById('emp_special_skill')
-        var emp_net_salary = document.getElementById('emp_net_salary')
-        var emp_hire_type = document.getElementById('emp_hire_type')
-        var emp_religion = document.getElementById('emp_employee_religion')
-        var emp_emergency_contact = document.getElementById('emp_emergency_contact')
-        var emp_relation = document.getElementById('emp_relation')
-        var emp_past_job_position = document.getElementById('emp_past_job_position')
+        var emp_job_trainning = $('#emp_job_trainning').val();
+        var emp_previous_employment = $('#emp_previous_employment').val();
+        var emp_special_skill = $('#emp_special_skill').val();
+        var emp_net_salary = $('#emp_net_salary').val();
+        var emp_hire_type = $('#emp_hire_type').val();
+        var emp_religion = $('#emp_employee_religion').val();
+        var emp_emergency_contact = $('#emp_emergency_contact').val();
+        var emp_relation = $('#emp_relation').val();
+        var emp_past_job_position = $('#emp_past_job_position').val();
 
-
-
+        if(emp_job_trainning && emp_previous_employment && emp_special_skill && emp_net_salary && emp_hire_type && emp_religion && emp_emergency_contact && emp_relation && emp_past_job_position)
+        {
             emp_slidePage.style.marginLeft = "-50%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
             progressCheck[current - 1].classList.add("active");
             current += 1;
-            // onSuccess()
+        }else{
+            if(emp_job_trainning==="")
+                setErorFor(document.getElementById('emp_job_trainning'),"የስልጠና ት/ት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_job_trainning'));
+            if(emp_previous_employment==="")
+                setErorFor(document.getElementById('emp_previous_employment'),"ከዚህ በፊት ተቀጥሮ የሰራበት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_previous_employment'));
+            if(emp_special_skill==="")
+                setErorFor(document.getElementById('emp_special_skill'),"የተለየ የስራ ብቃት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_special_skill'));
+            if(emp_net_salary==="")
+                setErorFor(document.getElementById('emp_net_salary'),"የክፍያ መጠን ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_net_salary'));
+            if(emp_hire_type==="")
+                setErorFor(document.getElementById('emp_hire_type'),"የቅጥር ስራ አይነት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_hire_type'));
+            if(emp_religion==="")
+                setErorFor(document.getElementById('emp_employee_religion'),"እምነት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_employee_religion'));
+            if(emp_emergency_contact==="")
+                setErorFor(document.getElementById('emp_emergency_contact'),"ያደጋ ጊዜ ተጠሪ ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_emergency_contact'));
+            if(emp_relation==="")
+                setErorFor(document.getElementById('emp_relation'),"ዘመድ ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_relation'));
+            if(emp_past_job_position==="")
+                setErorFor(document.getElementById('emp_past_job_position'),"ከዚ በፊት የሰራበት የስራ ዘርፍ ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_past_job_position'));
+        }
+
 
 });
 
+// emp_date_of_study_val
+var emp_date_of_study_val = document.getElementById('emp_date_of_study_val')
+emp_date_of_study_val.oninput=function(){
+    if((emp_date_of_study_val.value).length >= 3){
+        setSuccessFor(emp_date_of_study_val);
+    }if((emp_date_of_study_val.value).length < 3){
+        setDefaultFor(emp_date_of_study_val,"please enter the valid reason")
+    }if((emp_date_of_study_val.value).length > 20){
+        setErorFor(emp_date_of_study_val,"you reach max length")
+    }
+}
 
+var emp_teacher_traning_year_val = document.getElementById('emp_teacher_traning_year_val')
+emp_teacher_traning_year_val.oninput=function(){
+    if((emp_teacher_traning_year_val.value).length >= 3){
+        setSuccessFor(emp_teacher_traning_year_val);
+    }if((emp_teacher_traning_year_val.value).length < 3){
+        setDefaultFor(emp_teacher_traning_year_val,"please enter the valid reason")
+    }if((emp_teacher_traning_year_val.value).length > 20){
+        setErorFor(emp_teacher_traning_year_val,"you reach max length")
+    }
+}
 
+var emp_debut_as_a_teacher_val = document.getElementById('emp_debut_as_a_teacher_val')
+emp_debut_as_a_teacher_val.oninput=function(){
+    if((emp_debut_as_a_teacher_val.value).length >= 3){
+        setSuccessFor(emp_debut_as_a_teacher_val);
+    }if((emp_debut_as_a_teacher_val.value).length < 3){
+        setDefaultFor(emp_debut_as_a_teacher_val,"please enter the valid reason")
+    }if((emp_debut_as_a_teacher_val.value).length > 20){
+        setErorFor(emp_debut_as_a_teacher_val,"you reach max length")
+    }
+}
 
 var emp_past_employment_place = document.getElementById('emp_past_employment_place')
 emp_past_employment_place.oninput=function(){
@@ -320,6 +389,7 @@ emp_past_employment_place.oninput=function(){
         setErorFor(teach_field_of_study,"you reach max length")
     }
  };
+
 
     var teach_place_of_study = document.getElementById('emp_place_of_study_val')
     teach_place_of_study.oninput=function(){
@@ -355,9 +425,9 @@ emp_past_employment_place.oninput=function(){
     }
 };
 
-$("#emp_job_position_selecter").change(function(){
+$("#emp_job_position_selecter_val").change(function(){
 
-        if($("#emp_job_position_selecter").val()==="1"){
+        if($("#emp_job_position_selecter_val").val()==="1"){
             $("#emp_debut_as_a_teacher").show();
             $("#emp_field_of_study").show();
             $("#place_of_study").show();
@@ -382,7 +452,7 @@ $("#emp_job_position_selecter").change(function(){
 // });
 $(window).on("load",function(){
 
-    if($("#emp_job_position_selecter").val()==="1"){
+    if($("#emp_job_position_selecter_val").val()==="1"){
         $("#emp_debut_as_a_teacher").show();
         $("#emp_field_of_study").show();
         $("#place_of_study").show();
@@ -402,22 +472,79 @@ $(window).on("load",function(){
 });
 
 emp_nextBtnThird.addEventListener("click", function() {
-    var emp_past_employment_place = document.getElementById('emp_past_employment_place')
-    var emp_role = document.getElementById('emp_role_selecter')
-    var emp_job_position = document.getElementById('emp_job_position_selecter_val')
-    var teach_debut = document.getElementById('emp_debut_as_a_teacher_val')
-    var teach_field_of_study = document.getElementById('emp_field_of_study_val')
-    var teach_place_of_study = document.getElementById('emp_place_of_study_val')
-    var teach_date_of_study = document.getElementById('emp_date_of_study_val')
-    var teach_traning_program = document.getElementById('emp_teacher_traning_program_val')
-    var teach_traning_year = document.getElementById('emp_teacher_traning_year_val')
-    var teach_traning_institiute = document.getElementById('emp_teacher_traning_institute_val')
+    var emp_past_employment_place = $('#emp_past_employment_place').val();
+    var emp_role = $('#emp_role_selecter').val();
+    var emp_job_position = $('#emp_job_position_selecter_val').val();
+    var teach_debut = $('#emp_debut_as_a_teacher_val').val();
+    var teach_field_of_study = $('#emp_field_of_study_val').val();
+    var teach_place_of_study = $('#emp_place_of_study_val').val();
+    var teach_date_of_study = $('#emp_date_of_study_val').val();
+    var teach_traning_program = $('#emp_teacher_traning_program_val').val();
+    var teach_traning_year = $('#emp_teacher_traning_year_val').val();
+    var teach_traning_institiute = $('#emp_teacher_traning_institute_val').val();
 
-                emp_slidePage.style.marginLeft = "-75%";
-                bullet[current - 1].classList.add("active");
-                progressText[current - 1].classList.add("active");
-                progressCheck[current - 1].classList.add("active");
-                current += 1;
+    if(emp_job_position === "1"){
+        if(emp_past_employment_place && emp_role && teach_debut && teach_field_of_study && teach_place_of_study && teach_date_of_study && teach_traning_program && teach_traning_year && teach_traning_institiute){
+            emp_slidePage.style.marginLeft = "-75%";
+            bullet[current - 1].classList.add("active");
+            progressText[current - 1].classList.add("active");
+            progressCheck[current - 1].classList.add("active");
+            current += 1;
+        }else{
+            alert("Error");
+            if(emp_past_employment_place==="")
+                setErorFor(document.getElementById('emp_past_employment_place'),"ከዚ በፊት የሰራበት የስራ ቦታ ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_past_employment_place'));
+            if(emp_role==="")
+                setErorFor(document.getElementById('emp_role_selecter'),"የሰራበት የስራ ድርሻ ቦታ ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_role_selecter'));
+            if(teach_debut==="")
+                setErorFor(document.getElementById('emp_debut_as_a_teacher_val'),"በመምህርነት የተቀጠረበት ቀን ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_debut_as_a_teacher_val'));
+            if(teach_field_of_study==="")
+                setErorFor(document.getElementById('emp_field_of_study_val'),"የተማረበት የትምህርት ዘርፍ ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_field_of_study_val'));
+            if(teach_place_of_study==="")
+                setErorFor(document.getElementById('emp_place_of_study_val'),"የተማረበት ቦታ ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_place_of_study_val'));
+            if(teach_date_of_study==="")
+                setErorFor(document.getElementById('emp_date_of_study_val'),"የተማረበት ቀን ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_date_of_study_val'));
+            if(teach_traning_program==="")
+                setErorFor(document.getElementById('emp_teacher_traning_program_val'),"በመምህርነት የሰለጠነበት ት/ት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_teacher_traning_program_val'));
+            if(teach_traning_year==="")
+                setErorFor(document.getElementById('emp_teacher_traning_year_val'),"በመምህርነት የሰለጠነበት ዘመን ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_teacher_traning_year_val'));
+            if(teach_traning_institiute==="")
+                setErorFor(document.getElementById('emp_teacher_traning_institute_val'),"በመምህርነት የሰለጠነበት ተቋም ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_teacher_traning_institute_val'));
+
+        }
+    }else{
+        if(emp_past_employment_place){
+            emp_slidePage.style.marginLeft = "-75%";
+            bullet[current - 1].classList.add("active");
+            progressText[current - 1].classList.add("active");
+            progressCheck[current - 1].classList.add("active");
+            current += 1;
+        }else{
+            alert("Error");
+            if(emp_past_employment_place==="")
+                setErorFor(document.getElementById('emp_past_employment_place'),"ከዚ በፊት የሰራበት የስራ ቦታ ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('emp_past_employment_place'));
+        }
+    }
 
 });
 

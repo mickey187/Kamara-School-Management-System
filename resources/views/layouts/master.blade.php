@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kamara School Management System | Dashboard</title>
     <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
-
+    <link rel="stylesheet" href="//unpkg.com/bootstrap-select@1.12.4/dist/css/bootstrap-select.min.css" type="text/css" />
+    <link rel="stylesheet" href="//unpkg.com/bootstrap-select-country@4.0.0/dist/css/bootstrap-select-country.min.css" type="text/css" />
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -706,7 +707,9 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
+    <script src="//unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="//unpkg.com/bootstrap-select@1.12.4/dist/js/bootstrap-select.min.js"></script>
+    <script src="//unpkg.com/bootstrap-select-country@4.0.0/dist/js/bootstrap-select-country.min.js"></script>
 
     <script src="{{asset('dist/js/addclass.js')}}"></script>
     {{-- <script src="{{ asset('dist/js/employee.js') }}"></script>  --}}
@@ -817,6 +820,9 @@ $(function() {
             $("#img-pro").click();
           });
         })
+      </script>
+      <script>
+        $('.countrypicker').countrypicker();
       </script>
 </body>
 
