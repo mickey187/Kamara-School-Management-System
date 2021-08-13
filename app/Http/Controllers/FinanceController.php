@@ -11,6 +11,7 @@ use App\Models\student_payment;
 use App\Models\student_discount;
 use App\Models\student_transportation;
 use App\Models\student_payment_load;
+use App\Models\student_class_transfer;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -486,8 +487,17 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                  ->where('payment_type','Registration Fee')
                  ->where('student_payments.student_id',$stud_id)
                  ->where('payment_month','LIKE',$now1->getYear().'%')
-                 ->exists()) {
+                 ->exists() && student_class_transfer::where('student_id',$stud_id)
+                 ->where('academic_year',$now1->getYear() )
+                 ->where('status','=','on load')->exists() ) {
                      error_log("weellllllllllllllllllll it checked");
+                    $student_transfer = student_class_transfer::where('student_id',$stud_id)
+                     ->where('academic_year',$now1->getYear() )
+                     ->where('status','=','on load')->first();
+                     $student_transfer->status = "registered";
+                     $student_transfer->isRegistered = true;
+                     $student_transfer->save();
+                     
                  }
 
                  else {
@@ -540,20 +550,28 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             if ($student_payment->save()) {
                 $status = "successful";
                 $now1 = \Andegna\DateTimeFactory::now();
-
                 if (DB::table('student_payments')
-                 ->join('payment_types','student_payments.payment_type_id','=','payment_types.id')
-                 ->join('payment_loads','student_payments.payment_load_id','=','payment_loads.id')
-                 ->where('payment_type','Registration Fee')
-                 ->where('student_payments.student_id',$stud_id)
-                 ->where('payment_month','LIKE',$now1->getYear().'%')
-                 ->exists()) {
-                     error_log("weellllllllllllllllllll it checked");
-                 }
+                ->join('payment_types','student_payments.payment_type_id','=','payment_types.id')
+                ->join('payment_loads','student_payments.payment_load_id','=','payment_loads.id')
+                ->where('payment_type','Registration Fee')
+                ->where('student_payments.student_id',$stud_id)
+                ->where('payment_month','LIKE',$now1->getYear().'%')
+                ->exists() && student_class_transfer::where('student_id',$stud_id)
+                ->where('academic_year',$now1->getYear() )
+                ->where('status','=','on load')->exists() ) {
+                    error_log("weellllllllllllllllllll it checked");
+                   $student_transfer = student_class_transfer::where('student_id',$stud_id)
+                    ->where('academic_year',$now1->getYear() )
+                    ->where('status','=','on load')->first();
+                    $student_transfer->status = "registered";
+                    $student_transfer->isRegistered = true;
+                    $student_transfer->save();
+                    
+                }
 
-                 else {
-                     error_log("this nigga didn't pay");
-                 }
+                else {
+                    error_log("this nigga didn't pay");
+                }
                 
 
                 }

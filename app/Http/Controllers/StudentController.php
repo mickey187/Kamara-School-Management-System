@@ -388,7 +388,7 @@ class StudentController extends Controller{
 
 
 
-
+        
         $this->addUserAccount($data['first_name'],$student->student_id,$data['role']);
         $this->registerStudentForPayment($student->id,$data["class"],$req->transport);
     }
@@ -514,12 +514,70 @@ class StudentController extends Controller{
 public function registerStudentForPayment($stud_id, $class_id, $bool){
 
     if ($bool == 'yes') {
+        //register for transport
     $payment_type_id = payment_type::where('payment_type','Transportation Fee')->pluck('id');
     $payment_load_id = payment_load::where('class_id',$class_id)->where('payment_type_id',$payment_type_id[0])
                                      ->pluck('id');
     $student_payment_load = new student_payment_load();
     $student_payment_load->student_id = $stud_id;
     $student_payment_load->payment_load_id = $payment_load_id[0];
+    $student_payment_load->save();
+
+    //registration payment
+    $payment_type_id_2 = payment_type::where('payment_type','Registration Fee')->pluck('id');
+    $payment_load_id_2 = payment_load::where('class_id',$class_id)->where('payment_type_id',$payment_type_id_2[0])
+                                     ->pluck('id');
+    $student_payment_load = new student_payment_load();
+    $student_payment_load->student_id = $stud_id;
+    $student_payment_load->payment_load_id = $payment_load_id_2[0];
+    $student_payment_load->save();
+
+    //register for tuition fee
+    $payment_type_id_4 = payment_type::where('payment_type','Tuition Fee')->pluck('id');
+    $payment_load_id_4 = payment_load::where('class_id',$class_id)->where('payment_type_id',$payment_type_id_4[0])
+                                     ->pluck('id');
+    $student_payment_load = new student_payment_load();
+    $student_payment_load->student_id = $stud_id;
+    $student_payment_load->payment_load_id = $payment_load_id_4[0];
+    $student_payment_load->save();
+
+    //register for book fee
+    $payment_type_id_3 = payment_type::where('payment_type','Book Fee')->pluck('id');
+    $payment_load_id_3 = payment_load::where('class_id',$class_id)->where('payment_type_id',$payment_type_id_3[0])
+                                     ->pluck('id');
+    $student_payment_load = new student_payment_load();
+    $student_payment_load->student_id = $stud_id;
+    $student_payment_load->payment_load_id = $payment_load_id_3[0];
+    $student_payment_load->save();
+    }
+
+    elseif ($bool == 'no') {
+        
+        //registration payment
+    $payment_type_id_2 = payment_type::where('payment_type','Registration Fee')->pluck('id');
+    $payment_load_id_2 = payment_load::where('class_id',$class_id)->where('payment_type_id',$payment_type_id_2[0])
+                                     ->pluck('id');
+    $student_payment_load = new student_payment_load();
+    $student_payment_load->student_id = $stud_id;
+    $student_payment_load->payment_load_id = $payment_load_id_2[0];
+    $student_payment_load->save();
+
+    //register for tuition fee
+    $payment_type_id_4 = payment_type::where('payment_type','Tuition Fee')->pluck('id');
+    $payment_load_id_4 = payment_load::where('class_id',$class_id)->where('payment_type_id',$payment_type_id_4[0])
+                                     ->pluck('id');
+    $student_payment_load = new student_payment_load();
+    $student_payment_load->student_id = $stud_id;
+    $student_payment_load->payment_load_id = $payment_load_id_4[0];
+    $student_payment_load->save();
+
+    //register for book fee
+    $payment_type_id_3 = payment_type::where('payment_type','Book Fee')->pluck('id');
+    $payment_load_id_3 = payment_load::where('class_id',$class_id)->where('payment_type_id',$payment_type_id_3[0])
+                                     ->pluck('id');
+    $student_payment_load = new student_payment_load();
+    $student_payment_load->student_id = $stud_id;
+    $student_payment_load->payment_load_id = $payment_load_id_3[0];
     $student_payment_load->save();
     }
 
