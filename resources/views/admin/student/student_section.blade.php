@@ -55,14 +55,13 @@
                     {{-- </form> --}}
                     <br>
                     <div class="col-12">
-                    <div class="table">
+                    <div style="display: none;" id="table1" class="table">
                         <div class="row">
                              <label class="ml-3 ">Total Number of Students</label>
                             <div id="counter" class="">
                             </div>
                         </div>
-
-                        <table id="example1" class="table table-bordered table-striped table-sm" >
+                        <table id="sectionTable1" class="table table-bordered table-striped table-sm" >
                             <thead>
                                 <tr>
                                     <th>Student ID</th>
@@ -70,14 +69,69 @@
                                     <th>Grade</th>
                                     <th>Stream</th>
                                     <th>Section</th>
-                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
-                            {{-- <tbody id="student_list">
-                            </tbody> --}}
-                            {{-- <tfoot>
+                        </table>
+                    </div>
+                    <div style="display: none;" id="table2" class="table">
+                        <div class="row">
+                             <label class="ml-3 ">Total Number of Students</label>
+                            <div id="counter2" class="">
+                            </div>
+                        </div>
+                            <div id="customSection" style="display: none;" class="customSection btn-group btn-group-toggle bg-light" data-toggle="buttons">
+                                {{-- <div class="row m-1" > --}}
+                                    <label class="btn btn-secondary active">
+                                        <input type="radio" name="section" id="option1" autocomplete="off" value="A"> A
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="section" id="option2" autocomplete="off" value="B"> B
+                                    </label>
+                                    <label class="btn btn-secondary ">
+                                        <input type="radio" name="section" id="option3" autocomplete="off" value="C"> C
+                                    </label>
+                                    <label class="btn btn-secondary ">
+                                        <input type="radio" name="section" id="option4" autocomplete="off" value="D"> D
+                                    </label>
+                                    <label class="btn btn-secondary ">
+                                        <input type="radio" name="section" id="option5" autocomplete="off" value="E"> E
+                                    </label>
+                                    <label class="btn btn-secondary ">
+                                        <input type="radio" name="section" id="option6" autocomplete="off" value="F"> F
+                                    </label>
+                                    <label class="btn btn-secondary ">
+                                        <input type="radio" name="section" id="option7" autocomplete="off" value="G"> G
+                                    </label>
+                                    <label class="btn btn-secondary ">
+                                        <input type="radio" name="section" id="option8" autocomplete="off" value="H"> H
+                                    </label>
+                                    <label class="btn btn-secondary ">
+                                        <input type="radio" name="section" id="option9" autocomplete="off" value="I"> I
+                                    </label>
+                                    <label class="btn btn-secondary ">
+                                        <input type="radio" name="section" id="option10" autocomplete="off" value="J"> J
+                                    </label>
+                                    <label class="btn btn-secondary ">
+                                        <input type="radio" name="section" id="option11" autocomplete="off" value="K"> K
+                                    </label>
 
-                            </tfoot> --}}
+                                {{-- </div> --}}
+                                {{-- <button class="btn btn-primary" onclick="addSectionSize()"><i class="fa fa-plus"> add section size</i></button> --}}
+                            </div>
+                            <div class="row" style="display: none;" id="assignCustomSection">
+                                <input id="assignSectionForSelectedStudent" type="button" class="btn btn-success m-2" value="Assign Section">
+                            </div>
+                       </div>
+                        <table id="sectionTable2" class="table table-bordered table-striped table-sm" >
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Full Name</th>
+                                    <th>Grade</th>
+                                    <th>Stream</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                 </div>

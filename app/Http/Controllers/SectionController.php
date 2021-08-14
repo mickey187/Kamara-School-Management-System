@@ -43,7 +43,7 @@ class SectionController extends Controller
         ->where('students.stream_id',$stream_id)
         ->get(['students.student_id','stream_type','section_name','class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
 
-        // ->get();
+
         foreach($class as $row){
             if(($label == '') || ($label != $row->section_name)){
                 $label = $row->section_name;
@@ -59,14 +59,11 @@ class SectionController extends Controller
                 ->where('students.class_id',$class_id)
                 ->where('students.stream_id',$stream_id)
                 ->get(['students.student_id','stream_type','classes.class_label',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
-            //    foreach($class as $row){
-            //         $class->$row = $row->push(collect(["section_name"=>"Undifind"]));
-            //    }
-                // ->get();
-        }else{
-            $status = 'true';
+                return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
+            }else{
+                $status = 'true';
+                return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
         }
-        return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
     }
     public function setSection($class_id,$stream_id,$section,$room){
 

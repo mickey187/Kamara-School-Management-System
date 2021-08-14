@@ -7,12 +7,12 @@ $("#searchStudentClass").click(function () {
 });
 
 function fetch(class_id, stream_id) {
-
+    $("#room_size").hide();
+    $("#setSection").hide();
     $.ajax({
         type: 'GET',
         url: 'fetchStudent/'+class_id+'/'+stream_id,
         dataType : 'json',
-
         success:function (data) {
             var rows = '';
             var sec = '';
@@ -42,8 +42,10 @@ function fetch(class_id, stream_id) {
                 })
 
 
-
-                $("#example1").DataTable({
+                $("#table1").show();
+                $("#table2").hide();
+                $("#sectionTable1").show();
+                $("#sectionTable1").DataTable({
                     // "processing": true,
                     // "serverSide": true,
                     // "ajax":"/finance/showStudentsRegsiteredForTransport",
@@ -55,44 +57,24 @@ function fetch(class_id, stream_id) {
                         { "data": "class_label" },
                         {"data": "stream_type"},
                         {"data": "section_name"},
-                        {"data": "action"},
+                        // {"data": "action"},
 
                     ],
                     "responsive": true,
                     "lengthChange": false,
                     "autoWidth": false,
                     "ordering": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
 
-            //    console.log("Incomming: "+section);
-            //     data.forEach(d => {
-            //         counter = counter+1;
-            //         no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
-            //         rows += '<tr>'+
-            //                 // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
-            //                 '<td>'+d.student_id+'</td>'+
-            //                 '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
-            //                 '<td>'+d.class_label+'</td>'+
-            //                 '<td>'+d.stream_type+'</td>'+
-            //                 '<td>'+d.section_name+'</td>'+
-            //                 '<td>'+
-            //                 // '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
-            //                 // 'data-target="#add_discount" data-disount_data="'+student_id+','+d.load_id+','+d.payment_type+','+d.amount+'" >'+
-            //                 // '<i class="fas fa-percent"></i>'+
-            //                 // '</button>'+
-            //                 '</td>'
-            //                 '</tr>'
-            //    });
-
-            //    $('#student_list').html(rows);
                $('#counter').html(no);
                $('#sections').html(sec);
             }else{
                 $("#sectionningPage").show();
-
-
-                $("#example1").DataTable({
+                $("#table1").hide();
+                $("#table2").show();
+                $("#sectionTable2").show();
+                $("#sectionTable2").DataTable({
                     // "processing": true,
                     // "serverSide": true,
                     // "ajax":"/finance/showStudentsRegsiteredForTransport",
@@ -111,10 +93,10 @@ function fetch(class_id, stream_id) {
                     "lengthChange": false,
                     "autoWidth": false,
                     "ordering": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
-               $('#sections').html("Section Not Set For Selected Student!");
-               $('#counter').html(no);
+                $('#counter2').html(no);
+               $('#sections').html("<label class='text-danger' >Section Not Set For Selected Student!</label>");
 
             //    $('#sections').html(sec);
             }
@@ -124,7 +106,6 @@ function fetch(class_id, stream_id) {
             console.log("it is not works fine");
         }
      });
-
 }
 
 
@@ -253,20 +234,49 @@ $("#singleClassId2").change(function () {
 $("#section_type").change(function(){
     class_name = $("#class").val();
     stream_name = $("#stream").val();
-    // alert(class_name+" - "+stream_name);
+    if($("#section_type").val() === "Custom"){
+        $("#room_size").hide();
+        $("#setSection").hide();
+        $("#customSection").show();
+        $("#assignCustomSection").show();
+    }else if($("#section_type").val() === "Alphabet"){
+        $("#room_size").show();
+        $("#setSection").show();
+        $("#customSection").hide();
+        $("#assignCustomSection").hide();
+
+    }else if($("#section_type").val() === "RegistrationDate"){
+        $("#room_size").show();
+        $("#setSection").show();
+        $("#customSection").hide();
+        $("#assignCustomSection").hide();
+
+    }else if($("#section_type").val() === ""){
+        $("#room_size").hide();
+        $("#setSection").hide();
+        $("#customSection").hide();
+        $("#assignCustomSection").hide();
+
+    }
 });
+$("#assignSectionForSelectedStudent").click(function (e) {
+    e.preventDefault();
+    $('.customSection').each(function(){
+        var the_val = jQuery('input:radio:checked').attr('value');
+        alert("Section "+the_val);
+    })
+});
+
 $("#setSection").click(function(){
     class_name = $("#class").val();
     stream_name = $("#stream").val();
     section = $("#section_type").val();
     room = $("#room_size").val();
-    // alert(class_name+" - "+stream_name+" - "+section+" - "+room);
 $.ajax({
     type: "GET",
     url: "setSection/"+class_name+"/"+stream_name+"/"+section+"/"+room,
     dataType: "JSON",
     success: function (response) {
-        // alert(response);
         swal.fire("Sectioning Complited","success");
         var section = JSON.parse(JSON.stringify(response.sections));
         var status = JSON.parse(JSON.stringify(response.status));
@@ -280,10 +290,6 @@ function swapClass(section,status,data){
     var rows = '';
     var sec = '';
     var counter = 0;
-
-    // Swal.fire(
-    //     'Registered Successfully!',
-    //   );
     console.log(status)
     console.log(data)
     if(status == 'true'){
@@ -295,22 +301,16 @@ function swapClass(section,status,data){
                     '</span>'+
                     '</label>'
         })
-    //    console.log("Incomming: "+section);
         data.forEach(d => {
             counter = counter+1;
             no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
             rows += '<tr>'+
-                    // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
                     '<td>'+d.student_id+'</td>'+
                     '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                     '<td>'+d.class_label+'</td>'+
                     '<td>'+d.stream_type+'</td>'+
                     '<td>'+d.section_name+'</td>'+
                     '<td>'+
-                    // '<button class="btn btn-success btn-sm"  data-toggle="modal"'+
-                    // 'data-target="#add_discount" data-disount_data="'+student_id+','+d.load_id+','+d.payment_type+','+d.amount+'" >'+
-                    // '<i class="fas fa-percent"></i>'+
-                    // '</button>'+
                     '</td>'
                     '</tr>'
        });
@@ -323,7 +323,6 @@ function swapClass(section,status,data){
             counter = counter+1;
             no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
             rows += '<tr>'+
-                    // '<td>'+d.first_name +' '+ d.middle_name+ ' ' +d.last_name+'</td>'
                     '<td>'+d.student_id+'</td>'+
                     '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                     '<td>'+d.class_label+'</td>'+
@@ -337,11 +336,9 @@ function swapClass(section,status,data){
                     '</td>'
                     '</tr>'
        });
-
        $('#student_list').html(rows);
        $('#counter').html(no);
        $('#sections').html("Section Not Set For Selected Student!");
-    //    $('#sections').html(sec);
     }
 
 }
