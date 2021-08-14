@@ -682,8 +682,8 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         $payment_load = DB::table('payment_loads')
                                   ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
                                   ->join('classes','payment_loads.class_id','=','classes.id')
-                                  ->get(['payment_loads.id as load_id','payment_type','class_label','amount']);
-                                  return view('finance.view_payment_load')->with('payment_load',$payment_load);
+                                  ->get(['payment_loads.id as payment_load_id','payment_type','class_label','amount','classes.id as class_id','payment_types.id as payment_type_id']);
+        return response()->json($payment_load);
     }
 
     public function fetchStudent($stud_id){
@@ -924,6 +924,14 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
         }
         return response()->json(['payment_type_id'=>$payment_type_id,'payment_type'=>$payment_types]);
     }
+
+    public function fetchPaymentLoadDetail(){
+        $payment_type = payment_type::all();
+        $class_detail = classes::all();
+        return response()->json(['payment_type'=>$payment_type,'class_detail'=>$class_detail]);
+    }
+
+ 
 }
 
 

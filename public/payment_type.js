@@ -36,7 +36,7 @@ $('#add_payment_type').click(function () {
             
             //$(rowNode).css( 'color', 'red' ).animate( { color: 'black' } );
             
-            
+            $(selector).attr(attributeName, value);
             console.log(flat);
             var rows = '';
             

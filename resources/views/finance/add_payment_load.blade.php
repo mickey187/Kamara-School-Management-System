@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-6">
          
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label for="exampleFormControlInput1">Payment Type</label>
             <select name="select_payment_type" id="payment_type" class="form-control">
                 @foreach ($payment_type as $row)
@@ -23,7 +23,7 @@
                 @endforeach
             </select>
 
-          </div>
+          </div> --}}
 
           <div class="form-group">
               <label for="">Select Class</label>
