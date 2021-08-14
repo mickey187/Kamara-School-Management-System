@@ -59,6 +59,15 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div hidden>
+                                <select name="parent_role" class="form-control select2bs4">
+                                    @foreach ($role as $row)
+                                    <option @if ($row->role_name === 'Parent')
+                                        selected
+                                    @endif value="{{ $row->id }}">{{ $row->role_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="field col-12 ">
                                 <div class="label">First name</div>
                                 <input type="text" id="studentFirstName" name="firstName" class="form-control"

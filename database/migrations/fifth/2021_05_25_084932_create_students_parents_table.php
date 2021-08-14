@@ -22,6 +22,7 @@ class CreateStudentsParentsTable extends Migration
             $table->unsignedBigInteger('student');
             $table->foreign('student')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');
             $table->string('first_name')->nullable(false);
+            $table->string('parent_id')->uniqid()->nullable(false);
             $table->string('middle_name')->nullable(false);
             $table->string('last_name')->nullable(false);
             $table->string('gender')->nullable(false);

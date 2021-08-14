@@ -17,6 +17,7 @@ use App\Models\Role;
 use App\Models\section;
 use App\Models\stream;
 use App\Models\student;
+use App\Models\students_parent;
 use App\Models\subject;
 use App\Models\teacher_course_load;
 use App\Models\training_institution_info;
@@ -297,15 +298,19 @@ public function insertAcademicBackgroundInfo(){
 
     public function idGeneratorFun(){
         $fourRandomDigit = rand(1000,9999);
-        $student = student::get(['id']);
-        $employee = employee::get(['id']);
-
+        $student = student::get(['student_id']);
+        $employee = employee::get(['employee_id']);
+        $parent = students_parent::get(['parent_id']);
         foreach($student as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
         foreach($employee as $row){
+            if($row->id==$fourRandomDigit){
+                $this->idGeneratorFun();
+            }
+        }foreach($parent as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }

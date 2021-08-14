@@ -89,6 +89,7 @@ class StudentController extends Controller{
             'birth_date' => $req->birthDate,
             'gender' => $req->pGender,
             'relation' => $req->pRelation,
+            'role' => $req->parent_role,
             'school_closur_priority' => $req->School_Closure_Priority,
             'emergency_contact_priority' => $req->pEmergency,
         );
@@ -329,6 +330,7 @@ class StudentController extends Controller{
         $address_fk = Address::latest('created_at')->pluck('id')->first();
         $student_fk = student::latest('created_at')->pluck('id')->first();
         $parent = new students_parent();
+
         $parent->first_name = $data['first_name'];
         $parent->middle_name = $data['middle_name'];
         $parent->last_name = $data['last_name'];
@@ -337,8 +339,11 @@ class StudentController extends Controller{
         $parent->school_closur_priority = $data['school_closur_priority'];
         $parent->emergency_contact_priority = $data['emergency_contact_priority'];
         $parent->address_id = $address_fk;
+        $parent->parent_id = $this->idGeneratorFun();
         $parent->student = $student_fk;
         $parent->save();
+        error_log("Role--------------------------".$data['role']);
+        $this->addUserAccount($data['first_name'],$parent->parent_id,$data['role']);
     }
     public function insertStudentBackgroud($data){
         $studentBackground = new student_background();
@@ -388,7 +393,7 @@ class StudentController extends Controller{
 
 
 
-        
+
         $this->addUserAccount($data['first_name'],$student->student_id,$data['role']);
         $this->registerStudentForPayment($student->id,$data["class"],$req->transport);
     }
@@ -429,15 +434,19 @@ class StudentController extends Controller{
 
     public function idGeneratorFun(){
         $fourRandomDigit = rand(1000,9999);
-        $student = student::get(['id']);
-        $teacher = teacher::get(['id']);
-
+        $student = student::get(['student_id']);
+        $employee = employee::get(['employee_id']);
+        $parent = students_parent::get(['parent_id']);
         foreach($student as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
-        foreach($teacher as $row){
+        foreach($employee as $row){
+            if($row->id==$fourRandomDigit){
+                $this->idGeneratorFun();
+            }
+        }foreach($parent as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
@@ -552,7 +561,7 @@ public function registerStudentForPayment($stud_id, $class_id, $bool){
     }
 
     elseif ($bool == 'no') {
-        
+
         //registration payment
     $payment_type_id_2 = payment_type::where('payment_type','Registration Fee')->pluck('id');
     $payment_load_id_2 = payment_load::where('class_id',$class_id)->where('payment_type_id',$payment_type_id_2[0])

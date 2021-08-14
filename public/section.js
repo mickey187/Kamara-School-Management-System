@@ -21,7 +21,7 @@ function fetch(class_id, stream_id) {
             var status = JSON.parse(JSON.stringify(data.status));
             var data = JSON.parse(JSON.stringify(data.classes));
             data.forEach(d=> {
-                Object.assign(d,{action:"<input type='checkbox'>"});
+                Object.assign(d,{action:"<input type='checkbox' value="+d.student_id+" id="+d.student_id+" name='students' class='checkbox'>"});
                 counter = counter+1;
                 no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
             });
@@ -51,6 +51,7 @@ function fetch(class_id, stream_id) {
                     // "ajax":"/finance/showStudentsRegsiteredForTransport",
                     "destroy":true,
                     "data":data,
+                    // "rowId": [{"data":"student_id"}],
                     "columns": [
                         { "data": "student_id" },
                         { "data": "full_name" },
@@ -75,30 +76,35 @@ function fetch(class_id, stream_id) {
                 $("#table2").show();
                 $("#sectionTable2").show();
                 $("#sectionTable2").DataTable({
-                    // "processing": true,
-                    // "serverSide": true,
-                    // "ajax":"/finance/showStudentsRegsiteredForTransport",
                     "destroy":true,
                     "data":data,
                     "columns": [
                         { "data": "student_id" },
                         { "data": "full_name" },
                         { "data": "class_label" },
-                        {"data": "stream_type"},
-                        // {"data": "section_name"},
-                        {"data": "action"},
-
+                        { "data": "stream_type"},
+                        { "data": "action"},
+                        // { "rowId": "student_id"},
                     ],
+                    "rowId":"student_id",
                     "responsive": true,
                     "lengthChange": false,
                     "autoWidth": false,
                     "ordering": false,
+                    // "dom":'',
                     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
                 }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
+
+
+                //     $("#sectionTable2 tbody tr").each(function(){
+                //         data.forEach(d=>{
+                //             $(this).attr("id",d.student_id);
+                //         });
+                // })
+
                 $('#counter2').html(no);
                $('#sections').html("<label class='text-danger' >Section Not Set For Selected Student!</label>");
-
-            //    $('#sections').html(sec);
             }
 
         },
@@ -107,6 +113,36 @@ function fetch(class_id, stream_id) {
         }
      });
 }
+
+
+// var table = $("#sectionTable2").DataTable();
+// $("#sectionTable2").on('click','tr',function(){
+//     var id = $("#sectionTable2").DataTable().row(this).id();
+//     console.log(id);
+
+// });
+
+// $("#sectionTable2 tbody tr").each(function(){
+//     data.forEach(d=>{
+//         $(this).attr("id",d.student_id);
+//     });
+// });
+
+// $("#806405").on('click',function(){
+//     // $("#sectionTable2").DataTable().rows().every(function(){
+//     //     console.log(this.data());
+//     // })
+//     // alert(id.student_id);
+//     // alert($('.checkbox').val());
+//     alert("gringo");
+
+// });
+
+
+
+
+
+
 
 
 $("#singleClassId").change(function () {
@@ -259,13 +295,28 @@ $("#section_type").change(function(){
 
     }
 });
+
+
 $("#assignSectionForSelectedStudent").click(function (e) {
     e.preventDefault();
+    var section = [];
+    var student = [];
     $('.customSection').each(function(){
         var the_val = jQuery('input:radio:checked').attr('value');
-        alert("Section "+the_val);
+        // alert("Section "+the_val);
+        section.push(the_val);
     })
+
+    $('input[name="students"]:checked').each(function() {
+        // alert("Student"+this.value);
+        student.push(this.value)
+     });
+     alert(section);
+     alert(student);
 });
+
+
+
 
 $("#setSection").click(function(){
     class_name = $("#class").val();
