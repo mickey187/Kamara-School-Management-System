@@ -18,7 +18,7 @@
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Section All</a>
                                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sectioned Classes</a>
                                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Unsectioned Classes</a>
-                                <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">About</a>
+                                <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Manualy Assign Section</a>
                               </div>
                             </nav>
                             <div class="col-12 tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -167,12 +167,23 @@
                                     <thead>
                                         <th>Classes</th>
                                         <th>Stream</th>
+                                        <th>Action</th>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>                              </div>
                               <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-                                Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+                                <table id="example3" class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <th>Student Id</th>
+                                        <th>Full Name</th>
+                                        <th>Class</th>
+                                        <th>Stream</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                               </div>
                             </div>
 
@@ -185,4 +196,36 @@
 
                 </div>
                 </div>
+
+
+
+                <div class="modal fade" id="setSectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="full_name"></p>
+                            <p id="student_id"></p>
+                            <p id="class_label"></p>
+                            <p id="stream_type"></p>
+                            <select class="form-control" id="section_id">
+                                <option>select section</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" id="setSectionForOneStudent">Assign Section</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 @endsection

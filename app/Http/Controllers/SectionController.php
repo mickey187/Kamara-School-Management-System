@@ -243,9 +243,35 @@ class SectionController extends Controller
         return response()->json($collection);
     }
 
+    public function getAllStudentForSectionning(){
+        $collection = collect();
+        $getStudents = DB::table('students')
+                        ->join('classes','students.class_id','=','classes.id')
+                        ->join('streams','students.stream_id','=','streams.id')
+                        ->get(['students.id','students.student_id','classes.class_label','streams.stream_type',DB::raw('CONCAT(students.first_name," ",students.middle_name," ",students.last_name) AS full_name')]);
+        foreach($getStudents as $row){
+            $section = section::where("student_id",$row->id)->get()->first();
+            if(!$section){
+                $studentItem = (object) ["student_id"=>$row->student_id,"class_label"=>$row->class_label,"stream_type"=>$row->stream_type,"full_name"=>$row->full_name];
+                $collection->push($studentItem);
+            }
+        }
+        return response()->json($collection);
+    }
 
-
-
+    public function assignSectionForStudent($student,$section){
+        $getStudent = student::where('student_id',(int)$student)->get()->first();
+        $setSection = new section();
+        $setSection->student_id = $getStudent->id;
+        $setSection->class_id = $getStudent->class_id;
+        $setSection->stream_id = $getStudent->stream_id;
+        $setSection->section_name = $section;
+        if($setSection->save()){
+            return response()->json("successfuly Inserted");
+        }else{
+            return response()->json("Error Happen");
+        }
+    }
 
     public function findSection($id){
         $val = '';

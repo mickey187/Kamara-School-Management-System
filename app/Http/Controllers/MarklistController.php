@@ -15,7 +15,9 @@ use App\Models\semister;
 use App\Models\stream;
 use App\Models\student;
 use App\Models\student_mark_list;
+use App\Models\students_parent;
 use App\Models\subject;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -291,6 +293,12 @@ class MarklistController extends Controller
             // error_log($studentCardCollection->name);
         }
         return Excel::download(new StudentsCardPerTermExport($studentCardCollection,$class2,$stream2,$section,$getTerm), $clas->class_label.'_'.$str->stream_type.'_'.$section.'.xlsx');
+    }
+
+    public function getStudentMarkList(){
+        $parent_id = Auth::user()->user_id;
+        $student_id = students_parent::where('parent_id',$parent_id)->value('student');
+        return redirect('studentScore/'.$student_id);
     }
 }
 

@@ -66,7 +66,7 @@ function fetch(class_id, stream_id) {
                     "autoWidth": false,
                     "ordering": false,
                     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
+                }).buttons().container().appendTo('#sectionTable1_wrapper .col-md-6:eq(0)');
 
                $('#counter').html(no);
                $('#sections').html(sec);
@@ -94,7 +94,7 @@ function fetch(class_id, stream_id) {
                     // "dom":'',
                     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
 
-                }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
+                }).buttons().container().appendTo('#sectionTable2_wrapper .col-md-6:eq(0)');
 
 
                 //     $("#sectionTable2 tbody tr").each(function(){
@@ -425,7 +425,7 @@ $("#nav-profile-tab").click(function(){
                 // "dom":'',
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
 
-            }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
             // swal.fire("OK");
         }
@@ -439,6 +439,11 @@ $("#nav-contact-tab").click(function(){
         url: "getNotSectionedClasses",
         dataType: "json",
         success: function (response) {
+            response.forEach(d=> {
+                Object.assign(d,{action:"<input type='button' id="+d.class+" value='set section' name='students' class='btn btn-success'>"});
+                counter = counter+1;
+                // no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
+            });
             console.log(response);
             $("#example2").DataTable({
                 "destroy":true,
@@ -446,6 +451,7 @@ $("#nav-contact-tab").click(function(){
                 "columns": [
                     { "data": "class" },
                     { "data": "stream" },
+                    { "data": "action" },
                 ],
                 // "rowId":"student_id",
                 "responsive": true,
@@ -455,7 +461,57 @@ $("#nav-contact-tab").click(function(){
                 // "dom":'',
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
 
-            }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
         }
     });
 });
+$("#nav-about-tab").click(function(){
+    // alert("");
+    $.ajax({
+        type: "GET",
+        url: "getAllStudentForSectionning",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            response.forEach(d=> {
+                Object.assign(d,{action:"<input type='button' id="+d.class+" value='set section' name='students' data-toggle='modal' data-target='#setSectionModal' data-section="+d.student_id+","+d.full_name+" class='btn btn-success'>"});
+                counter = counter+1;
+                // no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
+            });
+            console.log(response);
+            $("#example3").DataTable({
+                "destroy":true,
+                "data":response,
+                "columns": [
+                    { "data": "student_id" },
+                    { "data": "full_name" },
+                    { "data": "class_label" },
+                    { "data": "stream_type" },
+                    { "data": "action" },
+                ],
+                // "rowId":"student_id",
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "ordering": false,
+                // "dom":'',
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
+            }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+        }
+    });
+});
+
+$("#setSectionForOneStudent").click(function(){
+    var student = $("#student_id").val();
+    var section = $("#section_id").val();
+    $.ajax({
+        type: "GET",
+        url: "assignSectionForStudent/"+student+"/"+section,
+        dataType: "json",
+        success: function (response) {
+            swal.fire(response);
+
+        }
+    });
+})
