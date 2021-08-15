@@ -196,7 +196,7 @@
 
 
                         <li class="nav-item">
-                            <a href="{{ url('dashboard') }}" class="nav-link active">
+                            <a href="{{ url('/parentDashboard') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -293,7 +293,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('listTeacher') }}" class="nav-link">
+                                    <a href="{{ url('/viewParentPaymentDetail') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Payment Detail</p>
                                     </a>
@@ -526,6 +526,7 @@ $(function() {
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('parent_portal.js') }}"></script>
 
     <script>
         $(function() {

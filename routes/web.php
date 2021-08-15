@@ -308,7 +308,7 @@ Route::get('view_parents',[ParentController::class, 'retriveAll']);
 
 Route::get('/parentDashboard',[ParentController::class, 'ParentDashboard']);
 
-Route::get('/veiwParentPaymentDetail',[ParentController::class, 'veiwParentPaymentDetail']);
+Route::get('/viewParentPaymentDetail',[ParentController::class, 'viewParentPaymentDetail']);
 
 // admin
 Route::get('dashboard',[StudentController::class, 'adminDashboard']);

@@ -11,7 +11,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-bold" data-toggle="tab" href="#payment_history_tab" role="tab">Payment History</a>
+                    <a class="nav-link text-bold" data-toggle="tab" href="#payment_history_tab" role="tab" id="payment_history_link">Payment History</a>
                 </li>
 
             </ul>
@@ -23,7 +23,7 @@
                     <p>Unpaid Bills</p>
                     <div class="row">
                         <div class="col-12">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped" id="unpaid_bill_table">
                                 <thead>
                                     <tr>
                                         <th>Payment Type</th>
@@ -53,7 +53,33 @@
                     <p>Paid Bills</p>
                     <div class="row">
                         <div class="col-12">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Student Name</th>
+                                        <th>Payment Type</th>
+                                        <th>Amount</th>
+                                        <th>FS Number</th>
+                                        <th>Month</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($result_history as $key)
+                                    
+                                    
+                                    <tr>
+                                        <td>{{$key["first_name"]." ".$key["middle_name"]." ".$key["last_name"]}}</td>
+                                        <td>{{$key["payment_type"]}}</td>
+                                        <td>{{$key["amount_payed"]}}</td>
+                                        <td>{{$key["fs_number"]}}</td>
+                                        <td>{{$key["payment_month"]}}</td>
 
+                                    </tr>
+                                    
+                                    
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -13,11 +13,26 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-orange">
               <div class="widget-user-image">
-                <img class="img-circle elevation-2" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
+                @if (isset($student_info))
+                  @foreach ($student_info as $key)
+                      <img class="img-rounded elevation-2"  src="{{asset('img/786562_people_512x512.png')}}" alt="User Avatar" style="width: 100px; height:100px">
+                  @endforeach 
+                  @else
+                  <img class="img-circle elevation-2" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
+                @endif
+                
               </div>
               <!-- /.widget-user-image -->
-              <h3 class="widget-user-username text-white">Nadia Carmichael</h3>
-              <h5 class="widget-user-desc text-white">Grade 2</h5>
+              @if (isset($student_info))
+              @foreach ($student_info as $key)
+                  <h3 class="widget-user-username text-white ml-3">{{$key->full_name}}</h3>
+                  <h5 class="widget-user-desc text-white ml-3">{{$key->class_label}}</h5>
+              @endforeach              
+                @else
+                <h3 class="widget-user-username text-white">Default</h3>
+                  <h5 class="widget-user-desc text-white">Default</h5>
+              @endif
+              
             </div>
             <div class="card-footer p-0">
            <div class="row m-3">
@@ -63,7 +78,7 @@
                     <div class="icon" style="color: white">
                         <i class="fas fa-comments-dollar"></i>
                     </div>
-                    <a href="/veiwParentPaymentDetail" class="small-box-footer">
+                    <a href="/viewParentPaymentDetail" class="small-box-footer">
                       More info <i class="fas fa-arrow-circle-right"></i>
                     </a>
                   </div>
