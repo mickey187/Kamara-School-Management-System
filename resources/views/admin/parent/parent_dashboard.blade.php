@@ -40,7 +40,7 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                       <h3>86<sup style="font-size: 20px">%</sup></h3>
-      
+
                       <p >Student Score</p>
                     </div>
                     <div class="icon" style="color: white">
@@ -56,7 +56,7 @@
                 <div class="small-box bg-warning">
                     <div class="inner">
                       <h3 style="color: whitesmoke">2</h3>
-      
+
                       <p style="color: whitesmoke">Attendance Missed</p>
                     </div>
                     <div class="icon" style="color:whitesmoke">
@@ -72,7 +72,7 @@
                 <div class="small-box bg-danger">
                     <div class="inner">
                       <h3>{{$unpaid_bill_counter}}</h3>
-      
+
                       <p>Unpaid Bills</p>
                     </div>
                     <div class="icon" style="color: white">
@@ -86,7 +86,7 @@
            </div>
             </div>
           </div>
-        
-    {{-- </div>    
+
+    {{-- </div>
 </div> --}}
 @endsection

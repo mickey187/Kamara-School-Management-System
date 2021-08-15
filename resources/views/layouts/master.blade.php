@@ -74,14 +74,19 @@
                    # code...
                    $role_name = $key->role_name;
                }
-
                echo $role_name;
+            //    if ($role_name == "Parent") {
+            //     $parent_id = Auth::user()->user_id;
+            //     $student_id = students_parent::where('parent_id',$parent_id)->value('student');
+            //    }
+
                ?>
                 @if($role_name == 'Student')
 
                 <h1>Hello Student</h1>
 
             @endif
+
 
             </ul>
 

@@ -248,7 +248,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                         
+
                                 <li class="nav-item">
                                     <a href="{{ url('listTeacher') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -257,7 +257,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{ url('listTeacher') }}" class="nav-link">
+                                    <a href="{{ url('/getStudentMarkList') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Student Scores</p>
                                     </a>
@@ -301,18 +301,18 @@
                             </ul>
                         </li>
 
-                   
-
-                        
-
-                      
 
 
 
 
 
 
-                        
+
+
+
+
+
+
 
                         <hr>
                         <li class="nav-header">MISCELLANEOUS</li>

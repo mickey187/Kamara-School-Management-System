@@ -472,6 +472,21 @@ class StudentController extends Controller{
         $student = student::where('id',$id)->first();
          return view('admin.student.marklist')->with('mark', $mark)->with('student',$student);
     }
+    function studentScore($id){
+        $mark =  DB::table('student_mark_lists')
+        ->join('students','students.id','=','student_mark_lists.student_id')
+        ->join('assasment_types','assasment_types.id','=','student_mark_lists.assasment_type_id')
+        ->join('subjects','subjects.id','=','student_mark_lists.subject_id')
+        ->where('student_mark_lists.student_id',$id)->get();
+        //$mark = student_mark_list::where('student_id',$id)->get();
+        // $student = student::where('id',$id)->first();
+        $student = DB::table('students')
+                ->join('classes','students.class_id','=','classes.id')
+                ->join('streams','students.stream_id','=','streams.id')
+                ->where('students.id',$id)->get()->first();
+
+         return view('parent.marklist')->with('mark', $mark)->with('student',$student);
+    }
 
     function teacherMarklist($id){
         $count_term = 0;

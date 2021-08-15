@@ -282,6 +282,10 @@ Route::get('register/{id}',[StudentController::class, 'register']);
 
 Route::get('marklist/{id}',[StudentController::class, 'marklist']);
 
+Route::get('studentScore/{id}',[StudentController::class, 'studentScore']);
+
+Route::get('/getStudentMarkList',[MarklistController::class, 'getStudentMarkList']);
+
 Route::get('my_student/marklist/{id}',[StudentController::class, 'teacherMarklist']);
 
 // parent
@@ -352,6 +356,16 @@ Route::get('getHomeRoom/{teacher_id}',[SectionController::class, 'getHomeRoom'])
 Route::get('deleteHomeRoom/{hoom_room_id}',[SectionController::class, 'deleteHomeRoom']);
 
 Route::get('setCurrentSemister/{id}',[SectionController::class, 'setCurrentSemister']);
+
+Route::get('customSection/{section}/{student}',[SectionController::class, 'customSection']);
+
+Route::get('getSectionedClasses',[SectionController::class, 'getSectionedClasses']);
+
+Route::get('getNotSectionedClasses',[SectionController::class, 'getNotSectionedClasses']);
+
+Route::get('getAllStudentForSectionning',[SectionController::class, 'getAllStudentForSectionning']);
+
+Route::get('assignSectionForStudent/{student}/{section}',[SectionController::class, 'assignSectionForStudent']);
 
 //For Testing
 
