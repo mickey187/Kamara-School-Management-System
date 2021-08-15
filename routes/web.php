@@ -345,6 +345,14 @@ Route::get('deleteHomeRoom/{hoom_room_id}',[SectionController::class, 'deleteHom
 
 Route::get('setCurrentSemister/{id}',[SectionController::class, 'setCurrentSemister']);
 
+Route::get('customSection/{section}/{student}',[SectionController::class, 'customSection']);
+
+Route::get('getSectionedClasses',[SectionController::class, 'getSectionedClasses']);
+
+Route::get('getNotSectionedClasses',[SectionController::class, 'getNotSectionedClasses']);
+
+
+
 //For Testing
 
 Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');

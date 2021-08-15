@@ -135,12 +135,8 @@ class SectionController extends Controller
                 $status = 'true';
             }
             return response()->json(['classes'=>$class,'sections'=>$section,'status'=>$status]);
-            // return response()->json("Set With Registration Date");
-            // return view('admin.student.student_section')->with('class',$class)->with('stream',$stream);
         }
-        // $student = student::where('class_id',$request->class)->where('stream_id',$request->stream)->orderBy('first_name','ASC')->get();
 
-        //return $this->sectionLogic($student,$request->student_size);
     }
 
     public function sectionLogic($student,$size){
@@ -191,6 +187,66 @@ class SectionController extends Controller
 
         return view('admin.curriculum.add_semister')->with('semister',$semister);
     }
+
+    public function customSection($section , $student){
+        $studentSplitter = explode(",",$student);
+        $count = 0;
+        for($i = 0; $i < sizeof($studentSplitter); $i++){
+            $getSectionTable = new section();
+            $getStudentTable = student::where("student_id",$studentSplitter[$i])->get()->first();
+            $getSectionTable->section_name = $section;
+            $getSectionTable->class_id = $getStudentTable->class_id;
+            $getSectionTable->stream_id = $getStudentTable->stream_id;
+            $getSectionTable->student_id = $getStudentTable->id;
+            $getSectionTable->save();
+            $count++;
+        }
+        return response()->json($count." Students Set To Section ".$section);
+    }
+
+
+
+
+    public function getSectionedClasses(){
+        $getSectionedClass = section::all();
+        $classes = array();
+        $collection = collect();
+        foreach($getSectionedClass as $row){
+            $class = classes::where('id',$row->class_id)->get()->first();
+            $stream = stream::where('id',$row->stream_id)->get()->first();
+            if (!(in_array($class->class_label.'-'.$stream->stream_type,$classes))) {
+                array_push($classes,$class->class_label.'-'.$stream->stream_type);
+                $studentItem = (object) ["class"=>$class->class_label,"stream"=>$stream->stream_type,"section"=>$row->section_name];
+                $collection->push($studentItem);
+            }
+        }
+        return response()->json($collection);
+    }
+
+
+
+    public function getNotSectionedClasses(){
+        $collection = collect();
+        $classes = array();
+        $getStudents = student::all();
+        foreach($getStudents as $row){
+            $class = classes::where('id',$row->class_id)->get()->first();
+            $stream = stream::where('id',$row->stream_id)->get()->first();
+            $getSection = section::where('student_id',$row->id)->get()->first();
+            if (!$getSection && !(in_array($class->class_label.'-'.$stream->stream_type,$classes))) {
+                $studentItem = (object) ["class"=>$class->class_label,"stream"=>$stream->stream_type];
+                $collection->push($studentItem);
+                array_push($classes,$class->class_label.'-'.$stream->stream_type);
+
+            }
+        }
+        return response()->json($collection);
+    }
+
+
+
+
+
     public function findSection($id){
         $val = '';
         $count = 0;

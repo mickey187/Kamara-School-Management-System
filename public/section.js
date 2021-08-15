@@ -303,7 +303,6 @@ $("#assignSectionForSelectedStudent").click(function (e) {
     var student = [];
     $('.customSection').each(function(){
         var the_val = jQuery('input:radio:checked').attr('value');
-        // alert("Section "+the_val);
         section.push(the_val);
     })
 
@@ -311,8 +310,16 @@ $("#assignSectionForSelectedStudent").click(function (e) {
         // alert("Student"+this.value);
         student.push(this.value)
      });
-     alert(section);
-     alert(student);
+    //  alert(section);
+    //  alert(student);
+     $.ajax({
+         type: "GET",
+         url: "customSection/"+section+"/"+student,
+         dataType: "json",
+         success: function (response) {
+            swal.fire(response);
+         }
+     });
 });
 
 
@@ -393,3 +400,62 @@ function swapClass(section,status,data){
     }
 
 }
+
+
+$("#nav-profile-tab").click(function(){
+    // $("#nav-profile").html("<label> Abraham </label>");
+    $.ajax({
+        type: "GET",
+        url: "getSectionedClasses",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            $("#example1").DataTable({
+                "destroy":true,
+                "data":response,
+                "columns": [
+                    { "data": "class" },
+                    { "data": "stream" },
+                ],
+                // "rowId":"student_id",
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "ordering": false,
+                // "dom":'',
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
+            }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
+
+            // swal.fire("OK");
+        }
+    });
+})
+
+
+$("#nav-contact-tab").click(function(){
+    $.ajax({
+        type: "GET",
+        url: "getNotSectionedClasses",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            $("#example2").DataTable({
+                "destroy":true,
+                "data":response,
+                "columns": [
+                    { "data": "class" },
+                    { "data": "stream" },
+                ],
+                // "rowId":"student_id",
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "ordering": false,
+                // "dom":'',
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
+            }).buttons().container().appendTo('#student_graduation_table_wrapper .col-md-6:eq(0)');
+        }
+    });
+});
