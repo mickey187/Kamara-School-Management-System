@@ -70,7 +70,7 @@ class PaymentLoadSeeder extends Seeder
         //         case 6:
         //                                 DB::table('payment_types')->insert([
         //                                     'id' => 6,
-        //                                     'payment_type' => 'Gown & Magazine Fee',
+        //                                     'payment_type' => 'Graduation Magazine & Gown Fee',
         //                                     'recurring_type' =>'non-recurring',
         //                                     'created_at' => Carbon::now(),
         //                                     'updated_at' => Carbon::now(),
