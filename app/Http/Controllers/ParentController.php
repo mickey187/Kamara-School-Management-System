@@ -144,6 +144,12 @@ class ParentController extends Controller{
     public function ParentDashboard(){
         $parent_id = Auth::user()->user_id;
         $student_id = students_parent::where('parent_id',$parent_id)->value('student');
+        $student_info = DB::table('students')
+                            ->join('classes','students.class_id','=','classes.id')
+                            ->join('sections','students.id','=','sections.student_id')
+                            ->where('students.id',$student_id)
+                            ->get(["students.student_id",
+                            DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name'),"class_label","section_name","students.image"]);
         $student_payment_history = (new FinanceController)->fetchPaymentHistory($student_id);
         
         
@@ -159,10 +165,11 @@ class ParentController extends Controller{
         }
             
          
-        return view('admin.parent.parent_dashboard')->with('unpaid_bill_counter',$unpaid_bill_counter);
+        return view('admin.parent.parent_dashboard')->with('unpaid_bill_counter',$unpaid_bill_counter)
+                    ->with('student_info',$student_info);
     }
 
-    public function veiwParentPaymentDetail(){
+    public function viewParentPaymentDetail(){
         $parent_id = Auth::user()->user_id;
         $student_id = students_parent::where('parent_id',$parent_id)->value('student');
         $student_payment_history = (new FinanceController)->fetchPaymentHistory($student_id);
@@ -243,6 +250,7 @@ class ParentController extends Controller{
             
             }
         }
-        return view('admin.parent.parent_payment_detail')->with('unpaid_bills',$decoded["sliced"]);
+        //dd($decoded);
+        return view('admin.parent.parent_payment_detail')->with('unpaid_bills',$decoded["sliced"])->with('result_history',$decoded["result_history"]);
     }
 }
