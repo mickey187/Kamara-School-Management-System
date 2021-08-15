@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <title>Kamara School Management System | Dashboard</title>
-    {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
-
+    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
+    <link rel="stylesheet" href="//unpkg.com/bootstrap-select@1.12.4/dist/css/bootstrap-select.min.css" type="text/css" />
+    <link rel="stylesheet" href="//unpkg.com/bootstrap-select-country@4.0.0/dist/css/bootstrap-select-country.min.css" type="text/css" />
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -37,6 +37,7 @@
 
     <link rel="stylesheet" href="{{ asset('main.css') }}">
     <link rel="stylesheet" href="{{ asset('addclass.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.css') }}">
 
     <!-- DataTables -->
 
@@ -44,7 +45,7 @@
     {{-- <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -64,7 +65,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <h2 class="text-bold">Kamara School</h2>
-                
+
                <?php
 
                $role_name = Auth::user()->roles;
@@ -77,16 +78,15 @@
                echo $role_name;
                ?>
                 @if($role_name == 'Student')
-                
+
                 <h1>Hello Student</h1>
-                
-                
+
             @endif
 
             </ul>
 
-            
-            
+
+
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -131,8 +131,8 @@
                             <img src="{{ asset('img/default_picture.png') }}" class="img-circle" alt="User Image">
 
                             <p class="mt-0"> <span class="text-bold">{{ Auth::user()->name }}</span> <br>
-                                
-                                <span class="text"> {{ $role_name }} </span>
+                                grade <br>
+                                <span class="text"> section </span>
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -142,7 +142,7 @@
                                     <a href="#"><i class="fa fa-user"></i> My profile</a>
                                 </div>
 
-                                
+
                                 <div class="col-6 text-right">
                                     {{-- <a href="{{route('logout')}}"><i class="fa fa-sign-out-alt"></i> logout</a> --}}
                                     <form action="{{url('/logout')}}" method="post">
@@ -150,7 +150,7 @@
                                         <input type="submit" value="logout" class="btn btn-success">
                                     </form>
                                 </div>
-                           
+
                             </div>
                             <!-- /.row -->
                         </li>
@@ -195,15 +195,8 @@
 
 
 
-                        <li class="nav-item"> 
-                            
-                                
-                            
-                            <a href="{{ url('finance/financeDashboard') }}" class="nav-link 
-                            @if (Request::segment(2)== 'financeDashboard')
-                            active
-                            @endif">
-                                
+                        <li class="nav-item">
+                            <a href="{{ url('dashboard') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -244,94 +237,82 @@
 
 
 
-                        <!-- finance -->
-
+                        <!-- student -->
 
                         <li class="nav-item">
-                            
-                                
-                           
-                            
-                            <a href="#" class="nav-link @if (Request::segment(1)== 'finance') active @endif" id="nav_finance">
-                               
-                                <i class="nav-icon fas fa-dollar-sign"></i>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Finance
+                                    Student Info
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                         
+                                <li class="nav-item">
+                                    <a href="{{ url('listTeacher') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Student Attendance</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ url('listTeacher') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Student Scores</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Teacher Info
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{url('finance/indexAddPaymentType')}}" class="nav-link @if (Request::segment(2)== 'indexAddPaymentType') active  @endif">
+                                    <a href="{{ url('listTeacher') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Payment Type</p>
+                                        <p>Teacher List</p>
                                     </a>
                                 </li>
-
-                                    {{-- <li class="nav-item">
-                                        <a href="{{url('finance/viewPaymentType')}}" class="nav-link @if (Request::segment(2)== 'viewPaymentType') active  @endif">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>View Payment Type</p>
-                                        </a>
-                                    </li> --}}
-
-                                    {{-- <li class="nav-item">
-                                    <a href="{{url('finance/indexAddPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'indexAddPaymentLoad') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Payment Load</p>
-                                    </a>
-                                </li> --}}
-
-                                {{-- <li class="nav-item">
-                                    <a href="{{url('finance/viewPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'viewPaymentLoad') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Payment Load</p>
-                                    </a>
-                                </li> --}}
-
-                                {{-- <li class="nav-item">
-                                    <a href="{{url('finance/indexAddStudentTransportation')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentTransportation') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Student Transportation</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{url('finance/indexAddStudentDiscount')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentDiscount') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Student Discount</p>
-                                    </a>
-                                </li> --}}
-
-                                <li class="nav-item">
-                                    <a href="{{url('finance/studentPayment')}}" class="nav-link @if (Request::segment(2)== 'studentPayment') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Payment Registration</p>
-                                    </a>
-                                </li>
-
-                                {{-- <li class="nav-item">
-                                    <a href="{{url('finance/viewStudentDiscount')}}" class="nav-link @if (Request::segment(2)== 'viewStudentDiscount') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Student Discount</p>
-                                    </a>
-                                </li> --}}
-
-                                <li class="nav-item">
-                                    <a href="{{url('finance/indexAddStudentPayment')}}" class="nav-link @if (Request::segment(2)== 'indexAddStudentPayment') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Student Payment</p>
-                                    </a>
-                                </li>
-                                {{-- <li class="nav-item">
-                                    <a href="{{url('finance/viewStudentPayment')}}" class="nav-link @if (Request::segment(2)== 'viewStudentPayment') active  @endif">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>View Student Payment</p>
-                                    </a>
-                                </li> --}}
-
-                         </ul>
+                            </ul>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Payment
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('listTeacher') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Payment Detail</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                   
+
+                        
+
+                      
+
+
+
+
+
+
+                        
 
                         <hr>
                         <li class="nav-header">MISCELLANEOUS</li>
@@ -371,7 +352,6 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            @include('sweetalert::alert')
                             @yield('content')
                         </div>
                     </div>
@@ -402,6 +382,9 @@
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+
+    {{-- <script src="{{ asset('plugins/jquery-validation/jquery.validation.min.js') }}"></script>
+     <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script> --}}
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -409,11 +392,13 @@
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    
+    <!-- ChartJS -->
 
 <!-- select 2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="sweetalert2.all.min.js"></script>
 <script>
+
 $(function() {
 
     $('.select2').select2()
@@ -470,33 +455,6 @@ $(function() {
       <!-- student discount js -->
       <script src="{{ asset('student_discount.js') }}"></script>
 
-      <!-- student transportation js -->
-      <script src="{{ asset('student_transport.js') }}"></script>
-
-       <!-- student transportation js -->
-       <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
-
-        <!-- finance_master -->
-        <script src="{{ asset('finance_master.js') }}"></script>
-
-        <!-- payment type -->
-        <script src="{{ asset('payment_type.js') }}"></script>
-
-        <!-- payment load -->
-        <script src="{{ asset('payment_load.js') }}"></script>
-
-        <!-- ChartJS -->
-    <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
-
-     <!-- Ethiopic Date -->
-    <script src="{{ asset('plugins/ethiopic-date/index.js') }}"></script>
-
-    <script src="{{ asset('finance_dashboard.js') }}"></script>
-
-    <script src="{{ asset('student_payment.js') }}"></script>
-
-
-
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
@@ -516,19 +474,58 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="//unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="//unpkg.com/bootstrap-select@1.12.4/dist/js/bootstrap-select.min.js"></script>
+    <script src="//unpkg.com/bootstrap-select-country@4.0.0/dist/js/bootstrap-select-country.min.js"></script>
+
     <script src="{{asset('dist/js/addclass.js')}}"></script>
-    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
+    {{-- <script src="{{ asset('dist/js/employee.js') }}"></script>  --}}
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_enroll_model.js') }}"></script>
-    <script src="{{ asset('dist/js/script.js') }}"></script>
+
+    {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
     <script src="{{ asset('dist/js/delete_parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/teacher.js') }}"></script>
+    <script src="{{ asset('dist/js/student_skill.js') }}"></script>
     <script src="{{ asset('dist/css/checkbox.css') }}"></script>
     <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
+    <script src="{{ asset('dist/js/semister_status.js') }}"></script>
+
     <!-- Page specific script -->
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
+
+     {{-- <script src="{{ asset('validation.js') }}"></script> --}}
+
+
+     {{-- student validation --}}
+
+    {{-- <script src="{{ asset('dist/js/script.js') }}"></script> --}}
+    {{-- <script src="{{ asset('dist/validation/add_student_validation.js') }}"></script> --}}
+
+    <script src="{{ asset('dist/studentValidation/student.js') }}"></script>
+
+    {{-- Curriculum validation --}}
+    <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/add_subject_validation.js') }}"></script>
+
+
+     {{--employee validation --}}
+
+
+
+      <script src="{{ asset('dist/employee/add_employee_validation.js') }}"></script>
+     <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
+     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
+
+
+    <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>
+    <script src="{{ asset('dist/js/view_religion_value.js') }}"></script>
+    <script src="{{ asset('dist/js/view_job_position.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script>
         $(function() {
@@ -536,7 +533,6 @@ $(function() {
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -550,7 +546,7 @@ $(function() {
             });
         });
 
-        
+
 
 
        //  $('#modal_view').on('show.bs.modal', function (event) {
@@ -576,8 +572,6 @@ $(function() {
 
     </script>
 
-    
-
 
 
     <script>
@@ -594,6 +588,10 @@ $(function() {
           });
         })
       </script>
+      <script>
+        $('.countrypicker').countrypicker();
+      </script>
+
 </body>
 
 </html>

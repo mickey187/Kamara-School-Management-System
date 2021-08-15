@@ -1,1 +1,8 @@
 node_modules
+.idea/.gitignore
+.idea/kamara-school-management-system.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/phpunit.xml
+.idea/php.xml
+.gitignore
