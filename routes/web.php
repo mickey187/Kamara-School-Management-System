@@ -107,6 +107,10 @@ Route::get('/checkFsNumberExists/{fs_number}',[FinanceController::class, 'checkF
 
 Route::get('/fetchStudentPaymentLoad/{stud_id}',[FinanceController::class, 'fetchStudentPaymentLoad']);
 
+Route::get('/fetchPaymentLoadDetail',[FinanceController::class, 'fetchPaymentLoadDetail']);
+
+
+
 });
 //subject
 Route::get('/subject', [SubjectController::class, 'index']);
@@ -297,6 +301,10 @@ Route::get('addNewParent',[ParentController::class, 'retriveAll']);
 Route::get('deleteParent',[ParentController::class, 'deleteParent']);
 
 Route::get('view_parents',[ParentController::class, 'retriveAll']);
+
+Route::get('/parentDashboard',[ParentController::class, 'ParentDashboard']);
+
+Route::get('/veiwParentPaymentDetail',[ParentController::class, 'veiwParentPaymentDetail']);
 
 // admin
 Route::get('dashboard',[StudentController::class, 'adminDashboard']);
