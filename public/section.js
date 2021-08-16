@@ -39,9 +39,7 @@ function fetch(class_id, stream_id) {
                             '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>'+
                             '</span>'+
                             '</label>'
-                })
-
-
+                });
                 $("#table1").show();
                 $("#table2").hide();
                 $("#sectionTable1").show();
@@ -59,7 +57,6 @@ function fetch(class_id, stream_id) {
                         {"data": "stream_type"},
                         {"data": "section_name"},
                         // {"data": "action"},
-
                     ],
                     "responsive": true,
                     "lengthChange": false,
@@ -440,11 +437,13 @@ $("#nav-contact-tab").click(function(){
         dataType: "json",
         success: function (response) {
             response.forEach(d=> {
-                Object.assign(d,{action:"<input type='button' id="+d.class+" value='set section' name='students' class='btn btn-success'>"});
+                Object.assign(d,{action:"<input type='button' id="+d.class+" value='Set Section' name='students' class='btn btn-success m-1' data-toggle='modal' data-target='#setClassModal' data-section2='"+d.class+','+d.stream+"'><input type='button' class='btn btn-success m-1' value='Go To Student'>"});
                 counter = counter+1;
                 // no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
             });
             console.log(response);
+            $("#example2").show();
+            $("#example02").hide();
             $("#example2").DataTable({
                 "destroy":true,
                 "data":response,
@@ -510,8 +509,54 @@ $("#setSectionForOneStudent").click(function(){
         url: "assignSectionForStudent/"+student+"/"+section,
         dataType: "json",
         success: function (response) {
-            swal.fire(response);
-
+            // swal.fire(response);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Student Assigned SuccessFuly',
+                showConfirmButton: false,
+                timer: 1500
+              });
         }
     });
 })
+
+$("#setSectionForClass").click(function(){
+    classes = $("#class_name").val();
+    stream = $("#stream_name").val();
+    $.ajax({
+        type: "GET",
+        url: "setSectionForClass/"+classes+"/"+stream,
+        dataType: "json",
+        success: function (response) {
+        //    console.log(response);
+            // swal.fire("OK");
+            // $("#nav-contact").html("WOW");
+            $("#example02").show();
+            $("#example2").hide();
+            $("#example02").DataTable({
+                "destroy":true,
+                "data":response,
+                "columns": [
+                    { "data": "student_id" },
+                    { "data": "full_name" },
+                    { "data": "class_label" },
+                    { "data": "stream_type" },
+                    // { "data": "action" },
+                ],
+                // "rowId":"student_id",
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "ordering": false,
+                // "dom":'',
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
+            }).buttons().container().appendTo('#example02_wrapper .col-md-6:eq(0)');
+        }
+    });
+});
+
+function getStudents($val){
+    swal.fire($val);
+}

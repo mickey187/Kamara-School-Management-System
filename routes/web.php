@@ -367,6 +367,8 @@ Route::get('getAllStudentForSectionning',[SectionController::class, 'getAllStude
 
 Route::get('assignSectionForStudent/{student}/{section}',[SectionController::class, 'assignSectionForStudent']);
 
+Route::get('setSectionForClass/{classes}/{stream}',[SectionController::class, 'setSectionForClass']);
+
 //For Testing
 
 Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');

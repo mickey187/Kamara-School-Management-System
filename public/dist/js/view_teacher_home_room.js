@@ -167,7 +167,7 @@ function getHomeRoomStudent(nb){
                                 '<th class="text-center">Total</th>'+
                             '</tr>'+
                         '</thead>'+
-                    '<tbody>'
+                    '<tbody>';
                     mark1.forEach(d2 => {
                         all_semister=d2.semister+d2.term;
                         if(d2.student_id==d.student_id){
@@ -187,7 +187,7 @@ function getHomeRoomStudent(nb){
                                             percent = percent + total_mark.test_load;
                                             console.log(total);
                                         }
-                                    })
+                                    });
                                     row+=
                                     '<tr class="text-primary">'+
                                         '<td class="text-center">'+ d2.subject_name+' </td>'+
@@ -203,36 +203,36 @@ function getHomeRoomStudent(nb){
                         }
 
                     });
-                    subject = [];
+
                     if(newSemister==0){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_one_total).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==1){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_two_total).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==2){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_three_total).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==3){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_four_total).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }
-
+                    subject = [];
                      all_percent = 0;
                      all_total = 0;
-                })
+                });
                 row+= '</td>'+
                         '</tr>'+
                         '</tr>'

@@ -171,6 +171,16 @@
                                     </thead>
                                     <tbody>
                                     </tbody>
+                                </table>
+                                <table style="display: none;" id="example02" class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <th>Student ID</th>
+                                        <th>Full Name</th>
+                                        <th>Class</th>
+                                        <th>Stream</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
                                 </table>                              </div>
                               <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
                                 <table id="example3" class="table table-bordered table-striped table-sm">
@@ -224,6 +234,27 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="button" class="btn btn-primary" id="setSectionForOneStudent">Assign Section</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="setClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Section List</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 id="class_name"></h3>
+                            <h3 id="stream_name"></h3>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal" id="setSectionForClass">Assign Section</button>
                         </div>
                       </div>
                     </div>

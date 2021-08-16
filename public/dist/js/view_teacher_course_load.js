@@ -105,8 +105,9 @@ function getCourseLoadStudent(nb){
                     semister1.forEach(d3 =>{
                         all_total = 0;
                         all_percent = 0;
+                        // checkSemister='style="display:none"';
                         row+='<div class="d-flex justify-content-center">'+
-                        '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
+                        '<div '+checkSemister+' class="accordian-body collapse col-8" id="demo1'+count+'">'+
                         '<table class="table  table-striped table-sm">'+
                             '<thead class="text-dark">'+
                                 '<div class="row  card-sm card  card-sm bg-secondary">'+

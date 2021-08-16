@@ -273,6 +273,26 @@ class SectionController extends Controller
         }
     }
 
+
+    public function setSectionForClass($classes,$stream){
+        // class
+            $clas = classes::where("class_label",$classes)->get()->first();
+        // stream
+            $str = stream::where("stream_type",$stream)->get()->first();
+
+            // $getStudent = student::where("class_id",$clas->id)->where("stream_id",$str->id)->get(['first_name','middle_name','last_name','student_id']);
+
+            $getStudent = DB::table('students')
+                            ->join('classes','students.class_id','=','classes.id')
+                            ->join('streams','students.stream_id','=','streams.id')
+                            ->where('classes.id',$clas->id)
+                            ->where('streams.id',$str->id)
+                            ->get(['class_label','stream_type','student_id',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+
+
+        return response()->json($getStudent);
+    }
+
     public function findSection($id){
         $val = '';
         $count = 0;
