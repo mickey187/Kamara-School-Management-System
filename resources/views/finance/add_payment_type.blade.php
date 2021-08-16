@@ -6,7 +6,7 @@
     <div class="card-header">
       <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="orange">
         <li class="nav-item">
-          <a class="nav-link active text-bold" data-toggle="tab" href="#add_payment_type" role="tab">Add Payment Type</a>
+          <a class="nav-link active text-bold" data-toggle="tab" href="#add_payment_type_tab" role="tab">Add Payment Type</a>
         </li>
 
         <li class="nav-item">
@@ -27,7 +27,7 @@
 
     <div class="card-body">
       <div class="tab-content text-center">
-        <div class="tab-pane active" id="add_payment_type">
+        <div class="tab-pane active" id="add_payment_type_tab">
           
 
           <div class="row d-flex justify-content-center mt-3">
@@ -46,7 +46,7 @@
                   <option value="non-recurring">Non Recurring</option>
                 </select>
               </div>
-              <button type="submit" class="btn btn-primary btn-block btn-md" id="add_payment_type">Submit</button>
+              <button  class="btn btn-primary btn-block btn-md" id="add_payment_type">Submit</button>
             </div>
           </div>
         </div>
