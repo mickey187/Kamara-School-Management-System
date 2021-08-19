@@ -369,6 +369,17 @@ Route::get('assignSectionForStudent/{student}/{section}',[SectionController::cla
 
 Route::get('setSectionForClass/{classes}/{stream}',[SectionController::class, 'setSectionForClass']);
 
+Route::get('setSectionForSelectedStudent/{student}/{section}',[SectionController::class, 'setSectionForSelectedStudent']);
+
+Route::get('setSectionAnyWayMode/{student}/{section}/{size}',[SectionController::class, 'setSectionAnyWayMode']);
+
+Route::get('setSectionAndMergeMode/{student}/{section}/{size}',[SectionController::class, 'setSectionAndMergeMode']);
+
+Route::get('addNewSectionAndSetMode/{student}/{section}/{size}',[SectionController::class, 'addNewSectionAndSetMode']);
+
+Route::get('setSectionAutoMode/{student}/{size}/{roomSize}',[SectionController::class, 'setSectionAutoMode']);
+
+
 //For Testing
 
 Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');

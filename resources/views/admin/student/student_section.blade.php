@@ -3,7 +3,8 @@
 
 <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('dist/css/section_tab.css') }}">
-
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </div>
 </div>
                 <div class="card card-orange">
@@ -183,6 +184,13 @@
                                     </tbody>
                                 </table>                              </div>
                               <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                                <div class="row col-12">
+                                    <div class="col-6" id="avelableSection">
+                                    </div>
+                                    <div class="col-6" id="setSectionForSelectedStudent">
+                                    </div>
+                                </div>
+
                                 <table id="example3" class="table table-bordered table-striped table-sm">
                                     <thead>
                                         <th>Student Id</th>
@@ -190,6 +198,7 @@
                                         <th>Class</th>
                                         <th>Stream</th>
                                         <th>Action</th>
+                                        <th>Select All <input name="selectAllCheckBox" type="checkbox"></th>
                                     </thead>
                                     <tbody>
                                     </tbody>
@@ -255,6 +264,81 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="button" class="btn btn-primary" data-dismiss="modal" id="setSectionForClass">Assign Section</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Section List</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                           <div id="setProgressBar">
+
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal" id="setSectionForClass">Assign Section</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="setSectionManualy" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Sectionning Manualy</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="selctedStudentSize"></div>
+                            <div id="sectionList"></div>
+                            <div id="avelableSection2">
+                            </div>
+                            <div>
+                                <input type="number" id="sectionSizeLimit" class="form-control col-6" placeholder='room size'>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="setSctionAutomaticaly" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Sectionning Automaticaly</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="selctedStudentSize2"></div>
+                            <div id="sectionList"></div>
+                            <div id="avelableSection2">
+                            <div class="form-group">
+                                <input type="number" id="sectionSizeLimit2" class="form-control col-6" placeholder='room size'>
+                            </div>
+                            <div class="form-group">
+                                <input type="button" onclick="setAutomatic()" class="form-control col-6 btn btn-success" value="set">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                       </div>
                     </div>

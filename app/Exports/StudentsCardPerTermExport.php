@@ -59,6 +59,7 @@ class StudentsCardPerTermExport implements WithMultipleSheets
             ->where('sections.section_name',$this->section)
             ->get(['section_name','first_name','middle_name','last_name']);
             error_log($this->class.$this->stream.$this->section);
+
             $studentCollection = collect();
             foreach($allStudent as $stud){
                 foreach($this->student as $data){
@@ -69,6 +70,7 @@ class StudentsCardPerTermExport implements WithMultipleSheets
                 }
             }
             $co = 0;
+
             foreach($allStudent as $row){
                 $co ++;
                 $oneStudent = collect();
@@ -112,7 +114,8 @@ class StudentsCardPerTermExport implements WithMultipleSheets
                         $allTermOne = $allTermOne + $term1;
                     }
 
-
+                    error_log("all term is ".$allTermOne);
+                    error_log("all Subject is ".$subject->count());
                     if($countTraits < sizeof(StudentTraits::all())){
                         $studentItem = (object) ["","Total"=>"Total",($allTermOne),"",$sub12[$countTraits],""];
                         $oneStudent->push($studentItem);

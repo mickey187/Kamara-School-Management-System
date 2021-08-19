@@ -38,10 +38,10 @@ class SubjectController extends Controller
     //    // $result = subject_group::all();
     //    return redirect()->route('viewsubjectgroup')->with('subject_group',$subject_group);
     // }
-    function addSubject($subject)
+    function addSubject(Request $req)
     {
         $subject = new subject();
-        $subject->subject_name = $subject;
+        $subject->subject_name = $req->subjectname;
 
         if ($subject->save()) {
             $subject_list = subject::all();
@@ -57,6 +57,7 @@ class SubjectController extends Controller
 
         }
     }
+
     function subjectGroup($classes,$subjects)
     {
         $class = explode(",",$classes);
