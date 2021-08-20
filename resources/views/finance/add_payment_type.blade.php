@@ -10,7 +10,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-bold" data-toggle="tab" href="#view_payment_type" role="tab" id="view_payment_type_tab_link">View Payment Type</a>
+            <a class="nav-link text-bold" data-toggle="tab" href="#view_payment_type_tab" role="tab" id="view_payment_type_tab_link">View Payment Type</a>
           </li>
 
           <li class="nav-item">
@@ -51,11 +51,11 @@
           </div>
         </div>
 
-        <div class="tab-pane" id="view_payment_type">
+        <div class="tab-pane" id="view_payment_type_tab">
           <p>View Payment Type</p>
           <div class="row mt-5">
             <div class="col-12">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="view_payment_type_table" class="table table-bordered table-striped">
                 <thead >
                   <tr>
                     <th>id</th>
@@ -65,7 +65,7 @@
                   </tr>
                   </thead>
                   <tbody id="table_body">
-                    @foreach ($view_payment_type as $row)
+                    {{-- @foreach ($view_payment_type as $row)
                       <tr id="{{$row->id}}">
                       <td>{{$row->id}}</td>
                       <td>{{$row->payment_type}}</td>
@@ -73,7 +73,7 @@
                       <td>
                         <button class="btn btn-success btn-sm"
                         data-toggle="modal" 
-                       data-target="#view_payment_type" 
+                       data-target="#view_payment_type_modal" 
                        data-view_payment_type="{{$row->id}},{{$row->payment_type}},{{$row->recurring_type}}">
                          <i class="fa fa-eye" aria-hidden="true"></i>
                        
@@ -95,7 +95,7 @@
                       </button>
                       </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                     
                     
                     
@@ -165,7 +165,7 @@
 
 
 
-      <div class="modal fade" id="view_payment_type" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="view_payment_type_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
