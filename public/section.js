@@ -386,23 +386,89 @@ $("#nav-profile-tab").click(function(){
         url: "getSectionedClasses",
         dataType: "json",
         success: function (response) {
+            var classes = JSON.parse(JSON.stringify(response.class));
+            var student = JSON.parse(JSON.stringify(response.student));
             console.log(response);
-            $("#example1").DataTable({
-                "destroy":true,
-                "data":response,
-                "columns": [
-                    { "data": "class" },
-                    { "data": "stream" },
-                ],
-                // "rowId":"student_id",
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "ordering": false,
-                // "dom":'',
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            row = '';
+            count = 1;
+            // response.forEach(element => {
+                row = '<div class="col-12 col-sm-12">'+
+                            '<table id="example1" class="table table-bordered table-striped">'+
+                                '<thead>'+
+                                    '<tr>'+
+                                        '<th></th>'+
+                                        '<th>Roll No</th>'+
+                                        '<th>Grade</th>'+
+                                        '<th>Stream</th>'+
+                                    '</tr>'+
+                                '</thead>'+
 
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                                '<tbody >';
+                                classes.forEach(element => {
+                                row+='<tr data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle">'+
+                                        '<td><button class="btn btn-default btn-xs"><i class="fas fa-sort-down"></i></button></td>'+
+                                        '<td>'+count+'.</td>'+
+                                        '<td>'+element.class+'</td>'+
+                                        '<td>'+element.stream+'</td>'+
+                                    '</tr>'+
+                                        '<tr>'+
+                                            '<td colspan="12" class="hiddenRow">'+
+                                                '<div class="accordian-body collapse" id="demo1'+count+'">'+
+                                                    '<table id= "example1" class="table table-bordered table-striped">'+
+                                                        '<thead>'+
+                                                            '<tr class="info">'+
+                                                                '<th>No.</th>'+
+                                                                '<th>Full Name</th>'+
+                                                                '<th>Section</th>'+
+                                                                '<th>Action</th>'+
+                                                            '</tr>'+
+                                                        '</thead>'+
+
+                                                        '<tbody>';
+                                                        var count3 = 1;
+                                                        student.forEach(element2 => {
+
+                                                            if(element.class == element2.class_label && element.stream == element2.stream_type){
+                                                                row += '<tr data-toggle="collapse"  class="accordion-toggle " >'+
+                                                                '<td>'+count3+'.</td>'+
+                                                                '<td>'+element2.first_name+" "+element2.middle_name+" "+element2.last_name+'</td>'+
+                                                                '<td contenteditable="true">'+element2.section_name+'</td>'+
+                                                                '<td><input type="button" class="btn btn-primary" value="Update"></td>'+
+                                                            '</tr>';
+                                                            count3++;
+                                                            }
+
+                                                        });
+                                                        count3=0;
+                                                    row +='</tbody>'+
+                                                    '</table>'+
+                                                '</div>'+
+                                            '</td>'+
+                                        '</tr>';
+                                        count++;
+                                });
+                         row +=      '</tbody>'+
+                            '</table>'+
+            '</div>';
+            // });
+
+                $("#nav-profile").html(row);
+            // $("#example1").DataTable({
+            //     "destroy":true,
+            //     "data":response,
+            //     "columns": [
+            //         { "data": "class" },
+            //         { "data": "stream" },
+            //     ],
+            //     // "rowId":"student_id",
+            //     "responsive": true,
+            //     "lengthChange": false,
+            //     "autoWidth": false,
+            //     "ordering": false,
+            //     // "dom":'',
+            //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
+            // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
             // swal.fire("OK");
         }
@@ -552,6 +618,7 @@ function addNewSectionAndSet(val) {
     'u', 'v', 'w', 'x', 'y',
     'z'
     ];
+
     $.ajax({
         type: "GET",
         url: "setSectionAndMergeMode/"+student+"/"+section+"/"+size,
@@ -695,7 +762,6 @@ function addNewSectionAndSet(val) {
   }
 
 function setAutomatic() {
-
     var size=0;
     var student=[];
     var roomSize= $("#sectionSizeLimit2").val();;
@@ -779,6 +845,9 @@ function setAutomatic() {
         }
     });
 }
+
+
+
 function getSelectedStudentManualy(){
 
     var size=0;
@@ -908,6 +977,9 @@ function setSectionForSelectedStudentButton() {
 
 
 $("#nav-contact-tab").click(function(){
+    loader = ' please wait ... <div class="loader"></div>';
+    $("#loader").html(loader);
+    $('example2').hide();
     $.ajax({
         type: "GET",
         url: "getNotSectionedClasses",
@@ -934,7 +1006,10 @@ $("#nav-contact-tab").click(function(){
                 "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+            $("#loader").hide();
+
         }
+
     });
 });
 

@@ -17,6 +17,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentPersonalDevelopmentController;
 use GrahamCampbell\ResultType\Success;
@@ -397,6 +398,14 @@ Route::get('generateStudentCard', [MarklistController::class, 'generateTotalCard
 // Student Traits
 
 Route::get('addStudentTraits/{value}', [StudentPersonalDevelopmentController::class, 'addStudentTraits']);
+
+// Schedule
+
+Route::get('add_schedule', [ScheduleController::class, 'index']);
+
+Route::get('getSection/{class}/{stream}', [ScheduleController::class, 'getSection']);
+
+Route::get('addSchedule/{class}/{stream}/{subject}/{day}/{section}/{period}', [ScheduleController::class, 'addSchedule']);
 
 
 require __DIR__.'/auth.php';

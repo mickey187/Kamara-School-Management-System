@@ -211,16 +211,25 @@ class SectionController extends Controller
         $getSectionedClass = section::all();
         $classes = array();
         $collection = collect();
+
         foreach($getSectionedClass as $row){
             $class = classes::where('id',$row->class_id)->get()->first();
             $stream = stream::where('id',$row->stream_id)->get()->first();
+
             if (!(in_array($class->class_label.'-'.$stream->stream_type,$classes))) {
                 array_push($classes,$class->class_label.'-'.$stream->stream_type);
                 $studentItem = (object) ["class"=>$class->class_label,"stream"=>$stream->stream_type,"section"=>$row->section_name];
                 $collection->push($studentItem);
             }
         }
-        return response()->json($collection);
+
+        $getAllStudent = DB::table('sections')
+                            ->join('students','sections.student_id','=','students.id')
+                            ->join('classes','sections.class_id','=','classes.id')
+                            ->join('streams','sections.stream_id','=','streams.id')
+                            ->get();
+
+        return response()->json(["class"=>$collection,"student"=>$getAllStudent]);
     }
 
 
@@ -388,12 +397,12 @@ class SectionController extends Controller
         'z'
         );
 
-        for ($i=0; $i < count($studentList); $i++) {
+        for ($i=0; $i < count($studentList); $i++){
+
             if ($counter2 == $roomSize) {
                 $label++;
-                $counter2=0;
+                $counter2 = 0;
                 array_push($newSection,$roomSize);
-                # code...
             }
 
             $getStudent = student::where('student_id',$studentList[$counter])->get()->first();
@@ -407,20 +416,25 @@ class SectionController extends Controller
                 $counter2++;
         }
 
-        for ($i=$counter; $i < count($studentList); $i++) {
-            # code...
-            $getStudent = DB::table('students')
-                    ->join('classes','students.class_id','=','classes.id')
-                    ->join('streams','students.stream_id','=','streams.id')
-                    ->where('students.student_id',$studentList[$counter])
-                    ->get(['students.id','class_label','stream_type','student_id',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')])->first();
-            $list = (object) ['id'=>$getStudent->id,'class_label'=>$getStudent->class_label,'stream_type'=>$getStudent->stream_type,'student_id'=>$getStudent->student_id,'full_name'=>$getStudent->full_name];
-            $collection->push($list);
-            $counter++;
+        $getStud = student::where("student_id",$studentList[0])->get()->first();
+        $getStudent = DB::table('students')
+                ->join('classes','students.class_id','=','classes.id')
+                ->join('streams','students.stream_id','=','streams.id')
+                ->where('students.stream_id',$getStud->stream_id)
+                ->where('students.class_id',$getStud->class_id)
+                ->get(['students.id','class_label','stream_type','student_id',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
+
+        foreach($getStudent as $row){
+            $getSec = section::where('student_id',$row->id)->get()->first();
+            if(!$getSec){
+                error_log("fffffffffffffffffffffffffff: ".($row->full_name));
+                $list = (object) ['id'=>$row->id,'class_label'=>$row->class_label,'stream_type'=>$row->stream_type,'student_id'=>$row->student_id,'full_name'=>$row->full_name];
+                $collection->push($list);
+            }
         }
 
-    return response()->json(["size"=>$newSection,"getStudent"=>$collection,"studentSize"=>$size]);
-}
+        return response()->json(["size"=>$newSection,"getStudent"=>$collection,"studentSize"=>$size]);
+    }
 
 
     public function addNewSectionAndSetMode($student,$section,$size){

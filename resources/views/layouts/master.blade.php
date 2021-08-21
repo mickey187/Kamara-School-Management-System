@@ -281,6 +281,7 @@
                             </ul>
                         </li>
 
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
@@ -481,6 +482,24 @@
                         </li>
 
 
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-calendar"></i>
+                                <p>
+                                    Schedule
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('add_schedule')  }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Schedule</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
 
 
 
@@ -764,6 +783,7 @@ $(function() {
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('dist/js/schedule.js') }}"></script>
 
     <script>
         $(function() {
@@ -828,6 +848,22 @@ $(function() {
       </script>
       <script>
         $('.countrypicker').countrypicker();
+        $(document).on('click', '.number-spinner button', function () {
+        var btn = $(this),
+            oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+            newVal = 0;
+
+        if (btn.attr('data-dir') == 'up') {
+            newVal = parseInt(oldValue) + 1;
+        } else {
+            if (oldValue > 1) {
+                newVal = parseInt(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        btn.closest('.number-spinner').find('input').val(newVal);
+    });
       </script>
 
 </body>

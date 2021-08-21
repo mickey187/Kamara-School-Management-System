@@ -3,8 +3,9 @@
 
 <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('dist/css/section_tab.css') }}">
+<link rel="stylesheet" href="{{ asset('dist/css/loader.css') }}">
 <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> --}}
 </div>
 </div>
                 <div class="card card-orange">
@@ -154,14 +155,15 @@
                                 </section>
                               </div>
                               <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <table id="example1" class="table table-bordered table-striped table-sm">
+
+                                {{-- <table id="example1" class="table table-bordered table-striped table-sm">
                                     <thead>
                                         <th>Classes</th>
                                         <th>Stream</th>
                                     </thead>
                                     <tbody>
                                     </tbody>
-                                </table>
+                                </table> --}}
                             </div>
                               <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 <table id="example2" class="table table-bordered table-striped table-sm">
@@ -170,6 +172,7 @@
                                         <th>Stream</th>
                                         <th>Action</th>
                                     </thead>
+                                    <div id="loader"></div>
                                     <tbody>
                                     </tbody>
                                 </table>

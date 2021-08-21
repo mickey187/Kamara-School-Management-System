@@ -14,6 +14,7 @@ $('#modal-teacher').on('show.bs.modal', function(event) {
         success:function (data) {
             row = '';
             row2 = '';
+            
             var data1 = JSON.parse(JSON.stringify(data.teacher_courses));
             var data2 = JSON.parse(JSON.stringify(data.hoom_room));
             console.log(data1);
