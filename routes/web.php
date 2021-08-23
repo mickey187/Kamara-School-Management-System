@@ -21,6 +21,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentPersonalDevelopmentController;
 use GrahamCampbell\ResultType\Success;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\AttendanceController;
 
 Route::get('generatedox',[StudentController::class, 'generateDocx']);
 
@@ -269,6 +270,16 @@ Route::get('my_student/teacherDashBoard', [TeacherController::class,'teacherDash
 Route::get('my_student/{id}', [TeacherController::class,'myStudent']);
 
 Route::get('my_student/getClassSection/{class_Label}/{section}', [TeacherController::class,'getClassAndSection']);
+
+Route::get('/indexAttendance', [AttendanceController::class,'indexAttendance']);
+
+Route::get('/generateAttendanceList', [AttendanceController::class,'generateAttendanceList']);
+
+Route::get('/submitAttendance', [AttendanceController::class,'submitAttendance']);
+
+Route::get('/viewAttendance/{date}', [AttendanceController::class,'viewAttendance']);
+
+Route::get('/viewAttendanceForSpecificDate/{date}', [AttendanceController::class,'viewAttendanceForSpecificDate']);
 
 //Role
 

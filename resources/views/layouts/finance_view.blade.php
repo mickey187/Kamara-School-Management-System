@@ -516,6 +516,7 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    
     <script src="{{asset('dist/js/addclass.js')}}"></script>
     {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use PHPUnit\Util\Json;
-use Illuminate\Support\Facades\Auth;;
+use Illuminate\Support\Facades\Auth;
 
 class ParentController extends Controller{
 

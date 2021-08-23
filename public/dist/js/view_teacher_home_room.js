@@ -240,7 +240,9 @@ function getHomeRoomStudent(nb){
            });
            row+='</tbody></table></div></div></div>';
            row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
-           generator =  '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"'+
+           generator = '<a class="btn btn-sm btn-primary text-bold" href="/indexAttendance">Attendance</a> '+
+           
+           '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"'+
                                 'data-toggle="modal"'+
                                 'data-card1="'+class_name+','+stream+','+section+','+teacher_id+'"'+
                                 'data-target="#modal-generate-card"'+
