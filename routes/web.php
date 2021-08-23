@@ -17,6 +17,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentPersonalDevelopmentController;
 use GrahamCampbell\ResultType\Success;
@@ -402,6 +403,19 @@ Route::get('getAllStudentForSectionning',[SectionController::class, 'getAllStude
 
 Route::get('assignSectionForStudent/{student}/{section}',[SectionController::class, 'assignSectionForStudent']);
 
+Route::get('setSectionForClass/{classes}/{stream}',[SectionController::class, 'setSectionForClass']);
+
+Route::get('setSectionForSelectedStudent/{student}/{section}',[SectionController::class, 'setSectionForSelectedStudent']);
+
+Route::get('setSectionAnyWayMode/{student}/{section}/{size}',[SectionController::class, 'setSectionAnyWayMode']);
+
+Route::get('setSectionAndMergeMode/{student}/{section}/{size}',[SectionController::class, 'setSectionAndMergeMode']);
+
+Route::get('addNewSectionAndSetMode/{student}/{section}/{size}',[SectionController::class, 'addNewSectionAndSetMode']);
+
+Route::get('setSectionAutoMode/{student}/{size}/{roomSize}',[SectionController::class, 'setSectionAutoMode']);
+
+
 //For Testing
 
 Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');
@@ -419,6 +433,14 @@ Route::get('generateStudentCard', [MarklistController::class, 'generateTotalCard
 // Student Traits
 
 Route::get('addStudentTraits/{value}', [StudentPersonalDevelopmentController::class, 'addStudentTraits']);
+
+// Schedule
+
+Route::get('add_schedule', [ScheduleController::class, 'index']);
+
+Route::get('getSection/{class}/{stream}', [ScheduleController::class, 'getSection']);
+
+Route::get('addSchedule/{class}/{stream}/{subject}/{day}/{section}/{period}', [ScheduleController::class, 'addSchedule']);
 
 
 require __DIR__.'/auth.php';

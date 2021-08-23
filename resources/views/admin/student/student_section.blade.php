@@ -3,7 +3,9 @@
 
 <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('dist/css/section_tab.css') }}">
-
+<link rel="stylesheet" href="{{ asset('dist/css/loader.css') }}">
+<!-- CSS only -->
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> --}}
 </div>
 </div>
                 <div class="card card-orange">
@@ -18,7 +20,7 @@
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Section All</a>
                                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sectioned Classes</a>
                                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Unsectioned Classes</a>
-                                <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Manualy Assign Section</a>
+                                <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Individualy Assign Section</a>
                               </div>
                             </nav>
                             <div class="col-12 tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -153,14 +155,15 @@
                                 </section>
                               </div>
                               <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <table id="example1" class="table table-bordered table-striped table-sm">
+
+                                {{-- <table id="example1" class="table table-bordered table-striped table-sm">
                                     <thead>
                                         <th>Classes</th>
                                         <th>Stream</th>
                                     </thead>
                                     <tbody>
                                     </tbody>
-                                </table>
+                                </table> --}}
                             </div>
                               <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                 <table id="example2" class="table table-bordered table-striped table-sm">
@@ -169,10 +172,28 @@
                                         <th>Stream</th>
                                         <th>Action</th>
                                     </thead>
+                                    <div id="loader"></div>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <table style="display: none;" id="example02" class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <th>Student ID</th>
+                                        <th>Full Name</th>
+                                        <th>Class</th>
+                                        <th>Stream</th>
+                                    </thead>
                                     <tbody>
                                     </tbody>
                                 </table>                              </div>
                               <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                                <div class="row col-12">
+                                    <div class="col-6" id="avelableSection">
+                                    </div>
+                                    <div class="col-6" id="setSectionForSelectedStudent">
+                                    </div>
+                                </div>
+
                                 <table id="example3" class="table table-bordered table-striped table-sm">
                                     <thead>
                                         <th>Student Id</th>
@@ -180,6 +201,7 @@
                                         <th>Class</th>
                                         <th>Stream</th>
                                         <th>Action</th>
+                                        <th>Select All <input name="selectAllCheckBox" type="checkbox"></th>
                                     </thead>
                                     <tbody>
                                     </tbody>
@@ -224,6 +246,102 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="button" class="btn btn-primary" id="setSectionForOneStudent">Assign Section</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="setClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Section List</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 id="class_name"></h3>
+                            <h3 id="stream_name"></h3>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal" id="setSectionForClass">Assign Section</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Section List</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                           <div id="setProgressBar">
+
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal" id="setSectionForClass">Assign Section</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="setSectionManualy" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Sectionning Manualy</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="selctedStudentSize"></div>
+                            <div id="sectionList"></div>
+                            <div id="avelableSection2">
+                            </div>
+                            <div>
+                                <input type="number" id="sectionSizeLimit" class="form-control col-6" placeholder='room size'>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="setSctionAutomaticaly" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Sectionning Automaticaly</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="selctedStudentSize2"></div>
+                            <div id="sectionList"></div>
+                            <div id="avelableSection2">
+                            <div class="form-group">
+                                <input type="number" id="sectionSizeLimit2" class="form-control col-6" placeholder='room size'>
+                            </div>
+                            <div class="form-group">
+                                <input type="button" onclick="setAutomatic()" class="form-control col-6 btn btn-success" value="set">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                       </div>
                     </div>

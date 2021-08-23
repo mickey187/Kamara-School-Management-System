@@ -39,9 +39,7 @@ function fetch(class_id, stream_id) {
                             '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>'+
                             '</span>'+
                             '</label>'
-                })
-
-
+                });
                 $("#table1").show();
                 $("#table2").hide();
                 $("#sectionTable1").show();
@@ -59,7 +57,6 @@ function fetch(class_id, stream_id) {
                         {"data": "stream_type"},
                         {"data": "section_name"},
                         // {"data": "action"},
-
                     ],
                     "responsive": true,
                     "lengthChange": false,
@@ -97,12 +94,6 @@ function fetch(class_id, stream_id) {
                 }).buttons().container().appendTo('#sectionTable2_wrapper .col-md-6:eq(0)');
 
 
-                //     $("#sectionTable2 tbody tr").each(function(){
-                //         data.forEach(d=>{
-                //             $(this).attr("id",d.student_id);
-                //         });
-                // })
-
                 $('#counter2').html(no);
                $('#sections').html("<label class='text-danger' >Section Not Set For Selected Student!</label>");
             }
@@ -115,28 +106,6 @@ function fetch(class_id, stream_id) {
 }
 
 
-// var table = $("#sectionTable2").DataTable();
-// $("#sectionTable2").on('click','tr',function(){
-//     var id = $("#sectionTable2").DataTable().row(this).id();
-//     console.log(id);
-
-// });
-
-// $("#sectionTable2 tbody tr").each(function(){
-//     data.forEach(d=>{
-//         $(this).attr("id",d.student_id);
-//     });
-// });
-
-// $("#806405").on('click',function(){
-//     // $("#sectionTable2").DataTable().rows().every(function(){
-//     //     console.log(this.data());
-//     // })
-//     // alert(id.student_id);
-//     // alert($('.checkbox').val());
-//     alert("gringo");
-
-// });
 
 
 
@@ -178,6 +147,14 @@ $("#singleClassId").change(function () {
         }
      });
 });
+
+
+// $('input[name="selectAllCheckBox"]:checked').each(function(){
+//     // section += this.value+",";
+//     alert("");
+// });
+
+
 
 
 $("#assignTeacherToClsss").click(function () {
@@ -409,49 +386,444 @@ $("#nav-profile-tab").click(function(){
         url: "getSectionedClasses",
         dataType: "json",
         success: function (response) {
+            var classes = JSON.parse(JSON.stringify(response.class));
+            var student = JSON.parse(JSON.stringify(response.student));
             console.log(response);
-            $("#example1").DataTable({
-                "destroy":true,
-                "data":response,
-                "columns": [
-                    { "data": "class" },
-                    { "data": "stream" },
-                ],
-                // "rowId":"student_id",
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "ordering": false,
-                // "dom":'',
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            row = '';
+            count = 1;
+            // response.forEach(element => {
+                row = '<div class="col-12 col-sm-12">'+
+                            '<table id="example1" class="table table-bordered table-striped">'+
+                                '<thead>'+
+                                    '<tr>'+
+                                        '<th></th>'+
+                                        '<th>Roll No</th>'+
+                                        '<th>Grade</th>'+
+                                        '<th>Stream</th>'+
+                                    '</tr>'+
+                                '</thead>'+
 
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                                '<tbody >';
+                                classes.forEach(element => {
+                                row+='<tr data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle">'+
+                                        '<td><button class="btn btn-default btn-xs"><i class="fas fa-sort-down"></i></button></td>'+
+                                        '<td>'+count+'.</td>'+
+                                        '<td>'+element.class+'</td>'+
+                                        '<td>'+element.stream+'</td>'+
+                                    '</tr>'+
+                                        '<tr>'+
+                                            '<td colspan="12" class="hiddenRow">'+
+                                                '<div class="accordian-body collapse" id="demo1'+count+'">'+
+                                                    '<table id= "example1" class="table table-bordered table-striped">'+
+                                                        '<thead>'+
+                                                            '<tr class="info">'+
+                                                                '<th>No.</th>'+
+                                                                '<th>Full Name</th>'+
+                                                                '<th>Section</th>'+
+                                                                '<th>Action</th>'+
+                                                            '</tr>'+
+                                                        '</thead>'+
+
+                                                        '<tbody>';
+                                                        var count3 = 1;
+                                                        student.forEach(element2 => {
+
+                                                            if(element.class == element2.class_label && element.stream == element2.stream_type){
+                                                                row += '<tr data-toggle="collapse"  class="accordion-toggle " >'+
+                                                                '<td>'+count3+'.</td>'+
+                                                                '<td>'+element2.first_name+" "+element2.middle_name+" "+element2.last_name+'</td>'+
+                                                                '<td contenteditable="true">'+element2.section_name+'</td>'+
+                                                                '<td><input type="button" class="btn btn-primary" value="Update"></td>'+
+                                                            '</tr>';
+                                                            count3++;
+                                                            }
+
+                                                        });
+                                                        count3=0;
+                                                    row +='</tbody>'+
+                                                    '</table>'+
+                                                '</div>'+
+                                            '</td>'+
+                                        '</tr>';
+                                        count++;
+                                });
+                         row +=      '</tbody>'+
+                            '</table>'+
+            '</div>';
+            // });
+
+                $("#nav-profile").html(row);
+            // $("#example1").DataTable({
+            //     "destroy":true,
+            //     "data":response,
+            //     "columns": [
+            //         { "data": "class" },
+            //         { "data": "stream" },
+            //     ],
+            //     // "rowId":"student_id",
+            //     "responsive": true,
+            //     "lengthChange": false,
+            //     "autoWidth": false,
+            //     "ordering": false,
+            //     // "dom":'',
+            //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
+            // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
             // swal.fire("OK");
         }
     });
 })
 
+$("#selectAllCheckBox").click(function (e) {
+    e.preventDefault();
+    alert("");
+});
 
-$("#nav-contact-tab").click(function(){
+
+
+
+$('input[name=selectAllCheckBox]').change(function() {
+    var size=0;
+    if ($(this).is(':checked')) {
+        $('input[name="studentCheckedList"]:not(:checked)').each(function(){
+                $(this).attr('checked', "checked");
+                size++;
+        });
+        $("#selctedStudentSize").html("Selected Student : "+size);
+    } else {
+        $('input[name="studentCheckedList"]:checked').each(function(){
+                console.log(this.value)
+                size--;
+                $(this).attr('checked', false);
+        });
+        $("#selctedStudentSize").html("Selected Student : "+size);
+    }
+});
+
+
+
+// $("sectionSizeLimit")
+$( "#sectionSizeLimit" ).focusout(function() {
+    var size=0;
+    var student = [];
+    $("#avelableSection2").hide();
+
+    $('input[name="studentCheckedList"]:checked').each(function(){
+        splitter = this.value.split(",");
+        console.log(splitter[0])
+
+        student.push(splitter[0]);
+        size++;
+    });
+    var output = (Math.floor(size / parseInt( $(this).val() ) ) ).toFixed();
+    var left = Math.floor(size % parseInt( $(this).val()));
+    //  - parseInt($(this).val());
+    $("#sectionList").html("<h3 class='text-success'> "+output+" Sections Available. </h3><h4 class='text-warning'>"+left+" Students do not have section.</h4><button onclick='setAnyway(this);' type='button' class='btn btn-success m-1' value='"+output+"-"+$(this).val()+"-"+student+"'>set anyway</button><button type='button' onclick='mergeAndSet(this)' class='btn btn-success m-1' value='"+output+"-"+$(this).val()+"-"+student+"'>merge "+left+" Students and set</button><button type='button' onclick='addNewSectionAndSet(this);' class='btn btn-success m-1' value='"+output+"-"+$(this).val()+"-"+student+"'>add a new section for "+left+" Students and set</button>");
+  });
+
+
+function addNewSectionAndSet(val) {
+    splitter = (val.value).split("-");
+    var student = splitter[2];
+    var section = splitter[0];
+    var size = splitter[1];
+    var avalableSection = '';
+    var alphabet = [ 'a', 'b', 'c', 'd', 'e',
+    'f', 'g', 'h', 'i', 'j',
+    'k', 'l', 'm', 'n', 'o',
+    'p', 'q', 'r', 's', 't',
+    'u', 'v', 'w', 'x', 'y',
+    'z'
+    ];
     $.ajax({
         type: "GET",
-        url: "getNotSectionedClasses",
+        url: "addNewSectionAndSetMode/"+student+"/"+section+"/"+size,
         dataType: "json",
         success: function (response) {
-            response.forEach(d=> {
-                Object.assign(d,{action:"<input type='button' id="+d.class+" value='set section' name='students' class='btn btn-success'>"});
-                counter = counter+1;
-                // no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
+            // console.log(response);
+                var getStudent = JSON.parse(JSON.stringify(response.getStudent));
+                var size2 = [];
+                    size2 = JSON.parse(JSON.stringify(response.size));
+                var studentSize = JSON.parse(JSON.stringify(response.studentSize));
+                    getStudent.forEach(d=> {
+                        checkbox = ' <div class="form-check form-switch checkbox-xl">'+
+                                    '<input name="studentCheckedList" value='+d.student_id+','+d.full_name+' type="checkbox" class="custom-control-input" id="checkbox-3" >'+
+                                    '<label class="custom-control-label" for="checkbox-3"></label>'+
+                                '</div>';
+                    Object.assign(d,{action:"<input type='button' id="+d.class+" value='set section' name='students' data-toggle='modal' data-target='#setSectionModal' data-section="+d.student_id+","+d.full_name+" class='btn btn-success'>"});
+                    // Object.assign(d,{select:checkbox});
+                    Object.assign(d,{select:"<input name='studentCheckedList' value="+d.student_id+','+d.full_name+" type='checkbox' id='flexSwitchCheckChecked' class=''>"});
+                    });
+                    counter = counter+1;
+                Swal.fire(size2.length+" Section Are Created Successfuly!");
+                  $("#sectionList").html("<h3 class='text-success'> "+size2.length+" Sections are created. </h3><h4 class='text-warning'> Students do not have section.</h4>");
+                    for (var i = 0; i < size2.length; i++){
+                        // avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value="'+alphabet[i]+'">'+alphabet[i]+'</label>'
+                        avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[i]+'>'+alphabet[i]+' -> '+size2[i]+' Students</label>'
+                        $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                    }
+                    avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[size2.length]+'>'+alphabet[size2.length]+' new section </label>'
+                    $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                $("#avelableSection").html(avalableSection);
+                    //   $("#avelableSection2").show();
+                            // $("#sectionSizeLimit").hide();
+
+                $("#example3").DataTable({
+                    "destroy":true,
+                    "pageLength": 50,
+                    "data":getStudent,
+                    "columns": [
+                        { "data": "student_id" },
+                        { "data": "full_name" },
+                        { "data": "class_label" },
+                        { "data": "stream_type" },
+                        { "data": "action" },
+                        { "data": "select" },
+                    ],
+                    // "rowId":"student_id",
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "ordering": false,
+                    // "dom":'',
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+                avalableSection = '';
+                for (let i = 0; i < size2.length; i++) {
+                    avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[i]+'> '+alphabet[i]+' -> '+size2[i]+' students </label>';
+                    $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                }
+                avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[size2.length]+'> '+alphabet[size2.length]+' -> new section </label>';
+                $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                $("#setSectionForSelectedStudentButton").show();
+                $("#avelableSection").html(avalableSection);
+        }
+    });
+    // swal.fire(section);
+}
+
+
+
+  function mergeAndSet(val){
+    splitter = (val.value).split("-");
+    var student = splitter[2];
+    var section = splitter[0];
+    var size = splitter[1];
+    var avalableSection = '';
+    var alphabet = [ 'a', 'b', 'c', 'd', 'e',
+    'f', 'g', 'h', 'i', 'j',
+    'k', 'l', 'm', 'n', 'o',
+    'p', 'q', 'r', 's', 't',
+    'u', 'v', 'w', 'x', 'y',
+    'z'
+    ];
+
+    $.ajax({
+        type: "GET",
+        url: "setSectionAndMergeMode/"+student+"/"+section+"/"+size,
+        dataType: "json",
+        success: function (response) {
+            // console.log(response);
+                var getStudent = JSON.parse(JSON.stringify(response.getStudent));
+                var size2 = [];
+                    size2 = JSON.parse(JSON.stringify(response.size));
+                var studentSize = JSON.parse(JSON.stringify(response.studentSize));
+                    getStudent.forEach(d=> {
+                        checkbox = ' <div class="form-check form-switch checkbox-xl">'+
+                                    '<input name="studentCheckedList" value='+d.student_id+','+d.full_name+' type="checkbox" class="custom-control-input" id="checkbox-3" >'+
+                                    '<label class="custom-control-label" for="checkbox-3"></label>'+
+                                '</div>';
+                    Object.assign(d,{action:"<input type='button' id="+d.class+" value='set section' name='students' data-toggle='modal' data-target='#setSectionModal' data-section="+d.student_id+","+d.full_name+" class='btn btn-success'>"});
+                    // Object.assign(d,{select:checkbox});
+                    Object.assign(d,{select:"<input name='studentCheckedList' value="+d.student_id+','+d.full_name+" type='checkbox' id='flexSwitchCheckChecked' class=''>"});
+                    });
+                    counter = counter+1;
+                Swal.fire(size2.length+" Section Are Created Successfuly!");
+                  $("#sectionList").html("<h3 class='text-success'> "+size2.length+" Sections are created. </h3><h4 class='text-warning'> Students do not have section.</h4>");
+                    for (let i = 0; i < size2.length; i++) {
+                        // avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value="'+alphabet[i]+'">'+alphabet[i]+'</label>'
+                        avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[i]+'>'+alphabet[i]+' -> '+size2[i]+' Students</label>'
+                        $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                    }
+                    avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[size.length]+'>'+alphabet[size.length]+' new section </label>'
+                    $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                $("#avelableSection").html(avalableSection);
+                    //   $("#avelableSection2").show();
+                            // $("#sectionSizeLimit").hide();
+
+                $("#example3").DataTable({
+                    "destroy":true,
+                    "pageLength": 50,
+                    "data":getStudent,
+                    "columns": [
+                        { "data": "student_id" },
+                        { "data": "full_name" },
+                        { "data": "class_label" },
+                        { "data": "stream_type" },
+                        { "data": "action" },
+                        { "data": "select" },
+                    ],
+                    // "rowId":"student_id",
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "ordering": false,
+                    // "dom":'',
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+                avalableSection = '';
+                for (let i = 0; i < size2.length; i++) {
+                    avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[i]+'> '+alphabet[i]+' -> '+size2[i]+' students </label>';
+                    $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                }
+                avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[size.length]+'> '+alphabet[size.length]+' -> new section </label>';
+                $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                $("#setSectionForSelectedStudentButton").show();
+                $("#avelableSection").html(avalableSection);
+        }
+    });
+  }
+  function setAnyway(val){
+        var data = [];
+        var alphabet = [ 'a', 'b', 'c', 'd', 'e',
+        'f', 'g', 'h', 'i', 'j',
+        'k', 'l', 'm', 'n', 'o',
+        'p', 'q', 'r', 's', 't',
+        'u', 'v', 'w', 'x', 'y',
+        'z'
+        ];
+        var avalableSection = '';
+        splitter = (val.value).split("-");
+        data =splitter[2].split(",");
+            $.ajax({
+                type: "GET",
+                url: "setSectionAnyWayMode/"+data+"/"+splitter[0]+"/"+splitter[1],
+                dataType: "json",
+                success: function (response) {
+                    var getStudent = JSON.parse(JSON.stringify(response.getStudent));
+                    var size = JSON.parse(JSON.stringify(response.size));
+                        getStudent.forEach(d=> {
+                            checkbox = ' <div class="form-check form-switch checkbox-xl">'+
+                                        '<input name="studentCheckedList" value='+d.student_id+','+d.full_name+' type="checkbox" class="custom-control-input" id="checkbox-3" >'+
+                                        '<label class="custom-control-label" for="checkbox-3"></label>'+
+                                    '</div>';
+                        Object.assign(d,{action:"<input type='button' id="+d.class+" value='set section' name='students' data-toggle='modal' data-target='#setSectionModal' data-section="+d.student_id+","+d.full_name+" class='btn btn-success'>"});
+                        // Object.assign(d,{select:checkbox});
+                        Object.assign(d,{select:"<input name='studentCheckedList' value="+d.student_id+','+d.full_name+" type='checkbox' id='flexSwitchCheckChecked' class=''>"});
+                        });
+                        counter = counter+1;
+                    Swal.fire(size+" Section Are Created Successfuly!");
+                      $("#sectionList").html("<h3 class='text-success'> "+size+" Sections are created. </h3><h4 class='text-warning'> Students do not have section.</h4>");
+                        for (let i = 0; i < size; i++) {
+                            // avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value="'+alphabet[i]+'">'+alphabet[i]+'</label>'
+                            avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[i]+'>'+alphabet[i]+' -> '+splitter[1]+' Students</label>'
+                            $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                        }
+                        avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[size]+'>'+alphabet[size]+' new section </label>'
+                        $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                    $("#avelableSection").html(avalableSection);
+                        //   $("#avelableSection2").show();
+                                // $("#sectionSizeLimit").hide();
+
+                    $("#example3").DataTable({
+                        "destroy":true,
+                        "pageLength": 50,
+                        "data":getStudent,
+                        "columns": [
+                            { "data": "student_id" },
+                            { "data": "full_name" },
+                            { "data": "class_label" },
+                            { "data": "stream_type" },
+                            { "data": "action" },
+                            { "data": "select" },
+                        ],
+                        // "rowId":"student_id",
+                        "responsive": true,
+                        "lengthChange": false,
+                        "autoWidth": false,
+                        "ordering": false,
+                        // "dom":'',
+                        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
+                    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+                    avalableSection = '';
+                    for (let i = 0; i < size; i++) {
+                        avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[i]+'> '+alphabet[i]+' -> '+splitter[1]+' students </label>'
+                        $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                    }
+                    avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[size]+'> '+alphabet[size]+' -> new section </label>'
+                    $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                    $("#setSectionForSelectedStudentButton").show();
+                    $("#avelableSection").html(avalableSection);
+
+                }
             });
-            console.log(response);
-            $("#example2").DataTable({
+  }
+
+function setAutomatic() {
+    var size=0;
+    var student=[];
+    var roomSize= $("#sectionSizeLimit2").val();;
+    $('input[name="studentCheckedList"]:checked').each(function(){
+        splitter= (this.value).split(",");
+        student.push(splitter[0]);
+        size++;
+    });
+    var alphabet = [ 'a', 'b', 'c', 'd', 'e',
+    'f', 'g', 'h', 'i', 'j',
+    'k', 'l', 'm', 'n', 'o',
+    'p', 'q', 'r', 's', 't',
+    'u', 'v', 'w', 'x', 'y',
+    'z'
+    ];
+
+    console.log("student is: "+student);
+
+    $.ajax({
+        type: "GET",
+        url: "setSectionAutoMode/"+student+"/"+size+"/"+roomSize,
+        dataType: "json",
+        success: function (response) {
+            avalableSection = '';
+            var getStudent = JSON.parse(JSON.stringify(response.getStudent));
+            var size2 = [];
+                size2 = JSON.parse(JSON.stringify(response.size));
+            var studentSize = JSON.parse(JSON.stringify(response.studentSize));
+                getStudent.forEach(d=> {
+                    checkbox = ' <div class="form-check form-switch checkbox-xl">'+
+                                '<input name="studentCheckedList" value='+d.student_id+','+d.full_name+' type="checkbox" class="custom-control-input" id="checkbox-3" >'+
+                                '<label class="custom-control-label" for="checkbox-3"></label>'+
+                            '</div>';
+                Object.assign(d,{action:"<input type='button' id="+d.class+" value='set section' name='students' data-toggle='modal' data-target='#setSectionModal' data-section="+d.student_id+","+d.full_name+" class='btn btn-success'>"});
+                // Object.assign(d,{select:checkbox});
+                Object.assign(d,{select:"<input name='studentCheckedList' value="+d.student_id+','+d.full_name+" type='checkbox' id='flexSwitchCheckChecked' class=''>"});
+                });
+                counter = counter+1;
+            Swal.fire(size2.length+" Section Are Created Successfuly!");
+              $("#sectionList").html("<h3 class='text-success'> "+size2.length+" Sections are created. </h3><h4 class='text-warning'> Students do not have section.</h4>");
+                for (let i = 0; i < size2.length; i++) {
+                    // avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value="'+alphabet[i]+'">'+alphabet[i]+'</label>'
+                    avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[i]+'>'+alphabet[i]+' -> '+size2[i]+' Students</label>'
+                    $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                }
+                avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[size2.length]+'>'+alphabet[size2.length]+' new section </label>'
+                $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+            $("#avelableSection").html(avalableSection);
+                //   $("#avelableSection2").show();
+                        // $("#sectionSizeLimit").hide();
+
+            $("#example3").DataTable({
                 "destroy":true,
-                "data":response,
+                "pageLength": 50,
+                "data":getStudent,
                 "columns": [
-                    { "data": "class" },
-                    { "data": "stream" },
+                    { "data": "student_id" },
+                    { "data": "full_name" },
+                    { "data": "class_label" },
+                    { "data": "stream_type" },
                     { "data": "action" },
+                    { "data": "select" },
                 ],
                 // "rowId":"student_id",
                 "responsive": true,
@@ -460,36 +832,78 @@ $("#nav-contact-tab").click(function(){
                 "ordering": false,
                 // "dom":'',
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-
-            }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+            avalableSection = '';
+            for (let i = 0; i < size2.length; i++) {
+                avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[i]+'> '+alphabet[i]+' -> '+size2[i]+' students </label>';
+                $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+            }
+            avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[size2.length]+'> '+alphabet[size2.length]+' -> new section </label>';
+            $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+            $("#setSectionForSelectedStudentButton").show();
+            $("#avelableSection").html(avalableSection);
         }
     });
-});
-$("#nav-about-tab").click(function(){
-    // alert("");
+}
+
+
+
+function getSelectedStudentManualy(){
+
+    var size=0;
+    $('input[name="studentCheckedList"]:checked').each(function(){
+        console.log(this.value)
+        size++;
+    });
+    $("#selctedStudentSize").html("Selected Student : "+size);
+    $("#selctedStudentSize2").html("Selected Student : "+size);
+
+}
+
+
+
+
+function getStudentList(val){
+    // alert(val.value);
+    spliter = (val.value).split(",");
+    classes =  spliter[0];
+    stream = spliter[1];
+    // $("#").hide();
+    // Swal.fire(stream);
     $.ajax({
         type: "GET",
-        url: "getAllStudentForSectionning",
+        url: "setSectionForClass/"+classes+"/"+stream,
         dataType: "json",
         success: function (response) {
-            console.log(response);
-            response.forEach(d=> {
+                $("#nav-about-tab").click();
+                var getStudent = JSON.parse(JSON.stringify(response.getStudent));
+                var section = JSON.parse(JSON.stringify(response.section));
+                var avalableSection = '';
+
+                console.log(section);
+                getStudent.forEach(d=> {
+                    checkbox = ' <div class="form-check form-switch checkbox-xl">'+
+                                '<input name="studentCheckedList" value='+d.student_id+','+d.full_name+' type="checkbox" class="custom-control-input" id="checkbox-3" >'+
+                                '<label class="custom-control-label" for="checkbox-3"></label>'+
+                            '</div>';
                 Object.assign(d,{action:"<input type='button' id="+d.class+" value='set section' name='students' data-toggle='modal' data-target='#setSectionModal' data-section="+d.student_id+","+d.full_name+" class='btn btn-success'>"});
+                Object.assign(d,{select:"<input name='studentCheckedList' value="+d.student_id+','+d.full_name+" type='checkbox' id='flexSwitchCheckChecked' class=''>"});
                 counter = counter+1;
-                // no = '<div class="ml-3 text-danger"><p class="text-bold">'+counter+'<p></div>'
             });
-            console.log(response);
+
+            $("#example02").show();
             $("#example3").DataTable({
                 "destroy":true,
-                "data":response,
+                "pageLength": 50,
+                "data":getStudent,
                 "columns": [
                     { "data": "student_id" },
                     { "data": "full_name" },
                     { "data": "class_label" },
                     { "data": "stream_type" },
                     { "data": "action" },
+                    { "data": "select" },
                 ],
-                // "rowId":"student_id",
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
@@ -498,7 +912,104 @@ $("#nav-about-tab").click(function(){
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
 
             }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+            if(section.length >= 1){
+                var alphabet = [ 'a', 'b', 'c', 'd', 'e',
+                'f', 'g', 'h', 'i', 'j',
+                'k', 'l', 'm', 'n', 'o',
+                'p', 'q', 'r', 's', 't',
+                'u', 'v', 'w', 'x', 'y',
+                'z'
+                ];
+                    section.forEach(d=>{
+                        avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+d.section+'> '+d.section+' -> '+d.size+' Students</label>'
+                        $("#setSectionForSelectedStudent").html('<input id="setSectionForSelectedStudentButton" onclick="setSectionForSelectedStudentButton();" type="button" class="btn btn-success" value="set section" data-toggle="modal" data-target="#progressModal">');
+                        $("#setSectionForSelectedStudentButton").show();
+                    });
+                    avalableSection += '<label class="btn btn-secondary active m-1"><input type="radio" name="section" id="option1" autocomplete="off" value='+alphabet[section.length]+'> '+alphabet[section.length]+' -> new section</label>'
+
+            }else{
+                    avalableSection += '<input onclick="getSelectedStudentManualy()" type="button" class="btn btn-secondary m-1" value="Set Section Manualy"  data-toggle="modal" data-target="#setSectionManualy"><input onclick="getSelectedStudentManualy()" type="button" class="btn btn-secondary m-1" value="Set Section Automaticaly"  data-toggle="modal" data-target="#setSctionAutomaticaly">';
+                    $("#setSectionForSelectedStudentButton").hide();
+                }
+            $("#avelableSection").html(avalableSection);
         }
+    });
+
+}
+
+
+function setSectionForSelectedStudentButton() {
+    var section = '';
+    var counter = 0;
+    var total = 0;
+    $('input[name="studentCheckedList"]:checked').each(function(){
+        total++;
+    });
+    counter += parseFloat(100/total);
+    $('.customSection').each(function(){
+        var the_val = jQuery('input:radio:checked').attr('value');
+        section = the_val
+    })
+
+    $('input[name="studentCheckedList"]:checked').each(function(){
+        splitter = (this.value).split(",");
+        var row='';
+        $.ajax({
+            type: "GET",
+            url: "setSectionForSelectedStudent/"+splitter[0]+"/"+section,
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                row+=   '<div class="progress">'+
+                            '<div class="progress-bar" role="progressbar" style="width: '+parseInt(counter)+'%;" aria-valuenow="'+parseInt(counter)+'" aria-valuemin="0" aria-valuemax="100">'+parseInt(counter)+'%</div>'+
+                        '</div>';
+                        counter += parseFloat(100/total);
+                        if(counter == 100){
+                            swal.fire("Sectionning Complitted!")
+                        }
+
+                $("#setProgressBar").html(row);
+            }
+        });
+    });
+}
+
+
+
+$("#nav-contact-tab").click(function(){
+    loader = ' please wait ... <div class="loader"></div>';
+    $("#loader").html(loader);
+    $('example2').hide();
+    $.ajax({
+        type: "GET",
+        url: "getNotSectionedClasses",
+        dataType: "json",
+        success: function (response) {
+            response.forEach(d=> {
+                Object.assign(d,{action:"<button onclick='getStudentList(this)' value='"+d.class+','+d.stream+"' name='students' class='btn btn-success m-1'>set section</button><input type='button' class='btn btn-success m-1' value='Go To Student'>"});
+                counter = counter+1;
+            });
+            console.log(response);
+            $("#example2").show();
+            $("#example02").hide();
+            $("#example2").DataTable({
+                "destroy":true,
+                "data":response,
+                "columns": [
+                    { "data": "class" },
+                    { "data": "stream" },
+                    { "data": "action" },
+                ],
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "ordering": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+            $("#loader").hide();
+
+        }
+
     });
 });
 
@@ -510,8 +1021,23 @@ $("#setSectionForOneStudent").click(function(){
         url: "assignSectionForStudent/"+student+"/"+section,
         dataType: "json",
         success: function (response) {
-            swal.fire(response);
-
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Student Assigned SuccessFuly',
+                showConfirmButton: false,
+                timer: 1500
+              });
         }
     });
 })
+
+
+function getStudents($val){
+    swal.fire($val);
+}
+
+
+$('#modal-student').on('show.bs.modal', function(event) {
+
+});
