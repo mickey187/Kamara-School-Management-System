@@ -481,7 +481,22 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user-shield"></i>
+                                <p>
+                                    User Management
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
 
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{url('/account/indexUserAccount')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>User Account</p>
+                                    </a>
+                                </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-calendar"></i>
@@ -506,7 +521,7 @@
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="fas fa-dollar-sign"></i>
+                                <i class="nav-icon fas fa-dollar-sign"></i>
                                 <p>
                                     Finance
                                     <i class="fas fa-angle-left right"></i>
@@ -689,6 +704,8 @@ $(function() {
     <script src="{{ asset('section.js') }}"></script>
 
 
+        {{-- user management --}}
+<script src="{{asset('user_management.js')}}"></script>
 
     <!-- view class js -->
     <script src="{{ asset('view_subject.js') }}"></script>

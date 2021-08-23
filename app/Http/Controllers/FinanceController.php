@@ -164,8 +164,8 @@ class FinanceController extends Controller
     public function viewPaymentType(){
         $view_payment_type = payment_type::all();
 
-       // return response()->json($view_payment_type);
-        return view('finance.view_payment_type')->with('view_payment_type',$view_payment_type);
+        return response()->json($view_payment_type);
+       // return view('finance.view_payment_type')->with('view_payment_type',$view_payment_type);
 
 
     }
@@ -294,7 +294,7 @@ class FinanceController extends Controller
 
             if ($individual_load->discount_percent > 0) {
                 $discounted_load = $individual_load->amount * $individual_load->discount_percent/100;
-                $individual_load->amount = $discounted_load;
+                $individual_load->amount = $individual_load->amount - $discounted_load;
                 $discounted_load = 0;
             }
             if ($individual_load->recurring_type == 'non-recurring') {
@@ -329,7 +329,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
             foreach ($result_load as $individual_load) {
                 if ($individual_load->discount_percent > 0) {
                     $discounted_load = $individual_load->amount * $individual_load->discount_percent/100;
-                    $individual_load->amount = $discounted_load;
+                    $individual_load->amount = $individual_load->amount - $discounted_load;
                     $discounted_load = 0;
                 }
                if ($individual_load->recurring_type == 'non-recurring') {
@@ -825,10 +825,52 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                                       ->join('classes','students.class_id','=','classes.id')
                                       ->where('payment_type','Transportation Fee')
                                       ->get([DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
-                                   ,'students.student_id as stud_id' ,'payment_type','class_label','amount','discount_percent']);
+                                   ,'students.student_id as stud_id' ,'payment_type','class_label','amount','discount_percent','student_payment_load.payment_load_id'
+                                ,'students.id as student_table_id']);
         error_log($student_transport);
         //$student_transport_arr = array("data"=>$student_transport);
             return response()->json($student_transport);
+    }
+
+    public function editStudentTransportInfo($student_id, $payment_load_id, $discount_percent){
+        $status = null;
+        
+        //return response()->json($student_id);
+        $student_transport_load = student_payment_load::where('student_id',$student_id)
+                                            ->where('payment_load_id',$payment_load_id)
+                                            ->first();
+        $student_transport_load->discount_percent = $discount_percent;
+        //return response()->json($student_transport_load);
+        if ($student_transport_load->save()) {
+            $status = "success";
+                   return response()->json($status);
+               }
+        else {
+            $status = "failed";
+            return response()->json($status);
+        }
+       // return response()->json($student_transport_load);
+        // foreach ($student_transport_load as $key) {
+        //     $key->discount_percent = $discount_percent;
+        //    if ($student_transport_load->save()) {
+        //        return response()->json($student_transport_load);
+        //    }
+        // }
+
+    }
+
+    public function deleteTransportDetail($student_id, $payment_load_id){
+        $status = null;
+        if (student_payment_load::where('student_id',$student_id)
+            ->where('payment_load_id',$payment_load_id)
+            ->delete()) {
+            $status = "deleted";
+            return response()->json($status);
+        }
+        else {
+            $status = "failed";
+            return response()->json($status);
+        }
     }
 
     public function showStudentsWithDiscount(){

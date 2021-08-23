@@ -19,6 +19,7 @@ $('#add_payment_load_tab_link').click(function () {
                                   
                
             });
+            $('#class_id').empty();
             class_detail.forEach(element => {
                 $('#class_id').append('<option value="'+element.id+'">'+
                 element.class_label+'</option>');
@@ -187,6 +188,7 @@ $('#view_payment_load_modal').on('show.bs.modal', function (event) {
             success: function (response) {
                 if (response == "success") {
                     $('#cancel_edit_payment_load_modal').click();
+                    $('#view_payment_load_tab_link').click();
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
@@ -202,7 +204,9 @@ $('#view_payment_load_modal').on('show.bs.modal', function (event) {
     });
 
     var modal = $(this)
-    
+    $(this).on('hide.bs.modal', function(){
+        $('#save_changes_payment_load').off('click');
+    });
   });
 
   $('#delete_payment_load_modal').on('show.bs.modal', function (event) {
@@ -229,6 +233,7 @@ $('#view_payment_load_modal').on('show.bs.modal', function (event) {
             success: function (response) {
                 if (response == "success") {
                     $('#cancel_delete_payment_load_modal').click();
+                    $('#view_payment_load_tab_link').click();
                       
                     Swal.fire({
                         icon: 'info',
@@ -246,5 +251,7 @@ $('#view_payment_load_modal').on('show.bs.modal', function (event) {
     });
     
     var modal = $(this)
-    
+    $(this).on('hide.bs.modal', function(){
+        $('#save_changes_payment_load').off('click');
+    });
   });
