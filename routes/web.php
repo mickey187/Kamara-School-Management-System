@@ -332,6 +332,9 @@ Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
 
 Route::get('editMarkStudentList/{id}/{mark}/{load}/{assasment}',[MarklistController::class, 'editMarkStudentList']);
 
+Route::get('setAvarageForClass/{classes}',[MarklistController::class, 'setAvarageForClass']);
+
+
 //Section
 
 Route::get('sectionForm',[SectionController::class, 'index']);
@@ -407,5 +410,6 @@ Route::get('getSection/{class}/{stream}', [ScheduleController::class, 'getSectio
 
 Route::get('addSchedule/{class}/{stream}/{subject}/{day}/{section}/{period}', [ScheduleController::class, 'addSchedule']);
 
+Route::get('getSubjectGroup/{class}', [ScheduleController::class, 'getSubjectGroup']);
 
 require __DIR__.'/auth.php';

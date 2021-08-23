@@ -43,10 +43,10 @@ $('#modal_default').on('show.bs.modal', function (event) {
 
 
 $('#swapTableWithDiv').click(function(){
-    $('#subject_table').hide();
-    $('#class_list').show();
-    $('#subject_list').show();
-    $('#subject_group_list').show();
+    // $('#subject_table').hide();
+    // $('#class_list').show();
+    // $('#subject_list').show();
+    // $('#subject_group_list').show();
 
     // alert('clicked')
 })

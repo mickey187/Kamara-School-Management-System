@@ -20,9 +20,8 @@ class CreateCourseLoadsTable extends Migration
 
             $table->unsignedBigInteger('stream_id');
             $table->foreign('stream_id')->references('id')->on('streams')->onUpdate('cascade')->onDelete('cascade');
-
-            $table->unsignedBigInteger('subject_id');
-            $table->foreign('subject_id')->references('id')->on('subjects')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('subject_group_id');
+            $table->foreign('subject_group_id')->references('id')->on('subject_groups')->onUpdate('cascade')->onDelete('cascade');
             $table->string('section_label')->nullable();
             $table->string('day')->nullable();
             $table->integer('period_number')->nullable();

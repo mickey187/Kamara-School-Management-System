@@ -43,7 +43,7 @@ class ScheduleController extends Controller
             # code...
             $check = course_load::where('class_id',$class)
                                 ->where('stream_id',$stream)
-                                ->where('subject_id',$subject)
+                                ->where('subject_group_id',$subject)
                                 ->where('day',$day)
                                 ->where('section_label',$sectionLabel[$i])
                                 ->where('period_number',$period)
@@ -54,7 +54,7 @@ class ScheduleController extends Controller
                 $getCourseLoad = new course_load();
                 $getCourseLoad->class_id = $class;
                 $getCourseLoad->stream_id = $stream;
-                $getCourseLoad->subject_id = $subject;
+                $getCourseLoad->subject_group_id = $subject;
                 $getCourseLoad->section_label = $sectionLabel[$i];
                 $getCourseLoad->day = $day;
                 $getCourseLoad->period_number = $period;
@@ -67,5 +67,14 @@ class ScheduleController extends Controller
         }
         return response()->json("OK: 200 ");
 
+    }
+
+    public function getSubjectGroup($class){
+        $subjects = DB::table('subject_groups')
+                        ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                        ->join('classes','subject_groups.class_id','=','classes.id')
+                        ->where('classes.id',(int)$class)
+                        ->get(['subject_groups.id','subjects.subject_name']);
+        return response()->json($subjects);
     }
 }

@@ -130,11 +130,11 @@ function getHomeRoomStudent(nb){
                   '</div>'+
               '</section><br>'+
                   '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1" class="table table-striped table-lg"'+
-                    '<thead>'+
-                        '<th class="text-center">No</th>'+
+                    '<thead class"card bg-primary">'+
+                        '<th scope="col" class="text-center">No</th>'+
                         '<th class="text-center">Full Name</th>'+
                         '<th class="text-center">Gender</th>'+
-                        '<th class="text-center">Yearly Avarage</th>'+
+                        '<th class="text-center"><button onclick="setAvarageForClass(this)" class="btn btn-success btn-sm" value="'+section+","+class_name+","+stream+'" > set yearly average </button></th>'+
                         '<th class="text-center">Status</th>'+
                     '</thead>'+'<tbody>'
 
@@ -144,8 +144,8 @@ function getHomeRoomStudent(nb){
                         '<td class="text-center">'+count+'</td>'+
                         '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                         '<td class="text-center">'+d.gender+'</td>'+
-                        '<td class="text-center">not set</td>'+
-                        '<td class="text-center">not set</td>'+
+                        '<td class="text-center">'+d.avarage+'</td>'+
+                        '<td class="text-center">'+d.status+'</td>'+
                      '</tr>'+
                      '<td colspan="12" class="hiddenRow">'
                 semister1.forEach(d3 =>{
@@ -240,7 +240,7 @@ function getHomeRoomStudent(nb){
            });
            row+='</tbody></table></div></div></div>';
            row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
-           
+
            generator =  '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"'+
                                 'data-toggle="modal"'+
                                 'data-card1="'+class_name+','+stream+','+section+','+teacher_id+'"'+
@@ -259,4 +259,20 @@ function getHomeRoomStudent(nb){
             console.log("it is not works fine");
         }
     });
+}
+
+
+function setAvarageForClass(val){
+
+    $.ajax({
+        type: "GET",
+        url: "setAvarageForClass/"+val.value,
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            swal.fire("response");
+
+        }
+    });
+
 }

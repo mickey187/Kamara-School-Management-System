@@ -762,6 +762,7 @@ class SectionController extends Controller
         $sec = DB::table('sections')
                 ->join('classes','sections.class_id','=','classes.id')
                 ->join('students','sections.student_id','=','students.id')
+                ->join('student_class_transfers','student_class_transfers.student_id','=','sections.student_id')
                 ->join('streams','sections.stream_id','=','streams.id')
                 ->where('section_name',$section)
                 ->where('class_label',$class_name)
@@ -771,7 +772,9 @@ class SectionController extends Controller
                     'first_name',
                     'middle_name',
                     'last_name',
-                    'gender'
+                    'gender',
+                    'student_class_transfers.yearly_average',
+                    'student_class_transfers.status'
                 ]);
                 error_log("Stream ID: ".$stream_id);
 
@@ -983,8 +986,8 @@ class SectionController extends Controller
                 "middle_name"=>$row->middle_name,
                 "last_name"=>$row->last_name,
                 "student_id"=>$row->student_id,
-                // "term"=>$row->term,
-                // "semister"=>$row->semister,
+                "status"=>$row->status,
+                "avarage"=>$row->yearly_average,
                 // "subject_name"=>$row->subject_name,
                 // "test_load"=>$row->test_load,
                 // "mark"=>$row->mark,

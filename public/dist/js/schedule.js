@@ -25,6 +25,27 @@ $("#select_stream_for_schedule").change(function () {
 });
 
 
+$("#select_class_for_schedule").change(function () {
+    clas = $("#select_class_for_schedule").val();
+
+    $.ajax({
+        type: "GET",
+        url: "getSubjectGroup/"+clas,
+        dataType: "json",
+        success: function (response) {
+            var htmlString = '<select id="select_subject_for_schedule" class="form-control">';
+            htmlString += '<option value="">select subject</option>';
+            response.forEach(element => {
+                htmlString += '<option value="'+element.id+'">'+element.subject_name+'</option>';
+            });
+            htmlString += '</select>';
+            $("#subject_list").html(htmlString);
+            console.log(response);
+        }
+    });
+});
+
+
 $("#insertSchedule").click(function (e) {
     e.preventDefault();
 
@@ -47,7 +68,7 @@ $("#insertSchedule").click(function (e) {
             swal.fire(response);
         }
     });
-    // alert("class: "+clas+" stream: "+stream+" section: "+sectionLabel.trim()+" day: "+day+" Subject: "+subject+" period:"+period);
+    // alert("class: "+clas+" stream: "+stream+" section: "+sectionLabel+" day: "+day+" Subject: "+subject+" period:"+period);
 });
 
 function generateScheduleModal(){

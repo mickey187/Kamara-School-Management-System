@@ -12,9 +12,9 @@
                     <div class="card-header">
                       <h1 class="card-title text-white"><i class="nav-icon fas fa-user-edit"></i>Sectioning</h1>
                     </div>
-                    <div class="container">
-                        <div class="row">
-                          <div class="col-xs-12 col-lg-12 ">
+                    {{-- <div class="container"> --}}
+                        {{-- <div class="row"> --}}
+                          <div class="col-xs-12 col-lg-12 col-sm-12 ">
                             <nav>
                               <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Section All</a>
@@ -211,12 +211,12 @@
 
                           </div>
                         </div>
-                    </div>
+                    {{-- </div> --}}
 
 
 
 
-                </div>
+                {{-- </div> --}}
                 </div>
 
 
