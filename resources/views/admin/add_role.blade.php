@@ -10,9 +10,7 @@
             @else
             Add Role
         @endif
-        
-    
-    </h3>
+           </h3>
 </div>
 <div class="card-body">
   <section class="content">
@@ -28,9 +26,20 @@
           @csrf      
           <div class="row">
             <div class="col-6">
+
+               @if ($errors->any())
+                      <div class="alert alert-danger">
+                          <ul>
+                          @foreach ($errors->all() as $error)
+                           <li>{{ $error }}</li>
+                           @endforeach
+                          </ul>
+                      </div>
+                  @endif
+
               <div class="form-group">
                 <label for="exampleFormControlInput1">rol Name</label>
-                <input type="text" name ="rolename" class="form-control" id="rolename" placeholder="role Name"
+                <input type="text" name ="role_name" class="form-control" id="rolename" placeholder="role Name"
                 @if (isset($edit_role))
                     value="{{$edit_role->role_name}}"
                 @endif

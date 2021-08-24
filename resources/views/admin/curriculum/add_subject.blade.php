@@ -33,11 +33,23 @@
 
                       <div class="form-group">
                         <label for="subjectName">Subject Name</label>
-                        <input type="text" name ="subjectname" class="form-control"
+                        <input type="text" name ="subject_name" class="form-control"  id="subjectName" placeholder="Subject Name"
                          @if (isset($editSubject))
                          value="{{$editSubject->subject_name}}"
 
-                     @endif   id="subjectName" placeholder="Subject Name">
+                     @endif  >
+
+                       @if ($errors->any())                  
+                  
+                      <div class="alert alert-danger">
+                          <ul>
+                          @foreach ($errors->get('subject_name') as $error)
+                           <li>{{ $error }}</li>
+                           @endforeach
+                          </ul>
+                      </div>
+                  @endif
+
                       </div>
                       <button type="submit" id="saveSubjectz" class="btn btn-primary btn-md btn-block">
                         @if (isset($editSubject))

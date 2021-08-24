@@ -17,6 +17,7 @@ use App\Models\student;
 use App\Models\student_mark_list;
 use App\Models\subject;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Unique;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -101,12 +102,15 @@ class MarklistController extends Controller
          return "Student inserted";
     }
 
-    public function addAssasment(){
-        $assasment = new assasment_type();
-        $assasment->assasment_type = request('assasment_label');
-        $assasment->save();
-        $ass = assasment_type::all();
-        return view('admin.curriculum.add_assasment_label')->with('assasment',$ass);
+    public function addAssasment(Request $req){
+        $assasment = new assasment_type;
+        $validated = $req->validate(['assasment_type'=>'unique:assasment_types|required|max:20']);
+        $assasment->assasment_type = $validated['assasment_type'];
+
+        if ($assasment->save()) {
+            $ass = assasment_type::all();
+            return redirect()->route('/addAssasment')->with('ass', $ass);
+        }
     }
 
     public function assasmentForm(){

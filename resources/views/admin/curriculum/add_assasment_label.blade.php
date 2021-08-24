@@ -16,13 +16,25 @@
             <div class="col-6">
               <div class="form-group">
                 <label for="exampleFormControlInput1">Add Assasment Label</label>
-                <input type="text" name ="assasment_label" class="form-control" id="exampleFormControlInput1" placeholder="Assasment label">
+                <input type="text" name ="assasment_type" class="form-control" id="exampleFormControlInput1" placeholder="Assasment label">
+
+                    @if ($errors->any())                  
+                  
+                      <div class="alert alert-danger">
+                          <ul>
+                          @foreach ($errors->all() as $error)
+                           <li>{{ $error }}</li>
+                           @endforeach
+                          </ul>
+                      </div>
+                  @endif
               </div>
 
             </div>
           </div>
            <div class="row">
             <div class="col-6">
+
               <button type="submit" class="btn btn-primary btn-md btn-block">Submit</button>
             </div>
             <div class="container-fluid mt-3">
@@ -60,13 +72,7 @@
                     </tr>
                     @endforeach
                 </tbody>
-                {{-- <tfoot>
-                    <tr>
-                        <th>id</th>
-                        <th>stream_type</th>
-
-                    </tr>
-                    </tfoot> --}}
+               
                 </table>
             </div>
           </div>

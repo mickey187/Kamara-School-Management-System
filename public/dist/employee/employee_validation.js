@@ -484,7 +484,8 @@ emp_nextBtnThird.addEventListener("click", function() {
     var teach_traning_institiute = $('#emp_teacher_traning_institute_val').val();
 
     if(emp_job_position === "1"){
-        if(emp_past_employment_place && emp_role && teach_debut && teach_field_of_study && teach_place_of_study && teach_date_of_study && teach_traning_program && teach_traning_year && teach_traning_institiute){
+        if(emp_past_employment_place && emp_role && teach_debut && teach_field_of_study && teach_place_of_study && teach_date_of_study && teach_traning_program && teach_traning_year && teach_traning_institiute)
+{
             emp_slidePage.style.marginLeft = "-75%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
@@ -609,7 +610,7 @@ emp_addBtn.addEventListener("click", function() {
     }
 
     if(emp_kebele.value.trim() === '' ){
-        setDefaultFor(emp_kebele,"employee kebele reach max length")
+        setErorFor(emp_kebele,"employee kebele can not be null")
 
     }else{
         setSuccessFor(emp_kebele)
@@ -670,3 +671,10 @@ function alphaOnly(event) {
     return ((key >= 65 && key <= 90) || key == 8);
 };
 
+
+
+// function allCharacter(event) {
+//     var specialCharacter = event.keyCode;
+//     return ((specialCharacter >= 65 && key <= 90) || specialCharacter == 8 || specialCharacter ==32 ||
+//     specialCharacter >=47 && specialCharacter <=57 );
+// };

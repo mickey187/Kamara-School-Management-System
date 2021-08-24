@@ -132,11 +132,11 @@ Route::post('addsubjectgroup', [SubjectController::class, 'addSubjectGroup']);
 
 //class
 
-Route::get('/indexAddClassSubject', [ClassController::class, 'indexAddClassSubject'])->name('/indexAddClassSubject');
+Route::get('/indexAddClassSubject', [ClassController::class, 'indexAddClassSubject']);
 
 Route::get('/viewClassSubject', [ClassController::class, 'viewClassSubject'])->name('/viewClassSubject');
 
-Route::post('addClassSubject', [ClassController::class, 'addClassSubject']);
+Route::get('addClassSubject', [ClassController::class, 'addClassSubject']);
 
 Route::post('delete_class_subject', [ClassController::class, 'deleteClassSubject']);
 
@@ -153,11 +153,10 @@ Route::post('addStream', [StreamController::class, 'addStream']);
 
 // Employee Controller
 Route::get('/addReligionPage',[AddReligionController::class,'addReligionPage']);
-// Route::get('addReligion',[AddReligionController::class,'addReligion']);
 
-Route::get('addReligion/{religion}',[AddReligionController::class,'addReligion']);
+Route::get('/addReligion',[AddReligionController::class,'addReligion'])->name('/addReligion');
 
-Route::get('/viewReligion',[AddReligionController::class,'viewReligion'])->name('viewReligion');
+Route::get('/viewReligion',[AddReligionController::class,'viewReligion'])->name('/viewReligion');
 
 Route::get('editReligion/{id}', [AddReligionController::class, 'editReligion'])->name('editReligion');
 
@@ -167,9 +166,9 @@ Route::get('/deleteReligion', [AddReligionController::class, 'deleteReligion']);
 
 Route::get('/indexAddJobPosition',[AddJobPositionController::class,'indexAddJobPosition']);
 
-Route::get('addJobPosition/{position}',[AddJobPositionController::class,'addJobPosition']);
+Route::get('/addJobPosition',[AddJobPositionController::class,'addJobPosition'])->name(('/addJobPosition'));
 
-Route::get('/viewJobPosition',[AddJobPositionController::class,'viewJobPosition'])->name('viewJobPosition');
+Route::get('/viewJobPosition',[AddJobPositionController::class,'viewJobPosition'])->name('/viewJobPosition');
 
 Route::get('editJobPosition/{id}', [AddJobPositionController::class, 'editJobPosition'])->name('editJobPosition');
 
@@ -313,9 +312,9 @@ Route::post('/import',[MarklistController::class, 'import'])->name('import');
 Route::post('importExcel',[ExcelController::class, 'importExcel'])->name('importExcel');
 // Route::post('/importExcel/{gclass}/{gstream}/{gsection}',[ExcelController::class, 'importExcel'])->name('importExcel');
 
-Route::get('addAssasment',[MarklistController::class, 'addAssasment']);
+Route::get('/addAssasment',[MarklistController::class, 'addAssasment'])->name('/addAssasment');
 
-Route::get('Assasmentform',[MarklistController::class, 'assasmentForm']);
+Route::get('Assasmentform',[MarklistController::class, 'Assasmentform']);
 
 Route::get('editMarkStudentList/{id}/{mark}/{load}/{assasment}',[MarklistController::class, 'editMarkStudentList']);
 

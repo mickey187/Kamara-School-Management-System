@@ -740,17 +740,16 @@ $(function() {
     <script src="{{ asset('dist/studentValidation/student.js') }}"></script>
 
     {{-- Curriculum validation --}}
-    <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script>
+    {{-- <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script> --}}
     <script src="{{ asset('dist/validation/add_subject_validation.js') }}"></script>
 
 
      {{--employee validation --}}
+   
 
-
-
-      <script src="{{ asset('dist/employee/add_employee_validation.js') }}"></script>
-     <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script>
-     <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script>
+      <script src="{{ asset('dist/employee/employee_validation.js') }}"></script>
+     {{-- <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script> --}}
+     {{-- <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script> --}}
 
 
     <script src="{{ asset('dist/js/view_employee_list.js') }}"></script>

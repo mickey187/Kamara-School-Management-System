@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\subject;
 use App\Models\classes;
@@ -24,21 +24,30 @@ class ClassController extends Controller
 
 
 
-//load the add_class_subject page
-   public function indexAddClassSubject(){
 
-      $subject = subject::all();
-      $stream = stream::all();
-      $class_data = classes::all();
-   // return $class_data;
-//       $class_data = DB::table('classes')
-//                              ->join('streams','classes.stream_id','=','streams.id')
-//    ->get(['classes.id as class_id','streams.id as stream_id','class_label','stream_type']);
-                             //return $class_data;
+   public function indexAddClassSubject(Request $req){
 
+           $validator = Validator::make($req->all(),[
+            'class_label' =>'required',
+            'stream_type' => 'required',
+            'subjects_name' => 'required',
+        ]);
 
-                                 return view('admin/curriculum/add_class_subject')->with('class_data',$class_data)
-                                 ->with('subject',$subject)->with('stream',$stream);
+        if($validator->fails()){
+            return redirect('indexAddClassSubject')
+            ->withErrors($validator)->withInput();
+        }
+         $validated = $validator->validated();
+
+      $subject =new subject();
+      $subject->subjects_name = $validated['subjects_name'];
+      $stream = new stream;
+      $stream->streams_type = $validated['streams_type'];
+      $class_data =new  classes;
+      $class_data->classs_label = $validated['classs_label'];
+
+       return redirect()->route('/viewClassSubject')->with('class_data',$class_data)
+      ->with('subject',$subject)->with('stream',$stream);
 
     }
 
@@ -58,9 +67,22 @@ class ClassController extends Controller
     }
 
    public function addClassLabel(Request $req){
+
+        $validator = Validator::make($req->all(), [
+        'class_label' => 'required|unique:classes|max:15',
+        'class_priority'=> 'required',
+        ]);
+
+        if($validator->fails()){
+            return redirect('addclasslabel')
+            ->withErrors($validator)->withInput();
+        }
+        
+         $validated = $validator->validated();
+
        $class = new classes();
-       $class->class_label = $req->class_label;
-       $class->priority = $req->class_priority;
+       $class->class_label = $validated['class_label'];
+       $class->priority = $validated['class_priority'];
        if ( $class->save()) {
            $class_label = classes::all();
            return redirect()->route('viewclasslabel')->with('class_label',$class_label);
@@ -105,10 +127,7 @@ class ClassController extends Controller
 
 
     function addClassSubject(Request $req){
-       // return $req;
-
-
-
+       // return $req;   
         $subjects_id = $req->input('subjects');
         $class_id = $req->input('class_label');
         $stream_id = $req->stream;
@@ -118,30 +137,14 @@ class ClassController extends Controller
 
             foreach ($subjects_id as $sub) {
 
-                // $insert_cls_sub = array(
-                //     array('class_id'=> $cls,'subject_id'=>$sub)
-                // );
-                // class_subject::insert($insert_cls_sub);
-
                 $class_subject = new class_subject();
                 $class_subject->class_id = $cls;
                 $class_subject->subject_id = $sub;
                 $class_subject->stream_id = $stream_id;
                 $bools = $class_subject->save();
 
-
-
-
-
-
             }
-
-
         }
-
-
-
-
  if($bools){
     $class_data = DB::table('class_subjects')
     ->join('classes','class_subjects.class_id','=','classes.id')

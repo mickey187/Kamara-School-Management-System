@@ -23,23 +23,34 @@
                 <form action="
                 
                 @if (isset($edit_cls_sub))
-                    {{url('editClassSubjectValue/'.$edit_cls_sub['id'])}}
+                    {{url('/editClassSubjectValue/'.$edit_cls_sub['id'])}}
                 @else
-                    {{url('addClassSubject')}}
+                    {{url('/addClassSubject')}}
                     
                 @endif
-                " method="post">
+                " method="get">
                     @csrf
 
                    
                    <div class="row">
                        <div class="col-6">   
+
+                        @if ($errors->any())                  
+                  
+                      <div class="alert alert-danger">
+                          <ul>
+                          @foreach ($errors->all() as $error)
+                           <li>{{ $error }}</li>
+                           @endforeach
+                          </ul>
+                      </div>
+                  @endif
                            
                         {{-- {{$edit_cls_sub['class_id']}} --}}
                    
                 <div class="form-group">
                     <label for="select_class">Select Class Label</label>
-                    <select class="select2" name="class_label[]"  data-placholder="Class"  style="width: 100%;" id="select_class"
+                    <select class="select2" name="classs_label"  data-placholder="Class"  style="width: 100%;" id="select_class"
                      @if (!isset($edit_cls_sub))
                      multiple="multiple"
                      @endif>
@@ -61,7 +72,7 @@
             <div class="col-6">
                 <div class="form-group">
                 <label for="streams">Select Stream</label>
-                <select name="stream" id="streams" class="form-control">
+                <select name="streams_type" id="streams" class="form-control">
                     @foreach ($stream as $row )
 
                     <option value="{{$row->id}}"
@@ -82,7 +93,7 @@
             <div class="col-6">
                 <div class="form-group">
                     <label for="Select_Subject">Select Subject</label>
-                    <select class="select2" name="subjects[]"  data-placeholder="just ok" style="width: 100%;" id="Select_Subject"
+                    <select class="select2" name="subjects_name"  data-placeholder="just ok" style="width: 100%;" id="Select_Subject"
                         @if (!isset($edit_cls_sub))
                         multiple="multiple"
                         @endif>
