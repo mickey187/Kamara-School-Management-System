@@ -54,6 +54,9 @@ class AuthenticatedSessionController extends Controller
             case 'admin':
                 return redirect()->intended(RouteServiceProvider::HOME);
                 break;
+            case 'parent':
+                return redirect('parentDashboard');
+                break;
             default:
                 return 'Default';
            // return redirect()->intended(RouteServiceProvider::HOME);

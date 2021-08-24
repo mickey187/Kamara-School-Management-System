@@ -15,7 +15,10 @@ use App\Models\semister;
 use App\Models\stream;
 use App\Models\student;
 use App\Models\student_mark_list;
+use App\Models\students_parent;
 use App\Models\subject;
+use App\Models\SubjectGroup;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Unique;
 use Maatwebsite\Excel\Facades\Excel;
@@ -295,6 +298,45 @@ class MarklistController extends Controller
             // error_log($studentCardCollection->name);
         }
         return Excel::download(new StudentsCardPerTermExport($studentCardCollection,$class2,$stream2,$section,$getTerm), $clas->class_label.'_'.$str->stream_type.'_'.$section.'.xlsx');
+    }
+
+    public function getStudentMarkList(){
+        $parent_id = Auth::user()->user_id;
+        $student_id = students_parent::where('parent_id',$parent_id)->value('student');
+        return redirect('studentScore/'.$student_id);
+    }
+
+
+    public function setAvarageForClass($classes){
+        $data = explode(",",$classes);
+        $getClass = classes::where('class_label',$data[1])->get()->first();
+        $getStream = stream::where('stream_type',$data[2])->get()->first();
+        $getStudent = DB::table('sections')
+                        ->join('students','sections.student_id','=','students.id')
+                        ->join('classes','sections.class_id','=','classes.id')
+                        ->join('streams','sections.stream_id','=','streams.id')
+                        ->where('sections.class_id',$getClass->id)
+                        ->where('sections.stream_id',$getStream->id)
+                        ->where('section_name',$data[0])
+                        ->get();
+        foreach($getStudent as $row){
+            $semister = semister::all();
+            $subject = SubjectGroup::where('class_id',$row->class_id)->get();
+            foreach($subject as $sub){
+                $assasment = 0;
+                $total = 0;
+                foreach($semister as $sem){
+                    $mark =student_mark_list::where('student_id',$row->id)
+                                            ->where('subject_id',$sub->id)
+                                            ->where('semister_id',$sem->id)
+                                            ->where('academic_year',date("Y"))
+                                            ->get()
+                                            ->first();
+                }
+
+            }
+        }
+        return response()->json($getStudent);
     }
 }
 

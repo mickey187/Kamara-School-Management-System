@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClassSubjectsTable extends Migration
+class CreateCourseLoadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,18 @@ class CreateClassSubjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('class_subjects', function (Blueprint $table) {
+        Schema::create('course_loads', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id')->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
-            
+
             $table->unsignedBigInteger('stream_id');
             $table->foreign('stream_id')->references('id')->on('streams')->onUpdate('cascade')->onDelete('cascade');
-           
-            $table->unsignedBigInteger('subject_id');
-            $table->foreign('subject_id')->references('id')->on('subjects')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('subject_group_id');
+            $table->foreign('subject_group_id')->references('id')->on('subject_groups')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('section_label')->nullable();
+            $table->string('day')->nullable();
+            $table->integer('period_number')->nullable();
             $table->timestamps();
         });
     }

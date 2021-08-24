@@ -55,6 +55,8 @@
 <!-- alternatively you can use the font awesome icon library if using with `fas` theme (or Bootstrap 4.x) by uncommenting below. -->
 <!-- link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" crossorigin="anonymous" -->
 
+{{-- ethio calendar --}}
+<link rel="stylesheet" href="plugins/AmharicDatepickerCalendar-master/css/redmond.calendars.picker.css">
 <!-- the fileinput plugin styling CSS file -->
 <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 </head>
@@ -365,7 +367,7 @@
 <script>
 $(function() {
 
-    $('.select2').select2()
+    $('.select2').select2();
 });
 </script>
 
@@ -455,6 +457,26 @@ $(function() {
 
     {{-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> --}}
 
+    <script src="{{ asset('attendance.js')}}"></script>
+
+    {{-- ethio calendar --}}
+
+    {{-- <script  src="js/jquery.calendars.js"></script>
+    <script  src="js/jquery.calendars.plus.js"></script>
+    <script  src="js/jquery.calendars.picker.js"></script>
+    <script  src="js/jquery.calendars.ethiopian.js"></script>
+    <script  src="js/jquery.calendars.ethiopian-am.js"></script>
+    <script  src="js/jquery.calendars.picker-am.js"></script> --}}
+    
+    <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.plugin.js')}}"></script>
+    <script src="{{asset('plugins/AmharicDatepickerCalendar-master/js/jquery.calendars.js')}}"></script>
+    <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.calendars.plus.js')}}"></script>
+    <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.calendars.picker.js')}}"></script>
+    <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.calendars.ethiopian.js')}}"></script>
+    <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.calendars.ethiopian-am.js')}}"></script>
+
+    {{-- <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.calendars.picker-am.js')}}"></script> --}}
+
     <script>
         $(function() {
             $("#example1").DataTable({
@@ -463,6 +485,8 @@ $(function() {
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+            
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -492,8 +516,8 @@ $(function() {
       </script>
       {{-- <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> --}}
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+      {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> --}}
+      {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script> --}}
 
       <!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
           wish to resize images before upload. This must be loaded before fileinput.min.js -->

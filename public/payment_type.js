@@ -32,63 +32,36 @@ $('#add_payment_type').click(function () {
           }
             var flat = data2.flat();
             console.log(flat);
-             var table = $('#example1').DataTable();
+             //var table = $('#example1').DataTable();
             
             //$(rowNode).css( 'color', 'red' ).animate( { color: 'black' } );
             
+            // $(selector).attr(attributeName, value);
+            // console.log(flat);
+            // var rows = '';
             
-            console.log(flat);
-            var rows = '';
-            
-            flat.forEach(d => {
-                 table.row.add([d.id,d.payment_type,d.recurring_type,
-                    '<button class="btn btn-success btn-sm"'+
-                    'data-toggle="modal"'+ 
-                   'data-target="#view_payment_type" '+
-                    'data-view_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
-                     '<i class="fa fa-eye" aria-hidden="true"></i>'+             
-                   '</button>'+
-                   '<button class="btn btn-info btn-sm"'+
-                   'data-toggle="modal"'+ 
-                  'data-target="#edit_payment_type"'+
-                   'data-edit_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
-                    '<i class="fas fa-pencil-alt" aria-hidden="true"></i>'+                   
-                  '</button>'+
+            // flat.forEach(d => {
+            //      table.row.add([d.id,d.payment_type,d.recurring_type,
+            //         '<button class="btn btn-success btn-sm"'+
+            //         'data-toggle="modal"'+ 
+            //        'data-target="#view_payment_type_modal" '+
+            //         'data-view_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
+            //          '<i class="fa fa-eye" aria-hidden="true"></i>'+             
+            //        '</button>'+
+            //        '<button class="btn btn-info btn-sm"'+
+            //        'data-toggle="modal"'+ 
+            //       'data-target="#edit_payment_type"'+
+            //        'data-edit_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
+            //         '<i class="fas fa-pencil-alt" aria-hidden="true"></i>'+                   
+            //       '</button>'+
 
-                  '<button class="btn btn-danger btn-sm" data-toggle="modal"'+ 
-                  'data-target="#delete_payment_type"'+ 
-                   'data-delete_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
-                   '<i class="fa fa-trash" aria-hidden="true"></i>'+
-                 '</button>']).draw().node().id = d.id;
-               // rows += 
-                // '<tr class="table-success">'+                
-                // '<td>'+d.id +'</td>'+
-                // '<td>'+d.payment_type +'</td>'+
-                // '<td>'+d.recurring_type +'</td>'+
-                // '<td>'+
-                // '<button class="btn btn-success btn-sm"'+
-                //     'data-toggle="modal"'+ 
-                //    'data-target="#view_payment_type" '+
-                //     'data-view_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
-                //      '<i class="fa fa-eye" aria-hidden="true"></i>'+             
-                //    '</button>'+
-
-                //    '<button class="btn btn-info btn-sm"'+
-                //     'data-toggle="modal"'+ 
-                //    'data-target="#edit_payment_type"'+
-                //     'data-edit_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
-                //      '<i class="fas fa-pencil-alt" aria-hidden="true"></i>'+                   
-                //    '</button>'+
-
-                //    '<button class="btn btn-danger btn-sm" data-toggle="modal"'+ 
-                //    'data-target="#delete_payment_type"'+ 
-                //     'data-delete_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
-                //     '<i class="fa fa-trash" aria-hidden="true"></i>'+
-                //   '</button>'+
-
-                //  '</td>'+
-                // '</tr>'
-            });           
+            //       '<button class="btn btn-danger btn-sm" data-toggle="modal"'+ 
+            //       'data-target="#delete_payment_type"'+ 
+            //        'data-delete_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
+            //        '<i class="fa fa-trash" aria-hidden="true"></i>'+
+            //      '</button>']).draw().node().id = d.id;
+               
+            // });           
            // $('#table_body').prepend(rows);
            
             
@@ -98,7 +71,64 @@ $('#add_payment_type').click(function () {
 
 });
 
-$('#view_payment_type').on('show.bs.modal', function (event) {
+$('#view_payment_type_tab_link').click(function () { 
+  $.ajax({
+    type: "GET",
+    url: "/finance/viewPaymentType",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+
+      data.forEach(d=>{
+
+        Object.assign(d,{action:     '<button class="btn btn-success btn-sm"'+
+        'data-toggle="modal"'+ 
+       'data-target="#view_payment_type_modal" '+
+        'data-view_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
+         '<i class="fa fa-eye" aria-hidden="true"></i>'+             
+       '</button> '+
+       '<button class="btn btn-info btn-sm"'+
+       'data-toggle="modal"'+ 
+      'data-target="#edit_payment_type"'+
+       'data-edit_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
+        '<i class="fas fa-pencil-alt" aria-hidden="true"></i>'+                   
+      '</button> '+
+
+      '<button class="btn btn-danger btn-sm" data-toggle="modal"'+ 
+      'data-target="#delete_payment_type"'+ 
+       'data-delete_payment_type="'+d.id+','+d.payment_type+','+d.recurring_type+'">'+
+       '<i class="fa fa-trash" aria-hidden="true"></i>'+
+     '</button>'
+
+        });
+      });
+
+      $("#view_payment_type_table").DataTable({
+        // "processing": true,
+        // "serverSide": true,
+        // "ajax":"/finance/showStudentsRegsiteredForTransport",
+        "destroy":true,
+        "data":data,
+        "columns": [
+            { "data": "id" },
+            { "data": "payment_type" },
+            { "data": "recurring_type" },
+            {"data": "action"},
+            
+           
+        ],
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "ordering": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#view_payment_type_table_wrapper .col-md-6:eq(0)');
+    }
+  });
+  
+});
+
+$('#view_payment_type_modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var recipient = button.data('view_payment_type') // Extract info from data-* attributes
     var data = recipient.split(",");
@@ -133,6 +163,7 @@ $('#view_payment_type').on('show.bs.modal', function (event) {
             success: function (response) {
                 if (response == "success") {
                     $('#cance_edit_modal').click();
+                    $('#view_payment_type_tab_link').click();
                     
                         
                    
@@ -144,15 +175,18 @@ $('#view_payment_type').on('show.bs.modal', function (event) {
                       });
                       
                       
+                      
                 }
                 
             }
         });
         
     });
-    var modal = $(this)
-    // modal.find('.modal-title').text('New message to ' + recipient)
-    // modal.find('.modal-body input').val(recipient)
+    var modal = $(this);
+
+    $(this).on('hide.bs.modal', function(){
+      $('#save_changes').off('click');
+  });
   });
 
   $('#delete_payment_type').on('show.bs.modal', function (event) {
@@ -174,7 +208,7 @@ $('#view_payment_type').on('show.bs.modal', function (event) {
             success: function (response) {
                 if (response == "deleted") {
                     $('#cancel_delete_modal').click();
-                    
+                    $('#view_payment_type_tab_link').click();
                         
                    
                     Swal.fire({
@@ -186,7 +220,7 @@ $('#view_payment_type').on('show.bs.modal', function (event) {
 
                     //   var table = $('#example1').DataTable();
                     //   table.row.remove('#'+payment_type_id).draw();
-                      $('#example1').DataTable().row('#'+payment_type_id).remove().draw();
+                     
                       
                 }
             }
@@ -194,7 +228,9 @@ $('#view_payment_type').on('show.bs.modal', function (event) {
         
     });
     var modal = $(this)
-    // modal.find('.modal-title').text('New message to ' + recipient)
-    // modal.find('.modal-body input').val(recipient)
+
+    $(this).on('hide.bs.modal', function(){
+      $('#delete_payment_type').off('click');
+  });
   });
   

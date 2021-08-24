@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use PHPUnit\Util\Json;
+use Illuminate\Support\Facades\Auth;
 
 class ParentController extends Controller{
 
@@ -138,5 +139,118 @@ class ParentController extends Controller{
         $parent_list = students_parent::where('student',$student->id)->get();
         return view('admin.parent.view_student_and_parent',compact('student'))->with('parent_list',$parent_list);
 
+    }
+
+    public function ParentDashboard(){
+        $parent_id = Auth::user()->user_id;
+        $student_id = students_parent::where('parent_id',$parent_id)->value('student');
+        $student_info = DB::table('students')
+                            ->join('classes','students.class_id','=','classes.id')
+                            ->join('sections','students.id','=','sections.student_id')
+                            ->where('students.id',$student_id)
+                            ->get(["students.student_id",
+                            DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name'),"class_label","section_name","students.image"]);
+        $student_payment_history = (new FinanceController)->fetchPaymentHistory($student_id);
+        
+        
+        $decoded = json_decode($student_payment_history->content(),true);
+     
+        $unpaid_bill_counter = 0;
+        foreach ($decoded["sliced"] as $key) {
+            foreach ($key as $key2) {
+                $unpaid_bill_counter++;
+
+            
+            }
+        }
+            
+         
+        return view('admin.parent.parent_dashboard')->with('unpaid_bill_counter',$unpaid_bill_counter)
+                    ->with('student_info',$student_info);
+    }
+
+    public function viewParentPaymentDetail(){
+        $parent_id = Auth::user()->user_id;
+        $student_id = students_parent::where('parent_id',$parent_id)->value('student');
+        $student_payment_history = (new FinanceController)->fetchPaymentHistory($student_id);
+        
+        
+        $decoded = json_decode($student_payment_history->content(),true);
+
+        foreach ($decoded["sliced"] as $key) {
+            foreach ($key as $key2) {
+                
+                $year_month_array = array();
+                $year_month_array = explode("-",$key2["payment_month"]);
+                //print_r($year_month_array);
+                //$key2["payment_month"] = "hello";
+                //dd($key2["payment_month"]);
+                //dd($year_month_array[1]);
+                //$arr = 
+               switch ($year_month_array[1]) {
+                   case "01":
+                        print_r("hello");
+                       $key2["payment_month"] = "መስከረም ".$year_month_array[0];
+                       break;
+
+                   case "02":
+                        $key2["payment_month"] = "ጥቅምት ".$year_month_array[0];
+                        break;
+
+                   case "03":
+                        $key2["payment_month"] = "ህዳር ".$year_month_array[0];
+                        break;
+
+                   case "04":
+                        $key2["payment_month"] = "ታህሳስ ".$year_month_array[0];
+                        break;
+
+                    case "05":
+                            $key2["payment_month"] = "ጥር ".$year_month_array[0];
+                            break;
+
+                    case "06":
+                            $key2["payment_month"] = "የካቲት ".$year_month_array[0];
+                            break;
+
+                    case "07":
+                           $key2["payment_month"] = "መጋቢት ".$year_month_array[0];
+                            break;
+
+                    case "08":               
+                            $key2["payment_month"] = "ሚያዚያ ".$year_month_array[0];
+                            break;
+
+                    case "09":
+                            $key2["payment_month"] = "ግንቦት ".$year_month_array[0];
+                            break;
+
+                    case "10":
+                            $key2["payment_month"] = "ሰኔ ".$year_month_array[0];
+                            break;
+
+                    case "11":
+                            $key2["payment_month"] = "ሃምሌ ".$year_month_array[0];
+                            break;
+
+                    case "12":
+                            $key2["payment_month"] = "ነሃሴ ".$year_month_array[0];
+                            break;
+
+                    case "13":
+                            $key2["payment_month"] = "ጷግሜ ".$year_month_array[0];
+                            break;
+                   
+                   default:
+                       # code...
+                       print_r("hello");
+                       break;
+               }
+
+            
+            }
+        }
+        //dd($decoded);
+        return view('admin.parent.parent_payment_detail')->with('unpaid_bills',$decoded["sliced"])->with('result_history',$decoded["result_history"]);
     }
 }

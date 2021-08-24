@@ -44,6 +44,7 @@ class SubjectController extends Controller
         $validated = $req->validate(['subject_name'=>'unique:subjects|required|max:20']);
         $subject->subject_name = $validated['subject_name'];
         // $subject->subject_name = $subject;
+        $subject->subject_name = $req->subjectname;
 
         if ($subject->save()) {
             $subject_list = subject::all();
@@ -59,6 +60,7 @@ class SubjectController extends Controller
 
         }
     }
+
     function subjectGroup($classes,$subjects)
     {
         $class = explode(",",$classes);

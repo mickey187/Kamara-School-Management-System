@@ -70,7 +70,7 @@ class PaymentLoadSeeder extends Seeder
         //         case 6:
         //                                 DB::table('payment_types')->insert([
         //                                     'id' => 6,
-        //                                     'payment_type' => 'Gown & Magazine Fee',
+        //                                     'payment_type' => 'Graduation Magazine & Gown Fee',
         //                                     'recurring_type' =>'non-recurring',
         //                                     'created_at' => Carbon::now(),
         //                                     'updated_at' => Carbon::now(),
@@ -97,7 +97,7 @@ class PaymentLoadSeeder extends Seeder
 
         //Registration Fee Load seeder
 
-        for ($i=1; $i < 14 ; $i++) {
+        for ($i=1; $i < 12 ; $i++) {
             DB::table('payment_loads')->insert([
                 // 'id' => $i,
                 'payment_type_id' => 1,
@@ -110,7 +110,7 @@ class PaymentLoadSeeder extends Seeder
 
         //Tuition Fee Load Seeder
         $amount = 850;
-        for ($i=1; $i < 14  ; $i++) {
+        for ($i=1; $i < 12  ; $i++) {
             DB::table('payment_loads')->insert([
 
                 'payment_type_id' => 2,
@@ -123,7 +123,7 @@ class PaymentLoadSeeder extends Seeder
         }
 
         //Book Fee Load Seeder
-        for ($i=1; $i < 14  ; $i++) {
+        for ($i=1; $i < 12  ; $i++) {
             DB::table('payment_loads')->insert([
 
                 'payment_type_id' => 3,
@@ -136,7 +136,7 @@ class PaymentLoadSeeder extends Seeder
         }
 
         //Transportation Fee Seeeder
-        for ($i=1; $i < 14  ; $i++) {
+        for ($i=1; $i < 12  ; $i++) {
             DB::table('payment_loads')->insert([
 
                 'payment_type_id' => 4,
@@ -149,7 +149,7 @@ class PaymentLoadSeeder extends Seeder
         }
 
         //Tutorial Fee Seeeder
-        for ($i=1; $i < 14  ; $i++) {
+        for ($i=1; $i < 12  ; $i++) {
             DB::table('payment_loads')->insert([
 
                 'payment_type_id' => 5,
@@ -162,7 +162,7 @@ class PaymentLoadSeeder extends Seeder
         }
 
         //Tutorial Fee Seeeder
-        for ($i=1; $i < 14  ; $i++) {
+        for ($i=1; $i < 12  ; $i++) {
             DB::table('payment_loads')->insert([
 
                 'payment_type_id' => 6,
@@ -174,7 +174,7 @@ class PaymentLoadSeeder extends Seeder
 
         }
         // School Trip
-        for ($i=1; $i < 14  ; $i++) {
+        for ($i=1; $i < 12  ; $i++) {
             DB::table('payment_loads')->insert([
 
                 'payment_type_id' => 7,

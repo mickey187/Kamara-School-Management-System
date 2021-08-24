@@ -275,12 +275,12 @@
                                         </a>
                                     </li> --}}
 
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                     <a href="{{url('finance/indexAddPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'indexAddPaymentLoad') active  @endif">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Payment Load</p>
                                     </a>
-                                </li>
+                                </li> --}}
 
                                 {{-- <li class="nav-item">
                                     <a href="{{url('finance/viewPaymentLoad')}}" class="nav-link @if (Request::segment(2)== 'viewPaymentLoad') active  @endif">
@@ -516,6 +516,7 @@ $(function() {
     <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    
     <script src="{{asset('dist/js/addclass.js')}}"></script>
     {{-- <script src="{{ asset('dist/js/employee.js') }}"></script> --}}
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>

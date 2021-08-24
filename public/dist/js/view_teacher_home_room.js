@@ -130,11 +130,11 @@ function getHomeRoomStudent(nb){
                   '</div>'+
               '</section><br>'+
                   '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1" class="table table-striped table-lg"'+
-                    '<thead>'+
-                        '<th class="text-center">No</th>'+
+                    '<thead class"card bg-primary">'+
+                        '<th scope="col" class="text-center">No</th>'+
                         '<th class="text-center">Full Name</th>'+
                         '<th class="text-center">Gender</th>'+
-                        '<th class="text-center">Yearly Avarage</th>'+
+                        '<th class="text-center"><button onclick="setAvarageForClass(this)" class="btn btn-success btn-sm" value="'+section+","+class_name+","+stream+'" > set yearly average </button></th>'+
                         '<th class="text-center">Status</th>'+
                     '</thead>'+'<tbody>'
 
@@ -144,8 +144,8 @@ function getHomeRoomStudent(nb){
                         '<td class="text-center">'+count+'</td>'+
                         '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                         '<td class="text-center">'+d.gender+'</td>'+
-                        '<td class="text-center">not set</td>'+
-                        '<td class="text-center">not set</td>'+
+                        '<td class="text-center">'+d.avarage+'</td>'+
+                        '<td class="text-center">'+d.status+'</td>'+
                      '</tr>'+
                      '<td colspan="12" class="hiddenRow">'
                 semister1.forEach(d3 =>{
@@ -167,7 +167,7 @@ function getHomeRoomStudent(nb){
                                 '<th class="text-center">Total</th>'+
                             '</tr>'+
                         '</thead>'+
-                    '<tbody>'
+                    '<tbody>';
                     mark1.forEach(d2 => {
                         all_semister=d2.semister+d2.term;
                         if(d2.student_id==d.student_id){
@@ -187,7 +187,7 @@ function getHomeRoomStudent(nb){
                                             percent = percent + total_mark.test_load;
                                             console.log(total);
                                         }
-                                    })
+                                    });
                                     row+=
                                     '<tr class="text-primary">'+
                                         '<td class="text-center">'+ d2.subject_name+' </td>'+
@@ -203,36 +203,36 @@ function getHomeRoomStudent(nb){
                         }
 
                     });
-                    subject = [];
+
                     if(newSemister==0){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_one_total).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==1){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_two_total).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==2){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_three_total).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==3){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(d.semister_four_total).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }
-
+                    subject = [];
                      all_percent = 0;
                      all_total = 0;
-                })
+                });
                 row+= '</td>'+
                         '</tr>'+
                         '</tr>'
@@ -240,7 +240,11 @@ function getHomeRoomStudent(nb){
            });
            row+='</tbody></table></div></div></div>';
            row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
-           generator =  '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"'+
+           generator = '<a class="btn btn-sm btn-primary text-bold" href="/indexAttendance">Attendance</a> ';
+
+           '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"';
+
+           generator +=  '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"'+
                                 'data-toggle="modal"'+
                                 'data-card1="'+class_name+','+stream+','+section+','+teacher_id+'"'+
                                 'data-target="#modal-generate-card"'+
@@ -258,4 +262,20 @@ function getHomeRoomStudent(nb){
             console.log("it is not works fine");
         }
     });
+}
+
+
+function setAvarageForClass(val){
+
+    $.ajax({
+        type: "GET",
+        url: "setAvarageForClass/"+val.value,
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            swal.fire("response");
+
+        }
+    });
+
 }

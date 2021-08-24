@@ -17,9 +17,12 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentPersonalDevelopmentController;
 use GrahamCampbell\ResultType\Success;
+use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\AttendanceController;
 
 Route::get('generatedox',[StudentController::class, 'generateDocx']);
 
@@ -28,7 +31,7 @@ Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fe
 
 Route::redirect('/', '/login');
 
-Route::middleware(['role:admin,finance,null'])->prefix('finance')->group(function () {
+Route::middleware(['role:null,finance,null'])->prefix('finance')->group(function () {
 
 Route::get('/financeDashboard',[FinanceController::class, 'financeDashboard'])->name('finance/financeDashboard');
 
@@ -107,7 +110,34 @@ Route::get('/checkFsNumberExists/{fs_number}',[FinanceController::class, 'checkF
 
 Route::get('/fetchStudentPaymentLoad/{stud_id}',[FinanceController::class, 'fetchStudentPaymentLoad']);
 
+Route::get('/fetchPaymentLoadDetail',[FinanceController::class, 'fetchPaymentLoadDetail']);
+
+Route::get('/editStudentTransportInfo/{student_id}/{payment_load_id}/{discount_percent}',[FinanceController::class, 'editStudentTransportInfo']);
+
+Route::get('/deleteTransportDetail/{student_id}/{payment_load_id}',[FinanceController::class, 'deleteTransportDetail']);
+
+
+
+
+
 });
+
+//user management
+
+Route::middleware(['role:admin,null,null'])->prefix('account')->group(function () {
+
+Route::get('/indexUserAccount',[UserManagementController::class,'indexUserAccount']);
+
+Route::get('/addRole/{role_name}', [UserManagementController::class, 'addRole']);
+
+Route::get('/viewRole', [UserManagementController::class, 'viewRole']);
+
+Route::get('/createAccount/{user_name}/{email}/{role_id}/{password}', [UserManagementController::class, 'createAccount']);
+
+Route::get('/viewUserAccount', [UserManagementController::class, 'viewUserAccount']);
+});
+
+
 //subject
 Route::get('/subject', [SubjectController::class, 'index']);
 
@@ -241,19 +271,29 @@ Route::get('my_student/{id}', [TeacherController::class,'myStudent']);
 
 Route::get('my_student/getClassSection/{class_Label}/{section}', [TeacherController::class,'getClassAndSection']);
 
+Route::get('/indexAttendance', [AttendanceController::class,'indexAttendance']);
+
+Route::get('/generateAttendanceList', [AttendanceController::class,'generateAttendanceList']);
+
+Route::get('/submitAttendance', [AttendanceController::class,'submitAttendance']);
+
+Route::get('/viewAttendance/{date}', [AttendanceController::class,'viewAttendance']);
+
+Route::get('/viewAttendanceForSpecificDate/{date}', [AttendanceController::class,'viewAttendanceForSpecificDate']);
+
 //Role
 
-Route::get('indexaddrole', [RoleController::class, 'indexAddRole']);
+// Route::get('indexaddrole', [RoleController::class, 'indexAddRole']);
 
-Route::get('addrole', [RoleController::class, 'addRole']);
+// Route::get('addrole', [RoleController::class, 'addRole']);
 
-Route::get('viewrole', [RoleController::class, 'viewRole'])->name('viewrole');
+// Route::get('viewrole', [RoleController::class, 'viewRole'])->name('viewrole');
 
-Route::get('editrole/{id}', [RoleController::class, 'editRole'])->name('editrole');
+// Route::get('editrole/{id}', [RoleController::class, 'editRole'])->name('editrole');
 
-Route::get('editrolevalue/{id}', [RoleController::class, 'editRoleValue']);
+// Route::get('editrolevalue/{id}', [RoleController::class, 'editRoleValue']);
 
-Route::get('/deleterole', [RoleController::class, 'deleteRole']);
+// Route::get('/deleterole', [RoleController::class, 'deleteRole']);
 
 // Student
 
@@ -277,6 +317,10 @@ Route::get('register/{id}',[StudentController::class, 'register']);
 
 Route::get('marklist/{id}',[StudentController::class, 'marklist']);
 
+Route::get('studentScore/{id}',[StudentController::class, 'studentScore']);
+
+Route::get('/getStudentMarkList',[MarklistController::class, 'getStudentMarkList']);
+
 Route::get('my_student/marklist/{id}',[StudentController::class, 'teacherMarklist']);
 
 // parent
@@ -296,6 +340,10 @@ Route::get('addNewParent',[ParentController::class, 'retriveAll']);
 Route::get('deleteParent',[ParentController::class, 'deleteParent']);
 
 Route::get('view_parents',[ParentController::class, 'retriveAll']);
+
+Route::get('/parentDashboard',[ParentController::class, 'ParentDashboard']);
+
+Route::get('/viewParentPaymentDetail',[ParentController::class, 'viewParentPaymentDetail']);
 
 // admin
 Route::get('dashboard',[StudentController::class, 'adminDashboard']);
@@ -317,6 +365,9 @@ Route::get('/addAssasment',[MarklistController::class, 'addAssasment'])->name('/
 Route::get('Assasmentform',[MarklistController::class, 'Assasmentform']);
 
 Route::get('editMarkStudentList/{id}/{mark}/{load}/{assasment}',[MarklistController::class, 'editMarkStudentList']);
+
+Route::get('setAvarageForClass/{classes}',[MarklistController::class, 'setAvarageForClass']);
+
 
 //Section
 
@@ -344,6 +395,29 @@ Route::get('deleteHomeRoom/{hoom_room_id}',[SectionController::class, 'deleteHom
 
 Route::get('setCurrentSemister/{id}',[SectionController::class, 'setCurrentSemister']);
 
+Route::get('customSection/{section}/{student}',[SectionController::class, 'customSection']);
+
+Route::get('getSectionedClasses',[SectionController::class, 'getSectionedClasses']);
+
+Route::get('getNotSectionedClasses',[SectionController::class, 'getNotSectionedClasses']);
+
+Route::get('getAllStudentForSectionning',[SectionController::class, 'getAllStudentForSectionning']);
+
+Route::get('assignSectionForStudent/{student}/{section}',[SectionController::class, 'assignSectionForStudent']);
+
+Route::get('setSectionForClass/{classes}/{stream}',[SectionController::class, 'setSectionForClass']);
+
+Route::get('setSectionForSelectedStudent/{student}/{section}',[SectionController::class, 'setSectionForSelectedStudent']);
+
+Route::get('setSectionAnyWayMode/{student}/{section}/{size}',[SectionController::class, 'setSectionAnyWayMode']);
+
+Route::get('setSectionAndMergeMode/{student}/{section}/{size}',[SectionController::class, 'setSectionAndMergeMode']);
+
+Route::get('addNewSectionAndSetMode/{student}/{section}/{size}',[SectionController::class, 'addNewSectionAndSetMode']);
+
+Route::get('setSectionAutoMode/{student}/{size}/{roomSize}',[SectionController::class, 'setSectionAutoMode']);
+
+
 //For Testing
 
 Route::post('/sample_student',[MarklistController::class, 'sample_student'])->name('sample_student');
@@ -362,5 +436,14 @@ Route::get('generateStudentCard', [MarklistController::class, 'generateTotalCard
 
 Route::get('addStudentTraits/{value}', [StudentPersonalDevelopmentController::class, 'addStudentTraits']);
 
+// Schedule
+
+Route::get('add_schedule', [ScheduleController::class, 'index']);
+
+Route::get('getSection/{class}/{stream}', [ScheduleController::class, 'getSection']);
+
+Route::get('addSchedule/{class}/{stream}/{subject}/{day}/{section}/{period}', [ScheduleController::class, 'addSchedule']);
+
+Route::get('getSubjectGroup/{class}', [ScheduleController::class, 'getSubjectGroup']);
 
 require __DIR__.'/auth.php';

@@ -108,9 +108,9 @@ class PreStudentsCardPerTermExport implements FromCollection,WithTitle,WithEvent
         return [
             'A' => 15,
             'B' => 20,
-            'C' => 10,
+            'C' => 15,
             'E' => 18,
-            'F' => 7,
+            'F' => 15,
         ];
     }
 
@@ -434,7 +434,7 @@ class PreStudentsCardPerTermExport implements FromCollection,WithTitle,WithEvent
                     ]
                 );
                 $event->sheet->getDelegate()->getStyle('A1:B1')->getAlignment('center');
-                
+
             },
         ];
     }

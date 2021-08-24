@@ -53,7 +53,16 @@
                             <div hidden>
                                 <select name="role" class="form-control select2bs4">
                                     @foreach ($role as $row)
-                                    <option @if ($row->role_name === 'Student')
+                                    <option @if ($row->role_name === 'student')
+                                        selected
+                                    @endif value="{{ $row->id }}">{{ $row->role_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div hidden>
+                                <select name="parent_role" class="form-control select2bs4">
+                                    @foreach ($role as $row)
+                                    <option @if ($row->role_name === 'parent')
                                         selected
                                     @endif value="{{ $row->id }}">{{ $row->role_name }}</option>
                                     @endforeach
@@ -146,7 +155,7 @@
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field col-12 row">
-                            <div class="col-4">
+                            <div class="col-5">
                                 <div class="label">Grade</div>
                             <select  id="studentGrade" type="text" name="grade" class="form-control" placeholder="Grade">
                                 <option> Grade</option>
@@ -157,7 +166,7 @@
                             {{-- <input id="studentGrade" type="number" name="grade" class="form-control" placeholder="Grade"> --}}
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                             </div>
-                            <div class="col-8">
+                            <div class="col-7">
                                 <div class="label">Stream</div>
                             <select  id="studentStream" type="number" name="stream" class="form-control" placeholder="Grade">
                                 <option>Stream</option>

@@ -225,6 +225,154 @@
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="view_transport_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">View Transportation Info Type</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <div class="card" style="width: 28rem;">
+                <div class="card-body" id="card_view_transport_info">
+                  <h5 id="student_id_view" class="text-primary"></h5>
+                  <h5 id="full_name_view" class="text-primary"></h5>
+                  <h5 id="class_label_view" class="text-primary"></h5>
+                  <h5 id="discount_view" class="text-primary"></h5>
+                  <h5 id="amount_view" class="text-primary"></h5>
+                  
+                
+                
+                </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="edit_transport_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Transportation Info </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <div class="card" style="width: 100%;">
+                <div class="card-body" id="card_edit_transport_info">
+                  <h5 id="student_id_edit" class="text-primary"></h5>
+                  <h5 id="full_name_edit" class="text-primary"></h5>
+                  <h5 id="class_label_edit" class="text-primary"></h5>
+                  <h5 id="amount_edit" class="text-primary"></h5>
+                  <div class="row no-gutters">
+                    <div class="col-3">
+                      <h5 class="text-primary">Discount Percent:</h5>
+                    </div>
+
+                    <div class="col-4">
+                      <input type="text"  id="transport_discount_edit_input" class="form-control" placeholder="enter discount percent">
+                    </div>
+                  </div>
+                  
+                  
+                
+                
+                </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="dismiss_edit_transport_modal">Cancel</button>
+              <button type="button" id="btn_edit_transport" class="btn btn-info" >Save Changes</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="delete_transport_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete Transportation Info</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <div class="card" style="width: 28rem;">
+                <div class="card-body">
+                  <h5 id="student_id_delete" class="text-primary"></h5>
+                  <h5 id="full_name_delete" class="text-primary"></h5>
+                  <h5 id="class_label_delete" class="text-primary"></h5>
+                  <h5 id="discount_delete" class="text-primary"></h5>
+                  <h5 id="amount_delete" class="text-primary"></h5>
+                  
+                
+                
+                </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal" id="cancel_delete_transport_detail">Cancel</button>
+              <button type="button" class="btn btn-danger" id="delete_transport_info_btn">Delete</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="view_tutorial_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">View Tutorial Info</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <div class="card" style="width: 28rem;">
+                <div class="card-body">
+                  <h5 id="student_id_tutorial_view" class="text-primary"></h5>
+                  <h5 id="full_name_tutorial_view" class="text-primary"></h5>
+                  <h5 id="class_label_tutorial_view" class="text-primary"></h5>
+                  <h5 id="discount_tutorial_view" class="text-primary"></h5>
+                  <h5 id="amount_tutorial_view" class="text-primary"></h5>
+                  
+                
+                
+                </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
   </div>
 
 @endsection
