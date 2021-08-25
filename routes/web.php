@@ -282,6 +282,11 @@ Route::get('/viewAttendance/{date}', [AttendanceController::class,'viewAttendanc
 
 Route::get('/viewAttendanceForSpecificDate/{date}', [AttendanceController::class,'viewAttendanceForSpecificDate']);
 
+Route::get('/indexAttendanceForParent', [ParentController::class,'indexAttendanceForParent']);
+
+Route::get('/getCurrentYearMonthForParentAttendance', [ParentController::class,'getCurrentYearMonthForParentAttendance']);
+
+Route::get('/viewStudentAttendanceForMonth/{year_month}', [ParentController::class,'viewStudentAttendanceForMonth']);
 //Role
 
 // Route::get('indexaddrole', [RoleController::class, 'indexAddRole']);

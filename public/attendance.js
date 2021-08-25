@@ -15,13 +15,13 @@ $(window).on("load", function () {
         current_date_global = current_date;
         section_data.forEach(d => {
             Object.assign(d,{action:     '<div class="form-check">'+
-            '<input class="form-check-input" type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'" data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="present" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',present" name="'+d.student_table_id+'" id="'+d.student_table_id+'present" checked>'+
+            '<input class="form-check-input"  type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'" data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="present" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',present" name="'+d.student_table_id+'" id="'+d.student_table_id+'present" checked>'+
             '<label class="form-check-label mr-5" for="flexRadioDefault1">Present</label>'+
             
-            '<input class="form-check-input" type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="absent" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',absent" name="'+d.student_table_id+'" id="'+d.student_table_id+'absent">'+
+            '<input class="form-check-input "  type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="absent" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',absent" name="'+d.student_table_id+'" id="'+d.student_table_id+'absent">'+
             '<label class="form-check-label mr-5" for="flexRadioDefault2">Absent</label>'+
             
-            '<input class="form-check-input" type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="leave" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',leave" name="'+d.student_table_id+'" id="'+d.student_table_id+'leave">'+
+            '<input class="form-check-input"  type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="leave" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',leave" name="'+d.student_table_id+'" id="'+d.student_table_id+'leave">'+
             '<label class="form-check-label mr-5" for="flexRadioDefault3">Leave</label>'+
             '</div>'
              
@@ -64,6 +64,9 @@ $('#submit_attendance').click(function () {
     // .rows()
     // .data();
     // console.log(data);
+   if ($('#ethio_date_inline').val() != "") {
+        
+   
     var date_format = null;
     var student_status_arr = new Array();
     
@@ -146,6 +149,18 @@ $('#submit_attendance').click(function () {
               });
            }
       });
+
+    }
+
+    else{
+        
+        Swal.fire({
+            icon: 'warning',
+            title: 'DATE CAN NOT BE EMPTY',
+            text: 'Please enter DATE!',
+          
+          });
+    }
 });
 
 $('#view_attendance_tab_link').click(function () { 

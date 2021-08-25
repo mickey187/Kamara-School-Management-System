@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use PHPUnit\Util\Json;
 use Illuminate\Support\Facades\Auth;
+use App\Models\attendance;
+use Andegna;
+
 
 class ParentController extends Controller{
 
@@ -163,10 +166,11 @@ class ParentController extends Controller{
             
             }
         }
-            
+           $student_absent_days = $this->getStudentAbsentDays($student_id);
+           //dd($student_absent_days);
          
-        return view('admin.parent.parent_dashboard')->with('unpaid_bill_counter',$unpaid_bill_counter)
-                    ->with('student_info',$student_info);
+        return view('parent.parent_dashboard')->with('unpaid_bill_counter',$unpaid_bill_counter)
+                    ->with('student_info',$student_info)->with('student_absent_days',$student_absent_days);
     }
 
     public function viewParentPaymentDetail(){
@@ -251,6 +255,87 @@ class ParentController extends Controller{
             }
         }
         //dd($decoded);
-        return view('admin.parent.parent_payment_detail')->with('unpaid_bills',$decoded["sliced"])->with('result_history',$decoded["result_history"]);
+        return view('parent.parent_payment_detail')->with('unpaid_bills',$decoded["sliced"])->with('result_history',$decoded["result_history"]);
+    }
+
+    public function indexAttendanceForParent(){
+
+        $now1 = \Andegna\DateTimeFactory::now();
+        $year_month = [];
+        for ($i=1; $i < 14 ; $i++) { 
+            if ($i==1 || $i==2 || $i==3 || $i==3 || $i==4 || $i==4 || $i==5 || $i==6 || $i==7 || $i==8 || $i==9 ) {
+                
+                $year_month[$i] = $now1->getYear()."-0".$i;
+
+            } else{
+
+                $year_month[$i] = $now1->getYear()."-".$i;
+            }
+            
+        }
+        //dd($year_month);
+        $current_year_month = $now1->getYear()."-".$now1->getMonth();
+
+        $parent_id = Auth::user()->user_id;
+        $student_id = students_parent::where('parent_id',$parent_id)->value('student');
+
+        $current_month_attendance_data = DB::table('attendances')
+                                    ->join('students','attendances.student_id','=','students.id')
+                                    ->join('classes','attendances.class_id','=','classes.id')
+                                    ->join('streams','attendances.stream_id','=','streams.id')
+                                    ->where('attendances.student_id',$student_id)
+                                    ->where('date','LIKE',$current_year_month.'%')
+                                    ->get([DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
+                                      ,'stream_type','section_name','class_label','status','date','students.student_id']);
+
+        return view('parent.view_student_attendance')->with('year_month',$year_month)->with('current_year_month',$current_year_month)
+                                                    ->with('current_month_attendance_data',$current_month_attendance_data);
+    }
+    public function getStudentAbsentDays($student_id){
+
+        $now1 = \Andegna\DateTimeFactory::now();
+        $student_absent_days = DB::table('attendances')
+                                    // ->join('students','attendances.student_id','=','students.id')
+                                    // ->join('classes','attendances.class_id','=','classes.id')
+                                    // ->join('streams','attendances.stream_id','=','streams.id')
+                                    ->where('student_id',$student_id)
+                                    ->where('date','LIKE',$now1->getYear().'%')
+                                    ->where('status','absent')
+                                    ->count();
+        return $student_absent_days;
+                                    
+
+
+    }
+
+    public function viewStudentAttendanceForMonth($year_month){
+
+        $parent_id = Auth::user()->user_id;
+        $student_id = students_parent::where('parent_id',$parent_id)->value('student');
+
+        $student_attendance_data = DB::table('attendances')
+                                    ->join('students','attendances.student_id','=','students.id')
+                                    ->join('classes','attendances.class_id','=','classes.id')
+                                    ->join('streams','attendances.stream_id','=','streams.id')
+                                    ->where('attendances.student_id',$student_id)
+                                    ->where('date','LIKE',$year_month.'%')
+                                    ->get([DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
+                                      ,'stream_type','section_name','class_label','status','date','students.student_id']);
+            return response()->json($student_attendance_data);
+    }
+
+    public function getCurrentYearMonthForParentAttendance(){
+
+        $now1 = \Andegna\DateTimeFactory::now();
+        if ( strlen($now1->getMonth()) < 2 ) {
+            
+            $current_year_month = $now1->getYear()."-0".$now1->getMonth();
+            return response()->json($current_year_month);
+        } else{
+            $current_year_month = $now1->getYear()."-".$now1->getMonth();
+            return response()->json($current_year_month);
+        }
+        
+
     }
 }

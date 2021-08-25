@@ -250,7 +250,7 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="{{ url('listTeacher') }}" class="nav-link">
+                                    <a href="{{ url('/indexAttendanceForParent') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Student Attendance</p>
                                     </a>
@@ -527,6 +527,7 @@ $(function() {
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('parent_portal.js') }}"></script>
+    <script src="{{ asset('parent_portal_student_attedance.js')}}"></script>
 
     <script>
         $(function() {

@@ -38,6 +38,9 @@ class AttendanceController extends Controller
                         ->join('classes','sections.class_id','=','classes.id')
                         ->where('sections.class_id',$home_room->class_id)->where('sections.stream_id',$stream_id)
                         ->where('section_name',$home_room->section)
+                        ->orderBy('students.first_name','ASC')
+                        ->orderBy('students.middle_name','ASC')
+                        ->orderBy('students.last_name','ASC')
                         ->get(['students.student_id','classes.class_label','sections.section_name',
                        DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
                        ,'sections.class_id','sections.stream_id','students.id AS student_table_id']);
@@ -188,4 +191,6 @@ class AttendanceController extends Controller
         //     return response()->json(['status'=>$status]);
         // }
     }
+
+    
 }

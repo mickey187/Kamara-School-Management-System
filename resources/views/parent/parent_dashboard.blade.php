@@ -55,14 +55,14 @@
                <div class="col-4">
                 <div class="small-box bg-warning">
                     <div class="inner">
-                      <h3 style="color: whitesmoke">2</h3>
+                      <h3 style="color: whitesmoke">{{$student_absent_days}}</h3>
 
                       <p style="color: whitesmoke">Attendance Missed</p>
                     </div>
                     <div class="icon" style="color:whitesmoke">
                         <i class="fas fa-school"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="/indexAttendanceForParent" class="small-box-footer">
                       More info <i class="fas fa-arrow-circle-right"></i>
                     </a>
                   </div>
