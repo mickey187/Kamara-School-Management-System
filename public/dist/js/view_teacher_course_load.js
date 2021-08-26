@@ -7,17 +7,17 @@ function getCourseLoad(id){
         success:function (data) {
             row = '';
             row2 = '';
-            var data1 = JSON.parse(JSON.stringify(data.teacher_courses));
-            console.log(data1);
-            data1.forEach(d => {
+            // var data1 = JSON.parse(JSON.stringify(data.teacher_courses));
+            console.log(data);
+            data.forEach(d => {
                // alert("Teacher Courses "+d.stream)
                 row+='<div class="col-4 mt-2">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section+','+d.teacher_id+','+d.stream+'">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section_label+','+d.teacher_id+','+d.stream_type+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
-                          '<label>'+d.class_label+' '+d.section+'</label><br>'+
+                          '<label>'+d.class_label+' '+d.section_label+'</label><br>'+
                           '<label>'+d.subject_name+'</label><br>'+
-                          '<label> Stream '+d.stream+'</label>'+
+                          '<label> Stream '+d.stream_type+'</label>'+
                           '</div>'+
                         '<div class="icon"><br>'+
                           '<i class="fas fa-users"></i>'+

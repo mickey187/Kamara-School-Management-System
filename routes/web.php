@@ -152,6 +152,7 @@ Route::post('/addsubject', [SubjectController::class, 'addSubject']);
 Route::post('deletesubject', [SubjectController::class, 'deleteSubject']);
 
 //subject group
+
 Route::get('subjectGroup/{classes}/{subjects}', [SubjectController::class, 'subjectGroup']);
 
 Route::get('/addsubjectgroup', [SubjectController::class, 'indexSubjectGroup'])->name('addsubjectgroup');
@@ -159,6 +160,12 @@ Route::get('/addsubjectgroup', [SubjectController::class, 'indexSubjectGroup'])-
 Route::get('viewsubjectgroup', [SubjectController::class, 'viewSubjectGroup'])->name('viewsubjectgroup');
 
 Route::post('addsubjectgroup', [SubjectController::class, 'addSubjectGroup']);
+
+// Subject Period
+
+Route::get('getSubjectForPeriod/{class}', [SubjectController::class, 'getSubjectForPeriod']);
+
+Route::get('setSubjectPeriod/{class}/{period}/{subject}', [SubjectController::class, 'setSubjectPeriod']);
 
 //class
 
@@ -362,9 +369,12 @@ Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
 Route::get('singleAddMarkList/{student_id}/{class_id}/{semister_id}/{assasment_id}/{subject}/{mark}/{load}',
 [MarklistController::class, 'singleAddMarkList']);
 
-Route::post('/import',[MarklistController::class, 'import'])->name('import');
+Route::post('/importStudent',[ExcelController::class, 'importStudent']);
 
 Route::post('importExcel',[ExcelController::class, 'importExcel'])->name('importExcel');
+
+Route::post('importExcel',[ExcelController::class, 'importExcel'])->name('importExcel');
+
 // Route::post('/importExcel/{gclass}/{gstream}/{gsection}',[ExcelController::class, 'importExcel'])->name('importExcel');
 
 Route::get('addAssasment',[MarklistController::class, 'addAssasment']);
@@ -388,9 +398,13 @@ Route::get('setSection/{class_id}/{stream_id}/{section}/{room}',[SectionControll
 
 Route::get('findSection/{id}',[SectionController::class, 'findSection']);
 
+Route::get('findSectionForHomeRoom/{id}',[SectionController::class, 'findSectionForHomeRoom']);
+
+Route::get('getSectionForSelectedStream/{class}/{stream}',[SectionController::class, 'getSectionForSelectedStream']);
+
 Route::get('setCourseLoad/{teacher}/{section}/{class}/{subject}',[SectionController::class, 'setCourseLoad']);
 
-Route::get('SetHomeRoom/{teacher}/{section}/{class}',[SectionController::class, 'setHomeRoom']);
+Route::get('setHomeRoom/{teacher}/{section}/{class}/{stream}',[SectionController::class, 'setHomeRoom']);
 
 Route::get('getCourseLoad/{id}',[SectionController::class, 'getCourseLoad']);
 
@@ -424,6 +438,7 @@ Route::get('addNewSectionAndSetMode/{student}/{section}/{size}',[SectionControll
 
 Route::get('setSectionAutoMode/{student}/{size}/{roomSize}',[SectionController::class, 'setSectionAutoMode']);
 
+Route::get('getCourseLoadData/{teacher_id}/{class_id}/{stream_id}/{section}/{subject_id}',[SectionController::class, 'getCourseLoadData']);
 
 //For Testing
 
@@ -452,5 +467,13 @@ Route::get('getSection/{class}/{stream}', [ScheduleController::class, 'getSectio
 Route::get('addSchedule/{class}/{stream}/{subject}/{day}/{section}/{period}', [ScheduleController::class, 'addSchedule']);
 
 Route::get('getSubjectGroup/{class}', [ScheduleController::class, 'getSubjectGroup']);
+
+
+// Home Room
+
+Route::get('getHomeRoomStream/{class}', [ListTeacherController::class, 'getHomeRoomStream']);
+
+Route::get('getHomeRoomSection/{class}/{stream}', [ListTeacherController::class, 'getHomeRoomSection']);
+
 
 require __DIR__.'/auth.php';

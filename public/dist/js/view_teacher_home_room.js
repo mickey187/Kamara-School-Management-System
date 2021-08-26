@@ -266,7 +266,7 @@ function getHomeRoomStudent(nb){
 
 
 function setAvarageForClass(val){
-
+ 
     $.ajax({
         type: "GET",
         url: "setAvarageForClass/"+val.value,

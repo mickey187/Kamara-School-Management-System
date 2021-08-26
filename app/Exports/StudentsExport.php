@@ -25,6 +25,7 @@ class StudentsExport implements FromCollection,WithHeadings,WithColumnFormatting
     public function __construct($class,$stream,$section,$assasment,$courseLoad,$subject)
     {
         $this->class = $class;
+        $this->grade = classes::where('id',$class)->get()->first();
         $this->stream = $stream;
         $this->section = $section;
         $this->assasment = $assasment;
@@ -57,7 +58,7 @@ class StudentsExport implements FromCollection,WithHeadings,WithColumnFormatting
         return [
             ['KAMARA SCHOOL'],
             ['STUDENT MARK LIST'],
-            ['GRADE '.$this->class.' STREAM '.$this->stream],
+            ['GRADE '.$this->grade->class_label.' STREAM '.$this->stream],
             ['SECTION '.$this->section],
             ['SUBJECT '.$this->subject],
             ['ASSASMENT TYPE '.$this->assasment.' PERCENTAGE '.$this->courseLoad.'%'],

@@ -1,3 +1,4 @@
+
 $('#modal_default').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var detail = button.data('detail');
@@ -84,3 +85,84 @@ $('#addSubjectToClass').click(function(){
         }
     });
 })
+
+$("#nav-Subject-period-tab").click(function(){
+    $("#nav-Subject-period").show();
+    $("#nav-Subject-group").hide();
+    $("#nav-Subject").hide();
+});
+
+$("#nav-Subject-group-tab").click(function(){
+    $("#nav-Subject-period").hide();
+    $("#nav-Subject-group").show();
+    $("#nav-Subject").hide();
+});
+
+$("#nav-Subject-tab").click(function(){
+    $("#nav-Subject-period").hide();
+    $("#nav-Subject-group").hide();
+    $("#nav-Subject").show();
+});
+$(window).on('load', function(){
+    $("#nav-Subject-period").hide();
+    $("#nav-Subject-group").hide();
+    $("#nav-Subject").show();
+});
+
+$('#getSubjectForPeriod').change(function(){
+    var classes = $(this).val();
+    var htmlString = '';
+    if(classes.length ===0){
+        $("#subjectList").html(htmlString);
+    }else
+        $.ajax({
+            type: "GET",
+            url: "getSubjectForPeriod/"+classes,
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                response.forEach(element => {
+                    htmlString += '<label class="PillList-item">'+
+                                '<input id="selectedSection" type="checkbox" name="subject" value="'+element.id+'">'+
+                                '<span class="PillList-label" >'+element.class+" "+element.subject+
+                                '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>'+
+                                '</span>'+
+                                '</label>';
+                });
+                htmlString += '<div class="row col-12"><div class="col-3"><input id="periodValue" class="form-control col-12" type="number" min="1" max ="10" placeholder="period">'+
+                                '</div><div class="col-3"><button onclick="addSubjectPeriod(this)" class="btn btn-primary col-12" type="button" value="'+classes+'">submit</button></div></div>';
+            $("#subjectList").html(htmlString);
+            }
+        });
+});
+
+function addSubjectPeriod(val) {
+    var subject = [];
+    var period = $("#periodValue").val();
+    var classes = val.value;
+
+    $('input[name="subject"]:checked').each(function(){
+         subject.push(this.value);
+    });
+    if(period === ''){
+       swal.fire('Fualt','please set period box?!','error')
+    }else if(subject.length === 0){
+        swal.fire('Fualt','please select subject box?!','error')
+    }else{
+        $.ajax({
+            type: "GET",
+            url: "setSubjectPeriod/"+classes+"/"+period+"/"+subject,
+            dataType: "json",
+            success: function (response) {
+                var spliter = response.split("-");
+                swal.fire(
+                    spliter[1],
+                    spliter[2],
+                    spliter[0]
+                  )
+            }
+            
+        });
+    }
+
+}
