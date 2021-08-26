@@ -305,6 +305,7 @@ class MarklistController extends Controller
 
     public function setAvarageForClass($classes){
         $data = explode(",",$classes);
+        $collection = collect();
         $getClass = classes::where('class_label',$data[1])->get()->first();
         $getStream = stream::where('stream_type',$data[2])->get()->first();
         $getStudent = DB::table('sections')
@@ -314,25 +315,45 @@ class MarklistController extends Controller
                         ->where('sections.class_id',$getClass->id)
                         ->where('sections.stream_id',$getStream->id)
                         ->where('section_name',$data[0])
-                        ->get();
+                        ->get(['students.id','sections.class_id','sections.stream_id']);
+        $one_student_mark = 0;
+        $one_student_load = 0;
+
         foreach($getStudent as $row){
+            $total_mark = 0;
+            $total_load = 0;
             $semister = semister::all();
-            $subject = SubjectGroup::where('class_id',$row->class_id)->get();
+            // $subject = SubjectGroup::where('class_id',$row->class_id)->get();
+            $subject = DB::table('subject_groups')
+                            ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                            ->where('class_id',$row->class_id)
+                            ->get(['subjects.id','subject_name']);
             foreach($subject as $sub){
-                $assasment = 0;
+                $load = 0;
                 $total = 0;
                 foreach($semister as $sem){
+                    error_log('Student_id: '.$row->id." subject_id: ".$sub->id." Semister_id: ".$sem->id." Day:".date("Y"));
                     $mark =student_mark_list::where('student_id',$row->id)
                                             ->where('subject_id',$sub->id)
                                             ->where('semister_id',$sem->id)
                                             ->where('academic_year',date("Y"))
-                                            ->get()
-                                            ->first();
-                }
+                                            ->get();
+                    foreach ($mark as $ma) {
+                        $total += $ma->mark;
+                        $load += $ma->test_load;
+                    }
+                    $total_mark += $total;
+                    $total_load +=$load;
 
+                }
+                $one_student_mark += $total_mark;
+                $one_student_load += $total_load;
             }
+            $item = (Object) ['student_id'=>$row->id,"mark"=>$$one_student_mark,"load"=>$one_student_load];
+            $collection->push($item);
+            
         }
-        return response()->json($getStudent);
+        return response()->json($collection);
     }
 }
 

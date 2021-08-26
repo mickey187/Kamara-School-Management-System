@@ -275,7 +275,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('') }}" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Parent List</p>
                                     </a>
@@ -467,7 +467,7 @@ $(function() {
     <script  src="js/jquery.calendars.ethiopian.js"></script>
     <script  src="js/jquery.calendars.ethiopian-am.js"></script>
     <script  src="js/jquery.calendars.picker-am.js"></script> --}}
-    
+
     <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.plugin.js')}}"></script>
     <script src="{{asset('plugins/AmharicDatepickerCalendar-master/js/jquery.calendars.js')}}"></script>
     <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.calendars.plus.js')}}"></script>
@@ -486,7 +486,7 @@ $(function() {
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-            
+
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,

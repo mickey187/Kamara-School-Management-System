@@ -14,6 +14,7 @@ use App\Models\employee;
 use App\Models\academic_background_info;
 use App\Models\attendance;
 use App\Models\classes;
+use App\Models\course_load;
 use App\Models\section;
 use App\Models\stream;
 use App\Models\subject;
@@ -40,8 +41,14 @@ class ListTeacherController extends Controller
         $subject = subject::all();
         $class = classes::all();
         $stream = stream::all();
+        $course_load = DB::table('course_loads')
+                         ->join('classes','course_loads.class_id','=','classes.id')
+                         ->join('streams','course_loads.stream_id','=','streams.id')
+                         ->join('subject_groups','course_loads.subject_group_id','=','subject_groups.id')
+                         ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                         ->get();
         //echo $teach_list;
-                 return view('admin.teacher.listTeacher')->with('teach_list',$teach_list)->with('subject',$subject)->with('stream',$stream)
+                 return view('admin.teacher.listTeacher')->with('teach_list',$teach_list)->with('subject',$subject)->with('stream',$stream)->with('course_load',$course_load)
                  ->with('class',$class);
     }
     public function teacher_classes($id){
@@ -80,6 +87,27 @@ class ListTeacherController extends Controller
                  return view('admin.teacher.listTeacher')->with('teach_list',$teach_list);
 
 
+    }
+
+    public function getHomeRoomStream($class){
+        $section = DB::table('sections')
+                    ->join('streams','sections.stream_id','=','streams.id')
+                    ->distinct('stream_type')
+                    ->where('class_id',$class)
+                    ->get(['stream_type','stream_id']);
+        return response()->json($section);
+    }
+
+
+    public function getHomeRoomSection($class,$stream){
+        $section2 = DB::table('sections')
+                    ->join('streams','sections.stream_id','=','streams.id')
+                    // ->join('classes','sections.class_id','=','classes.id')
+                    ->where('sections.stream_id',$stream)
+                    ->where('sections.class_id',$class)
+                    ->distinct('section_name')
+                    ->get(['sections.section_name']);
+        return response()->json($section2);
     }
 }
 

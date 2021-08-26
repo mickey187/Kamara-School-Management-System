@@ -74,8 +74,8 @@
                    {{-- <p class="text-primary float-left" type="button"  onclick="unhide();"><i class="fas fa-arrow-alt-circle-down"></i></p> --}}
                 <div style="display: block" id="add_mode">
                     <div class=" row col-12">
-                        <div class="col-5">
-                            Assign Class
+                        <div class="col-3">
+                            Grade
                             <div class="col-12">
                                     <div class="form-group">
                                         <select class=" form-control"name="class" id="singleClassId" >
@@ -86,16 +86,61 @@
                                     </div>
                             </div>
                         </div>
-                        <div class="col-5">
-                            Assign Subject
+                        <div class="col-3">
+                            Stream
                             <div class="form-group">
-                                <select class="form-control" id="selectedSubject" >
-                                    @foreach ( $subject as $row )
-                                        <option value="{{ $row->id }}">{{ $row->subject_name }}</option>
-                                    @endforeach
+                                <select class="form-control" data-placeholder="select Stream" id="selectedStream" >
+                                        <option></option>
                                 </select>
                             </div>
                         </div>
+                        <div class="col-2">
+                            Section
+                            <div class="form-group">
+                                <select class="form-control" id="selectedSection2" >
+                                        <option></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            Subject
+                            <div class="form-group">
+                                <select class="form-control" id="selectedSubject" >
+                                        <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-1 mt-4">
+                            <div class="form-group">
+                                <input type="button" class="btn btn-primary form-control" value="Assign" id="addCourseLoad">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="col-12 float-left" >
+                            <table id="course_load_table" class="table table-bordered table-striped table-sm">
+                                <thead>
+                                    <th>Grade</th>
+                                    <th>stream</th>
+                                    <th>Section</th>
+                                    <th>Subject</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {{-- Assign Course Load
+                    <div class="form-group">
+                        <select class="form-control" id="selectedSubject" >
+                            @foreach ( $course_load as $row )
+                                <option value="{{ $row->id }}">{{ $row->day." Period: ".$row->period_number." Grade: ".$row->class_label." ".$row->stream_type." Section: ".$row->section_label." Subject: ".$row->subject_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                         <div class=" col-2"><br>
                             <div class="form-group">
                                 <input type="button" class="btn btn-primary form-control" value="Add" id="assignTeacherToClsss">
@@ -108,10 +153,10 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> --}}
                 </div>
                 {{-- <p class="text-primary float-left" type="button"  onclick="colapse();"><i class="fas fa-arrow-alt-circle-up"></i></p> --}}
-                <div class="col-4 text-lg float-left">Teacher Classes </div>
+                {{-- <div class="col-4 text-lg float-left">Teacher Classes </div>
 
                 <div class="row col-12 form-group">
                     <div class="col-12 float-left" >
@@ -126,7 +171,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
                 </div>
                 <!-- /.modal-content -->
               </div>
@@ -160,10 +205,10 @@
                 </div>
                 <div style="display: block" id="add_mode">
                     <div class=" row col-12">
-                        <div class="col-5">
+                        {{-- <div class="col-5">
                             Assign Class
                             <div class="col-12">
-                                    <div class="form-group">
+                                    <div class="form-group ">
                                         <select class=" form-control"name="class" id="singleClassId2" >
                                             @foreach ( $class as $row )
                                                 <option value="{{ $row->id }}">{{ $row->class_label }}</option>
@@ -171,22 +216,44 @@
                                         </select>
                                     </div>
                             </div>
-                        </div>
-                        {{-- <div class="col-5">
-                            Assign Subject
-                            <div class="form-group">
-                                <select class="form-control" id="selectedSubject2" >
-                                    @foreach ( $subject as $row )
-                                        <option value="{{ $row->id }}">{{ $row->subject_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                         </div> --}}
-                        <div class=" col-2"><br>
-                            <div class="form-group">
-                                <input type="button" class="btn btn-primary form-control" value="Add" id="assignTeacherHomeRoom">
+                        <div class=" row col-12">
+                            <div class="col-3">
+                                Grade
+                                <div class="col-12">
+                                        <div class="form-group">
+                                            <select class=" form-control"name="class" id="homeRoomClass" >
+                                                @foreach ( $class as $row )
+                                                    <option value="{{ $row->id }}">{{ $row->class_label }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                </div>
                             </div>
+                            <div class="col-3">
+                                Stream
+                                <div class="form-group">
+                                    <select class="form-control" data-placeholder="select Stream" id="homeRoomStream" >
+                                            <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                Section
+                                <div class="form-group">
+                                    <select class="form-control" id="homeRoomSection" >
+                                            <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3 mt-4">
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-primary form-control" value="Assign" id="addHomeRoom">
+                                </div>
+                            </div>
+
                         </div>
+             
                     </div>
                     <div class="col-12">
                         <div class="row">
@@ -200,13 +267,14 @@
 
                 <div class="row col-12 form-group">
                     <div class="col-12 float-left" >
-                        <table class="table table-bordered table-striped table-sm">
+                        <table id="home_room_table" class="table table-bordered table-striped table-sm">
                             <thead>
                                 <th>Grade</th>
+                                <th>stream</th>
                                 <th>Section</th>
                                 <th>Action</th>
                             </thead>
-                            <tbody id="homeroom">
+                            <tbody>
                             </tbody>
                         </table>
                     </div>

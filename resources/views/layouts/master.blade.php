@@ -497,6 +497,8 @@
                                         <p>User Account</p>
                                     </a>
                                 </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-calendar"></i>
@@ -765,6 +767,7 @@ $(function() {
     <script src="{{ asset('dist/css/checkbox.css') }}"></script>
     <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
     <script src="{{ asset('dist/js/semister_status.js') }}"></script>
+    <script src="{{ asset('dist/js/course_load.js') }}"></script>
 
     <!-- Page specific script -->
 
