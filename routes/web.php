@@ -228,6 +228,7 @@ Route::get('/edit_employee/{id}',[ListEmployeeController::class, 'getEmployee'])
 Route::get('/update_employee/{id}',[EmployeeRegistrationController::class, 'update']);
 
 Route::get('/delete_employee',[ListEmployeeController::class,'removeEmployee']);
+
 Route::get('/delete_employee/{id}',[ListEmployeeController::class,'removeEmployee']);
 
 Route::get('/trash_employee/{id}',[EmployeeRegistrationController::class,'delete']);

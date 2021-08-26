@@ -49,7 +49,7 @@ class AuthenticatedSessionController extends Controller
                 return redirect('teacherDashBoard');
                 break;
             case 'student':
-                return "This is Student";
+                return response()->view('errors.401',[],401);;
                 break;
             case 'admin':
                 return redirect()->intended(RouteServiceProvider::HOME);
@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
                 return redirect('parentDashboard');
                 break;
             default:
-                return 'Default';
+                return response()->view('errors.401',[],401);;
            // return redirect()->intended(RouteServiceProvider::HOME);
                 break;
         }
