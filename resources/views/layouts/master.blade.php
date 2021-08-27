@@ -270,12 +270,6 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a onclick="studentSkill();" style="cursor: pointer;" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Student Traits</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a  data-toggle="modal"
                                         data-detail=""
                                         data-target="#modal-import-excel"
@@ -483,6 +477,12 @@
                                     <a href="/viewrole" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Role </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a onclick="studentSkill();" style="cursor: pointer;" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Student Traits</p>
                                     </a>
                                 </li>
                             </ul>

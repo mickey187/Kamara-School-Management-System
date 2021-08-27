@@ -462,8 +462,8 @@ class StudentController extends Controller{
 
     public function getStudentGender(){
         $gender_of_students = array();
-        array_push($gender_of_students, student::where('gender','male')->count());
-        array_push($gender_of_students, student::where('gender','female')->count());
+        array_push($gender_of_students, student::where('gender','M')->count());
+        array_push($gender_of_students, student::where('gender','F')->count());
         return response()->json($gender_of_students);
     }
     function adminDashboard(){
@@ -474,7 +474,7 @@ class StudentController extends Controller{
                                     ->join('employee_job_positions','employees.employee_job_position_id','=','employee_job_positions.id')
                                     ->where('position_name','Teacher')
                                     ->count();
-        
+
         return view('admin.dashboard')->with('number_of_students',$number_of_students)
         ->with('number_of_employees',$number_of_employees)->with('number_of_teachers',$number_of_teachers);
     }
