@@ -462,8 +462,8 @@ class StudentController extends Controller{
 
     public function getStudentGender(){
         $gender_of_students = array();
-        array_push($gender_of_students, student::where('gender','M')->count());
-        array_push($gender_of_students, student::where('gender','F')->count());
+        array_push($gender_of_students, student::where('gender','male')->count());
+        array_push($gender_of_students, student::where('gender','female')->count());
         return response()->json($gender_of_students);
     }
     function adminDashboard(){
