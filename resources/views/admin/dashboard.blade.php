@@ -104,10 +104,10 @@
         </div>
 
 
-        <div class="row col-12" >
+        {{-- <div class="row col-12" > --}}
 
-                <div class="row">
-                  <div class="col-6">
+                <div class="row justify-content-center">
+                  <div class="col-8 ">
                     <div class="card card-secondary">
                       <div class="card-header">
                         <h3 class="card-title">Student's Gender</h3>
@@ -117,12 +117,12 @@
                         </div>
                       </div>
                       <div class="card-body">
-                        <canvas id="student_gender_chart" width="400" height="250"></canvas>
+                        <canvas id="student_gender_chart" width="400" height="180"></canvas>
                       </div>
                       <!-- /.card-body -->
                     </div>
                   </div>
-                  <div class="card card-secondary col-6">
+                  {{-- <div class="card card-secondary col-6">
                     <div class="card-header">
                       <h3 class="card-title">Student Status</h3>
                       <div class="card-tools">
@@ -134,11 +134,11 @@
                       </div>
                     </div>
                     <!-- /.card-body -->
-                  </div>
+                  </div> --}}
 
 
                 </div>
-            </div>
+            {{-- </div> --}}
         </section>
     </div>
 </div>
