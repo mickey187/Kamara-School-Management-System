@@ -812,6 +812,9 @@ $(function() {
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('dist/js/schedule.js') }}"></script>
 
+
+    <script src="{{ asset('root_admin_dashboard.js') }}"></script>
+
     <script>
         $(function() {
             $("#example1").DataTable({

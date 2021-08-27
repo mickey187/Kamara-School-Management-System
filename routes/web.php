@@ -337,6 +337,8 @@ Route::get('/getStudentMarkList',[MarklistController::class, 'getStudentMarkList
 
 Route::get('my_student/marklist/{id}',[StudentController::class, 'teacherMarklist']);
 
+Route::get('/getStudentGender',[StudentController::class, 'getStudentGender']);
+
 // parent
 
 Route::get('newParent/{id}',[ParentController::class, 'addMore']);
