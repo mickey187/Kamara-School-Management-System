@@ -94,24 +94,20 @@ class StudentImport implements ToModel,WithHeadingRow,WithStartRow{
 
 
     public function idGeneratorFun(){
-
-        $fourRandomDigit = rand(1000,9999);
+        $fourRandomDigit = rand(100000,999999);
         $student = student::get(['student_id']);
         $employee = employee::get(['employee_id']);
         $parent = students_parent::get(['parent_id']);
-
         foreach($student as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
-
         foreach($employee as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
-        }
-        foreach($parent as $row){
+        }foreach($parent as $row){
             if($row->id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }

@@ -19,15 +19,15 @@ class UserManagementController extends Controller
     }
 
     public function indexUserAccount(){
-        
-        return view('admin.user_management.user_account_management');                        
+
+        return view('admin.user_management.user_account_management');
     }
 
     public function addRole($role_name){
 
         $status = null;
 
-        
+
 
         if (Role::where('role_name','LIKE','%'.$role_name.'%')->exists()) {
             $status = "already exists";
@@ -49,7 +49,7 @@ class UserManagementController extends Controller
         }
         }
 
-       
+
     }
 
     public function viewRole(){
@@ -68,7 +68,7 @@ class UserManagementController extends Controller
 
         elseif (!User::where('email',$email)
             ->where('name',$user_name)->exists()) {
-            
+
                 $user = new User();
                 $user->user_id = $this->idGeneratorFun();
                 $user->name = $user_name;
@@ -94,7 +94,7 @@ class UserManagementController extends Controller
     }
 
     public function idGeneratorFun(){
-        $fourRandomDigit = rand(1000,9999);
+        $fourRandomDigit = rand(100000,999999);
         $student = student::get(['student_id']);
         $employee = employee::get(['employee_id']);
         $parent = students_parent::get(['parent_id']);

@@ -129,9 +129,9 @@ function getHomeRoomStudent(nb){
                       '</div>'+
                   '</div>'+
               '</section><br>'+
-                  '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1" class="table table-striped table-lg"'+
-                    '<thead class"card bg-primary">'+
-                        '<th scope="col" class="text-center">No</th>'+
+                  '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1" class="table table-striped table-xl"'+
+                    '<thead class"card bg-primary ">'+
+                        '<th class="text-center">No</th>'+
                         '<th class="text-center">Full Name</th>'+
                         '<th class="text-center">Gender</th>'+
                         '<th class="text-center"><button onclick="setAvarageForClass(this)" class="btn btn-success btn-sm" value="'+section+","+class_name+","+stream+'" > set yearly average </button></th>'+
@@ -140,21 +140,44 @@ function getHomeRoomStudent(nb){
 
             section1.forEach(d => {
                 newSemister = 0;
-                row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle"  aria-expanded="false">'+
-                        '<td class="text-center">'+count+'</td>'+
-                        '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
-                        '<td class="text-center">'+d.gender+'</td>'+
-                        '<td class="text-center">'+d.avarage+'</td>'+
-                        '<td class="text-center">'+d.status+'</td>'+
-                     '</tr>'+
-                     '<td colspan="12" class="hiddenRow">'
+                if(d.status === "pass"){
+                    row+='<tr style="cursor: pointer; " data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-success bordered border-success"  aria-expanded="false">'+
+                                '<td class="text-center">'+count+'</td>'+
+                                '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
+                                '<td class="text-center">'+d.gender+'</td>'+
+                                '<td class="text-center">'+d.avarage+'</td>'+
+                                '<td class="text-center">'+d.status+'</td>'+
+                            '</tr>'+
+                            '<td colspan="12" class="hiddenRow">';
+                }else if(d.status === "fail"){
+                    row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle  bg-danger"  aria-expanded="false">'+
+                                '<td class="text-center">'+count+'</td>'+
+                                '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
+                                '<td class="text-center">'+d.gender+'</td>'+
+                                '<td class="text-center">'+d.avarage+'</td>'+
+                                '<td class="text-center">'+d.status+'</td>'+
+                            '</tr>'+
+                            '<td colspan="12" class="hiddenRow">';
+                }else{
+                        row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-white"  aria-expanded="false">'+
+                                '<td class="text-center">'+count+'</td>'+
+                                '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
+                                '<td class="text-center">'+d.gender+'</td>'+
+                                '<td class="text-center">'+d.avarage+'</td>'+
+                                '<td class="text-center">'+d.status+'</td>'+
+                            '</tr>'+
+                            '<td colspan="12" class="hiddenRow">';
+                }
                 semister1.forEach(d3 =>{
                     subject = [];
                     all_total = 0;
                     all_percent = 0;
                     replace_td='';
+                    style = '';
+                    if(!d3.current_semister)
+                        style='style="display:none;"';
                     row+='<div class="d-flex justify-content-center">'+
-                    '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
+                    '<div '+style+' class="accordian-body collapse col-8" id="demo1'+count+'">'+
                     '<table class="table bordered table-striped table-sm">'+
                         '<thead class="text-dark">'+
                             '<div class="row card-sm card  card-sm bg-secondary">'+
@@ -266,7 +289,7 @@ function getHomeRoomStudent(nb){
 
 
 function setAvarageForClass(val){
- 
+
     $.ajax({
         type: "GET",
         url: "setAvarageForClass/"+val.value,
@@ -274,7 +297,6 @@ function setAvarageForClass(val){
         success: function (response) {
             console.log(response);
             swal.fire("response");
-
         }
     });
 

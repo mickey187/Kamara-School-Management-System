@@ -103,43 +103,7 @@
             </div>
         </div>
         <div class="row col-12" >
-                <div class="col-3">
-                  <div class="col-12" style="margin-top: 20px;">
-                      <a  style="cursor: pointer;" onclick="studentSkill();">
-                          <div class="small-box bg-primary">
-                              <div class="inner p-3">
-                                <p>Student Basic Skill</p><br>
-                              </div>
-                              <div class="icon"><br>
-                                <i class="fas fa-users"></i>
-                              </div>
-                              <a  class="small-box-footer">More info
-                                  <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                      </a>
-                  </div>
-              </div>
-                <div class="col-3">
-                    <div class="col-12" style="margin-top: 20px;">
-                        <a  style="cursor: pointer;"
-                            data-toggle="modal"
-                            data-detail=""
-                            data-target="#modal-import-excel"
-                        >
-                            <div class="small-box bg-primary">
-                                <div class="inner p-3">
-                                <p>Import Student Data</p><br>
-                                </div>
-                                <div class="icon"><br>
-                                <i class="fas fa-users"></i>
-                                </div>
-                                <a  class="small-box-footer">More info
-                                    <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-          </div>
+
 
                 <div class="row">
                   <div class="col-6">

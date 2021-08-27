@@ -96,7 +96,7 @@ function getCourseLoadStudent(nb){
                         '</thead>'+'<tbody>'
 
                 section1.forEach(d => {
-                    row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-white"  aria-expanded="false">'+
                             '<td>'+count+'</td>'+
                             '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                             '<td>'+d.gender+'</td>'+
@@ -105,8 +105,11 @@ function getCourseLoadStudent(nb){
                     semister1.forEach(d3 =>{
                         all_total = 0;
                         all_percent = 0;
+                        style = '';
+                        if(!d3.current_semister)
+                            style='style="display:none;"';
                         row+='<div class="d-flex justify-content-center">'+
-                        '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
+                        '<div '+style+' class="accordian-body collapse col-8" id="demo1'+count+'">'+
                         '<table class="table  table-striped table-sm">'+
                             '<thead class="text-dark">'+
                                 '<div class="row  card-sm card  card-sm bg-secondary">'+
@@ -325,7 +328,7 @@ function sendMarkList(){
                                     '<td class="text-center">'+
                                         '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+name+','+d2.subject_name+','+d2.semister+'-'+d2.term+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
                                     '</td>'+
-                                '</tr>'
+                                '</tr>';
                             }else{
                             row+=
                             '<tr class="text-primary" id="'+d2.id+'">'+
@@ -336,7 +339,7 @@ function sendMarkList(){
                                 '<td class="text-center">'+
                                     '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+name+','+d2.subject_name+','+d2.semister+'-'+d2.term+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
                                 '</td>'+
-                            '</tr>'
+                            '</tr>';
                             }
                     }
             });

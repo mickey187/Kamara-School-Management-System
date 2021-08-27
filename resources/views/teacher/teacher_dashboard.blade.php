@@ -254,7 +254,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" onclick="closeAddMl()" class="btn btn-secondary" data-dismiss="modal-editMark">Close</button>
-                    <button type="button" onclick="sendMarkList()" class="btn btn-primary">Save changes</button>
+                    <button type="button" onclick="sendMarkList()" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>

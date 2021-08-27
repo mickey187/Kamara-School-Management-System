@@ -196,10 +196,6 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-
-
-
-
                         <li class="nav-item">
                             <a href="{{ url('dashboard') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -277,7 +273,22 @@
                                         <p>Sectioning</p>
                                     </a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a onclick="studentSkill();" style="cursor: pointer;" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Student Traits</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a  data-toggle="modal"
+                                        data-detail=""
+                                        data-target="#modal-import-excel"
+                                        class="nav-link"
+                                        style="cursor: pointer;">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Import Student Data</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
