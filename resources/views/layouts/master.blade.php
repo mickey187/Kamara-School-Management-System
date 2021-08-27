@@ -272,7 +272,7 @@
                                 <li class="nav-item">
                                     <a  data-toggle="modal"
                                         data-detail=""
-                                        data-target="#modal-import-excel"
+                                        data-target="#modal-import-excel2"
                                         class="nav-link"
                                         style="cursor: pointer;">
                                         <i class="far fa-circle nav-icon"></i>

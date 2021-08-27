@@ -1083,7 +1083,7 @@ class SectionController extends Controller
                                 ->where('stream_id',$stream_id)
                                 ->where('subject_group_id',$subject_id)
                                 ->where('section_label',$section)
-                                ->exists();
+                                ->exists(); 
         // $check_teacher_course_load = teacher_course_load::where('course_load_id',$check_course_load->id)->get();
         if (!$check_course_load) {
             $course_load = new course_load();
@@ -1091,6 +1091,7 @@ class SectionController extends Controller
             $course_load->stream_id  = $stream_id;
             $course_load->subject_group_id  = $subject_id;
             $course_load->section_label = $section;
+
             if ($course_load->save()) {
                 $teacher_course_load = new teacher_course_load();
                 $teacher_course_load->course_load_id = $course_load->id;
