@@ -32,7 +32,8 @@ class AttendanceController extends Controller
         $employee = employee::where('employee_id',$user_id)->first();
         $employee_id = employee::where('employee_id',$user_id)->value('id');
         $home_room = home_room::where('employee_id',$employee_id)->first();
-        $stream_id = stream::where('stream_type',$home_room->stream)->value('id');
+        //$stream_id = stream::where('stream_type',$home_room->stream)->value('id');
+        $stream_id = home_room::where('employee_id',$employee_id)->value('stream_id');
         $section = DB::table('sections')
                         ->join('students','sections.student_id','=','students.id')
                         ->join('classes','sections.class_id','=','classes.id')
@@ -105,7 +106,8 @@ class AttendanceController extends Controller
         $employee = employee::where('employee_id',$user_id)->first();
         $employee_id = employee::where('employee_id',$user_id)->value('id');
         $home_room = home_room::where('employee_id',$employee_id)->first();
-        $stream_id = stream::where('stream_type',$home_room->stream)->value('id');
+       // $stream_id = stream::where('stream_type',$home_room->stream)->value('id');
+        $stream_id = home_room::where('employee_id',$employee_id)->value('stream_id');
 
         $student_attendance = DB::table('attendances')
                                 ->join('students','attendances.student_id','=','students.id')
@@ -137,7 +139,8 @@ class AttendanceController extends Controller
         $employee = employee::where('employee_id',$user_id)->first();
         $employee_id = employee::where('employee_id',$user_id)->value('id');
         $home_room = home_room::where('employee_id',$employee_id)->first();
-        $stream_id = stream::where('stream_type',$home_room->stream)->value('id');
+        //$stream_id = stream::where('stream_type',$home_room->stream)->value('id');
+        $stream_id = home_room::where('employee_id',$employee_id)->value('stream_id');
 
         $student_attendance = null;
 
@@ -212,7 +215,7 @@ class AttendanceController extends Controller
 
     public function getHomeRoomAttendance($year_month){
 
-        
+
     }
 
     
