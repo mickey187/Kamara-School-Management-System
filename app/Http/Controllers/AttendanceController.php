@@ -11,6 +11,7 @@ use App\Models\home_room;
 use App\Models\stream;
 use App\Models\student;
 use App\Models\attendance;
+use App\Models\semister;
 use DateTime;
 use Andegna;
 
@@ -59,7 +60,10 @@ class AttendanceController extends Controller
     public function submitAttendance(Request $req){
         $new_arr = $req->student_status_arr;
         $status = null;
-     
+        
+        $current_semister_and_quarter_id = semister::where('current_semister',true)->value('id');
+        $now1 = \Andegna\DateTimeFactory::now();
+        $academic_calendar = $now1->getYear();
       
         foreach ($new_arr as $key) {
            //error_log($key->student_table_id);
@@ -77,6 +81,8 @@ class AttendanceController extends Controller
             $attendance->section_name = $key["section_name"];
             $attendance->status = $key["status"];
             $attendance->date = $key["date"];
+            $attendance->semister_id = $current_semister_and_quarter_id;
+            $attendance->academic_calendar = $academic_calendar;
             if ($attendance->save()) {
                 $status = "success";
             }
@@ -215,6 +221,8 @@ class AttendanceController extends Controller
 
     public function getHomeRoomAttendance($year_month){
 
+        $all_sections = section::distinct()->get(['class_id','stream_id','section_name']);
+        return response()->json($all_sections);
 
     }
 

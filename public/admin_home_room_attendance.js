@@ -14,6 +14,7 @@ function getHomeRoomAttendance(year_month) {
         dataType: "json",
         success: function (data) {
             
+            console.log(data);
         }
     });
  }
