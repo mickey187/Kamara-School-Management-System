@@ -145,7 +145,7 @@
 
 
 <!-- /.modal-dialog-Import Excel File -->
-<div class="modal_class">
+<div class="modal_class"> 
     <div class="modal fade" id="modal-import-excel2">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content ">
