@@ -825,10 +825,14 @@ class SectionController extends Controller
         $student_subject = array();
         $hoom_room = home_room::where('employee_id',$teacher_id)->get();
         $teacher_home_room = DB::table('home_rooms')
-        ->join('classes','home_rooms.class_id','classes.id')
-        ->join('streams','home_rooms.stream_id','streams.id')
-        ->where('employee_id',$teacher_id)
-        ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type']);
+                                    ->join('classes','home_rooms.class_id','classes.id')
+                                    ->join('streams','home_rooms.stream_id','=','streams.id')
+                                    ->where('employee_id',$teacher_id)
+                                    ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type as stream']);
+        // ->join('classes','home_rooms.class_id','classes.id')
+        // ->join('streams','home_rooms.stream_id','streams.id')
+        // ->where('employee_id',$teacher_id)
+        // ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type']);
         return response()->json($teacher_home_room);
     }
 
@@ -950,9 +954,13 @@ class SectionController extends Controller
         $del->delete();
 
         $teacher_home_room = DB::table('home_rooms')
-                                ->join('classes','home_rooms.class_id','classes.id')
-                                ->where('employee_id',$id)
-                                ->get(['class_label','section','home_rooms.id as id','stream']);
+        ->join('classes','home_rooms.class_id','classes.id')
+                                    ->join('streams','home_rooms.stream_id','=','streams.id')
+                                    ->where('employee_id',$id)
+                                    ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type as stream']);
+                                // ->join('classes','home_rooms.class_id','classes.id')
+                                // ->where('employee_id',$id)
+                                // ->get(['class_label','section','home_rooms.id as id','stream']);
 
         return response()->json($teacher_home_room);
     }
@@ -961,7 +969,8 @@ class SectionController extends Controller
         $getStream = stream::where('id',$stream)->get()->first();
         $validate = home_room::where('class_id',$class)
                             ->where('section',$section)
-                            ->where('stream',$getStream->stream_type)
+                            // ->where('stream',$getStream->stream_type)
+                            ->where('stream_id',$stream)
                             ->exists();
         if (!$validate) {
             $home = new home_room();
