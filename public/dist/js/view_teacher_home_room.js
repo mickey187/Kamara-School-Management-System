@@ -129,7 +129,7 @@ function getHomeRoomStudent(nb){
                       '</div>'+
                   '</div>'+
               '</section><br>'+
-                  '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1" class="table table-striped table-xl"'+
+                  '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1"  class="table table-striped table-bordered table-xl"'+
                     '<thead class"card bg-primary ">'+
                         '<th class="text-center">No</th>'+
                         '<th class="text-center">Full Name</th>'+
@@ -141,7 +141,7 @@ function getHomeRoomStudent(nb){
             section1.forEach(d => {
                 newSemister = 0;
                 if(d.status === "pass"){
-                    row+='<tr style="cursor: pointer; " data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-success bordered border-success"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer; border: 1.5px solid #228B22 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-success bordered border-success"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
@@ -150,7 +150,7 @@ function getHomeRoomStudent(nb){
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
                 }else if(d.status === "fail"){
-                    row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle  bg-danger"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer; border: 1.5px solid #FF3030 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle  bg-white"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
@@ -159,7 +159,7 @@ function getHomeRoomStudent(nb){
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
                 }else{
-                        row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-white"  aria-expanded="false">'+
+                        row+='<tr style="cursor: pointer; border: 1.5px solid #DCDCDC !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-white"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
@@ -211,11 +211,21 @@ function getHomeRoomStudent(nb){
                                             console.log(total);
                                         }
                                     });
-                                    row+=
-                                    '<tr class="text-primary">'+
-                                        '<td class="text-center">'+ d2.subject_name+' </td>'+
-                                        '<td class="text-center">'+parseInt(total)+'/'+parseInt(percent)+'</td>'+
-                                    '</tr>'
+                                    if(parseInt(percent) > 100){
+                                        total = (parseInt(total) * 100) / parseInt(percent);
+                                        row+=
+                                        '<tr class="text-primary">'+
+                                            '<td class="text-center">'+ d2.subject_name+' </td>'+
+                                            '<td class="text-center">'+parseInt(total)+'/'+100+'</td>'+
+                                        '</tr>';
+                                    }else{
+                                        row+=
+                                        '<tr class="text-primary">'+
+                                            '<td class="text-center">'+ d2.subject_name+' </td>'+
+                                            '<td class="text-center">'+parseInt(total)+'/'+parseInt(percent)+'</td>'+
+                                        '</tr>';
+                                    }
+
                                     all_total = all_total + total;
                                     all_percent = all_percent + 1;
                                     subject.push(d2.subject_name);

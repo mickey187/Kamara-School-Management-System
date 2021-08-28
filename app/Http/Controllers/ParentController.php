@@ -154,21 +154,21 @@ class ParentController extends Controller{
                             ->get(["students.student_id",
                             DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name'),"class_label","section_name","students.image"]);
         $student_payment_history = (new FinanceController)->fetchPaymentHistory($student_id);
-        
-        
+
+
         $decoded = json_decode($student_payment_history->content(),true);
-     
+
         $unpaid_bill_counter = 0;
         foreach ($decoded["sliced"] as $key) {
             foreach ($key as $key2) {
                 $unpaid_bill_counter++;
 
-            
+
             }
         }
            $student_absent_days = $this->getStudentAbsentDays($student_id);
            //dd($student_absent_days);
-         
+
         return view('parent.parent_dashboard')->with('unpaid_bill_counter',$unpaid_bill_counter)
                     ->with('student_info',$student_info)->with('student_absent_days',$student_absent_days);
     }
@@ -177,20 +177,20 @@ class ParentController extends Controller{
         $parent_id = Auth::user()->user_id;
         $student_id = students_parent::where('parent_id',$parent_id)->value('student');
         $student_payment_history = (new FinanceController)->fetchPaymentHistory($student_id);
-        
-        
+
+
         $decoded = json_decode($student_payment_history->content(),true);
 
         foreach ($decoded["sliced"] as $key) {
             foreach ($key as $key2) {
-                
+
                 $year_month_array = array();
                 $year_month_array = explode("-",$key2["payment_month"]);
                 //print_r($year_month_array);
                 //$key2["payment_month"] = "hello";
                 //dd($key2["payment_month"]);
                 //dd($year_month_array[1]);
-                //$arr = 
+                //$arr =
                switch ($year_month_array[1]) {
                    case "01":
                         print_r("hello");
@@ -221,7 +221,7 @@ class ParentController extends Controller{
                            $key2["payment_month"] = "መጋቢት ".$year_month_array[0];
                             break;
 
-                    case "08":               
+                    case "08":
                             $key2["payment_month"] = "ሚያዚያ ".$year_month_array[0];
                             break;
 
@@ -244,14 +244,14 @@ class ParentController extends Controller{
                     case "13":
                             $key2["payment_month"] = "ጷግሜ ".$year_month_array[0];
                             break;
-                   
+
                    default:
                        # code...
                        print_r("hello");
                        break;
                }
 
-            
+
             }
         }
         //dd($decoded);
@@ -262,16 +262,16 @@ class ParentController extends Controller{
 
         $now1 = \Andegna\DateTimeFactory::now();
         $year_month = [];
-        for ($i=1; $i < 14 ; $i++) { 
+        for ($i=1; $i < 14 ; $i++) {
             if ($i==1 || $i==2 || $i==3 || $i==3 || $i==4 || $i==4 || $i==5 || $i==6 || $i==7 || $i==8 || $i==9 ) {
-                
+
                 $year_month[$i] = $now1->getYear()."-0".$i;
 
             } else{
 
                 $year_month[$i] = $now1->getYear()."-".$i;
             }
-            
+
         }
         //dd($year_month);
         $current_year_month = $now1->getYear()."-".$now1->getMonth();
@@ -304,8 +304,6 @@ class ParentController extends Controller{
                                     ->count();
         return $student_absent_days;
                                     
-
-
     }
 
     public function viewStudentAttendanceForMonth($year_month){
@@ -328,14 +326,14 @@ class ParentController extends Controller{
 
         $now1 = \Andegna\DateTimeFactory::now();
         if ( strlen($now1->getMonth()) < 2 ) {
-            
+
             $current_year_month = $now1->getYear()."-0".$now1->getMonth();
             return response()->json($current_year_month);
         } else{
             $current_year_month = $now1->getYear()."-".$now1->getMonth();
             return response()->json($current_year_month);
         }
-        
+
 
     }
 }
