@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Http\Controllers\ParentController;
 use App\Models\classes;
 use App\Models\semister;
 use App\Models\student;
@@ -57,7 +58,7 @@ class StudentsCardPerTermExport implements WithMultipleSheets
             ->where('sections.class_id',$this->class)
             ->where('sections.stream_id',$this->stream)
             ->where('sections.section_name',$this->section)
-            ->get(['section_name','first_name','middle_name','last_name']);
+            ->get(['section_name','first_name','middle_name','last_name','students.student_id']);
             error_log($this->class.$this->stream.$this->section);
 
             $studentCollection = collect();
@@ -98,7 +99,12 @@ class StudentsCardPerTermExport implements WithMultipleSheets
                         $term1 = 0;
                         foreach($studentCollection as $data){
                             if($data->subject == $sub->subject_name and $row->first_name.' '.$row->middle_name.' '.$row->last_name == $data->name){
-                                $term1 = $data->total;
+                                if ($data->load > 100) {
+                                    $term1 = round(($data->total * 100) / $data->load);
+                                }else{
+                                    $term1 = $data->total;
+                                }
+                                // $term1 = $data->total;
                             }
                         }
 
@@ -156,7 +162,7 @@ class StudentsCardPerTermExport implements WithMultipleSheets
                         $oneStudent->push($studentItem);
                         $countTraits++;
                     }else{
-                        $studentItem = (object) ["","Absence"=>"Absence",0,"","",""];
+                        $studentItem = (object) ["","Absence"=>"Absence",(string)((new ParentController)->getStudentAbsentDays($row->student_id)),"","",""];
                         $oneStudent->push($studentItem);
                     }
                     $countTraits = 0;

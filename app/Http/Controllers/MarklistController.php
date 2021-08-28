@@ -338,6 +338,7 @@ class MarklistController extends Controller
                             ->join('subjects','subject_groups.subject_id','=','subjects.id')
                             ->where('class_id',$row->class_id)
                             ->get(['subjects.id','subject_name']);
+                            
             foreach($subject as $sub){
                 $one_student_mark = 0;
                 $one_student_load = 0;

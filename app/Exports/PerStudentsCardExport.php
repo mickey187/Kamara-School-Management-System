@@ -24,6 +24,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
+use Maatwebsite\Excel\Events\BeforeExport;
 
 class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,WithEvents,WithColumnWidths,WithCustomStartCell
 {
@@ -95,9 +96,14 @@ class PerStudentsCardExport implements FromCollection,WithTitle,WithHeadings,Wit
 
     public function registerEvents(): array{
     return [
+        BeforeExport::class  => function(BeforeExport $event) {
+            $event->writer->getDelegate()->getSecurity()->setLockWindows(true);
+            $event->writer->getDelegate()->getSecurity()->setLockStructure(true);
+            $event->writer->getDelegate()->getSecurity()->setWorkbookPassword("1234");
+        },
         AfterSheet::class    => function(AfterSheet $event) {
             // $event->sheet->setHeight(2, 30);
-
+            $event->sheet->getProtection()->setSheet(true);
             $event->sheet->styleCells(
                 'B5:I'.$this->subjectSize,
                 [

@@ -38,7 +38,10 @@ $("#addCourseLoad").click(function (e) {
             console.log(response);
             if(response === 'Alerady Exist!'){
                 swal.fire('Alerady Exist!');
-            }else{
+            }else if(response === 'MaximumLoad'){
+                swal.fire('This teacher has reached maximum load assignment!');
+            }
+            else if(typeof(response) === 'object'){
                 swal.fire('Inserted Successfuly');
                 response.forEach(element => {
                     Object.assign(element,{action:'<button onclick="editCourseLoad(this)" class="btn btn-info btn-sm m-1" type="button" value="'+element.id+'">Edit</button><button onclick="deleteCourseLoad(this);" class="btn btn-danger btn-sm m-1"  value="'+element.id+'">Delete</button>'})
@@ -62,6 +65,8 @@ $("#addCourseLoad").click(function (e) {
                     // "dom":'',
                     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 }).buttons().container().appendTo('#course_load_table_wrapper .col-md-6:eq(0)');
+            }else{
+                swal.fire(response);
             }
         }
     });
