@@ -364,6 +364,10 @@ Route::get('/viewParentPaymentDetail',[ParentController::class, 'viewParentPayme
 // admin
 Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 
+Route::get('/indexHomeRoomAttendance',[AttendanceController::class, 'indexHomeRoomAttendance']);
+
+Route::get('/getHomeRoomAttendance/{year_month}',[AttendanceController::class, 'getHomeRoomAttendance']);
+
 //marklist
 
 Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);

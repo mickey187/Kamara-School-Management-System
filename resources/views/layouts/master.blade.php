@@ -525,9 +525,28 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                Attendance
+                                <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{url('/indexHomeRoomAttendance')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> Home Room Attendance</p>
+                                    </a>
 
+                                </li>
 
+                            </ul>
 
+                        </li>
+
+{{-- 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-dollar-sign"></i>
@@ -593,7 +612,7 @@
                                 </li>
 
                          </ul>
-                        </li>
+                        </li> --}}
 
                         <hr>
                         <li class="nav-header">MISCELLANEOUS</li>
@@ -814,6 +833,7 @@ $(function() {
 
 
     <script src="{{ asset('root_admin_dashboard.js') }}"></script>
+    <script src="{{ asset('admin_home_room_attendance.js')}}"></script>
 
     <script>
         $(function() {

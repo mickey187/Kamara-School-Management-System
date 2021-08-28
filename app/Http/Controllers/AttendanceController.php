@@ -192,5 +192,28 @@ class AttendanceController extends Controller
         // }
     }
 
+    public function indexHomeRoomAttendance(){
+        $now1 = \Andegna\DateTimeFactory::now();
+        $current_date = $now1->format(DATE_COOKIE)/*->getDay()."-".$now1->getMonth()."-".$now1->getYear()*/;
+
+        if ( strlen($now1->getMonth()) < 2 ) {
+            
+            $current_year_month = $now1->getYear()."-0".$now1->getMonth();
+            
+        } else{
+            $current_year_month = $now1->getYear()."-".$now1->getMonth();
+            
+        }
+
+        
+        return view('admin.attendance.home_room_attendance')->with('current_date',$current_date)
+                    ->with('current_year_month',$current_year_month);
+    }
+
+    public function getHomeRoomAttendance($year_month){
+
+        
+    }
+
     
 }
