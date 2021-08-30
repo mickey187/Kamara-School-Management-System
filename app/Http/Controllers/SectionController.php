@@ -837,6 +837,7 @@ class SectionController extends Controller
     }
 
     public function getHomeRoomStudent($teacher_id,$section,$class_name,$stream){
+        $getClass = classes::where('class_label',$class_name)->get()->first();
         $getStreamId = stream::where('stream_type',$stream)->get()->first();
         $stream_id = (int)$getStreamId->id;
         //error_log("Stream ID: ".$getStreamId->id);
@@ -864,7 +865,9 @@ class SectionController extends Controller
                 ->join('classes','student_mark_lists.class_id','=','classes.id')
                 ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
                 ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
-                ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+                ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                ->where('subject_groups.class_id',$getClass->id)
                 ->get([
                     'students.student_id',
                     'first_name',
@@ -924,7 +927,8 @@ class SectionController extends Controller
                 ->join('classes','student_mark_lists.class_id','=','classes.id')
                 ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
                 ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
-                ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+                ->join('subjects','subject_groups.subject_id','=','subjects.id')
                 ->where('classes.id',$class_id)
                 ->where('subject_name',$subject)
                 ->get(['semisters.semister',
@@ -935,7 +939,7 @@ class SectionController extends Controller
                         'assasment_types.assasment_type',
                         'assasment_types.id as assid',
                         'subjects.subject_name',
-                        'subjects.id as subject_id',
+                        'subject_groups.id as subject_id',
                         'semisters.id as semid',
                         'student_mark_lists.mark']);
                 $semister = semister::all();

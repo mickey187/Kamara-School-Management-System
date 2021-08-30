@@ -35,7 +35,7 @@ $('#modal-teacher').on('show.bs.modal', function(event) {
                 // "dom":'',
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             }).buttons().container().appendTo('#course_load_table_wrapper .col-md-6:eq(0)');
-  
+
         },
         error:function (data) {
             console.log("it is not works fine");
@@ -93,3 +93,33 @@ $('#wordgenerator').click(function(){
         }
      });
 });
+
+$("#promoteStudentModal").click(function(){
+    var teacher = $("#teacher_id").val();
+    var section = $("#section_name").val()
+    var stream = $("#stream").val()
+    var clas = $("#class1").val()
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, just promote my student!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            // swal.fire(teacher+" section: "+section+" stream: "+stream+" class: "+clas);
+            $.ajax({
+                type: "GET",
+                url: "promoteStudentToNextClass/"+clas+"/"+stream+"/"+section+"/"+teacher_id,
+                data: "data",
+                dataType: "json",
+                success: function (response) {
+                    swal.fire('Promoted!',response,'success');
+                }
+            });
+        }
+      })
+})
+

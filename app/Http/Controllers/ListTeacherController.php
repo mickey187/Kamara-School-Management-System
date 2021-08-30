@@ -15,13 +15,17 @@ use App\Models\academic_background_info;
 use App\Models\attendance;
 use App\Models\classes;
 use App\Models\course_load;
+use App\Models\home_room;
 use App\Models\section;
 use App\Models\stream;
+use App\Models\student_class_transfer;
 use App\Models\subject;
 use App\Models\teacher_course_load;
 use App\Models\training_institution_info;
 use App\Models\teacher;
 use Illuminate\Support\Facades\DB;
+use Andegna;
+use App\Models\student_mark_list;
 
 class ListTeacherController extends Controller
 {
@@ -108,6 +112,47 @@ class ListTeacherController extends Controller
                     ->distinct('section_name')
                     ->get(['sections.section_name']);
         return response()->json($section2);
+    }
+
+    public function promoteStudentToNextClass($class,$stream,$section,$teacher){
+        $getClass = classes::where('class_label',$class)->get()->first();
+        $getStream = stream::where('stream_type',$stream)->get()->first();
+        $getHomeRoom = home_room::where('employee_id',$teacher)
+                                    ->where('class_id',$getClass->id)
+                                    ->where('stream_id',$getStream->id)
+                                    ->where('section',$section)
+                                    ->exists();
+                                    // ->first();
+        if ($getHomeRoom) {
+            $getStudents = DB::table('sections')
+                            ->join('classes','sections.class_id','classes.id')
+                            ->join('streams','sections.stream_id','streams.id')
+                            ->where('sections.class_id',$getClass->id)
+                            ->where('sections.stream_id',$getStream->id)
+                            ->where('sections.section_name',$section)
+                            ->get(['sections.student_id']);
+            foreach($getStudents as $row){
+                $preClass = classes::where('id',$row->class_id)->get()->first();
+                $nxtClass = classes::where('priority',$preClass->priority + 1)->get()->first();
+                if ($this->checkStudentGrade($row->student_id)) {
+
+                    $getPromoteId = student_class_transfer::where('student_id',$row->student_id)->get()->first();
+                    $promote = student_class_transfer::find( $getPromoteId->id);
+                    $promote->transfer_from = $preClass;
+                    $promote->transfer_to = $nxtClass;
+                    $promote->isRegistered = false;
+                    $promote->update();
+
+                }
+            }
+            return response()->json((string)count($getStudents));
+        }
+    }
+
+    public function checkStudentGrade($id){
+        $now1 = \Andegna\DateTimeFactory::now();
+        $current_date = $now1->getYear();
+        $studentMark = student_mark_list::where('student_id',$id)->get();
     }
 }
 

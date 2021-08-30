@@ -140,12 +140,13 @@ function getHomeRoomStudent(nb){
 
             section1.forEach(d => {
                 newSemister = 0;
+                avarage = d.avarage;
                 if(d.status === "pass"){
                     row+='<tr style="cursor: pointer; border: 1.5px solid #228B22 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-success bordered border-success"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
-                                '<td class="text-center">'+d.avarage+'</td>'+
+                                '<td class="text-center">'+avarage+'</td>'+
                                 '<td class="text-center">'+d.status+'</td>'+
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
@@ -154,7 +155,7 @@ function getHomeRoomStudent(nb){
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
-                                '<td class="text-center">'+d.avarage+'</td>'+
+                                '<td class="text-center">'+avarage+'</td>'+
                                 '<td class="text-center">'+d.status+'</td>'+
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
@@ -163,7 +164,7 @@ function getHomeRoomStudent(nb){
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
-                                '<td class="text-center">'+d.avarage+'</td>'+
+                                '<td class="text-center">'+avarage+'</td>'+
                                 '<td class="text-center">'+d.status+'</td>'+
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
@@ -211,12 +212,12 @@ function getHomeRoomStudent(nb){
                                             console.log(total);
                                         }
                                     });
-                                    if(parseInt(percent) > 100){
-                                        total = (parseInt(total) * 100) / parseInt(percent);
+                                    if(parseFloat(percent) > 100){
+                                        total = (parseFloat(total) * 100) / parseFloat(percent);
                                         row+=
                                         '<tr class="text-primary">'+
                                             '<td class="text-center">'+ d2.subject_name+' </td>'+
-                                            '<td class="text-center">'+parseInt(total)+'/'+100+'</td>'+
+                                            '<td class="text-center">'+parseFloat(total)+'/'+100+'</td>'+
                                         '</tr>';
                                     }else{
                                         row+=
@@ -273,9 +274,9 @@ function getHomeRoomStudent(nb){
            });
            row+='</tbody></table></div></div></div>';
            row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
-           generator = '<a class="btn btn-sm btn-primary text-bold" href="/indexAttendance">Attendance</a> ';
+           generator = '<a class="shadow btn btn-sm btn-primary text-bold" href="/indexAttendance">Attendance</a> ';
 
-           '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"';
+        //    '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"';
 
            generator +=  '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"'+
                                 'data-toggle="modal"'+
@@ -295,6 +296,15 @@ function getHomeRoomStudent(nb){
             console.log("it is not works fine");
         }
     });
+
+    $('#modal-promote-student').on('show.bs.modal', function(event) {
+        var modal = $(this)
+        modal.find('.modal-body #teacher_id').val(teacher_id);
+        modal.find('.modal-body #section_name').val(section);
+        modal.find('.modal-body #stream').val(stream);
+        modal.find('.modal-body #class1').val(class_name);
+    });
+
 }
 
 

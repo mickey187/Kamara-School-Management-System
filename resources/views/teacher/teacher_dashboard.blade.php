@@ -336,7 +336,7 @@
 {{-- Promote Student Modal --}}
 <div class="modal_class">
     <div class="modal fade" id="modal-promote-student">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content ">
                 <div class="modal-header">
                     <h4 class="modal-title" id="title">Promote Students</h4>
@@ -345,14 +345,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <h5 id="teacher_id"></h5>
+                    <h5 id="section_name"></h5>
+                    <h5 id="stream"></h5>
+                    <h5 id="class1"></h5>
                     <div class="row col-12 form-group">
-                        <div class="col-12">
-                        </div>
+                        <p>Once the student promoted, </p>
+                        <p>student list will be erased from your page</p>
+                        <p></p>
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">cancel</button><button id="promoteStudentModal" class="btn btn-primary" value="promote">promote</button>
                 </div>
             </div>
         </div>

@@ -477,5 +477,8 @@ Route::get('getHomeRoomStream/{class}', [ListTeacherController::class, 'getHomeR
 
 Route::get('getHomeRoomSection/{class}/{stream}', [ListTeacherController::class, 'getHomeRoomSection']);
 
+// promote student
+Route::get('promoteStudentToNextClass/{class}/{stream}/{section}/{teacher}', [ListTeacherController::class, 'promoteStudentToNextClass']);
+
 
 require __DIR__.'/auth.php';
