@@ -12,6 +12,7 @@ use App\Models\stream;
 use App\Models\student;
 use App\Models\attendance;
 use App\Models\semister;
+use App\Models\classes;
 use DateTime;
 use Andegna;
 
@@ -221,9 +222,151 @@ class AttendanceController extends Controller
 
     public function getHomeRoomAttendance($year_month){
 
-        $all_sections = section::distinct()->get(['class_id','stream_id','section_name']);
-        return response()->json($all_sections);
+       // $all_sections = section::distinct()->get(['class_id','stream_id','section_name']);
+        $all_sections = DB::table('sections')
+                            ->join('classes','sections.class_id','=','classes.id')
+                            ->join('streams','sections.stream_id','=','streams.id')
+                            ->distinct()
+                            ->orderBy('class_id','asc')
+                            ->orderBy('stream_id','asc')
+                            ->orderBy('section_name','asc')
+                            ->get(['class_id','stream_id','section_name']);
 
+        $now1 = \Andegna\DateTimeFactory::now();
+
+        $current_date = null;
+        if ( strlen($now1->getMonth()) < 2 ) {
+            
+            $current_date = $now1->getYear()."-0".$now1->getMonth()."-".$now1->getDay();
+            
+        } else{
+            $current_date = $now1->getYear()."-".$now1->getMonth()."-".$now1->getDay();
+            
+        }
+
+        $home_attendance_status = collect([]);
+        
+
+        foreach ($all_sections as $key) {
+            
+            if (
+                attendance::where('class_id',$key->class_id)->where('stream_id',$key->stream_id)->
+                            where('section_name',$key->section_name)->where('date',$current_date)->exists()
+            ) {
+
+                $class_label = classes::where('id',$key->class_id)->value('class_label');
+                $stream_type = stream::where('id',$key->stream_id)->value('stream_type');
+
+
+                if (DB::table('home_rooms')
+                ->join('employees','home_rooms.employee_id','=','employees.id')
+                ->where('class_id',$key->class_id)
+                ->where('stream_id',$key->stream_id)
+                ->where('section',$key->section_name)
+                ->exists()) {
+                    
+                                    $home_room_teacher_data = DB::table('home_rooms')
+                                            ->join('employees','home_rooms.employee_id','=','employees.id')
+                                            ->where('class_id',$key->class_id)
+                                            ->where('stream_id',$key->stream_id)
+                                            ->where('section',$key->section_name)
+                                            ->first();
+
+                                            $home_attendance_status->push([
+                                                'teacher_id'=>$home_room_teacher_data->employee_id,
+                                                'teacher_name'=>$home_room_teacher_data->first_name." ".$home_room_teacher_data->middle_name." ".$home_room_teacher_data->last_name,
+                                                'class_label'=>$class_label,
+                                                'stream_type'=>$stream_type,
+                                                'section_name'=>$key->section_name,
+                                                'status'=>"checked"
+                                            ]);
+                }
+
+                elseif (!DB::table('home_rooms')
+                ->join('employees','home_rooms.employee_id','=','employees.id')
+                ->where('class_id',$key->class_id)
+                ->where('stream_id',$key->stream_id)
+                ->where('section',$key->section_name)
+                ->exists()) {
+                    $home_attendance_status->push([
+                        'teacher_id'=>'no home room teacher assigned',
+                        'teacher_name'=>'no home room teacher assigned',
+                        'class_label'=>$class_label,
+                        'stream_type'=>$stream_type,
+                        'section_name'=>$key->section_name,
+                        'status'=>"checked"
+                    ]);
+                }
+
+               
+            }
+
+            elseif (
+                !attendance::where('class_id',$key->class_id)->where('stream_id',$key->stream_id)->
+                where('section_name',$key->section_name)->where('date',$current_date)->exists()
+            ) {
+                $class_label = classes::where('id',$key->class_id)->value('class_label');
+                $stream_type = stream::where('id',$key->stream_id)->value('stream_type');
+
+                if (DB::table('home_rooms')
+                ->join('employees','home_rooms.employee_id','=','employees.id')
+                ->where('class_id',$key->class_id)
+                ->where('stream_id',$key->stream_id)
+                ->where('section',$key->section_name)
+                ->exists()) {
+                    
+                                    $home_room_teacher_data = DB::table('home_rooms')
+                                            ->join('employees','home_rooms.employee_id','=','employees.id')
+                                            ->where('class_id',$key->class_id)
+                                            ->where('stream_id',$key->stream_id)
+                                            ->where('section',$key->section_name)
+                                            ->first();
+
+                                            $home_attendance_status->push([
+                                                'teacher_id'=>$home_room_teacher_data->employee_id,
+                                                'teacher_name'=>$home_room_teacher_data->first_name." ".$home_room_teacher_data->middle_name." ".$home_room_teacher_data->last_name,
+                                                'class_label'=>$class_label,
+                                                'stream_type'=>$stream_type,
+                                                'section_name'=>$key->section_name,
+                                                'status'=>"unchecked"
+                                            ]);
+                }
+
+                elseif (!DB::table('home_rooms')
+                ->join('employees','home_rooms.employee_id','=','employees.id')
+                ->where('class_id',$key->class_id)
+                ->where('stream_id',$key->stream_id)
+                ->where('section',$key->section_name)
+                ->exists()) {
+                    $home_attendance_status->push([
+                        'teacher_id'=>'no home room teacher assigned',
+                        'teacher_name'=>'no home room teacher assigned',
+                        'class_label'=>$class_label,
+                        'stream_type'=>$stream_type,
+                        'section_name'=>$key->section_name,
+                        'status'=>"unchecked"
+                    ]);
+                }
+                // $home_room_teacher_data = DB::table('home_rooms')
+                //                                 ->join('employees','home_rooms.employee_id','=','employees.id')
+                //                                 ->where('class_id',$key->class_id)
+                //                             ->where('stream_id',$key->stream_id)
+                //                             ->where('section',$key->section_name)
+                //                                 ->first();
+                // $home_attendance_status->push([
+                //     'teacher_id'=>$home_room_teacher_data->employee_id,
+                //     'teacher_name'=>$home_room_teacher_data->first_name." ".$home_room_teacher_data->middle_name." ".$home_room_teacher_data->last_name,
+                //     'class_label'=>$class_label,
+                //     'stream_type'=>$stream_type,
+                //     'section_name'=>$key->section_name,
+                //     'status'=>"unchecked"
+                // ]);
+            }
+        }
+
+      // $grouped = $home_room_teacher_data->groupBy('class_label');
+
+        return response()->json($home_attendance_status);
     }
 
     

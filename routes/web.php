@@ -161,6 +161,8 @@ Route::get('viewsubjectgroup', [SubjectController::class, 'viewSubjectGroup'])->
 
 Route::post('addsubjectgroup', [SubjectController::class, 'addSubjectGroup']);
 
+
+
 // Subject Period
 
 Route::get('getSubjectForPeriod/{class}', [SubjectController::class, 'getSubjectForPeriod']);
@@ -473,6 +475,16 @@ Route::get('getSection/{class}/{stream}', [ScheduleController::class, 'getSectio
 Route::get('addSchedule/{class}/{stream}/{subject}/{day}/{section}/{period}', [ScheduleController::class, 'addSchedule']);
 
 Route::get('getSubjectGroup/{class}', [ScheduleController::class, 'getSubjectGroup']);
+
+//mickey schedule experiment
+
+Route::get('/indexNewSchedule', [ScheduleController::class, 'indexNewSchedule']);
+
+Route::get('/generateNewSchedule', [ScheduleController::class, 'generateNewSchedule']);
+
+Route::get('/getGeneratedSchedule', [ScheduleController::class, 'getGeneratedSchedule']);
+
+Route::get('/getScheduleForSpecificeSection/{class_id}/{stream_id}/{section_name}', [ScheduleController::class, 'getScheduleForSpecificeSection']);
 
 
 // Home Room

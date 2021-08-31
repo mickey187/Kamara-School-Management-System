@@ -66,7 +66,10 @@ $('#submit_attendance').click(function () {
     // console.log(data);
    if ($('#ethio_date_inline').val() != "") {
         
-   
+    var mprogress = new Mprogress();
+
+    var mprogress = new Mprogress('start');  //start it immediately
+
     var date_format = null;
     var student_status_arr = new Array();
     
@@ -102,6 +105,8 @@ $('#submit_attendance').click(function () {
           data: {student_status_arr},
           dataType: "json",
           success: function (data) {
+            mprogress.end();
+
               console.log("ayoooooooo");
               console.log(data);
               if (data == "success") {

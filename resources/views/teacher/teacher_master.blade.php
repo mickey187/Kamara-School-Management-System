@@ -59,6 +59,9 @@
 <link rel="stylesheet" href="plugins/AmharicDatepickerCalendar-master/css/redmond.calendars.picker.css">
 <!-- the fileinput plugin styling CSS file -->
 <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
+
+
 </head>
         {{-- <?php
             // $user_id =  Auth::id();
