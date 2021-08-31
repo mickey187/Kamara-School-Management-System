@@ -298,7 +298,7 @@ class MarklistController extends Controller
                                     ->where('academic_year',$current_date)
                                     ->get();
                 foreach($getStudentMark as $mark){
-                    $subjectTotalMark = $subjectTotalMark + $mark->mark;
+                    $subjectTotalMark = round($subjectTotalMark + $mark->mark,2);
                     $subjectTotalLoad = $subjectTotalLoad + $mark->test_load;
                 }
                  $item = (object) [
@@ -307,7 +307,7 @@ class MarklistController extends Controller
                      "total"=>$subjectTotalMark,
                      "load"=>$subjectTotalLoad,
                      "semister"=>$getTerm
-                    ];
+                ];
                  $oneStudentCard->push($item);
             }
             foreach($oneStudentCard as $studentCard){
@@ -344,14 +344,8 @@ class MarklistController extends Controller
                         ->get(['students.id','sections.class_id','sections.stream_id']);
 
         foreach($getStudent as $row){
-            $total_mark = 0;
-            $total_load = 0;
-
             $count_subject = 0;
-            // $semister = semister::all();
             $semister = semister::where('current_semister',true)->get()->first();
-
-            // $subject = SubjectGroup::where('class_id',$row->class_id)->get();
             $subject = DB::table('subject_groups')
                             ->join('subjects','subject_groups.subject_id','=','subjects.id')
                             ->where('class_id',$row->class_id)
@@ -359,6 +353,8 @@ class MarklistController extends Controller
             $one_student_mark = 0;
             $one_student_load = 0;
             foreach($subject as $sub){
+                $total_mark = 0;
+                $total_load = 0;
                 $count_subject++;
                 $mark = student_mark_list::where('student_id',$row->id)
                                         ->where('subject_group_id',$sub->id)
@@ -369,12 +365,16 @@ class MarklistController extends Controller
                     $total_mark += $ma->mark;
                     $total_load += $ma->test_load;
                 }
-                    $one_student_mark += $total_mark;
-                    $one_student_load += $total_load;
-
+                if ($total_load > 100) {
+                    $total_mark = round(($total_mark * 100) / $total_load,2);
+                    $total_load = 100;
+                }
+                    $one_student_mark += round($total_mark ,2);
+                    $one_student_load += round($total_load ,2);
             }
+
             error_log("Subject:  Mark: ".$one_student_mark / count($subject));
-            $item = (Object) ['student_id'=>$row->id,"mark"=>($one_student_mark / count($subject)),"load"=>($one_student_load / count($subject))];
+            $item = (Object) ['student_id'=>$row->id,"mark"=>round(($one_student_mark / count($subject)),2),"load"=>round(($one_student_load / count($subject)),2)];
             $collection->push($item);
             $count_subject = 0;
 
@@ -386,16 +386,13 @@ class MarklistController extends Controller
                                                 ->get()
                                                 ->first();
             error_log("MARK-->: ".$row->mark." LOAD-->: ".$row->load );
-
+            $avarage = 0.00;
             if ($row->load >= 100) {
                 if ($row->load == 100) {
-                    $avarage = ($row->mark);
+                    $avarage = round(($row->mark),2);
                 }else{
-
-                    $avarage = ($row->mark * 100) / $row->load;
+                    $avarage = round(($row->mark * 100) / $row->load,2);
                 }
-
-
                     error_log("AVG: ".$avarage);
                 if (($mark_list)) {
                     $update_mark_list = student_class_transfer::find($mark_list->id);

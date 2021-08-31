@@ -88,15 +88,15 @@ function getCourseLoadStudent(nb){
                           '</div>'+
                       '</div>'+
                   '</section><br>'+
-                      '<div  class="card"><table  class="table table-striped table-lg"'+
-                        '<thead>'+
+                      '<div  class="card"><table class="table table-striped table-bordered table-xl"'+
+                        '<thead class"bg-primary shadow">'+
                             '<th>No</th>'+
                             '<th>Full Name</th>'+
                             '<th>Gender</th>'+
                         '</thead>'+'<tbody>'
 
                 section1.forEach(d => {
-                    row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-white"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer; border: 1.5px solid #DCDCDC !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle shadow bg-white"  aria-expanded="false">'+
                             '<td>'+count+'</td>'+
                             '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                             '<td>'+d.gender+'</td>'+

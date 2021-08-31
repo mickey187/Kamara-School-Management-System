@@ -100,7 +100,7 @@ class StudentsCardPerTermExport implements WithMultipleSheets
                         foreach($studentCollection as $data){
                             if($data->subject == $sub->subject_name and $row->first_name.' '.$row->middle_name.' '.$row->last_name == $data->name){
                                 if ($data->load > 100) {
-                                    $term1 = round(($data->total * 100) / $data->load);
+                                    $term1 = round(($data->total * 100) / $data->load,2);
                                 }else{
                                     $term1 = $data->total;
                                 }

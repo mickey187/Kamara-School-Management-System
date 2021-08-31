@@ -129,12 +129,12 @@ function getHomeRoomStudent(nb){
                       '</div>'+
                   '</div>'+
               '</section><br>'+
-                  '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1"  class="table table-striped table-bordered table-xl"'+
+                  '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1"  class="table shadow table-striped table-bordered table-xl"'+
                     '<thead class"card bg-primary ">'+
                         '<th class="text-center">No</th>'+
                         '<th class="text-center">Full Name</th>'+
                         '<th class="text-center">Gender</th>'+
-                        '<th class="text-center"><button onclick="setAvarageForClass(this)" class="btn btn-success btn-sm" value="'+section+","+class_name+","+stream+'" > set yearly average </button></th>'+
+                        '<th class="text-center"><button onclick="setAvarageForClass(this)" class="shadow btn btn-secondary btn-sm" value="'+section+","+class_name+","+stream+'" > set current semister average </button></th>'+
                         '<th class="text-center">Status</th>'+
                     '</thead>'+'<tbody>'
 
@@ -142,7 +142,7 @@ function getHomeRoomStudent(nb){
                 newSemister = 0;
                 avarage = d.avarage;
                 if(d.status === "pass"){
-                    row+='<tr style="cursor: pointer; border: 1.5px solid #228B22 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-success bordered border-success"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer; border: 1.5px solid #228B22 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle shadow bg-success  bordered border-success"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
@@ -151,7 +151,7 @@ function getHomeRoomStudent(nb){
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
                 }else if(d.status === "fail"){
-                    row+='<tr style="cursor: pointer; border: 1.5px solid #FF3030 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle  bg-white"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer; border: 1.5px solid #FF3030 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle shadow  bg-white"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
@@ -160,7 +160,7 @@ function getHomeRoomStudent(nb){
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
                 }else{
-                        row+='<tr style="cursor: pointer; border: 1.5px solid #DCDCDC !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-white"  aria-expanded="false">'+
+                        row+='<tr style="cursor: pointer; border: 1.5px solid #DCDCDC !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle shadow bg-white"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
@@ -209,21 +209,21 @@ function getHomeRoomStudent(nb){
                                         {
                                             total = total + total_mark.mark;
                                             percent = percent + total_mark.test_load;
-                                            console.log(total);
+                                            console.log("Total: "+total);
                                         }
                                     });
                                     if(parseFloat(percent) > 100){
-                                        total = (parseFloat(total) * 100) / parseFloat(percent);
+                                        total = (parseFloat(total).toFixed(2) * 100) / parseFloat(percent).toFixed(2);
                                         row+=
                                         '<tr class="text-primary">'+
                                             '<td class="text-center">'+ d2.subject_name+' </td>'+
-                                            '<td class="text-center">'+parseFloat(total)+'/'+100+'</td>'+
+                                            '<td class="text-center">'+parseFloat(total).toFixed(2)+'/'+100+'</td>'+
                                         '</tr>';
                                     }else{
                                         row+=
                                         '<tr class="text-primary">'+
                                             '<td class="text-center">'+ d2.subject_name+' </td>'+
-                                            '<td class="text-center">'+parseInt(total)+'/'+parseInt(percent)+'</td>'+
+                                            '<td class="text-center">'+parseFloat(total).toFixed(2)+'/'+parseFloat(percent)+'</td>'+
                                         '</tr>';
                                     }
 
@@ -239,13 +239,13 @@ function getHomeRoomStudent(nb){
                     });
 
                     if(newSemister==0){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total / subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==1){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total / subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;

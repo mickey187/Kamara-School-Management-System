@@ -26,6 +26,7 @@ class TeacherFactory extends Factory
     {
         $employee = employee::all();
         foreach($employee as $teacher){
+            
             $setBack = new academic_background_info();
             $setBack->field_of_study =  $this->faker->randomElement(['Applied','Food Eng','Comp']);
             $setBack->place_of_study = $this->faker->randomElement(['BDU','ASTU','AASTU']);

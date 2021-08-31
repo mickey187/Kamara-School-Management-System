@@ -22,7 +22,7 @@ class CreateStudentClassTransfersTable extends Migration
             $table->foreign('transfered_from') ->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('transfered_to')->nullable(true);
             $table->foreign('transfered_to') ->references('id')->on('classes')->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('yearly_average')->nullable(false);
+            $table->float('yearly_average')->nullable(false);
             $table->string('academic_year')->nullable(false);
             $table->string('status')->nullable(false);
             $table->boolean('isRegistered')->nullable(false);
