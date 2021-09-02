@@ -109,8 +109,8 @@ class MarklistController extends Controller
     // }
 
     public function sample_student(Request $request){
-        Excel::import(new StudentImport, $request->excel);
-         return "Student inserted";
+            Excel::import(new StudentImport, $request->excel);
+        return "Student inserted";
     }
 
     public function addAssasment(){

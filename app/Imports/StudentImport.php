@@ -18,8 +18,7 @@ class StudentImport implements ToModel,WithHeadingRow,WithStartRow{
 
     public function model(array $row){
         $getSTudentId = $this->idGeneratorFun();
-        $getParentId = $this->idGeneratorFun();
-
+        error_log("=============================================================================");
         $insertStudentBackground = new student_background();
             $insertStudentBackground->transfer_reason = $row['transfer_reason'];
             $insertStudentBackground->suspension_status = $row['suspension_status'];
@@ -47,6 +46,7 @@ class StudentImport implements ToModel,WithHeadingRow,WithStartRow{
             $address->p_o_box = $row['pobox'];
             $address->save();
 
+        $getParentId = $this->idGeneratorFun();
         $insertStudent = new student();
             $insertStudent->student_background_id = $insertStudentBackground->id;
             $insertStudent->student_medical_info_id = $studentMedical->id;

@@ -27,13 +27,13 @@ class StudentClassTransferSeeder extends Seeder
                 $studentClassTra->student_id = $stud->id;
                 $studentClassTra->status = 'loading';
                 $studentClassTra->transfered_from = $class->id;
-                $studentClassTra->transfered_to = $newClass->id;
+                $studentClassTra->transfered_to = $class->id;
                 $studentClassTra->yearly_average = 0;
                 $studentClassTra->academic_year = 2013;
                 $studentClassTra->isRegistered = true;
                 $studentClassTra->save();
                 $newStudent = student::find($stud->id);
-                $newStudent->class_id = $newClass->id;
+                $newStudent->class_id = $class->id;
                 $newStudent->update();
 
             }
