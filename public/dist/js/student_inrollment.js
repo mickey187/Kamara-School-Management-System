@@ -76,6 +76,7 @@ function fetchStudent(id) {
 }
 
 function registerStudent(id) {
+    modal();
     $.ajax({
         type: 'GET',
         url: 'register/'+id,
@@ -83,10 +84,10 @@ function registerStudent(id) {
 
         success:function (data) {
           alert('good');
-
+          loadingModalHide();
         },
         error:function (data) {
-
+            loadingModalHide();
         }
      });
   }

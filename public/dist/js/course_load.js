@@ -4,6 +4,7 @@ $("#selectedStream").change(function () {
     var class_id = splitter[1];
     var select = '';
     //  swal.fire(stream_id+" : "+class_id);
+    modal();
     $.ajax({
         type: "GET",
         url: "getSectionForSelectedStream/"+class_id+"/"+stream_id,
@@ -15,6 +16,7 @@ $("#selectedStream").change(function () {
                 select += '<option value="'+element.section_name+'">'+element.section_name+'</option>'
             });
             $("#selectedSection2").html(select);
+            loadingModalHide();
         }
     });
 
@@ -75,7 +77,7 @@ $("#addCourseLoad").click(function (e) {
 
 function deleteCourseLoad(id){
     deleteID = id.value.trim();
-
+    modal();
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -86,6 +88,7 @@ function deleteCourseLoad(id){
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
+            modal();
             $.ajax({
                 type: 'GET',
                 url: 'deleteCourseLoad/'+deleteID,
@@ -116,10 +119,11 @@ function deleteCourseLoad(id){
                             // "dom":'',
                             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                         }).buttons().container().appendTo('#course_load_table_wrapper .col-md-6:eq(0)');
-
+                        loadingModalHide();
                 },
                 error:function (response) {
                     console.log("it is not works fine");
+                    loadingModalHide();
                 }
             });
         }

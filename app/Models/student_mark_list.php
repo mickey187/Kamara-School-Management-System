@@ -14,7 +14,7 @@ class student_mark_list extends Model
     protected $fillable = [
                             'id',
                             'assasment_type_id',
-                            'subject_id',
+                            'subject_group_id',
                             'class_id',
                             'teacher_id',
                             'student_id',

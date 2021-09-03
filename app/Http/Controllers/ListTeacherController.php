@@ -15,13 +15,19 @@ use App\Models\academic_background_info;
 use App\Models\attendance;
 use App\Models\classes;
 use App\Models\course_load;
+use App\Models\home_room;
 use App\Models\section;
 use App\Models\stream;
+use App\Models\student_class_transfer;
 use App\Models\subject;
 use App\Models\teacher_course_load;
 use App\Models\training_institution_info;
 use App\Models\teacher;
 use Illuminate\Support\Facades\DB;
+use Andegna;
+use App\Models\semister;
+use App\Models\student;
+use App\Models\student_mark_list;
 
 class ListTeacherController extends Controller
 {
@@ -108,6 +114,87 @@ class ListTeacherController extends Controller
                     ->distinct('section_name')
                     ->get(['sections.section_name']);
         return response()->json($section2);
+    }
+
+    public function promoteStudentToNextClass($class,$stream,$section,$teacher){
+        $getClass = classes::where('class_label',$class)->get()->first();
+        $getStream = stream::where('stream_type',$stream)->get()->first();
+        $getHomeRoom = home_room::where('employee_id',$teacher)
+                                    ->where('class_id',$getClass->id)
+                                    ->where('stream_id',$getStream->id)
+                                    ->where('section',$section)
+                                    ->exists();
+        $promotedStudentSize = 0;
+        if ($getHomeRoom) {
+            $getStudents = DB::table('sections')
+                            ->join('classes','sections.class_id','classes.id')
+                            ->join('streams','sections.stream_id','streams.id')
+                            ->where('sections.class_id',$getClass->id)
+                            ->where('sections.stream_id',$getStream->id)
+                            ->where('sections.section_name',$section)
+                            ->get(['sections.student_id']);
+            foreach($getStudents as $row){
+                $preClass = classes::where('id',$getClass->id)->get()->first();
+                $nxtClass = classes::where('priority',$preClass->priority + 1)->get()->first();
+                if ($this->checkStudentGrade($row->student_id,$preClass->id)) {
+                    $getPromoteId = student_class_transfer::where('student_id',$row->student_id)->get()->first();
+                    $promote = student_class_transfer::find( $getPromoteId->id);
+                    $promote->transfered_from = $preClass->id;
+                    $promote->transfered_to = $nxtClass->id;
+                    $promote->isRegistered = false;
+                    $promote->update();
+
+                    $student = student::find($row->student_id);
+                    $student->class_id = $nxtClass->id;
+                    $student->update();
+
+                    $section = section::where('student_id',$row->student_id);
+                    $section->delete();
+                    $promotedStudentSize++;
+                }
+            }
+            return response()->json((string) $promotedStudentSize);
+        }
+    }
+
+    public function checkStudentGrade($id,$class_id){
+        $now1 = \Andegna\DateTimeFactory::now();
+        $current_date = $now1->getYear();
+        $studentMark = student_mark_list::where('student_id',$id)->get();
+
+        $semister = semister::where('current_semister',true)->get()->first();
+        $subject = DB::table('subject_groups')
+                        ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                        ->where('class_id',$class_id)
+                        ->get(['subject_groups.id','subject_name']);
+        $one_student_mark = 0;
+        $one_student_load = 0;
+        foreach($subject as $sub){
+            $total_mark = 0;
+            $total_load = 0;
+            $mark = student_mark_list::where('student_id',$id)
+                                    ->where('subject_group_id',$sub->id)
+                                    ->where('semister_id',$semister->id)
+                                    ->where('academic_year',$current_date)
+                                    ->get();
+            foreach ($mark as $ma) {
+                $total_mark += $ma->mark;
+                $total_load += $ma->test_load;
+            }
+            if ($total_load > 100) {
+                $total_mark = round(($total_mark * 100) / $total_load,2);
+                $total_load = 100;
+            }
+                $one_student_mark += round($total_mark ,2);
+                $one_student_load += round($total_load ,2);
+                error_log("Total::".$one_student_mark);
+        }
+        if ($one_student_mark > 70) {
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }
 

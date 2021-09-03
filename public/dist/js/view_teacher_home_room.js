@@ -2,28 +2,17 @@ $('#modal-dashboard').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget);
     var detail = button.data('detail3');
     var data = detail.split(",");
-    // if(data[0] == "My Student")
-    //     $('#title').html(data[0]);
-    // else if(data[0] == "Home Room"){
-    //     $('#title').html(data[0]);
-    //     fetchCourseLoad(data[1].trim())
-    // }else if(data[0] == "Course Load"){
-    //     $('#title').html(data[0]);
-    // }else if(data[0] == "Profile"){
-    //     $('#title').html(data[0]);
-    //     $('#full_name').html(data[1]);
-    // }
 });
 
 function fetchCourseLoad(id){
-    // alert(id);
+   modal();
     $.ajax({
         type: 'GET',
         url: 'getHomeRoom/'+(id),
         dataType : 'json',
         success:function (data) {
             row = '';
-             console.log(data);
+            console.log(data);
             data.forEach(d => {
                 row+='<div class="col-lg-4">'+
                         '<a href="#"'+
@@ -39,6 +28,7 @@ function fetchCourseLoad(id){
                      '</div>'
            });
             $('#classes').html(row);
+            loadingModalHide();
         },
         error:function (data) {
             console.log("it is not works fine");
@@ -48,6 +38,8 @@ function fetchCourseLoad(id){
 
 function getHomeRoom(id){
     // alert(id);
+
+    modal();
     $.ajax({
         type: 'GET',
         url: 'getHomeRoom/'+(id),
@@ -58,9 +50,8 @@ function getHomeRoom(id){
             console.log(data);
             data.forEach(d => {
                 // alert(d.id);
-
                 row+='<div class="col-4 mt-2">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.employee_id+','+d.class_label+','+d.section+','+d.stream+'">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.employee_id+','+d.class_label+','+d.section+','+d.stream+','+d.class_id+','+d.stream_id+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
                         '<label>'+d.class_label+' '+d.section+'</label><br>'+
@@ -76,6 +67,7 @@ function getHomeRoom(id){
                 '</button>'+
                 '</div>';
             });
+            loadingModalHide();
             row2 += 'Dashboard / Home Room';
             generator =''
             $('#generator').html(generator);
@@ -84,6 +76,7 @@ function getHomeRoom(id){
         },
         error:function (data) {
             console.log("it is not works fine");
+            loadingModalHide();
         }
     });
 
@@ -95,9 +88,9 @@ function getHomeRoomStudent(nb){
     section = data[2];
     class_name = data[1];
     stream = data[3];
-   alert(class_name);
-    // alert(data[0]);
-    // alert(teacher_id+" "+section);
+    class_id_new = data[4];
+    stream_id_new = data[5];
+    modal();
     $.ajax({
         type: 'GET',
         url: 'getHomeRoomStudent/'+teacher_id+'/'+section+'/'+class_name+'/'+stream,
@@ -129,41 +122,44 @@ function getHomeRoomStudent(nb){
                       '</div>'+
                   '</div>'+
               '</section><br>'+
-                  '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1"  class="table table-striped table-bordered table-xl"'+
+                  '<div class="d-flex justify-content-center"><div class="col-12"><table id="example1"  class="table shadow table-striped table-bordered table-xl"'+
                     '<thead class"card bg-primary ">'+
                         '<th class="text-center">No</th>'+
                         '<th class="text-center">Full Name</th>'+
                         '<th class="text-center">Gender</th>'+
-                        '<th class="text-center"><button onclick="setAvarageForClass(this)" class="btn btn-success btn-sm" value="'+section+","+class_name+","+stream+'" > set yearly average </button></th>'+
+                        '<th class="text-center"><button onclick="setAvarageForClass(this)"  class="shadow btn btn-secondary btn-sm" value="'+section+","+class_name+","+stream+'"'+
+
+                        '> set current semister average </button></th>'+
                         '<th class="text-center">Status</th>'+
                     '</thead>'+'<tbody>'
 
             section1.forEach(d => {
                 newSemister = 0;
+                avarage = d.avarage;
                 if(d.status === "pass"){
-                    row+='<tr style="cursor: pointer; border: 1.5px solid #228B22 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-success bordered border-success"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer; border: 1.5px solid #228B22 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle shadow bg-success  bordered border-success"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
-                                '<td class="text-center">'+d.avarage+'</td>'+
+                                '<td class="text-center">'+avarage+'</td>'+
                                 '<td class="text-center">'+d.status+'</td>'+
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
                 }else if(d.status === "fail"){
-                    row+='<tr style="cursor: pointer; border: 1.5px solid #FF3030 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle  bg-white"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer; border: 1.5px solid #FF3030 !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle shadow  bg-white"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
-                                '<td class="text-center">'+d.avarage+'</td>'+
+                                '<td class="text-center">'+avarage+'</td>'+
                                 '<td class="text-center">'+d.status+'</td>'+
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
                 }else{
-                        row+='<tr style="cursor: pointer; border: 1.5px solid #DCDCDC !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-white"  aria-expanded="false">'+
+                        row+='<tr style="cursor: pointer; border: 1.5px solid #DCDCDC !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle shadow bg-white"  aria-expanded="false">'+
                                 '<td class="text-center">'+count+'</td>'+
                                 '<td class="text-center">'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                                 '<td class="text-center">'+d.gender+'</td>'+
-                                '<td class="text-center">'+d.avarage+'</td>'+
+                                '<td class="text-center">'+avarage+'</td>'+
                                 '<td class="text-center">'+d.status+'</td>'+
                             '</tr>'+
                             '<td colspan="12" class="hiddenRow">';
@@ -208,21 +204,21 @@ function getHomeRoomStudent(nb){
                                         {
                                             total = total + total_mark.mark;
                                             percent = percent + total_mark.test_load;
-                                            console.log(total);
+                                            console.log("Total: "+total);
                                         }
                                     });
-                                    if(parseInt(percent) > 100){
-                                        total = (parseInt(total) * 100) / parseInt(percent);
+                                    if(parseFloat(percent) > 100){
+                                        total = (parseFloat(total).toFixed(2) * 100) / parseFloat(percent).toFixed(2);
                                         row+=
                                         '<tr class="text-primary">'+
                                             '<td class="text-center">'+ d2.subject_name+' </td>'+
-                                            '<td class="text-center">'+parseInt(total)+'/'+100+'</td>'+
+                                            '<td class="text-center">'+parseFloat(total).toFixed(2)+'/'+100+'</td>'+
                                         '</tr>';
                                     }else{
                                         row+=
                                         '<tr class="text-primary">'+
                                             '<td class="text-center">'+ d2.subject_name+' </td>'+
-                                            '<td class="text-center">'+parseInt(total)+'/'+parseInt(percent)+'</td>'+
+                                            '<td class="text-center">'+parseFloat(total).toFixed(2)+'/'+parseFloat(percent)+'</td>'+
                                         '</tr>';
                                     }
 
@@ -238,13 +234,13 @@ function getHomeRoomStudent(nb){
                     });
 
                     if(newSemister==0){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total / subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
 
                     }else if(newSemister==1){
-                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total/subject.length).toFixed(2)+'</td></tr></tbody>'+
+                        row+= '<tr class="text-primary  text-bold"><td class="text-center">Average</td><td class="text-center">'+parseFloat(all_total / subject.length).toFixed(2)+'</td></tr></tbody>'+
                         '</table></div>'+
                          '</div>'
                          newSemister = newSemister + 1;
@@ -290,16 +286,27 @@ function getHomeRoomStudent(nb){
            $('#teacherDashboardTitle').html(row2);
            $('#generator').html(generator);
            $('#dashboard').html(row);
+           loadingModalHide();
         },
         error:function (data) {
             console.log("it is not works fine");
+            loadingModalHide();
         }
     });
+
+    $('#modal-promote-student').on('show.bs.modal', function(event) {
+        var modal = $(this)
+        modal.find('.modal-body #teacher_id').val(teacher_id);
+        modal.find('.modal-body #section_name').val(section);
+        modal.find('.modal-body #stream').val(stream);
+        modal.find('.modal-body #class1').val(class_name);
+    });
+
 }
 
 
 function setAvarageForClass(val){
-
+    modal();
     $.ajax({
         type: "GET",
         url: "setAvarageForClass/"+val.value,
@@ -307,6 +314,7 @@ function setAvarageForClass(val){
         success: function (response) {
             console.log(response);
             swal.fire("response");
+            loadingModalHide();
         }
     });
 

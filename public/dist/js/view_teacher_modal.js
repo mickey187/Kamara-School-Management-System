@@ -8,7 +8,7 @@ $('#modal-class').on('show.bs.modal', function(event) {
     console.log(class_Label+' '+section)
     modal.find('.modal-body #class').text(split[0]);
     modal.find('.modal-body #section').text(split[1]);
-
+    modal();
     $.ajax({
         type: 'GET',
         url: 'getClassSection/'+class_Label+'/'+section,
@@ -29,6 +29,7 @@ $('#modal-class').on('show.bs.modal', function(event) {
 
             });
             $('#listOfStudents').html(row);
+            loadingModalHide();
         },
         error:function (data) {
             console.log('error');

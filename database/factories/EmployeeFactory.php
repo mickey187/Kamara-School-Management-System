@@ -26,6 +26,7 @@ class EmployeeFactory extends Factory
         $marriage_status = $this->faker->randomElement(['married','divorced','single']);
         $special_skill = $this->faker->randomElement(['sign language','magician','circus']);
         $teacher_training = $this->faker->randomElement(['TTI','Kotebe Teaching']);
+
         return [
             //
             'role_id' => 3,
@@ -45,8 +46,6 @@ class EmployeeFactory extends Factory
             'job_trainning' => $teacher_training,
             'nationality' => 'Ethiopian',
             'hire_type' => 'permanent',
-            
-
         ];
     }
 }

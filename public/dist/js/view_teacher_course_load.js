@@ -88,15 +88,15 @@ function getCourseLoadStudent(nb){
                           '</div>'+
                       '</div>'+
                   '</section><br>'+
-                      '<div  class="card"><table  class="table table-striped table-lg"'+
-                        '<thead>'+
+                      '<div  class="card"><table class="table table-striped table-bordered table-xl"'+
+                        '<thead class"bg-primary shadow">'+
                             '<th>No</th>'+
                             '<th>Full Name</th>'+
                             '<th>Gender</th>'+
                         '</thead>'+'<tbody>'
 
                 section1.forEach(d => {
-                    row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle bg-white"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer; border: 1.5px solid #DCDCDC !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle shadow bg-white"  aria-expanded="false">'+
                             '<td>'+count+'</td>'+
                             '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                             '<td>'+d.gender+'</td>'+
@@ -228,6 +228,7 @@ function saveEditedValue(){
     var vl2 = $("#percent"+total[0]+total[1]).val().trim()
     //alert(vl1+vl2);
     //alert('id: '+id+' Mark: '+ mark+ ' Load: '+ load+ ' Assasment: '+ assasment +' Name: '+name+' Subject: '+subject+' Total: '+total);
+    modal();
     $.ajax({
         type: 'GET',
         url: 'editMarkStudentList/'+id+'/'+mark+'/'+load+'/'+assasment,
@@ -244,6 +245,7 @@ function saveEditedValue(){
             $('#editTotalMl'+vl1).html(row2);
             Swal.fire("Updated!", "You Updated Successfuly!", "success");
             closer();
+            loadingModalHide();
         }
     })
 
@@ -297,6 +299,7 @@ function sendMarkList(){
     console.log("First Semister: "+semister)
 
    // alert('Assasment: '+assasment+' student: '+student+' Class: '+class_id+' Load: '+load+' Mark: '+mark+' Subject: '+subject+' Semister'+semister)
+   modal();
    $.ajax({
        type: 'GET',
        url: 'singleAddMarkList/'+student+'/'+class_id+'/'+semister+'/'+assasment+'/'+subject+'/'+mark+'/'+load,
@@ -355,7 +358,7 @@ function sendMarkList(){
                 closeAddMl();
 
            // row2+= '<td colspan="2" class="text-right">Total</td><td colspan="3" class="text-left">Loading...</td>'
-
+           loadingModalHide();
        }
    })
 }

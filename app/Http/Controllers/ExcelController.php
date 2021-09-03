@@ -51,8 +51,14 @@ class ExcelController extends Controller
      }
 
      public function importStudent(Request $req){
-         Excel::import(new StudentImport(), $req->exel);
-        // echo $req->exel;
+         if(Excel::import(new StudentImport(), $req->exel))
+         {
+            echo 'impoted successfuly';
+         }else{
+            echo 'Error';
+
+         }
+
      }
 
 
