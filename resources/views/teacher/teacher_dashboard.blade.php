@@ -265,7 +265,7 @@
 <!-- /.modal-dialog-Generate Excel File -->
 <div class="modal_class">
     <div class="modal fade" id="modal-generate-excel">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-lg ">
             <div class="modal-content ">
                 <div class="modal-header">
                     <h4 class="modal-title" id="title">Excel File Generator</h4>
@@ -290,11 +290,17 @@
                             <input hidden type="text"  class="form-control" id="generateSub">
                         </div>
                     </div>
+
+                    <div class="row col-12" id="addListOfAssasment">
+                    </div>
+
+                    <div style="cursor: pointer;" hint="More" onclick="moreAssasment();">...</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" onclick="generateMarkList()" class="btn btn-primary">Generate</button>
                 </div>
+
             </div>
         </div>
     </div>

@@ -157,3 +157,30 @@ $("#generate_one_year_card").click(function(){
 //         loadingModalHide();
 //     }
 // });
+function moreAssasment()
+{
+        var courseLoad = ($("#courseExcel").val()).trim();
+        var data = ($("#classExcel").val()).split(",");
+        var assasment = ($("#generateAs").val()).trim();
+        var subject = (data[3]).trim();
+        alert(data);
+    assasment = '<div class="col-6">'+
+                    '<label>Assasment</label>'+
+                    '<select  class="form-control" id="generateAs">'+
+                    '</select>'+
+                '</div>';
+    assasment += '<div class="col-4">'+
+                    '<label>Test Load</label>'+
+                    '<input type="Number"  class="form-control" id="courseExcel">'+
+                    '<input hidden type="text"  class="form-control" id="classExcel">'+
+                    '<input hidden type="text"  class="form-control" id="generateSub">';
+                '</div>';
+    // assasment += '<button class="col-2 btn btn-danger btn-sm"><i class=" btn-danger fa fa-trash"> </i></button>';
+
+    $("#addListOfAssasment").html(assasment);
+}
+
+// $("#addListOfAssasment").click(function (e) {
+//     e.preventDefault();
+
+// });

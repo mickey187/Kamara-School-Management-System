@@ -828,7 +828,7 @@ class SectionController extends Controller
                                     ->join('classes','home_rooms.class_id','classes.id')
                                     ->join('streams','home_rooms.stream_id','=','streams.id')
                                     ->where('employee_id',$teacher_id)
-                                    ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type as stream']);
+                                    ->get(['classes.id as class_id','streams.id as stream_id','class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type as stream']);
         // ->join('classes','home_rooms.class_id','classes.id')
         // ->join('streams','home_rooms.stream_id','streams.id')
         // ->where('employee_id',$teacher_id)

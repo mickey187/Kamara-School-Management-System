@@ -51,7 +51,7 @@ function getHomeRoom(id){
             data.forEach(d => {
                 // alert(d.id);
                 row+='<div class="col-4 mt-2">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.employee_id+','+d.class_label+','+d.section+','+d.stream+'">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.employee_id+','+d.class_label+','+d.section+','+d.stream+','+d.class_id+','+d.stream_id+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
                         '<label>'+d.class_label+' '+d.section+'</label><br>'+
@@ -88,6 +88,8 @@ function getHomeRoomStudent(nb){
     section = data[2];
     class_name = data[1];
     stream = data[3];
+    class_id_new = data[4];
+    stream_id_new = data[5];
     modal();
     $.ajax({
         type: 'GET',
