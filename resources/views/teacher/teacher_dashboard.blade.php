@@ -381,19 +381,21 @@
                         <div class="col-12">
                         </div>
                     </div>
-                    <center><form action="generateStudentCard" method="GET">
-                        @csrf
-                        <input hidden class="form-control" type="text" name="data" id="class_id">
-                        <select class="form-control col-6 m-3" type="text" name="get_term">
-                            @foreach ($semister as $sem)
-                            <option value="{{ $sem->id }}">Semister {{ $sem->semister }} {{ $sem->term }}</option>
-                            @endforeach
-                            <option value="semisterOne">Semister One</option>
-                            <option value="All">One Year</option>
-                        </select>
-                        <input name="generate_one_year_card" class="btn btn-primary  col-6" type="submit" value="Generate Card">
+                    <center>
+                        <form action="generateStudentCard" method="GET">
+                            @csrf
+                            <input hidden class="form-control" type="text" name="data" id="class_id">
+                            <select class="form-control col-6 m-3" type="text" name="get_term">
+                                @foreach ($semister as $sem)
+                                <option value="{{ $sem->id }}">Semister {{ $sem->semister }} {{ $sem->term }}</option>
+                                @endforeach
+                                <option value="semisterOne">Semister One</option>
+                                <option value="All">One Year</option>
+                            </select>
+                            <input name="generate_one_year_card" class="btn btn-primary  col-6" type="submit" value="Generate Card">
 
-                    </form></center>
+                        </form>
+                    </center>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

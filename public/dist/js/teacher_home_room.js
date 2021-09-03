@@ -8,7 +8,7 @@ $('#modal-teacher-home-room').on('show.bs.modal', function(event) {
     modal.find('.modal-body #section').text(split[2])
     modal.find('.modal-body #stream').text(split[3])
     modal.find('.modal-footer button').val(detail);
-
+    modal();
     $.ajax({
         type: 'GET',
         url: 'getHomeRoom/'+(split[1].trim()),
@@ -37,6 +37,7 @@ $('#modal-teacher-home-room').on('show.bs.modal', function(event) {
                 // "dom":'',
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             }).buttons().container().appendTo('#home_room_table_wrapper .col-md-6:eq(0)');
+            loadingModalHide();
         },
         error:function (data) {
             console.log("it is not works fine");
@@ -60,6 +61,7 @@ function deleteHomeRoom($val)
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
+            modal();
             $.ajax({
                 type: 'GET',
                 url: 'deleteHomeRoom/'+deleteID,
@@ -88,6 +90,7 @@ function deleteHomeRoom($val)
                         // "dom":'',
                         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                     }).buttons().container().appendTo('#home_room_table_wrapper .col-md-6:eq(0)');
+                    loadingModalHide();
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -95,9 +98,11 @@ function deleteHomeRoom($val)
                         showConfirmButton: false,
                         timer: 1500
                       });
+
                 },
                 error:function (data) {
                     console.log("it is not works fine");
+                    loadingModalHide();
                 }
              });
 
@@ -107,62 +112,19 @@ function deleteHomeRoom($val)
 }
 
 
-// $("#assignTeacherHomeRoom").click(function () {
-//     var section = '';
-//     var counter=0;
-//     var assignSection =  $('input[name="feature"]:checked').each(function(){
-//         section = this.value;
-//    });
-//     var assignClass = $("#singleClassId2").val();
-//     var assignSubject = $("#selectedSubject2").val();
-//     var teacher_id = (document.getElementById('teacher_id2').textContent).trim();
-//     var stream =  (document.getElementById('teacher_id4').textContent).trim();
-//     console.log("Teacher ID:"+teacher_id+' '+"section:"+section+" Grade ID:"+assignClass+" Stream: "+stream);
-
-//     $.ajax({
-//         type: 'GET',
-//         url: 'setHomeRoom/'+teacher_id+'/'+section+'/'+assignClass+"/"+stream,
-//         dataType : 'json',
-//         success:function (data) {
-//             console.log(data);
-//             var data1 = JSON.parse(JSON.stringify(data.datac));
-//             var data2 = JSON.parse(JSON.stringify(data.status));
-//              row = '';
-//                 data1.forEach(d => {
-//                     row+= '<tr><td>'+d.class_label+' </td>'+' <td>'+d.section+'</td>'+
-//                     '<td><button onclick="deleteHomeRoom(this);" type="button" class="m-1  btn-danger btn-sm" value="'+d.id+'"><i class="fa fa-trash"></i> </button></td>'+
-//                     '</tr>'
-//                });
-//                $('#homeroom').html(row);
-//                section = '';
-//                Swal.fire({
-//                 position: 'top-end',
-//                 icon: 'success',
-//                 title: 'Home Room Assigned Successfuly',
-//                 showConfirmButton: false,
-//                 timer: 1500
-//               })
-//         },
-//         error:function (data) {
-//             console.log("it is not works fine");
-//         }
-//      });
-
-// });
 
 $('#modal-generate-card').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget)
     var detail = button.data('card1')
-    // alert(detail);
     var modal = $(this)
     var split = detail.split(",")
-    // alert(split[2])
     modal.find('.modal-body #class_id').val(detail)
 });
 
 $("#homeRoomClass").change(function (e) {
     e.preventDefault();
     var class_id = this.value;
+    modal();
     $.ajax({
         type: "GET",
         url: "getHomeRoomStream/"+class_id,
@@ -175,6 +137,7 @@ $("#homeRoomClass").change(function (e) {
                 select += '<option value="'+element.stream_id+'">'+element.stream_type+'</option>'
             });
             $("#homeRoomStream").html(select);
+            loadingModalHide();
         }
     });
 });
@@ -183,6 +146,7 @@ $("#homeRoomStream").change(function (e) {
     e.preventDefault();
     var stream_id = this.value;
     var class_id = $("#homeRoomClass").val();
+    modal();
     $.ajax({
         type: "GET",
         url: "getHomeRoomSection/"+class_id+"/"+stream_id,
@@ -195,6 +159,7 @@ $("#homeRoomStream").change(function (e) {
                 select += '<option value="'+element.section_name+'">'+element.section_name+'</option>'
             });
             $("#homeRoomSection").html(select);
+            loadingModalHide();
         }
     });
 });
@@ -205,6 +170,7 @@ $("#addHomeRoom").click(function (e) {
     var section = $("#homeRoomSection").val();
     var class_id = $("#homeRoomClass").val();
     var stream_id = $("#homeRoomStream").val();
+    modal();
     $.ajax({
         type: "GET",
         url: "setHomeRoom/"+teacher+"/"+section+"/"+class_id+"/"+stream_id,
@@ -236,14 +202,12 @@ $("#addHomeRoom").click(function (e) {
                     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 }).buttons().container().appendTo('#home_room_table_wrapper .col-md-6:eq(0)');
             }
+            loadingModalHide();
         }
     });
 });
 
 
-// function deleteHomeRoom(val){
-//     console.log(val.value);
-// }
 
 function editHomeRoom(val){
     console.log(val.value);

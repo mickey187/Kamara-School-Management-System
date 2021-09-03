@@ -2,28 +2,17 @@ $('#modal-dashboard').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget);
     var detail = button.data('detail3');
     var data = detail.split(",");
-    // if(data[0] == "My Student")
-    //     $('#title').html(data[0]);
-    // else if(data[0] == "Home Room"){
-    //     $('#title').html(data[0]);
-    //     fetchCourseLoad(data[1].trim())
-    // }else if(data[0] == "Course Load"){
-    //     $('#title').html(data[0]);
-    // }else if(data[0] == "Profile"){
-    //     $('#title').html(data[0]);
-    //     $('#full_name').html(data[1]);
-    // }
 });
 
 function fetchCourseLoad(id){
-    // alert(id);
+   modal();
     $.ajax({
         type: 'GET',
         url: 'getHomeRoom/'+(id),
         dataType : 'json',
         success:function (data) {
             row = '';
-             console.log(data);
+            console.log(data);
             data.forEach(d => {
                 row+='<div class="col-lg-4">'+
                         '<a href="#"'+
@@ -39,6 +28,7 @@ function fetchCourseLoad(id){
                      '</div>'
            });
             $('#classes').html(row);
+            loadingModalHide();
         },
         error:function (data) {
             console.log("it is not works fine");
@@ -48,6 +38,8 @@ function fetchCourseLoad(id){
 
 function getHomeRoom(id){
     // alert(id);
+
+    modal();
     $.ajax({
         type: 'GET',
         url: 'getHomeRoom/'+(id),
@@ -58,7 +50,6 @@ function getHomeRoom(id){
             console.log(data);
             data.forEach(d => {
                 // alert(d.id);
-
                 row+='<div class="col-4 mt-2">'+
                 '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.employee_id+','+d.class_label+','+d.section+','+d.stream+'">'+
                     '<div class="small-box bg-primary ">'+
@@ -76,6 +67,7 @@ function getHomeRoom(id){
                 '</button>'+
                 '</div>';
             });
+            loadingModalHide();
             row2 += 'Dashboard / Home Room';
             generator =''
             $('#generator').html(generator);
@@ -84,6 +76,7 @@ function getHomeRoom(id){
         },
         error:function (data) {
             console.log("it is not works fine");
+            loadingModalHide();
         }
     });
 
@@ -95,9 +88,7 @@ function getHomeRoomStudent(nb){
     section = data[2];
     class_name = data[1];
     stream = data[3];
-   // alert(stream)
-    // alert(data[0]);
-    // alert(teacher_id+" "+section);
+    modal();
     $.ajax({
         type: 'GET',
         url: 'getHomeRoomStudent/'+teacher_id+'/'+section+'/'+class_name+'/'+stream,
@@ -134,7 +125,9 @@ function getHomeRoomStudent(nb){
                         '<th class="text-center">No</th>'+
                         '<th class="text-center">Full Name</th>'+
                         '<th class="text-center">Gender</th>'+
-                        '<th class="text-center"><button onclick="setAvarageForClass(this)" class="shadow btn btn-secondary btn-sm" value="'+section+","+class_name+","+stream+'" > set current semister average </button></th>'+
+                        '<th class="text-center"><button onclick="setAvarageForClass(this)"  class="shadow btn btn-secondary btn-sm" value="'+section+","+class_name+","+stream+'"'+
+
+                        '> set current semister average </button></th>'+
                         '<th class="text-center">Status</th>'+
                     '</thead>'+'<tbody>'
 
@@ -275,9 +268,6 @@ function getHomeRoomStudent(nb){
            row+='</tbody></table></div></div></div>';
            row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
            generator = '<a class="shadow btn btn-sm btn-primary text-bold" href="/indexAttendance">Attendance</a> ';
-
-        //    '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"';
-
            generator +=  '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"'+
                                 'data-toggle="modal"'+
                                 'data-card1="'+class_name+','+stream+','+section+','+teacher_id+'"'+
@@ -291,9 +281,11 @@ function getHomeRoomStudent(nb){
            $('#teacherDashboardTitle').html(row2);
            $('#generator').html(generator);
            $('#dashboard').html(row);
+           loadingModalHide();
         },
         error:function (data) {
             console.log("it is not works fine");
+            loadingModalHide();
         }
     });
 
@@ -309,7 +301,7 @@ function getHomeRoomStudent(nb){
 
 
 function setAvarageForClass(val){
-
+    modal();
     $.ajax({
         type: "GET",
         url: "setAvarageForClass/"+val.value,
@@ -317,6 +309,7 @@ function setAvarageForClass(val){
         success: function (response) {
             console.log(response);
             swal.fire("response");
+            loadingModalHide();
         }
     });
 
