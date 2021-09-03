@@ -95,7 +95,7 @@ function getHomeRoomStudent(nb){
     section = data[2];
     class_name = data[1];
     stream = data[3];
-   // alert(stream)
+   alert(class_name);
     // alert(data[0]);
     // alert(teacher_id+" "+section);
     $.ajax({
@@ -273,7 +273,7 @@ function getHomeRoomStudent(nb){
            });
            row+='</tbody></table></div></div></div>';
            row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
-           generator = '<a class="btn btn-sm btn-primary text-bold" href="/indexAttendance">Attendance</a> ';
+           generator = '<a class="btn btn-sm btn-primary text-bold" onclick="getAttendanceList('+class_name+','+stream+','+section+')" href="indexAttendance/'+class_name+'/'+stream+'/'+section+'">Attendance</a> ';
 
            '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"';
 
@@ -311,3 +311,8 @@ function setAvarageForClass(val){
     });
 
 }
+
+function getAttendanceList (class_name, stream, section) { 
+
+    document.location.url = "/indexAttendance/"+class_name+"/"+stream+"/"+section;
+ }

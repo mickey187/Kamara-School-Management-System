@@ -20,6 +20,7 @@
             <div class="tab-content text-center">
                 <div class="tab-pane active" id="add_attendance_tab" role="tabpanel">
                     <p>Add Attendance</p>
+                    <p id="attendance_data" data-class_id="{{$class_id}}" data-stream_id="{{$stream_id}}" data-section="{{$section}}" hidden></p>
 
                     <div class="row">
                         <div class="col-12">

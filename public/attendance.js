@@ -2,6 +2,9 @@
 var current_date_global = null;
 var today_date_cookie_global = null;
 $(window).on("load", function () {
+    var class_id = $('#attendance_data').data("class_id");
+    var stream_id = $('#attendance_data').data("stream_id");
+    var section = $('#attendance_data').data("section");
     $.ajax({
     type: "GET",
     url: "/generateAttendanceList",

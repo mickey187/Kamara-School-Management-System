@@ -19,28 +19,32 @@ use Andegna;
 class AttendanceController extends Controller
 {
     //
-    public function indexAttendance(){
+    public function indexAttendance($class_label, $stream_type, $section){
 
+        $class_id = classes::where('class_label',$class_label)->value('id');
+        $stream_id = stream::where('stream_type',$stream_type)->value('id');
+        
         $user_id = Auth::user()->user_id;
         $employee = employee::where('employee_id',$user_id)->first();
         
 
         
-        return view('teacher.student_attendance')->with('employee',$employee);
+        return view('teacher.student_attendance')->with('employee',$employee)
+                ->with('class_id',$class_id)->with('stream_id',$stream_id)->with('section',$section);
     }
 
-    public function generateAttendanceList(){
-        $user_id = Auth::user()->user_id;
-        $employee = employee::where('employee_id',$user_id)->first();
-        $employee_id = employee::where('employee_id',$user_id)->value('id');
-        $home_room = home_room::where('employee_id',$employee_id)->first();
-        //$stream_id = stream::where('stream_type',$home_room->stream)->value('id');
-        $stream_id = home_room::where('employee_id',$employee_id)->value('stream_id');
+    public function generateAttendanceList($class_id, $stream_id, $section){
+        // $user_id = Auth::user()->user_id;
+        // $employee = employee::where('employee_id',$user_id)->first();
+        // $employee_id = employee::where('employee_id',$user_id)->value('id');
+        // $home_room = home_room::where('employee_id',$employee_id)->first();
+        // //$stream_id = stream::where('stream_type',$home_room->stream)->value('id');
+        // $stream_id = home_room::where('employee_id',$employee_id)->value('stream_id');
         $section = DB::table('sections')
                         ->join('students','sections.student_id','=','students.id')
                         ->join('classes','sections.class_id','=','classes.id')
-                        ->where('sections.class_id',$home_room->class_id)->where('sections.stream_id',$stream_id)
-                        ->where('section_name',$home_room->section)
+                        ->where('sections.class_id',$class_id)->where('sections.stream_id',$stream_id)
+                        ->where('section_name',$section)
                         ->orderBy('students.first_name','ASC')
                         ->orderBy('students.middle_name','ASC')
                         ->orderBy('students.last_name','ASC')
@@ -57,6 +61,8 @@ class AttendanceController extends Controller
 
         return response()->json(['current_date'=> $current_date,'section'=>$section,'today_date_cookie'=>$today_date_cookie]);
     }
+
+    
 
     public function submitAttendance(Request $req){
         $new_arr = $req->student_status_arr;

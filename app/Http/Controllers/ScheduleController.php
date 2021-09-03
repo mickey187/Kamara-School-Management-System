@@ -145,11 +145,13 @@ $schedule = collect([]);
         // $period_array_index = array_rand($period_number);
 
 //error_log($schedule);
-       ini_set('max_execution_time',300);
+       ini_set('max_execution_time',120);
        // set_time_limit(0);
        $counter2 = 0;
-       $counter3 = 0;
-   //  dd($schedule);
+       $counter3 = 0; 
+    //       $newer = $schedule->sortBy($schedule[0]->total_period);
+    //   dd($schedule);
+
         foreach ($schedule as $key) {
            $counter = 0;
            
@@ -198,29 +200,53 @@ $schedule = collect([]);
         $weeks_array_index = array_rand($weeks);
         $period_array_index = array_rand($period_number);
       //  error_log($class_id);
-        if (
-            course_load::where('class_id', $class_id)->where('stream_id',$stream_id)
-                    ->where('section_label',$section_label)
-                    ->where('day', $weeks[$weeks_array_index])
-                    ->where('period_number', $period_number[$period_array_index])
-                    ->exists() 
-                
-        ) {
-          return  $this->getRandomDayAndPeriod($class_id, $stream_id, $section_label, $subject_group_id);
-        }
+        $count = 0;
+
+      $subject_per_day_duplicate_count = course_load::where('class_id', $class_id)
+        ->where('stream_id',$stream_id)
+        ->where('section_label',$section_label)
+        ->where('day', $weeks[$weeks_array_index])
+        ->where('subject_group_id',$subject_group_id)
+        ->count();
+    //     $newer = DB::table('course_loads')
+    //     ->where("day",$weeks[$weeks_array_index])
+    //     ->whereNotIn('period_number', [1, 2, 3])
+    //     ->get();
+
+        error_log($subject_per_day_duplicate_count." subject exists on that day");
+        // error_log($newer." from newer");
 
         if (
-            course_load::where('class_id', $class_id)
-                        ->where('stream_id',$stream_id)
-                        ->where('section_label',$section_label)
-                        ->where('day', $weeks[$weeks_array_index])
-                        ->where('subject_group_id',$subject_group_id)
-                        ->count() > 1 
+            $subject_per_day_duplicate_count > 0 ||  course_load::where('class_id', $class_id)
+            ->where('stream_id',$stream_id)
+            ->where('section_label',$section_label)
+            ->where('day', $weeks[$weeks_array_index])
+            ->where('period_number', $period_number[$period_array_index])
+            ->exists()
         ) {
+           
             return  $this->getRandomDayAndPeriod($class_id, $stream_id, $section_label, $subject_group_id);
         }
 
+        // if (
+        //     course_load::where('class_id', $class_id)
+        //                 ->where('stream_id',$stream_id)
+        //                 ->where('section_label',$section_label)
+        //                 ->where('day', $weeks[$weeks_array_index])
+        //                 ->where('period_number', $period_number[$period_array_index])
+        //                 ->exists()
+                
+        // ) {
+        //   return  $this->getRandomDayAndPeriod($class_id, $stream_id, $section_label, $subject_group_id);
+        // }
+        
+        
+
+
+       
+
         else{
+
            $day_and_period = ["day"=>$weeks[$weeks_array_index],"period"=>$period_number[$period_array_index]];
           return $day_and_period;
         //    return $weeks[$weeks_array_index];
@@ -346,6 +372,20 @@ $schedule = collect([]);
             }
             }
          
+
+            // for ($i = 0; $i <= 7; $i++) {
+            //     $schedule_complete->push(DB::table('course_loads')
+            //     ->join('classes','course_loads.class_id','=','classes.id')
+            //     ->join('streams','course_loads.stream_id','=','streams.id')
+            //     ->where('class_id',$class_id)
+            //     ->where('stream_id',$stream_id)
+            //     ->where('section_label',$section_name)
+            //     ->where('period_number', $i)
+            //     ->orderBy('period_number','ASC')
+            //     ->orderByRaw('DAY(day)')
+                
+            // ->first(/*['class_label','stream_type','section_label','subject_group_id','day','period_number']*/));
+            // }
             return response()->json($schedule_complete);
         }
     }

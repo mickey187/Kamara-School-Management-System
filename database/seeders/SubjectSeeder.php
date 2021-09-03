@@ -22,34 +22,17 @@ class SubjectSeeder extends Seeder
         ]);
 
         DB::table('subjects')->insert([
-            'subject_name' => 'Amharic',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-
-        DB::table('subjects')->insert([
-            'subject_name' => 'Afan Oromoo',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-
-        DB::table('subjects')->insert([
-            'subject_name' => 'Gada',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-
-        DB::table('subjects')->insert([
             'subject_name' => 'Mathmatics',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-      
+
         DB::table('subjects')->insert([
             'subject_name' => 'Biology',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
         DB::table('subjects')->insert([
             'subject_name' => 'Chemistry',
             'created_at' => Carbon::now(),
@@ -67,6 +50,30 @@ class SubjectSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
+        DB::table('subjects')->insert([
+            'subject_name' => 'Gada',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        
+        DB::table('subjects')->insert([
+            'subject_name' => 'Amharic',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('subjects')->insert([
+            'subject_name' => 'Afan Oromoo',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        
+
+        
+      
+        
 
 
         

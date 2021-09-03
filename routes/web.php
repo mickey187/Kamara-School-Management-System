@@ -282,9 +282,9 @@ Route::get('my_student/{id}', [TeacherController::class,'myStudent']);
 
 Route::get('my_student/getClassSection/{class_Label}/{section}', [TeacherController::class,'getClassAndSection']);
 
-Route::get('/indexAttendance', [AttendanceController::class,'indexAttendance']);
+Route::get('/indexAttendance/{class_label}/{stream_type}/{section}', [AttendanceController::class,'indexAttendance']);
 
-Route::get('/generateAttendanceList', [AttendanceController::class,'generateAttendanceList']);
+Route::get('/generateAttendanceList/{class_id}/{stream_id}/{section}', [AttendanceController::class,'generateAttendanceList']);
 
 Route::get('/submitAttendance', [AttendanceController::class,'submitAttendance']);
 
