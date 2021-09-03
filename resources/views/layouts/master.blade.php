@@ -351,7 +351,7 @@
                                         <p>Teacher List</p>
                                     </a>
                                 </li>
-                                 <li class="nav-item">
+                                 {{-- <li class="nav-item">
                                     <a href="/addReligionPage" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Religion</p>
@@ -377,6 +377,13 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>view position</p>
                                     </a>
+                                </li> --}}
+
+                                 <li class="nav-item">
+                                    <a href="/indexEmployee" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>employee information</p>
+                                    </a>
                                 </li>
 
                                 {{-- <li class="nav-item">
@@ -397,14 +404,14 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="/addclasslabel" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Class Label</p>
                                     </a>
-                                </li>
+                                </li> --}}
 
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="/viewclasslabel" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>View Class Label</p>
@@ -415,8 +422,8 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Subject</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
+                                </li> --}}
+                                {{-- <li class="nav-item">
                                     <a href="/viewSubject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Subjects</p>
@@ -433,8 +440,8 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Class Subject</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
+                                </li> --}}
+                                {{-- <li class="nav-item">
                                     <a href="/addStream" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Stream</p>
@@ -445,7 +452,7 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Stream</p>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="{{ url('addSemister') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -466,11 +473,18 @@
                                 </li>
 
                                 <li class="nav-item">
+                                    <a href="/indexCurriculum" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Curriculum</p>
+                                    </a>
+                                </li>
+
+                                {{-- <li class="nav-item">
                                     <a href="/indexaddrole" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Role </p>
                                     </a>
-                                </li>
+                                </li> --}}
 
                                 <li class="nav-item">
                                     <a href="/viewrole" class="nav-link">
@@ -478,6 +492,9 @@
                                         <p>View Role </p>
                                     </a>
                                 </li>
+
+                                
+
                             </ul>
                         </li>
 
@@ -703,8 +720,15 @@ $(function() {
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <script src="{{ asset('section.js') }}"></script>
 
+{{-- Curriculum --}}
 
-        {{-- user management --}}
+<script src="{{asset('js/curriculum.js')}}"></script>
+
+{{-- employee information --}}
+
+<script src="{{asset('js/employee_information.js')}}"></script>
+
+{{-- user management --}}
 <script src="{{asset('user_management.js')}}"></script>
 
     <!-- view class js -->
@@ -752,7 +776,7 @@ $(function() {
     <script src="//unpkg.com/bootstrap-select@1.12.4/dist/js/bootstrap-select.min.js"></script>
     <script src="//unpkg.com/bootstrap-select-country@4.0.0/dist/js/bootstrap-select-country.min.js"></script>
 
-    <script src="{{asset('dist/js/addclass.js')}}"></script>
+    {{-- <script src="{{asset('dist/js/addclass.js')}}"></script> --}}
     {{-- <script src="{{ asset('dist/js/employee.js') }}"></script>  --}}
     <script src="{{ asset('dist/js/parent_modal.js') }}"></script>
     <script src="{{ asset('dist/js/student_modal.js') }}"></script>
@@ -781,6 +805,7 @@ $(function() {
     <script src="{{ asset('dist/studentValidation/student.js') }}"></script>
 
     {{-- Curriculum validation --}}
+
     {{-- <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script> --}}
     <script src="{{ asset('dist/validation/add_subject_validation.js') }}"></script>
 
@@ -788,7 +813,7 @@ $(function() {
      {{--employee validation --}}
    
 
-      <script src="{{ asset('dist/employee/employee_validation.js') }}"></script>
+      <script src="{{ asset('dist/employee/add_employee_validation.js') }}"></script>
      {{-- <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script> --}}
      {{-- <script src="{{ asset('dist/validation/add_job_position_validation.js') }}"></script> --}}
 

@@ -51,7 +51,7 @@
               <div class="col-6">
                 <div class="form-group">
                     <label for="addPriority">Add Priority</label>
-                    <input type="number" name ="class_priority" min="1" max="15" class="form-control" id="addPriority" placeholder="priority" >
+                    <input type="number" name ="class_priority" min="1" max="15" class="form-control" id="priority" placeholder="priority" >
 
                     @if ($errors->any())
                 

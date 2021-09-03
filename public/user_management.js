@@ -1,4 +1,9 @@
 
+
+
+
+
+
 $('#add_role_btn').click(function(){
 var role_name = $('#input_role').val();
 $.ajax({
@@ -72,9 +77,6 @@ $('#view_role_tab_link').click(function () {
             });
 
             $("#view_role_table").DataTable({
-                // "processing": true,
-                // "serverSide": true,
-                // "ajax":"/finance/showStudentsRegsiteredForTransport",
                 "destroy":true,
                 "data":data,
                 "columns": [

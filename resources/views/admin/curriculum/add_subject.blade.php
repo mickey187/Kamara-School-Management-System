@@ -26,8 +26,7 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
-                      {{-- <label for="exampleFormControlSelect1">Add Subject Group </label>
-                      <input type="text" name ="subject_group" class="form-control" id="exampleFormControlInput1" placeholder="Subject Group"> --}}
+                     
 
                       </div>
 

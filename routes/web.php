@@ -22,7 +22,10 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentPersonalDevelopmentController;
 use GrahamCampbell\ResultType\Success;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\Curriculum;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\EmployeeInformationController;
+use App\Models\employee;
 
 Route::get('generatedox',[StudentController::class, 'generateDocx']);
 
@@ -137,7 +140,29 @@ Route::get('/createAccount/{user_name}/{email}/{role_id}/{password}', [UserManag
 Route::get('/viewUserAccount', [UserManagementController::class, 'viewUserAccount']);
 });
 
+// Curriculum
 
+ Route::get('/indexCurriculum', [Curriculum::class,'indexCurriculum']);
+
+ Route::get('/addClass/{class_label}/{class_priority}', [Curriculum::class, 'addClass']);
+ Route::get('/viewClass', [Curriculum::class, 'viewClass']);
+ Route::get('/edit_class_label', [Curriculum::class, 'edit_class_label']);
+ Route::get('/delete_class_label', [Curriculum::class, 'delete_class_label']);
+
+
+ Route::get('/indexAddSubject/{subject_name}',[Curriculum::class,'indexAddSubject']);
+ Route::get('/view_subject', [Curriculum::class, 'view_subject']);
+ Route::get('/edit_subject', [Curriculum::class, 'edit_subject']);
+ Route::get('/delete_subject', [Curriculum::class, 'delete_subject']);
+
+
+ Route::get('/indexaddStream/{stream_type}',[Curriculum::class,'indexaddStream']);
+ Route::get('/view_stream', [Curriculum::class, 'view_stream']);
+ Route::get('/edit_stream', [Curriculum::class, 'edit_stream']);
+ Route::get('/delete_stream', [Curriculum::class, 'delete_stream']);
+
+
+// });
 //subject
 Route::get('/subject', [SubjectController::class, 'index']);
 
@@ -181,30 +206,41 @@ Route::get('/viewStream', [StreamController::class, 'viewStream'])->name('/viewS
 
 Route::post('addStream', [StreamController::class, 'addStream']);
 
+// employee information
+
+Route::get('/indexEmployee', [EmployeeInformationController::class,'indexEmployee']);
+
+ Route::get('/add_position/{position_name}', [EmployeeInformationController::class, 'add_position'])->name('add_position');
+ Route::get('/view_position', [EmployeeInformationController::class, 'view_position']);
+ Route::get('/edit_job_position', [EmployeeInformationController::class, 'edit_job_position'])->name('edit_job_position');
+ Route::get('/deleteJobPosition', [EmployeeInformationController::class, 'deleteJobPosition']);
+
+ Route::get('/add_religion/{religion_name}',[EmployeeInformationController::class,'add_religion']);
+ Route::get('/view_religion', [EmployeeInformationController::class, 'view_religion']);
+ Route::get('/edit_religion',[EmployeeInformationController::class,'edit_religion'])->name('edit_religion');
+ Route::get('/delete_religion', [EmployeeInformationController::class, 'delete_religion']);
+
+
 // Employee Controller
-Route::get('/addReligionPage',[AddReligionController::class,'addReligionPage']);
+// Route::get('/addReligionPage',[AddReligionController::class,'addReligionPage']);
 
-Route::get('/addReligion',[AddReligionController::class,'addReligion'])->name('/addReligion');
+// Route::get('/addReligion',[AddReligionController::class,'addReligion'])->name('/addReligion');
 
-Route::get('/viewReligion',[AddReligionController::class,'viewReligion'])->name('/viewReligion');
+// Route::get('/viewReligion',[AddReligionController::class,'viewReligion'])->name('/viewReligion');
 
 Route::get('editReligion/{id}', [AddReligionController::class, 'editReligion'])->name('editReligion');
 
-Route::get('editReligionValue/{id}',[AddReligionController::class,'editReligionValue']);
-
-Route::get('/deleteReligion', [AddReligionController::class, 'deleteReligion']);
-
 Route::get('/indexAddJobPosition',[AddJobPositionController::class,'indexAddJobPosition']);
 
-Route::get('/addJobPosition',[AddJobPositionController::class,'addJobPosition'])->name(('/addJobPosition'));
+// Route::get('/addJobPosition',[AddJobPositionController::class,'addJobPosition'])->name(('/addJobPosition'));
 
-Route::get('/viewJobPosition',[AddJobPositionController::class,'viewJobPosition'])->name('/viewJobPosition');
+// Route::get('/viewJobPosition',[AddJobPositionController::class,'viewJobPosition'])->name('/viewJobPosition');
 
-Route::get('editJobPosition/{id}', [AddJobPositionController::class, 'editJobPosition'])->name('editJobPosition');
+
 
 Route::get('editPositionValue/{id}',[AddJobPositionController::class,'editPositionValue']);
 
-Route::get('/deleteJobPosition', [AddJobPositionController::class, 'deleteJobPosition']);
+
 
 Route::get('/addEmployee',[EmployeeRegistrationController::class, 'store']);
 
