@@ -28,7 +28,7 @@
                                <div class="col-6">
                                    <label for="">Choose Date</label>
                                
-                                <input type="text" name="" id="ethio_date_inline" class="form-control mb-5" placeholder="choose date">
+                                <input type="text" name="" autocomplete="off" id="ethio_date_inline" class="form-control mb-5" placeholder="choose date">
                                 
                                </div>
                            </div>

@@ -19,15 +19,15 @@ use Andegna;
 class AttendanceController extends Controller
 {
     //
-    public function indexAttendance($class_label, $stream_type, $section){
+    public function indexAttendance($class_id, $stream_id, $section){
 
-        $class_id = classes::where('class_label',$class_label)->value('id');
-        $stream_id = stream::where('stream_type',$stream_type)->value('id');
+        // $class_id = classes::where('class_label',$class_label)->value('id');
+        // $stream_id = stream::where('stream_type',$stream_type)->value('id');
         
         $user_id = Auth::user()->user_id;
         $employee = employee::where('employee_id',$user_id)->first();
         
-
+error_log($class_id." ".$stream_id." ".$section."wzuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuup");
         
         return view('teacher.student_attendance')->with('employee',$employee)
                 ->with('class_id',$class_id)->with('stream_id',$stream_id)->with('section',$section);
