@@ -77,7 +77,7 @@ class ClassController extends Controller
             return redirect('addclasslabel')
             ->withErrors($validator)->withInput();
         }
-        
+
          $validated = $validator->validated();
 
        $class = new classes();
@@ -127,7 +127,7 @@ class ClassController extends Controller
 
 
     function addClassSubject(Request $req){
-       // return $req;   
+       // return $req;
         $subjects_id = $req->input('subjects');
         $class_id = $req->input('class_label');
         $stream_id = $req->stream;
@@ -283,8 +283,8 @@ return redirect()->route('/viewClassSubject');
      $class_subject_id = $req->cls_subject;
 
      $class_subject = class_subject::find($class_subject_id);
-    
-        
+
+
 
      if ($class_subject->delete()) {
         $class_data = DB::table('class_subjects')
@@ -305,7 +305,5 @@ return redirect()->route('/viewClassSubject');
         return response()->json($subject);
     }
 
-    public function getCLassStreamSection(){
-        return response()->json("ww");
-    }
+ 
 }

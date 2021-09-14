@@ -335,7 +335,7 @@ Route::get('/viewAttendance/{class_id}/{stream_id}/{section}/{date}', [Attendanc
 
 Route::get('/viewAttendanceForSpecificDate/{class_id}/{stream_id}/{section}/{date}', [AttendanceController::class,'viewAttendanceForSpecificDate']);
 
-Route::get('/editStudentAttendanceForSpecificDate/{student_id}/{class_id}/{stream_id}/{section}/{academic_calendar}/{semister_id}/{date}/{status}/{new_status}', 
+Route::get('/editStudentAttendanceForSpecificDate/{student_id}/{class_id}/{stream_id}/{section}/{academic_calendar}/{semister_id}/{date}/{status}/{new_status}',
 [AttendanceController::class,'editStudentAttendanceForSpecificDate']);
 
 Route::get('/indexAttendanceForParent', [ParentController::class,'indexAttendanceForParent']);
@@ -416,7 +416,8 @@ Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 Route::get('generateIdPage',[ExcelController::class, 'generateIdPage']);
 Route::get('getStudentDetail/{id}',[ExcelController::class, 'getStudentDetail']);
 Route::get('generateOneIdForSingleID/{id}',[ExcelController::class, 'generateOneIdForSingleID']);
-Route::get('getCLassStreamSection',[ClassController::class,'getCLassStreamSection']);
+Route::get('getCLassStreamSection',[Curriculum::class,'getCLassStreamSection']);
+Route::get('getCLassStreamSection2/{class_id}/{stream_id}',[Curriculum::class,'getCLassStreamSection2']);
 
 Route::get('/indexHomeRoomAttendance',[AttendanceController::class, 'indexHomeRoomAttendance']);
 
