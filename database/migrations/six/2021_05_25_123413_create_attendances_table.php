@@ -32,6 +32,11 @@ class CreateAttendancesTable extends Migration
 
             $table->string('date')->nullable(false);
 
+            $table->unsignedBigInteger('semister_id');
+            $table->foreign('semister_id')->references('id')->on('semisters')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->string('academic_calendar')->nullable(false);
+
             $table->timestamps();
         });
     }

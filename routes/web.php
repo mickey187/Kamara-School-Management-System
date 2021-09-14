@@ -26,6 +26,9 @@ use App\Http\Controllers\Curriculum;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EmployeeInformationController;
 use App\Models\employee;
+use App\Http\Controllers\ExportController;
+use App\Models\assasment_type;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('generatedox',[StudentController::class, 'generateDocx']);
 
@@ -191,6 +194,8 @@ Route::get('viewsubjectgroup', [SubjectController::class, 'viewSubjectGroup'])->
 
 Route::post('addsubjectgroup', [SubjectController::class, 'addSubjectGroup']);
 
+
+
 // Subject Period
 
 Route::get('getSubjectForPeriod/{class}', [SubjectController::class, 'getSubjectForPeriod']);
@@ -320,21 +325,26 @@ Route::get('my_student/{id}', [TeacherController::class,'myStudent']);
 
 Route::get('my_student/getClassSection/{class_Label}/{section}', [TeacherController::class,'getClassAndSection']);
 
-Route::get('/indexAttendance', [AttendanceController::class,'indexAttendance']);
+Route::get('/indexAttendance/{class_label}/{stream_type}/{section}', [AttendanceController::class,'indexAttendance']);
 
-Route::get('/generateAttendanceList', [AttendanceController::class,'generateAttendanceList']);
+Route::get('/generateAttendanceList/{class_id}/{stream_id}/{section}', [AttendanceController::class,'generateAttendanceList']);
 
 Route::get('/submitAttendance', [AttendanceController::class,'submitAttendance']);
 
-Route::get('/viewAttendance/{date}', [AttendanceController::class,'viewAttendance']);
+Route::get('/viewAttendance/{class_id}/{stream_id}/{section}/{date}', [AttendanceController::class,'viewAttendance']);
 
-Route::get('/viewAttendanceForSpecificDate/{date}', [AttendanceController::class,'viewAttendanceForSpecificDate']);
+Route::get('/viewAttendanceForSpecificDate/{class_id}/{stream_id}/{section}/{date}', [AttendanceController::class,'viewAttendanceForSpecificDate']);
+
+Route::get('/editStudentAttendanceForSpecificDate/{student_id}/{class_id}/{stream_id}/{section}/{academic_calendar}/{semister_id}/{date}/{status}/{new_status}', 
+[AttendanceController::class,'editStudentAttendanceForSpecificDate']);
 
 Route::get('/indexAttendanceForParent', [ParentController::class,'indexAttendanceForParent']);
 
 Route::get('/getCurrentYearMonthForParentAttendance', [ParentController::class,'getCurrentYearMonthForParentAttendance']);
 
 Route::get('/viewStudentAttendanceForMonth/{year_month}', [ParentController::class,'viewStudentAttendanceForMonth']);
+
+
 //Role
 
 // Route::get('indexaddrole', [RoleController::class, 'indexAddRole']);
@@ -403,6 +413,14 @@ Route::get('/viewParentPaymentDetail',[ParentController::class, 'viewParentPayme
 
 // admin
 Route::get('dashboard',[StudentController::class, 'adminDashboard']);
+Route::get('generateIdPage',[ExcelController::class, 'generateIdPage']);
+Route::get('getStudentDetail/{id}',[ExcelController::class, 'getStudentDetail']);
+Route::get('generateOneIdForSingleID/{id}',[ExcelController::class, 'generateOneIdForSingleID']);
+Route::get('getCLassStreamSection',[ClassController::class,'getCLassStreamSection']);
+
+Route::get('/indexHomeRoomAttendance',[AttendanceController::class, 'indexHomeRoomAttendance']);
+
+Route::get('/getHomeRoomAttendance/{year_month}',[AttendanceController::class, 'getHomeRoomAttendance']);
 
 //marklist
 
@@ -494,6 +512,8 @@ Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
 Route::get('exportstudent/{class}/{stream}/{section}/{assasmnet}/{courseLoad}/{subject}', [ExcelController::class, 'export']);
 
+Route::get('exportstudent/{class}/{stream}/{section}/{assasmnet}/{subject}', [ExcelController::class, 'multipleExport']);
+
 Route::get('generateStudentCard', [MarklistController::class, 'generateTotalCard']);
 
 // Student Traits
@@ -510,6 +530,16 @@ Route::get('addSchedule/{class}/{stream}/{subject}/{day}/{section}/{period}', [S
 
 Route::get('getSubjectGroup/{class}', [ScheduleController::class, 'getSubjectGroup']);
 
+//mickey schedule experiment
+
+Route::get('/indexNewSchedule', [ScheduleController::class, 'indexNewSchedule']);
+
+Route::get('/generateNewSchedule', [ScheduleController::class, 'generateNewSchedule']);
+
+Route::get('/getGeneratedSchedule', [ScheduleController::class, 'getGeneratedSchedule']);
+
+Route::get('/getScheduleForSpecificeSection/{class_id}/{stream_id}/{section_name}', [ScheduleController::class, 'getScheduleForSpecificeSection']);
+
 
 // Home Room
 
@@ -519,6 +549,33 @@ Route::get('getHomeRoomSection/{class}/{stream}', [ListTeacherController::class,
 
 // promote student
 Route::get('promoteStudentToNextClass/{class}/{stream}/{section}/{teacher}', [ListTeacherController::class, 'promoteStudentToNextClass']);
+
+// Assasment
+
+Route::get('getAllAssasment', function () {
+    return response()->json(assasment_type::all());
+});
+
+Route::get('pdf/generate/{path}', [ExcelController::class, 'create']);
+
+Route::get('downloadSingleStudentId/{id}', [ExcelController::class, 'downloadSingleId']);
+
+// Route::get('cd/{id}', function($id)
+// {
+//     // ->resize(323.527,204.01)
+//     // $img = Image::make(storage_path('app/public/student_id_image/idcard.jpg'));
+//     // $path = Storage::path('public/student_id_image/idcard.jpg');
+//     // return response()->download($path, "student.png");
+//     // $generator = new Picqer\Barcode\BarcodeGeneratorJPG();
+//     // file_put_contents(storage_path('app/public/student_id_image/barcode/barcode.jpg'), $generator->getBarcode('081231723897', $generator::TYPE_CODABAR));
+//     // $barcode = $generator->getBarcode($id, $generator::TYPE_CODE_128);
+//     // if (!extension_loaded('imagick')){
+//     //     echo 'imagick not installed';
+//     // }else
+//         // return  QRCode::text('Laravel QR Code Generator!')->png();
+//         return QRCode::text('John Doe ABraham')->setOutfile(storage_path('app/public/student_id_image/qrcode/qrcode.png'))->png();
+//     // return storage_path('app/public/student_id_image/barcode/barcode.jpg');
+// });
 
 
 require __DIR__.'/auth.php';

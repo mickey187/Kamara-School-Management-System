@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9d901e7058dcb3e142c287c41dfeedf86f41c634',
+    'reference' => '3425937c31c44a462870fabcc5c3c722bcc3c08e',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -66,6 +66,15 @@ private static $installed = array (
       ),
       'reference' => '9cb795bf30988e8c96dd3c40623c48a877bc6714',
     ),
+    'bacon/bacon-qr-code' => 
+    array (
+      'pretty_version' => '2.0.4',
+      'version' => '2.0.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f73543ac4e1def05f1a70bcd1525c8a157a1ad09',
+    ),
     'brick/math' => 
     array (
       'pretty_version' => '0.9.2',
@@ -74,6 +83,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'dff976c2f3487d42c1db75a3b180e2b9f0e72ce0',
+    ),
+    'calcinai/php-imagick' => 
+    array (
+      'pretty_version' => 'v0.1.2',
+      'version' => '0.1.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '001530b19560b9862ffe78c3ae29ad5dc2549e6d',
     ),
     'clue/stream-filter' => 
     array (
@@ -90,6 +108,15 @@ private static $installed = array (
       array (
         0 => '*',
       ),
+    ),
+    'dasprid/enum' => 
+    array (
+      'pretty_version' => '1.0.3',
+      'version' => '1.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5abf82f213618696dda8e3bf6f64dd042d8542b2',
     ),
     'davedevelopment/hamcrest-php' => 
     array (
@@ -504,6 +531,15 @@ private static $installed = array (
         0 => 'v8.49.0',
       ),
     ),
+    'intervention/image' => 
+    array (
+      'pretty_version' => '2.6.1',
+      'version' => '2.6.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '0925f10b259679b5d8ca58f3a2add9255ffcda45',
+    ),
     'jean85/pretty-package-versions' => 
     array (
       'pretty_version' => '2.0.4',
@@ -563,7 +599,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9d901e7058dcb3e142c287c41dfeedf86f41c634',
+      'reference' => '3425937c31c44a462870fabcc5c3c722bcc3c08e',
     ),
     'laravel/sail' => 
     array (
@@ -645,6 +681,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '174395a901b5ba0925f1d790fa91bab531074b61',
+    ),
+    'milon/barcode' => 
+    array (
+      'pretty_version' => '8.0.1',
+      'version' => '8.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a1b1ee1a743c1368597f1742e6ee4765333a15a1',
     ),
     'mockery/mockery' => 
     array (
@@ -947,6 +992,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'fb9b8333f14e3dce976a60ef6a7e05c7c7ed8bfb',
+    ),
+    'picqer/php-barcode-generator' => 
+    array (
+      'pretty_version' => 'v2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '7df93b40099e5fefad055543320a36b80dccda05',
     ),
     'psr/container' => 
     array (
@@ -1277,6 +1331,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '91d6644fee3ba447769dc73eda2487a93218c04e',
+    ),
+    'simplesoftwareio/simple-qrcode' => 
+    array (
+      'pretty_version' => '4.2.0',
+      'version' => '4.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '916db7948ca6772d54bb617259c768c9cdc8d537',
     ),
     'snapappointments/bootstrap-select' => 
     array (
@@ -1640,6 +1703,24 @@ private static $installed = array (
       array (
       ),
       'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
+    ),
+    'werneckbh/laravel-qr-code' => 
+    array (
+      'pretty_version' => '0.1.3',
+      'version' => '0.1.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'df3875022158d0f8355f54219955e32f9a9ba080',
+    ),
+    'werneckbh/qr-code' => 
+    array (
+      'pretty_version' => '2.1.15',
+      'version' => '2.1.15.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ec66df0ebd5a3e1ea895bb5fba82ab9c3b9ff8f0',
     ),
     'zendframework/zend-escaper' => 
     array (

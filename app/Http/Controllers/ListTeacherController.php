@@ -150,6 +150,8 @@ class ListTeacherController extends Controller
 
                     $section = section::where('student_id',$row->student_id);
                     $section->delete();
+
+                    
                     $promotedStudentSize++;
                 }
             }

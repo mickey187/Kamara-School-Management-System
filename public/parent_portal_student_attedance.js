@@ -117,12 +117,20 @@
 
 
      var current_year_month = $('#current_year_month').text();
+     viewAttendanceForSpecificMonth(current_year_month);
+
  $('.ethio-month a[data-month="'+current_year_month+'"]').click();
   
 
 $('.ethio-month a').click(function () { 
     //  alert($(this).data('month'));
     var year_month = $(this).data('month');
+    viewAttendanceForSpecificMonth(year_month);
+
+ });
+
+ function viewAttendanceForSpecificMonth (year_month) { 
+
     $.ajax({
         type: "GET",
         url: "/viewStudentAttendanceForMonth/"+year_month,
@@ -197,4 +205,5 @@ $('.ethio-month a').click(function () {
            
         }
     });
- });
+
+  }

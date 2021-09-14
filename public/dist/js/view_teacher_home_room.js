@@ -51,7 +51,7 @@ function getHomeRoom(id){
             data.forEach(d => {
                 // alert(d.id);
                 row+='<div class="col-4 mt-2">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.employee_id+','+d.class_label+','+d.section+','+d.stream+'">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getHomeRoomStudent(this);" value="'+d.employee_id+','+d.class_label+','+d.section+','+d.stream+','+d.class_id+','+d.stream_id+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
                         '<label>'+d.class_label+' '+d.section+'</label><br>'+
@@ -88,6 +88,8 @@ function getHomeRoomStudent(nb){
     section = data[2];
     class_name = data[1];
     stream = data[3];
+    class_id_new = data[4];
+    stream_id_new = data[5];
     modal();
     $.ajax({
         type: 'GET',
@@ -267,7 +269,11 @@ function getHomeRoomStudent(nb){
            });
            row+='</tbody></table></div></div></div>';
            row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
-           generator = '<a class="shadow btn btn-sm btn-primary text-bold" href="/indexAttendance">Attendance</a> ';
+        //    alert(section);
+           generator = '<a class="btn btn-sm btn-primary text-bold"  href="indexAttendance/'+class_id_new+'/'+stream_id_new+'/'+section+'" >Attendance</a> ';
+
+           '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"';
+
            generator +=  '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"'+
                                 'data-toggle="modal"'+
                                 'data-card1="'+class_name+','+stream+','+section+','+teacher_id+'"'+
@@ -314,3 +320,9 @@ function setAvarageForClass(val){
     });
 
 }
+
+function getAttendanceList (data) { 
+// var data = $(this).val();
+alert(data.value)
+    document.location.url = "/indexAttendance/"+data.value;
+ }

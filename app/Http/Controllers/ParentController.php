@@ -274,7 +274,18 @@ class ParentController extends Controller{
 
         }
         //dd($year_month);
-        $current_year_month = $now1->getYear()."-".$now1->getMonth();
+        $current_year_month = null;
+
+        if ( strlen($now1->getMonth()) < 2 ) {
+            
+            $current_year_month = $now1->getYear()."-0".$now1->getMonth();
+            
+        } else{
+
+            $current_year_month
+             = $now1->getYear()."-".$now1->getMonth();
+            
+        }
 
         $parent_id = Auth::user()->user_id;
         $student_id = students_parent::where('parent_id',$parent_id)->value('student');
@@ -319,7 +330,15 @@ class ParentController extends Controller{
                                     ->where('date','LIKE',$year_month.'%')
                                     ->get([DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')
                                       ,'stream_type','section_name','class_label','status','date','students.student_id']);
-            return response()->json($student_attendance_data);
+           
+           
+            foreach ($student_attendance_data as $key) {
+                $date = date_create($key->date);
+                $ethiopic = Andegna\DateTimeFactory::fromDateTime($date);
+                $new_date = $ethiopic->format('F j ቀን Y');
+                error_log($new_date);
+            }
+                                      return response()->json($student_attendance_data);
     }
 
     public function getCurrentYearMonthForParentAttendance(){
