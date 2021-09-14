@@ -177,28 +177,20 @@
                 </a>
             </div>
 
-
-
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
 
-
                 <div class="user-panel mt-1 mb-1 d-flex">
                     <span class="info text-black-50"> Navigation </span>
                 </div>
-
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
-
-
-
+                        with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
                             <a href="{{ url('dashboard') }}" class="nav-link active">
@@ -277,7 +269,16 @@
                                         <p>Sectioning</p>
                                     </a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a  data-toggle="modal"
+                                        data-detail=""
+                                        data-target="#modal-import-excel2"
+                                        class="nav-link"
+                                        style="cursor: pointer;">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Import Student Data</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -423,12 +424,15 @@
                                         <p>Add Subject</p>
                                     </a>
                                 </li> --}}
-                                {{-- <li class="nav-item">
+                                 
+                                    {{-- <li class="nav-item">
                                     <a href="/viewSubject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Subjects</p>
                                     </a>
-                                </li>
+                                </li> --}}
+                                                                {{-- 
+
                                 <li class="nav-item">
                                     <a href="/indexAddClassSubject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -486,15 +490,18 @@
                                     </a>
                                 </li> --}}
 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="/viewrole" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Role </p>
                                     </a>
+                                </li> --}}
+                                <li class="nav-item">
+                                    <a onclick="studentSkill();" style="cursor: pointer;" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Student Traits</p>
+                                    </a>
                                 </li>
-
-                                
-
                             </ul>
                         </li>
 
@@ -514,6 +521,8 @@
                                         <p>User Account</p>
                                     </a>
                                 </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-calendar"></i>
@@ -665,6 +674,7 @@
     </aside>
     <!-- /.control-sidebar -->
     </div>
+
     <!-- ./wrapper -->
 
     <!-- jQuery -->
@@ -789,6 +799,7 @@ $(function() {
     <script src="{{ asset('dist/css/checkbox.css') }}"></script>
     <script src="{{ asset('dist/js/teacher_home_room.js') }}"></script>
     <script src="{{ asset('dist/js/semister_status.js') }}"></script>
+    <script src="{{ asset('dist/js/course_load.js') }}"></script>
 
     <!-- Page specific script -->
 
@@ -825,6 +836,9 @@ $(function() {
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('dist/js/schedule.js') }}"></script>
+
+
+    <script src="{{ asset('root_admin_dashboard.js') }}"></script>
 
     <script>
         $(function() {

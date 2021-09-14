@@ -144,19 +144,24 @@ Route::get('/viewUserAccount', [UserManagementController::class, 'viewUserAccoun
 
  Route::get('/indexCurriculum', [Curriculum::class,'indexCurriculum']);
 
- Route::get('/addClass/{class_label}/{class_priority}', [Curriculum::class, 'addClass']);
+ Route::get('/addClass', [Curriculum::class, 'addClass']);
  Route::get('/viewClass', [Curriculum::class, 'viewClass']);
  Route::get('/edit_class_label', [Curriculum::class, 'edit_class_label']);
  Route::get('/delete_class_label', [Curriculum::class, 'delete_class_label']);
 
 
- Route::get('/indexAddSubject/{subject_name}',[Curriculum::class,'indexAddSubject']);
+ Route::get('/indexAddSubject',[Curriculum::class,'indexAddSubject']);
  Route::get('/view_subject', [Curriculum::class, 'view_subject']);
+ Route::get('/view_subject_group', [Curriculum::class, 'view_subject_group'])->name('view_subject_group');
+ Route::get('get_subject_for_period/{class}', [Curriculum::class, 'get_subject_for_period']);
+ Route::get('set_subject_period/{class}/{period}/{subject}', [Curriculum::class, 'set_subject_period']);
+
+
  Route::get('/edit_subject', [Curriculum::class, 'edit_subject']);
  Route::get('/delete_subject', [Curriculum::class, 'delete_subject']);
 
 
- Route::get('/indexaddStream/{stream_type}',[Curriculum::class,'indexaddStream']);
+ Route::get('/indexaddStream',[Curriculum::class,'indexaddStream']);
  Route::get('/view_stream', [Curriculum::class, 'view_stream']);
  Route::get('/edit_stream', [Curriculum::class, 'edit_stream']);
  Route::get('/delete_stream', [Curriculum::class, 'delete_stream']);
@@ -177,6 +182,7 @@ Route::post('/addsubject', [SubjectController::class, 'addSubject']);
 Route::post('deletesubject', [SubjectController::class, 'deleteSubject']);
 
 //subject group
+
 Route::get('subjectGroup/{classes}/{subjects}', [SubjectController::class, 'subjectGroup']);
 
 Route::get('/addsubjectgroup', [SubjectController::class, 'indexSubjectGroup'])->name('addsubjectgroup');
@@ -184,6 +190,12 @@ Route::get('/addsubjectgroup', [SubjectController::class, 'indexSubjectGroup'])-
 Route::get('viewsubjectgroup', [SubjectController::class, 'viewSubjectGroup'])->name('viewsubjectgroup');
 
 Route::post('addsubjectgroup', [SubjectController::class, 'addSubjectGroup']);
+
+// Subject Period
+
+Route::get('getSubjectForPeriod/{class}', [SubjectController::class, 'getSubjectForPeriod']);
+
+Route::get('setSubjectPeriod/{class}/{period}/{subject}', [SubjectController::class, 'setSubjectPeriod']);
 
 //class
 
@@ -210,12 +222,12 @@ Route::post('addStream', [StreamController::class, 'addStream']);
 
 Route::get('/indexEmployee', [EmployeeInformationController::class,'indexEmployee']);
 
- Route::get('/add_position/{position_name}', [EmployeeInformationController::class, 'add_position'])->name('add_position');
+ Route::get('/add_position', [EmployeeInformationController::class, 'add_position'])->name('add_position');
  Route::get('/view_position', [EmployeeInformationController::class, 'view_position']);
  Route::get('/edit_job_position', [EmployeeInformationController::class, 'edit_job_position'])->name('edit_job_position');
  Route::get('/deleteJobPosition', [EmployeeInformationController::class, 'deleteJobPosition']);
 
- Route::get('/add_religion/{religion_name}',[EmployeeInformationController::class,'add_religion']);
+ Route::get('/add_religion',[EmployeeInformationController::class,'add_religion']);
  Route::get('/view_religion', [EmployeeInformationController::class, 'view_religion']);
  Route::get('/edit_religion',[EmployeeInformationController::class,'edit_religion'])->name('edit_religion');
  Route::get('/delete_religion', [EmployeeInformationController::class, 'delete_religion']);
@@ -263,6 +275,7 @@ Route::get('/edit_employee/{id}',[ListEmployeeController::class, 'getEmployee'])
 Route::get('/update_employee/{id}',[EmployeeRegistrationController::class, 'update']);
 
 Route::get('/delete_employee',[ListEmployeeController::class,'removeEmployee']);
+
 Route::get('/delete_employee/{id}',[ListEmployeeController::class,'removeEmployee']);
 
 Route::get('/trash_employee/{id}',[EmployeeRegistrationController::class,'delete']);
@@ -317,6 +330,11 @@ Route::get('/viewAttendance/{date}', [AttendanceController::class,'viewAttendanc
 
 Route::get('/viewAttendanceForSpecificDate/{date}', [AttendanceController::class,'viewAttendanceForSpecificDate']);
 
+Route::get('/indexAttendanceForParent', [ParentController::class,'indexAttendanceForParent']);
+
+Route::get('/getCurrentYearMonthForParentAttendance', [ParentController::class,'getCurrentYearMonthForParentAttendance']);
+
+Route::get('/viewStudentAttendanceForMonth/{year_month}', [ParentController::class,'viewStudentAttendanceForMonth']);
 //Role
 
 // Route::get('indexaddrole', [RoleController::class, 'indexAddRole']);
@@ -359,6 +377,8 @@ Route::get('/getStudentMarkList',[MarklistController::class, 'getStudentMarkList
 
 Route::get('my_student/marklist/{id}',[StudentController::class, 'teacherMarklist']);
 
+Route::get('/getStudentGender',[StudentController::class, 'getStudentGender']);
+
 // parent
 
 Route::get('newParent/{id}',[ParentController::class, 'addMore']);
@@ -391,9 +411,12 @@ Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
 Route::get('singleAddMarkList/{student_id}/{class_id}/{semister_id}/{assasment_id}/{subject}/{mark}/{load}',
 [MarklistController::class, 'singleAddMarkList']);
 
-Route::post('/import',[MarklistController::class, 'import'])->name('import');
+Route::post('/importStudent',[ExcelController::class, 'importStudent']);
 
 Route::post('importExcel',[ExcelController::class, 'importExcel'])->name('importExcel');
+
+Route::post('importExcel',[ExcelController::class, 'importExcel'])->name('importExcel');
+
 // Route::post('/importExcel/{gclass}/{gstream}/{gsection}',[ExcelController::class, 'importExcel'])->name('importExcel');
 
 Route::get('/addAssasment',[MarklistController::class, 'addAssasment'])->name('/addAssasment');
@@ -417,9 +440,13 @@ Route::get('setSection/{class_id}/{stream_id}/{section}/{room}',[SectionControll
 
 Route::get('findSection/{id}',[SectionController::class, 'findSection']);
 
+Route::get('findSectionForHomeRoom/{id}',[SectionController::class, 'findSectionForHomeRoom']);
+
+Route::get('getSectionForSelectedStream/{class}/{stream}',[SectionController::class, 'getSectionForSelectedStream']);
+
 Route::get('setCourseLoad/{teacher}/{section}/{class}/{subject}',[SectionController::class, 'setCourseLoad']);
 
-Route::get('SetHomeRoom/{teacher}/{section}/{class}',[SectionController::class, 'setHomeRoom']);
+Route::get('setHomeRoom/{teacher}/{section}/{class}/{stream}',[SectionController::class, 'setHomeRoom']);
 
 Route::get('getCourseLoad/{id}',[SectionController::class, 'getCourseLoad']);
 
@@ -453,6 +480,7 @@ Route::get('addNewSectionAndSetMode/{student}/{section}/{size}',[SectionControll
 
 Route::get('setSectionAutoMode/{student}/{size}/{roomSize}',[SectionController::class, 'setSectionAutoMode']);
 
+Route::get('getCourseLoadData/{teacher_id}/{class_id}/{stream_id}/{section}/{subject_id}',[SectionController::class, 'getCourseLoadData']);
 
 //For Testing
 
@@ -481,5 +509,16 @@ Route::get('getSection/{class}/{stream}', [ScheduleController::class, 'getSectio
 Route::get('addSchedule/{class}/{stream}/{subject}/{day}/{section}/{period}', [ScheduleController::class, 'addSchedule']);
 
 Route::get('getSubjectGroup/{class}', [ScheduleController::class, 'getSubjectGroup']);
+
+
+// Home Room
+
+Route::get('getHomeRoomStream/{class}', [ListTeacherController::class, 'getHomeRoomStream']);
+
+Route::get('getHomeRoomSection/{class}/{stream}', [ListTeacherController::class, 'getHomeRoomSection']);
+
+// promote student
+Route::get('promoteStudentToNextClass/{class}/{stream}/{section}/{teacher}', [ListTeacherController::class, 'promoteStudentToNextClass']);
+
 
 require __DIR__.'/auth.php';

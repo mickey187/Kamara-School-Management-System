@@ -5,11 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kamara School Management System | Dashboard</title>
+    {{-- <script src="{{asset('plugins/pace-progress/pace.min.js')}}"></script> --}}
+    {{-- <link rel="stylesheet" href="{{asset('plugins/pace-progress/themes/red/pace-theme-material.css')}}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
 
     <link rel="stylesheet" href="sweetalert2.min.css">
 
     <link rel="shortcut icon" href="{{ asset('img/logos.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('css/loading_modal.css') }}" >
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -47,7 +50,7 @@
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" crossorigin="anonymous"> --}}
 
 <!-- default icons used in the plugin are from Bootstrap 5.x icon library (which can be enabled by loading CSS below) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
@@ -59,13 +62,18 @@
 <link rel="stylesheet" href="plugins/AmharicDatepickerCalendar-master/css/redmond.calendars.picker.css">
 <!-- the fileinput plugin styling CSS file -->
 <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 </head>
         {{-- <?php
             // $user_id =  Auth::id();
             // $user = User::find($user_id);
             // $employee = employee::where('employee_id',$user->user_id)->first();
         ?> --}}
-<body class="hold-transition sidebar-mini layout-fixed">
+<body  class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -275,7 +283,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('') }}" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Parent List</p>
                                     </a>
@@ -331,6 +339,13 @@
 
 
     </div>
+    <div class="modal fade bd-example-modal-lg" id="loading_modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="width: 48px">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
+            </div>
+        </div>
+    </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
         <strong>Copyright &copy; 2014-2021 <a href="https://hawisoftware.com.et">hawisoftware.com.et</a></strong>
@@ -349,6 +364,7 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
+
     <script src="sweetalert2.min.js"></script>
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -370,7 +386,9 @@ $(function() {
     $('.select2').select2();
 });
 </script>
-
+{{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> --}}
+{{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script> --}}
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->
     <script src="plugins/sparklines/sparkline.js"></script>
@@ -449,6 +467,7 @@ $(function() {
     <script src="{{ asset('dist/js/view_teacher_home_room.js') }}"></script>
     <script src="{{ asset('dist/js/view_teacher_course_load.js') }}"></script>
     <script src="{{ asset('dist/js/modal_generate_excel.js') }}"></script>
+    <script src="{{ asset('dist/js/loading_modal.js') }}"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
@@ -467,7 +486,7 @@ $(function() {
     <script  src="js/jquery.calendars.ethiopian.js"></script>
     <script  src="js/jquery.calendars.ethiopian-am.js"></script>
     <script  src="js/jquery.calendars.picker-am.js"></script> --}}
-    
+
     <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.plugin.js')}}"></script>
     <script src="{{asset('plugins/AmharicDatepickerCalendar-master/js/jquery.calendars.js')}}"></script>
     <script src="{{asset('plugins/AmharicDatePickerCalendar-master/js/jquery.calendars.plus.js')}}"></script>
@@ -486,7 +505,7 @@ $(function() {
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-            
+
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,

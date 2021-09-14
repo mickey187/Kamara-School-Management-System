@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\StudentsExport;
 use App\Imports\HeaderFileImport;
 use App\Imports\MarklistImport;
+use App\Imports\StudentImport;
 use App\Models\classes;
 use App\Models\subject;
 use Illuminate\Http\Request;
@@ -49,7 +50,16 @@ class ExcelController extends Controller
 
      }
 
+     public function importStudent(Request $req){
+         if(Excel::import(new StudentImport(), $req->exel))
+         {
+            echo 'impoted successfuly';
+         }else{
+            echo 'Error';
 
+         }
+
+     }
 
 
 }

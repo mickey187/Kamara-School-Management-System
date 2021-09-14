@@ -9,18 +9,18 @@
       <h3 class="card-title"> <i class="fas fa-tachometer-alt"></i> View Subjects</h3>
   </div>
 
-
+  <nav>
+    <div class="nav nav-tabs nav-fill bg-orange" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-Subject-tab" data-toggle="tab" href="#nav-Subject" role="tab" aria-controls="nav-Subject" aria-selected="true">Subject</a>
+      <a class="nav-item nav-link" id="nav-Subject-group-tab" data-toggle="tab" href="#nav-Subject-group" role="tab" aria-controls="nav-Subject-group" aria-selected="false">Subject Group</a>
+      <a class="nav-item nav-link" id="nav-Subject-period-tab" data-toggle="tab" href="#nav-Subject-period" role="tab" aria-controls="nav-Subject-period" aria-selected="false">Subject Period</a>
+    </div>
+  </nav>
 
   <div class="card-body">
 
     <div class="col-xs-12 col-lg-12 col-sm-12 ">
-        <nav>
-          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-Subject-tab" data-toggle="tab" href="#nav-Subject" role="tab" aria-controls="nav-Subject" aria-selected="true">Subject</a>
-            <a class="nav-item nav-link" id="nav-Subject-group-tab" data-toggle="tab" href="#nav-Subject-group" role="tab" aria-controls="nav-Subject-group" aria-selected="false">Subject Group</a>
-            <a class="nav-item nav-link" id="nav-Subject-period-tab" data-toggle="tab" href="#nav-Subject-period" role="tab" aria-controls="nav-Subject-period" aria-selected="false">Subject Period</a>
-          </div>
-        </nav>
+
         <div class="col-12 tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
             <div class="col-12 tab-pane fade show active" id="nav-Subject" role="tabpanel" aria-labelledby="nav-Subject-tab">
                 <section class="content">
@@ -148,14 +148,14 @@
             </div>
             <div class="col-12 tab-pane fade show active" id="nav-Subject-group" role="tabpanel" aria-labelledby="nav-Subject-group-tab">
                 <div class="mr-1">
-                    <input type="button" class="btn btn-primary" id="swapTableWithDiv" value="Assign Subject Group">
+                    {{-- <input type="button" class="btn btn-primary" id="swapTableWithDiv" value="Assign Subject Group"> --}}
                     <section>
                         <hr>
                         <div class="row col-12">
                             <div class="col-8">
-                                <div class="card"  id="class_list">
+                                <div class=""  >
                                     <div class="card-header">Classes</div>
-                                    <div class="card-body">
+                                    <div class="card-body" id="class_list">
                                         @foreach ($classes as $class)
                                         <label class="PillList-item">
                                             <input id="selectedSection" type="checkbox" name="class" value="{{ $class->id }}">
@@ -167,9 +167,9 @@
                                     </div>
                                 </div>
 
-                                <div class="card" id="subject_list">
+                                <div class="card" >
                                     <div class="card-header">Subjects</div>
-                                    <div class="card-body">
+                                    <div class="card-body" id="subject_list">
                                         @foreach ($subjects as $subject)
                                         <label class="PillList-item ">
                                             <input id="selectedSection" type="checkbox" name="subject" value="{{ $subject->id }}">
@@ -217,15 +217,31 @@
                 </div>
             </div>
             <div class="col-12 tab-pane fade show active" id="nav-Subject-period" role="tabpanel" aria-labelledby="nav-Subject-period-tab">
+                <section>
+                    <select id="getSubjectForPeriod" class="form-control col-6 " data-placeholder="Select classes" >
+                        @foreach ($classes as $class)
+                            <option value="{{ $class->id }}">{{ $class->class_label }}</option>
+                        @endforeach
+                    </select>
+                    <div class="card m-2">
+                        <div class="card-header">Subjects</div>
+                        <div class="card-body" id="subjectList">
 
+                        </div>
+                    </div>
+                    <div style="display: none;" class="card m-2">
+                        <div class="card-header">Subjects List</div>
+                        <div class="card-body" id="subjectListTable">
+
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
 
-
-
   </div>
-  </div
+</div>
 
 
 @endsection

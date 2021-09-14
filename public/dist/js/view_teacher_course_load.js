@@ -7,17 +7,17 @@ function getCourseLoad(id){
         success:function (data) {
             row = '';
             row2 = '';
-            var data1 = JSON.parse(JSON.stringify(data.teacher_courses));
-            console.log(data1);
-            data1.forEach(d => {
+            // var data1 = JSON.parse(JSON.stringify(data.teacher_courses));
+            console.log(data);
+            data.forEach(d => {
                // alert("Teacher Courses "+d.stream)
                 row+='<div class="col-4 mt-2">'+
-                '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section+','+d.teacher_id+','+d.stream+'">'+
+                '<button class="col-12 btn" style="cursor: pointer;" onclick="getCourseLoadStudent(this);" value="'+d.id+','+d.class_id+','+d.section_label+','+d.teacher_id+','+d.stream_type+'">'+
                     '<div class="small-box bg-primary ">'+
                         '<div class="inner ">'+
-                          '<label>'+d.class_label+' '+d.section+'</label><br>'+
+                          '<label>'+d.class_label+' '+d.section_label+'</label><br>'+
                           '<label>'+d.subject_name+'</label><br>'+
-                          '<label> Stream '+d.stream+'</label>'+
+                          '<label> Stream '+d.stream_type+'</label>'+
                           '</div>'+
                         '<div class="icon"><br>'+
                           '<i class="fas fa-users"></i>'+
@@ -88,15 +88,15 @@ function getCourseLoadStudent(nb){
                           '</div>'+
                       '</div>'+
                   '</section><br>'+
-                      '<div  class="card"><table  class="table table-striped table-lg"'+
-                        '<thead>'+
+                      '<div  class="card"><table class="table table-striped table-bordered table-xl"'+
+                        '<thead class"bg-primary shadow">'+
                             '<th>No</th>'+
                             '<th>Full Name</th>'+
                             '<th>Gender</th>'+
                         '</thead>'+'<tbody>'
 
                 section1.forEach(d => {
-                    row+='<tr style="cursor: pointer;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle"  aria-expanded="false">'+
+                    row+='<tr style="cursor: pointer; border: 1.5px solid #DCDCDC !important;" data-toggle="collapse" data-target="#demo1'+count+'" class="accordion-toggle shadow bg-white"  aria-expanded="false">'+
                             '<td>'+count+'</td>'+
                             '<td>'+d.first_name+' '+d.middle_name+' '+d.last_name+'</td>'+
                             '<td>'+d.gender+'</td>'+
@@ -105,8 +105,11 @@ function getCourseLoadStudent(nb){
                     semister1.forEach(d3 =>{
                         all_total = 0;
                         all_percent = 0;
+                        style = '';
+                        if(!d3.current_semister)
+                            style='style="display:none;"';
                         row+='<div class="d-flex justify-content-center">'+
-                        '<div class="accordian-body collapse col-8" id="demo1'+count+'">'+
+                        '<div '+style+' class="accordian-body collapse col-8" id="demo1'+count+'">'+
                         '<table class="table  table-striped table-sm">'+
                             '<thead class="text-dark">'+
                                 '<div class="row  card-sm card  card-sm bg-secondary">'+
@@ -225,6 +228,7 @@ function saveEditedValue(){
     var vl2 = $("#percent"+total[0]+total[1]).val().trim()
     //alert(vl1+vl2);
     //alert('id: '+id+' Mark: '+ mark+ ' Load: '+ load+ ' Assasment: '+ assasment +' Name: '+name+' Subject: '+subject+' Total: '+total);
+    modal();
     $.ajax({
         type: 'GET',
         url: 'editMarkStudentList/'+id+'/'+mark+'/'+load+'/'+assasment,
@@ -241,6 +245,7 @@ function saveEditedValue(){
             $('#editTotalMl'+vl1).html(row2);
             Swal.fire("Updated!", "You Updated Successfuly!", "success");
             closer();
+            loadingModalHide();
         }
     })
 
@@ -294,6 +299,7 @@ function sendMarkList(){
     console.log("First Semister: "+semister)
 
    // alert('Assasment: '+assasment+' student: '+student+' Class: '+class_id+' Load: '+load+' Mark: '+mark+' Subject: '+subject+' Semister'+semister)
+   modal();
    $.ajax({
        type: 'GET',
        url: 'singleAddMarkList/'+student+'/'+class_id+'/'+semister+'/'+assasment+'/'+subject+'/'+mark+'/'+load,
@@ -325,7 +331,7 @@ function sendMarkList(){
                                     '<td class="text-center">'+
                                         '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+name+','+d2.subject_name+','+d2.semister+'-'+d2.term+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
                                     '</td>'+
-                                '</tr>'
+                                '</tr>';
                             }else{
                             row+=
                             '<tr class="text-primary" id="'+d2.id+'">'+
@@ -336,7 +342,7 @@ function sendMarkList(){
                                 '<td class="text-center">'+
                                     '<button onclick="editMark(this)" value="'+d2.id+','+d2.assasment_type+','+d2.mark+','+ d2.test_load+','+name+','+d2.subject_name+','+d2.semister+'-'+d2.term+'" class="btn btn-primary btn-sm m-1"> <i class="fas fa-pen"></i></button>'+
                                 '</td>'+
-                            '</tr>'
+                            '</tr>';
                             }
                     }
             });
@@ -352,7 +358,7 @@ function sendMarkList(){
                 closeAddMl();
 
            // row2+= '<td colspan="2" class="text-right">Total</td><td colspan="3" class="text-left">Loading...</td>'
-
+           loadingModalHide();
        }
    })
 }

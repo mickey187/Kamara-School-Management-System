@@ -36,9 +36,9 @@
                                                     value="{{$edit_emp_position->position_name}}"
                                                 @endif>
 
-                                        @if ($errors->has('position_name'))
-                                        <span class="text-danger">{{$errors->first('position_name')}}</span>
-                                        @endif
+                                                <div  id="job_position_error_message">
+                                                  
+                                                </div>
                                 </div>
 
                           <div class="form-group">
@@ -79,16 +79,9 @@
                                 value="{{$edit_employee_religion->religion_name}}"
                              @endif>
 
-                       @if ($errors->any())                  
-                  
-                      <div class="alert alert-danger">
-                          <ul>
-                          @foreach ($errors->get('religion_name') as $error)
-                           <li>{{ $error }}</li>
-                           @endforeach
-                          </ul>
-                      </div>
-                    @endif
+                        <div id="employee_religion_error_message">
+
+                        </div>
                 </div>
 
                 <div class="form-group">

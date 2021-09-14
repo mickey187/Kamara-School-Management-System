@@ -84,13 +84,33 @@ class StudentsCardExport implements WithMultipleSheets
                         foreach($studentCollection as $data){
                             if($data->subject == $sub->subject_name and $row->first_name.' '.$row->middle_name.' '.$row->last_name == $data->name){
                                 if($data->semister == 1){
-                                    $term1 = $data->total;
+                                    // $term1 = $data->total;
+                                    if ($data->load > 100) {
+                                        $term1 = round(($data->total * 100) / $data->load);
+                                    }else{
+                                        $term1 = $data->total;
+                                    }
                                 }elseif($data->semister == 2){
-                                    $term2 = $data->total;
+                                    // $term2 = $data->total;
+                                    if ($data->load > 100) {
+                                        $term2 = round(($data->total * 100) / $data->load);
+                                    }else{
+                                        $term2 = $data->total;
+                                    }
                                 }elseif($data->semister == 3){
-                                    $term3 = $data->total;
+                                    // $term3 = $data->total;
+                                    if ($data->load > 100) {
+                                        $term3 = round(($data->total * 100) / $data->load);
+                                    }else{
+                                        $term3 = $data->total;
+                                    }
                                 }elseif($data->semister == 4){
-                                    $term4 = $data->total;
+                                    // $term4 = $data->total;
+                                    if ($data->load > 100) {
+                                        $term4 = round(($data->total * 100) / $data->load);
+                                    }else{
+                                        $term4 = $data->total;
+                                    }
                                 }
                             }
                         }

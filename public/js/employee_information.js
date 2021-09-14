@@ -1,44 +1,59 @@
 $('#position_btn').click(function(){
+
+
+
+
    
    
     var position_name = $('#position_name').val();
-    
-    $.ajax({
+    if (position_name != '') {
+        
+         $.ajax({
         type: "get",
-        url:"/add_position/"+position_name,
+        url:"/add_position",
+        data:{position_name},
         dataType:"json",
         success:function (data){
-            console.log(data)
-            if(data == "success"){
+
+            var job_position_status = JSON.parse(JSON.stringify(data.status));
+            var htmlString = '';
+            if(job_position_status != "success" || job_position_status !="failed"){
+          if (Array.isArray(job_position_status)) {
+                    job_position_status.forEach(element => {
+                htmlString += '<h6 class="text-danger">'+element+'</h6>' 
+                
+            });
+          }
+            }
+
+            $('#job_position_error_message').html(htmlString);
+             $('#job_position_error_message').removeAttr("hidden");
+
+            // console.log(job_position_error);
+            if(job_position_status == "success"){
                 Swal.fire({
                     icon: 'success',
                     title:'successful',
                     text:'Added'+position_name,
                 });
-            } else if(data == "failed"){
+            } else if(job_position_status == "failed"){
                 Swal.fire({
                 icon: 'danger',
                 title: 'failed!',
                 text:' please try again',
                 
               });
-            } else if(data == "failed"){
-                Swal.fire({
-                    icon:'error',
-                    title: 'failde to add'+position_name,
-                    footer: '<a href="">Why do I have this issue?</a>'
-                })
-            }              
+            }            
      },
-     error: function (data) {
-        Swal.fire({
+});
+    }else if (position_name == ''){
+         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>'
+            text: 'job position can not be empty!',
     });
-        }
-});
+    }
+   
 });
 
 
@@ -180,44 +195,54 @@ $('#delete_position_modal').on('show.bs.modal', function(event){
 
 $('#religion_btn').click(function(){
      var religion_name = $('#religion_name').val();
-    
-    $.ajax({
+     if (religion_name !=''){
+
+         $.ajax({
         type: "get",
-        url:"/add_religion/"+religion_name,
+        url:"/add_religion",
+        data:{religion_name},
         dataType:"json",
         success:function (data){
-            console.log(data)
-            if(data == "success"){
+
+            var employee_religion_status = JSON.parse(JSON.stringify(data.status));
+            var htmlString = '';
+            
+            if(employee_religion_status != "success" || employee_religion_status !="failed"){
+                if (Array.isArray(employee_religion_status)){
+                    employee_religion_status.forEach(element => {
+                        htmlString += '<h6 class="text-danger">'+element+'</h6>'
+                    });
+                }
+            }
+
+            $('#employee_religion_error_message').html(htmlString);
+            $('#employee_religion_error_message').removeAttr("hidden");
+
+            if(employee_religion_status == "success"){
                 Swal.fire({
-                    icon: 'success',
+                     icon: 'success',
                     title:'successful',
                     text:'Added'+religion_name,
                 });
-
-            } else if(data == "failed"){
-                Swal.fire({
+            }else if(employee_religion_status == "failed"){
+                 Swal.fire({
                 icon: 'danger',
                 title: 'failed!',
                 text:' please try again',
-                });
-
-              }else if(data == "failed"){
-                Swal.fire({
-                    icon:'error',
-                    title: 'failde to add'+religion_name,
-                    footer: '<a href="">Why do I have this issue?</a>'
-                })
-            }              
-        }, error: function (data) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>'
+                
+              });
+            }
+        },
     });
-        }
-});
-});
+ }else if(religion_name == ''){
+                Swal.fire({
+                    icon: 'error',
+                    title:'Oops...',
+                    text:'religion position can not be empty!',
+                });
+            }
+        });
+                
 
 $('#view_religion_tab_link').click(function (){
     $.ajax({

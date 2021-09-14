@@ -550,8 +550,8 @@ emp_nextBtnThird.addEventListener("click", function() {
 });
 
 emp_prevBtnThird.addEventListener("click", function() {
-    emp_slidePage.style.marginLeft = "-25%";
-    bullet[current - 2].classList.remove("active");
+            emp_slidePage.style.marginLeft = "-25%";
+            bullet[current - 2].classList.remove("active");
             progressText[current - 2].classList.remove("active");
             progressCheck[current - 2].classList.remove("active");
             current -= 1;

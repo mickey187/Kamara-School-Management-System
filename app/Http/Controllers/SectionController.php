@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\assasment_type;
 use App\Models\classes;
+use App\Models\course_load;
 use App\Models\home_room;
 use App\Models\section;
 use App\Models\semister;
 use App\Models\stream;
 use App\Models\student;
 use App\Models\student_mark_list;
+use App\Models\SubjectPeriod;
 use App\Models\teacher;
 use App\Models\teacher_course_load;
 use Illuminate\Database\Eloquent\Collection;
@@ -638,26 +640,79 @@ class SectionController extends Controller
         $count = 0;
         // $section = DB::table('sections')
         //             ->join('streams','sections.stream_id','=','streams.id')->get(['section_name','stream_type','streams.id']);
-        $section = section::where('class_id',$id)->get();
+        // $section = section::where('class_id',$id)->distnict('section_name')->get();
+        $section = DB::table('sections')
+                        ->join('streams','sections.stream_id','=','streams.id')
+                        ->where('class_id',$id)
+                        ->distinct('section_name')
+                        ->get(['section_name','stream_type','stream_id','class_id']);
+        $subject = DB::table('subject_groups')
+                        ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                        ->where('class_id',(int) $id)
+                        ->get(['subject_name','subject_groups.id']);
+        // $sectionArray = array();
+        // foreach($section as $row){
+        //     $str = stream::where('id',$row->stream_id)->get()->first();
+        //     if($count == 0 || $val == ''){
+        //         $val = $row->section_name;
+        //         //$sectionArray += array('name'.$count => $row->section_name);
+        //         $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
+        //         $count = $count + 1;
+        //     }elseif($val === $row->section_name){
+        //         continue;
+        //     }elseif($row->section_name !== $val){
+        //         $val = $row->section_name;
+        //         //$sectionArray += array('name'.$count => $row->section_name);
+        //         $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
+        //         $count = $count + 1;
+        //     }
+        // }
+        // return response()->json($section);
 
-        $sectionArray = array();
-        foreach($section as $row){
-            $str = stream::where('id',$row->stream_id)->get()->first();
-            if($count == 0 || $val == ''){
-                $val = $row->section_name;
-                //$sectionArray += array('name'.$count => $row->section_name);
-                $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
-                $count = $count + 1;
-            }elseif($val === $row->section_name){
-                continue;
-            }elseif($row->section_name !== $val){
-                $val = $row->section_name;
-                //$sectionArray += array('name'.$count => $row->section_name);
-                $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
-                $count = $count + 1;
-            }
-        }
-        return response()->json($sectionArray);
+        return response()->json(['section'=>$section,'subject'=>$subject]);
+    }
+
+    public function findSectionForHomeRoom($id){
+                $val = '';
+                $count = 0;
+                $section = DB::table('sections')
+                            ->join('streams','sections.stream_id','=','streams.id')
+                            ->where('class_id',$id)
+                            ->distinct('section_name')
+                            ->get(['section_name','stream_type','stream_id','stream_type','class_id']);
+                // $section = section::where('class_id',$id)->distnict('section_name')->get();
+                // $sectionArray = array();
+                //         foreach($section as $row){
+                //             $str = stream::where('id',$row->stream_id)->get()->first();
+                //             if($count == 0 || $val == ''){
+                //                 $val = $row->section_name;
+                //                 //$sectionArray += array('name'.$count => $row->section_name);
+                //                 $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
+                //                 $count = $count + 1;
+                //             }elseif($val === $row->section_name){
+                //                 continue;
+                //             }elseif($row->section_name !== $val){
+                //                 $val = $row->section_name;
+                //                 //$sectionArray += array('name'.$count => $row->section_name);
+                //                 $sectionArray[$count] = $str->stream_type.'-'. $row->section_name;
+                //                 $count = $count + 1;
+                //             }
+                //         }
+                        return response()->json($section);
+    }
+
+    public function getSectionForSelectedStream($class,$stream){
+        $section = DB::table('sections')
+                    ->join('streams','sections.stream_id','=','streams.id')
+                    ->where('sections.class_id',(int) $class)
+                    ->where('sections.stream_id',(int) $stream)
+                    ->distinct('section_name')
+                    ->get(['sections.section_name']);
+
+
+
+        return response()->json($section);
+
     }
     public function setCourseLoad($teacher,$section,$class,$subject){
             $response = 'Inserted';
@@ -665,18 +720,30 @@ class SectionController extends Controller
             $i = 0;
             for($i;$i<sizeof($split_section)-1;$i++){
                  $split_stream = explode('-',$split_section[$i]);
-                 $validate = teacher_course_load::where('teacher_id',$teacher)
-                 ->where('class_id',$class)
-                 ->where('subject_id',$subject)
-                 ->where('section',$split_stream[1])->get();
+                 $validate = teacher_course_load::where('teacher_id',$teacher)->get();
+                 //  $validate = teacher_course_load::where('teacher_id',$teacher)
+                //  ->where('class_id',$class)
+                //  ->where('subject_id',$subject)
+                //  ->where('section',$split_stream[1])->get();
                  if(sizeof( $validate) === 0){
-                    $teacher_course_load = new teacher_course_load();
-                    $teacher_course_load->teacher_id = $teacher;
-                    $teacher_course_load->subject_id = $subject;
-                    $teacher_course_load->class_id = $class;
-                    $teacher_course_load->section = $split_stream[1];
-                    $teacher_course_load->stream = $split_stream[0];
-                    $teacher_course_load->save();
+                    // $teacher_course_load = new teacher_course_load();
+                    // $teacher_course_load->teacher_id = $teacher;
+                    // $teacher_course_load->subject_id = $subject;
+                    // $teacher_course_load->class_id = $class;
+                    // $teacher_course_load->section = $split_stream[1];
+                    // $teacher_course_load->stream = $split_stream[0];
+                    // $teacher_course_load->save();
+
+                    // $teacher_course_load = new course_load();
+                    // $teacher_course_load->class_id = $class;
+                    // $teacher_course_load->stream_id  = $subject;
+                    // $teacher_course_load->subject_group_id  = $subject;
+                    // $teacher_course_load->section_label = $split_stream[1];
+                    // $teacher_course_load->day = $split_stream[0];
+                    // $teacher_course_load->period_number = $split_stream[0];
+                    // $teacher_course_load->save();
+
+
                  }else{
                     $response = 'NotInserted';
                     continue;
@@ -704,58 +771,73 @@ class SectionController extends Controller
     }
 
     public function getCourseLoad($id){
-        $teacher_home_room = DB::table('home_rooms')
-                            ->join('classes','home_rooms.class_id','=','classes.id')
-                            ->where('home_rooms.employee_id',$id)
-                            ->get();
-            //    $teacher_home_room = home_room::where('employee_id',$id)->get();
-        $teacher_course = DB::table('teacher_course_loads')
-        ->join('classes','classes.id','=','teacher_course_loads.class_id')
-        ->join('subjects','subjects.id','=','teacher_course_loads.subject_id')
-        ->where('teacher_course_loads.teacher_id',$id)
-        ->get(['class_label',
-                'teacher_course_loads.section',
-                'subject_name',
-                'class_id',
-                'teacher_course_loads.id as id',
-                'teacher_course_loads.teacher_id as teacher_id',
-                'teacher_course_loads.stream']);
-
-        return response()->json(['teacher_courses'=>$teacher_course,'hoom_room'=>$teacher_home_room]);
+        // $teacher_home_room = DB::table('home_rooms')
+        //                     ->join('classes','home_rooms.class_id','=','classes.id')
+        //                     ->where('home_rooms.employee_id',$id)
+        //                     ->get();
+        //     //    $teacher_home_room = home_room::where('employee_id',$id)->get();
+        // $teacher_course = DB::table('teacher_course_loads')
+        // ->join('classes','classes.id','=','teacher_course_loads.class_id')
+        // ->join('subjects','subjects.id','=','teacher_course_loads.subject_id')
+        // ->where('teacher_course_loads.teacher_id',$id)
+        // ->get(['class_label',
+        //         'teacher_course_loads.section',
+        //         'subject_name',
+        //         'class_id',
+        //         'teacher_course_loads.id as id',
+        //         'teacher_course_loads.teacher_id as teacher_id',
+        //         'teacher_course_loads.stream']);
+        $course_load2 = DB::table('teacher_course_loads')
+                            ->join('course_loads','teacher_course_loads.course_load_id','=','course_loads.id')
+                            ->join('classes','course_loads.class_id','=','classes.id')
+                            ->join('streams','course_loads.stream_id','=','streams.id')
+                            ->join('subject_groups','course_loads.subject_group_id','=','subject_groups.id')
+                            ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                            ->where('teacher_id',$id)
+                            ->get(['teacher_id','course_loads.class_id','class_label','subject_name','stream_type','section_label','course_loads.id']);
+                return response()->json($course_load2);
+        // return response()->json(['teacher_courses'=>$teacher_course,'hoom_room'=>$teacher_home_room]);
     }
     public function deleteCourseLoad($load_id){
         $id = 0;
-        $teacher = teacher_course_load::select('teacher_id')->where('id', $load_id)->get();
-        foreach($teacher as $row){
-            $id = $row->teacher_id;
-        }
-        $find = teacher_course_load::find($load_id);
-        $find->delete();
-        $teacher_course = DB::table('teacher_course_loads')
-        ->join('classes','classes.id','=','teacher_course_loads.class_id')
-        ->join('subjects','subjects.id','=','teacher_course_loads.subject_id')
-        ->where('teacher_course_loads.teacher_id',$id)
-        ->get(['class_label',
-                'teacher_course_loads.section',
-                'subject_name',
-                'class_id',
-                'teacher_course_loads.id as id',
-                'teacher_course_loads.teacher_id as teacher_id']);
-        return response()->json($teacher_course);
+        $get_course_load_id = course_load::where('id',$load_id)->get()->first();
+        $teacher = teacher_course_load::where('course_load_id',$get_course_load_id->id)->get()->first();
+        $id = $teacher->teacher_id;
+        $deleteTeacher = teacher_course_load::find($teacher->id);
+        $deleteTeacher->delete();
+
+        $course_load = course_load::find($load_id);
+        $course_load->delete();
+
+        $course_load2 = DB::table('teacher_course_loads')
+                ->join('course_loads','teacher_course_loads.course_load_id','=','course_loads.id')
+                ->join('classes','course_loads.class_id','=','classes.id')
+                ->join('streams','course_loads.stream_id','=','streams.id')
+                ->join('subject_groups','course_loads.subject_group_id','=','subject_groups.id')
+                ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                ->where('teacher_course_loads.teacher_id',$id)
+                ->get(['class_label','subject_name','stream_type','section_label','course_loads.id']);
+
+        return response()->json($course_load2);
     }
 
     public function getHomeRoom($teacher_id){
         $student_subject = array();
         $hoom_room = home_room::where('employee_id',$teacher_id)->get();
         $teacher_home_room = DB::table('home_rooms')
-        ->join('classes','home_rooms.class_id','classes.id')
-        ->where('employee_id',$teacher_id)
-        ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream']);
+                                    ->join('classes','home_rooms.class_id','classes.id')
+                                    ->join('streams','home_rooms.stream_id','=','streams.id')
+                                    ->where('employee_id',$teacher_id)
+                                    ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type as stream']);
+        // ->join('classes','home_rooms.class_id','classes.id')
+        // ->join('streams','home_rooms.stream_id','streams.id')
+        // ->where('employee_id',$teacher_id)
+        // ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type']);
         return response()->json($teacher_home_room);
     }
 
-
     public function getHomeRoomStudent($teacher_id,$section,$class_name,$stream){
+        $getClass = classes::where('class_label',$class_name)->get()->first();
         $getStreamId = stream::where('stream_type',$stream)->get()->first();
         $stream_id = (int)$getStreamId->id;
         //error_log("Stream ID: ".$getStreamId->id);
@@ -783,7 +865,9 @@ class SectionController extends Controller
                 ->join('classes','student_mark_lists.class_id','=','classes.id')
                 ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
                 ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
-                ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+                ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                ->where('subject_groups.class_id',$getClass->id)
                 ->get([
                     'students.student_id',
                     'first_name',
@@ -810,11 +894,13 @@ class SectionController extends Controller
         $check_stream = stream::where('stream_type',$stream)->get()->first();
         //error_log($check_stream->id);
         $course_load = DB::table('teacher_course_loads')
-                        ->join('subjects','teacher_course_loads.subject_id','=','subjects.id')
+                        ->join('course_loads','teacher_course_loads.course_load_id','=','course_loads.id')
+                        ->join('subject_groups','course_loads.subject_group_id','=','subject_groups.id')
+                        ->join('subjects','subject_groups.subject_id','=','subjects.id')
                         ->where('teacher_id',$teacher_id)
-                        ->where('section',$section)
-                        ->where('class_id',$class_id)
-                        ->where('teacher_course_loads.id',$course_load_id)
+                        ->where('course_loads.section_label',$section)
+                        ->where('course_loads.class_id',$class_id)
+                        ->where('course_loads.id',$course_load_id)
                         ->get('subject_name');
         foreach($course_load as $row){
             $subject = $row->subject_name;
@@ -841,7 +927,8 @@ class SectionController extends Controller
                 ->join('classes','student_mark_lists.class_id','=','classes.id')
                 ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
                 ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
-                ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+                ->join('subjects','subject_groups.subject_id','=','subjects.id')
                 ->where('classes.id',$class_id)
                 ->where('subject_name',$subject)
                 ->get(['semisters.semister',
@@ -852,7 +939,7 @@ class SectionController extends Controller
                         'assasment_types.assasment_type',
                         'assasment_types.id as assid',
                         'subjects.subject_name',
-                        'subjects.id as subject_id',
+                        'subject_groups.id as subject_id',
                         'semisters.id as semid',
                         'student_mark_lists.mark']);
                 $semister = semister::all();
@@ -872,41 +959,42 @@ class SectionController extends Controller
 
         $teacher_home_room = DB::table('home_rooms')
         ->join('classes','home_rooms.class_id','classes.id')
-        ->where('employee_id',$id)
-        ->get(['class_label','section','home_rooms.id as id']);
+                                    ->join('streams','home_rooms.stream_id','=','streams.id')
+                                    ->where('employee_id',$id)
+                                    ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type as stream']);
+                                // ->join('classes','home_rooms.class_id','classes.id')
+                                // ->where('employee_id',$id)
+                                // ->get(['class_label','section','home_rooms.id as id','stream']);
+
         return response()->json($teacher_home_room);
     }
 
-    public function setHomeRoom($teacher,$section,$class){
-        $response = 'Inserted';
-        $split_section = explode(',',$section);
-        $i = 0;
-        $j = 0;
-        for($i;$i<sizeof($split_section)-1;$i++){
-            $split_stream = explode('-',$split_section[$i]);
-             $validate = home_room::where('employee_id',$teacher)
-             ->where('class_id',$class)
-             ->where('section',$split_section[$i])->get();
-             if(sizeof($validate) === 0){
-                $home = new home_room();
-                $home->employee_id = $teacher;
-                $home->class_id = $class;
-                $home->section = $split_stream[1];
-                $home->stream = $split_stream[0];
-                $home->save();
-                $j =$j + 1;
-             }else{
-                $response = 'NotInserted';
-                continue;
-             }
-            }
-        $home_r =DB::table('home_rooms')
-        ->join('classes','home_rooms.class_id','classes.id')
-        ->where('employee_id',$teacher)
-        ->get(['class_label','section','home_rooms.id as id']);
-        return response()->json(['datac'=>$home_r, 'status'=>$response]);
-        //return response()->json($j);
+    public function setHomeRoom($teacher,$section,$class,$stream){
+        $getStream = stream::where('id',$stream)->get()->first();
+        $validate = home_room::where('class_id',$class)
+                            ->where('section',$section)
+                            // ->where('stream',$getStream->stream_type)
+                            ->where('stream_id',$stream)
+                            ->exists();
+        if (!$validate) {
+            $home = new home_room();
+            $home->employee_id = $teacher;
+            $home->class_id = $class;
+            $home->section = $section;
+            // $home->stream = $getStream->stream_type;
+            $home->stream_id = $stream;
 
+            if($home->save()){
+                $teacher_home_room = DB::table('home_rooms')
+                                    ->join('classes','home_rooms.class_id','classes.id')
+                                    ->join('streams','home_rooms.stream_id','=','streams.id')
+                                    ->where('employee_id',$home->employee_id)
+                                    ->get(['class_label','section','home_rooms.id as id' ,'home_rooms.employee_id','stream_type as stream']);
+                return response()->json($teacher_home_room);
+            }
+        }else{
+            return response()->json("Already Exist!");
+        }
     }
     public function setCurrentSemister($id){
         $semister1 = semister::all();
@@ -1003,6 +1091,69 @@ class SectionController extends Controller
         }
 
         return $item;
+    }
+
+    public function getCourseLoadData($teacher_id,$class_id,$stream_id,$section,$subject_id){
+        $period_counter = 0;
+        $check_course_load = course_load::where('class_id',$class_id)
+                                ->where('stream_id',$stream_id)
+                                ->where('subject_group_id',$subject_id)
+                                ->where('section_label',$section)
+                                ->exists();
+
+        // $check_subject_period = SubjectPeriod::where("subject_group_id",$subject_id)->get('total_period')->first();
+        $check_subject_period = DB::table('teacher_course_loads')
+                                    ->join('course_loads','teacher_course_loads.course_load_id','=','course_loads.id')
+                                    ->join('classes','course_loads.class_id','=','classes.id')
+                                    ->join('streams','course_loads.stream_id','=','streams.id')
+                                    ->join('subject_groups','course_loads.subject_group_id','=','subject_groups.id')
+                                    ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                                    ->where('teacher_id',$teacher_id)
+                                    ->get(['subject_groups.id']);
+        foreach($check_subject_period as $row){
+                    $period = SubjectPeriod::where('subject_group_id',$row->id)->get()->first();
+                    $period_counter += $period->total_period;
+        }
+
+        $period2 = SubjectPeriod::where('subject_group_id',$subject_id)->get()->first();
+        if (($period_counter + $period2->total_period) > 25) {
+            $rem = 25 - $period_counter;
+            return response()->json('Remaining load for this teacher is '.$rem.' but the given load is '.$period2->total_period);
+        }else{
+         $period_counter += $period2->total_period;
+            if($period_counter <= 25){
+                if (!$check_course_load) {
+                    $course_load = new course_load();
+                    $course_load->class_id = $class_id;
+                    $course_load->stream_id  = $stream_id;
+                    $course_load->subject_group_id  = $subject_id;
+                    $course_load->section_label = $section;
+
+                    if ($course_load->save()) {
+                        $teacher_course_load = new teacher_course_load();
+                        $teacher_course_load->course_load_id = $course_load->id;
+                        $teacher_course_load->teacher_id = $teacher_id;
+
+                        if ($teacher_course_load->save()) {
+                            $course_load2 = DB::table('teacher_course_loads')
+                            ->join('course_loads','teacher_course_loads.course_load_id','=','course_loads.id')
+                            ->join('classes','course_loads.class_id','=','classes.id')
+                            ->join('streams','course_loads.stream_id','=','streams.id')
+                            ->join('subject_groups','course_loads.subject_group_id','=','subject_groups.id')
+                            ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                            ->where('teacher_id',$teacher_id)
+                            ->get(['class_label','subject_name','stream_type','section_label','course_loads.id']);
+                            return response()->json($course_load2);
+                        }
+                    }
+
+                }else{
+                    return response()->json('Alerady Exist!');
+                }
+            }else{
+                return response()->json('MaximumLoad');
+            }
+        }
     }
 }
 

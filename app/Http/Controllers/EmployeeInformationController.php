@@ -7,6 +7,7 @@ use App\Models\employee_job_position;
 use App\Models\employee_religion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class EmployeeInformationController extends Controller
@@ -20,19 +21,28 @@ class EmployeeInformationController extends Controller
         return view('admin.employee.employee_info');
     }
 
-    public function add_position($position_name){
-        $status = null;
-        $employee_position = new employee_job_position();
-        $employee_position->position_name = $position_name;
+    public function add_position(Request $request){
+            $validator = Validator::make($request->all() , [
+            'position_name' => 'required|unique:employee_job_positions|max:30',
+            
 
-        if($employee_position->save()){
-            $status = 'success';
-            return response()->json($status);
-        }else{
-            $status = 'failed';
-            return response()->json($status);
+        ]);
+
+        if($validator->passes()){
+             $employee_position = new employee_job_position();
+             $employee_position->position_name = $request->position_name;
+             
+              if($employee_position->save()){
+             $status = 'success';
+            return response()->json((['status'=>'success']));
+       }else{
+             $status = 'failed';
+            return response()->json((['status'=>'failed']));
+         }
         }
+        return response()->json(['status'=>$validator->errors()->all()]);
     }
+
 
     public function view_position(){
         $position = employee_job_position::all();
@@ -57,18 +67,23 @@ class EmployeeInformationController extends Controller
         }
     }
 
-    public function add_religion($religion_name){
-        $status = null;
-        $add_religion = new employee_religion();
-        $add_religion->religion_name = $religion_name;
+    public function add_religion(Request $request){
+             $validator = Validator::make($request->all() ,[
+            'religion_name'=>'required|unique:employee_religions|max:30',
+        ]);
 
-        if($add_religion->save()){
-            $status = 'success';
-            return response()->json($status);
-        }else{
-            $status = 'failed';
-            return response()->json($status);
+            if($validator->passes()){
+             $employee_religion = new employee_religion();
+             $employee_religion->religion_name = $request->religion_name;
+              if($employee_religion->save()){
+             $status = 'success';
+            return response()->json((['status'=>'success']));
+       }else{
+             $status = 'failed';
+            return response()->json((['status'=>'failed']));
+         }
         }
+        return response()->json(['status'=>$validator->errors()->all()]);
     }
 
     public function view_religion(){

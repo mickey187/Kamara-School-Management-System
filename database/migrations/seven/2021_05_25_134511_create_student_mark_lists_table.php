@@ -18,8 +18,8 @@ class CreateStudentMarkListsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('assasment_type_id');
             $table->foreign('assasment_type_id')->references('id')->on('assasment_types');
-            $table->unsignedBigInteger('subject_id');
-            $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->unsignedBigInteger('subject_group_id');
+            $table->foreign('subject_group_id')->references('id')->on('subject_groups');
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id')->references('id')->on('classes');
             $table->unsignedBigInteger('teacher_id')->nullable(true);

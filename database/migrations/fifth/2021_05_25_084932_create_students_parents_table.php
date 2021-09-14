@@ -24,10 +24,10 @@ class CreateStudentsParentsTable extends Migration
             $table->string('first_name')->nullable(false);
             $table->string('parent_id')->uniqid()->nullable(false);
             $table->string('middle_name')->nullable(false);
-            $table->string('last_name')->nullable(false);
+            $table->string('last_name')->nullable(true);
             $table->string('gender')->nullable(false);
             $table->string('relation')->nullable(false);
-            $table->integer('school_closur_priority')->nullable(true);
+            $table->integer('school_closur_priority')->nullable(false);
             $table->integer('emergency_contact_priority')->nullable(false);
             $table->timestamps();
         });

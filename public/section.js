@@ -116,31 +116,41 @@ function fetch(class_id, stream_id) {
 
 $("#singleClassId").change(function () {
     var class_id = $("#singleClassId").val();
-
+    console.log(class_id);
     $.ajax({
         type: 'GET',
         url: 'findSection/'+class_id,
         dataType : 'json',
         success:function (data) {
             console.log(data);
-            var rows = '';
-            var size = '';
-            var count = 0;
-            data.forEach(d => {
-                splitterStream = d.split("-");
 
-                //console.log(d);
-                rows += '<label class="PillList-item">'+
-                        '<input id="selectedSection" type="checkbox" name="feature" value="'+d+'">'+
-                        '<span class="PillList-label" >'+'Stream '+splitterStream[0]+' Section '+splitterStream[1]+
-                        '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>'+
-                        '</span>'+
-                        '</label>'
-                        count = count + 1;
-           });
-           size = '<div> <input id="dSize" class="" type="text" value="'+count+'"></div>';
-           $('#listOfsections').html(rows);
-           $('#size').html(size);
+            var sectionM = JSON.parse(JSON.stringify(data.section));
+            var subject = JSON.parse(JSON.stringify(data.subject));
+            var select = '';
+            var selectSubject = '';
+            var stream = [];
+            var section = [];
+            var sectionSubject = [];
+            select +='<option>Select Stream..</option>';
+            selectSubject +='<option>Select Subject..</option>';
+
+            sectionM.forEach(element => {
+                section.push(element.section_name+"-"+element.stream_type);
+                var arraycontainStreamType = (stream.indexOf(element.stream_type) > -1);
+                if(!arraycontainStreamType){
+                    stream.push(element.stream_type)
+                    select += '<option value="'+element.stream_id+","+class_id+'">'+element.stream_type+'</option>';
+                }
+            });
+            subject.forEach(element => {
+                selectSubject += '<option value="'+element.id+'">'+element.subject_name+'</option>';
+
+            });
+            $("#selectedStream").html(select);
+            $("#selectedSubject").html(selectSubject);
+            console.log(section);
+            console.log(stream);
+
         },
         error:function (data) {
             console.log("it is not works fine");
@@ -217,7 +227,7 @@ $("#singleClassId2").change(function () {
     //alert(class_id);
     $.ajax({
         type: 'GET',
-        url: 'findSection/'+class_id,
+        url: 'findSectionForHomeRoom/'+class_id,
         dataType : 'json',
         success:function (data) {
             console.log(data);
@@ -226,8 +236,8 @@ $("#singleClassId2").change(function () {
             var count = 0;
             data.forEach(d => {
                 rows += '<label class="PillList-item">'+
-                        '<input id="selectedSection" type="checkbox" name="feature" value="'+d+'">'+
-                        '<span class="PillList-label" > Section '+d+
+                        '<input id="selectedSection" type="checkbox" name="feature" value="'+d.section_name+","+d.stream_id+'">'+
+                        '<span class="PillList-label" > Section '+d.stream_type+" "+d.section_name+
                         '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>'+
                         '</span>'+
                         '</label>'

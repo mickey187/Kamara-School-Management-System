@@ -7,7 +7,9 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Andegna;
+use App\Events\CurrentSemisterEvent;
+use DateTime;
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -32,16 +34,20 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-     $roles =  Auth::user()->roles;
-     $role_name = null;
-     foreach ($roles as $row) {
+        $roles =  Auth::user()->roles;
+        $role_name = null;
+        foreach ($roles as $row) {
 
-         $role_name = $row->role_name;
-     }
-
-
+            $role_name = $row->role_name;
+        }
+        // event(new CurrentSemisterEvent("------------------Abraham"));
+        if (Auth::check()) {
+            $now = \Andegna\DateTimeFactory::now();
+            event(new CurrentSemisterEvent($now->getDay()."-".$now->getMonth()));
+        }
 
         switch ($role_name) {
+
             case 'finance':
                 return redirect()->route('finance/financeDashboard');
                 break;
@@ -49,7 +55,7 @@ class AuthenticatedSessionController extends Controller
                 return redirect('teacherDashBoard');
                 break;
             case 'student':
-                return "This is Student";
+                return response()->view('errors.401',[],401);;
                 break;
             case 'admin':
                 return redirect()->intended(RouteServiceProvider::HOME);
@@ -58,7 +64,7 @@ class AuthenticatedSessionController extends Controller
                 return redirect('parentDashboard');
                 break;
             default:
-                return 'Default';
+                return response()->view('errors.401',[],401);;
            // return redirect()->intended(RouteServiceProvider::HOME);
                 break;
         }

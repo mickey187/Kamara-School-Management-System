@@ -50,18 +50,6 @@ class EmployeeRegistrationController extends Controller
 
     //
     public function store(Request $req){
-
-    //     $validated = $req->validate([
-    //         'first_name' => 'required',
-    //         'middle_name' => 'required'
-    //     ],[
-    //         'first_name.required' => 'name is required',
-    //         'middle_name.required' => 'middle is required'
-    //     ]);
-
-        
-    //     return back()->with('success');
-
         if(Request('job_position')==='1'){
             // $this->insertRole();
             $this->insertAddress();
@@ -307,9 +295,9 @@ public function insertAcademicBackgroundInfo(){
         $teacher->save();
 
     }
-
+    
     public function idGeneratorFun(){
-        $fourRandomDigit = rand(1000,9999);
+        $fourRandomDigit = rand(100000,999999);
         $student = student::get(['student_id']);
         $employee = employee::get(['employee_id']);
         $parent = students_parent::get(['parent_id']);

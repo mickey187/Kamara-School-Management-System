@@ -14,6 +14,7 @@ use App\Models\section;
 use App\Models\semister;
 use App\Models\stream;
 use App\Models\student;
+use App\Models\student_class_transfer;
 use App\Models\student_mark_list;
 use App\Models\students_parent;
 use App\Models\subject;
@@ -47,15 +48,22 @@ class MarklistController extends Controller
     }
 
     public function singleAddMarkList($student_id,$class_id,$semister_id,$assasment_id,$subject,$mark,$load){
-        $sub = subject::where('subject_name',$subject)->get('id')->first();
+        $now1 = \Andegna\DateTimeFactory::now();
+        $current_date = $now1->getYear();
+        // $sub = subject::where('subject_name',$subject)->get('id')->first();
+        $sub = DB::table('subject_groups')
+                        ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                        ->where('subjects.subject_name',$subject)
+                        ->get('subject_groups.id')
+                        ->first();
         $mark_list = new student_mark_list();
         $mark_list->student_id = $student_id;
         $mark_list->semister_id = $semister_id;
         $mark_list->class_id = $class_id;
         $mark_list->mark = $mark;
         $mark_list->test_load = $load;
-        $mark_list->subject_id = $sub->id;
-        $mark_list->academic_year = date("Y");
+        $mark_list->subject_group_id = $sub->id;
+        $mark_list->academic_year = $current_date;
         $mark_list->assasment_type_id = $assasment_id;
         if($mark_list->save()){
             $as = assasment_type::where('id',$assasment_id)->get('assasment_type')->first();
@@ -65,9 +73,10 @@ class MarklistController extends Controller
                     ->join('classes','student_mark_lists.class_id','=','classes.id')
                     ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
                     ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
-                    ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                    ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+                    ->join('subjects','subject_groups.subject_id','=','subjects.id')
                     ->where('classes.id',$class_id)
-                    ->where('subject_name',$subject)
+                    ->where('subjects.subject_name',$subject)
                     ->where('student_mark_lists.student_id',$student_id)
                     ->where('semisters.id',$semister_id)
                     ->get(['semisters.semister',
@@ -79,7 +88,7 @@ class MarklistController extends Controller
                             'assasment_types.assasment_type',
                             'assasment_types.id as assid',
                             'subjects.subject_name',
-                            'subjects.id as subject_id',
+                            'subject_groups.id as subject_id',
                             'semisters.id as semid',
                             'student_mark_lists.mark']);
             return response()->json(['mark'=>$mark2,'new'=>$mark_list->id]);
@@ -101,8 +110,8 @@ class MarklistController extends Controller
     // }
 
     public function sample_student(Request $request){
-        Excel::import(new StudentImport, $request->excel);
-         return "Student inserted";
+            Excel::import(new StudentImport, $request->excel);
+        return "Student inserted";
     }
 
     public function addAssasment(Request $req){
@@ -136,7 +145,8 @@ class MarklistController extends Controller
 
 
     public function generateTotalCard(){
-
+        $now1 = \Andegna\DateTimeFactory::now();
+        $current_date = $now1->getYear();
         $data = explode(",",request("data"));
         $getTerm ='';
         if(request('get_term')=="All"){
@@ -149,7 +159,10 @@ class MarklistController extends Controller
         $class2 = classes::where('class_label',$data[0])->get()->first();
         $stream2 = stream::where('stream_type',$data[1])->get()->first();
         $studentCardCollection = collect();
-        $getAllSubject = subject::all();
+        $getAllSubject = DB::table('subject_groups')
+                            ->join('subjects','subject_groups.subject_id','subjects.id')
+                            ->where('subject_groups.class_id',$class2->id)
+                            ->get(['subject_name','subject_groups.id']);
         $getAllSemister = semister::all();
         $getStudent = DB::table('sections')
                         ->join('students','sections.student_id','=','students.id')
@@ -169,11 +182,13 @@ class MarklistController extends Controller
                         $subjectTotalLoad = 0;
                         $getStudentMark = DB::table('student_mark_lists')
                                             ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
-                                            ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                                            // ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                                            ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+                                            ->join('subjects','subject_groups.subject_id','=','subjects.id')
                                             ->where('student_id',$student->id)
                                             ->where('semister_id',$semister->id)
-                                            ->where('subject_id',$subject->id)
-                                            ->where('academic_year','2021')
+                                            ->where('subject_group_id',$subject->id)
+                                            ->where('academic_year',$current_date)
                                             ->get();
                         foreach($getStudentMark as $mark){
                             $subjectTotalMark = $subjectTotalMark + $mark->mark;
@@ -211,11 +226,12 @@ class MarklistController extends Controller
                         $subjectTotalLoad = 0;
                         $getStudentMark = DB::table('student_mark_lists')
                                             ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
-                                            ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
-                                            ->where('student_id',$student->id)
+                                            // ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                                            ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+                                            ->join('subjects','subject_groups.subject_id','=','subjects.id')                                            ->where('student_id',$student->id)
                                             ->where('semister_id',$semister->id)
-                                            ->where('subject_id',$subject->id)
-                                            ->where('academic_year','2021')
+                                            ->where('subject_group_id',$subject->id)
+                                            ->where('academic_year',$current_date)
                                             ->get();
                         foreach($getStudentMark as $mark){
                             $subjectTotalMark = $subjectTotalMark + $mark->mark;
@@ -259,9 +275,15 @@ class MarklistController extends Controller
         $clas = classes::find($class);
         $str = stream::find($stream);
         return Excel::download(new StudentsCardPerSemisterExport($studentData,$class,$stream,$section), $clas->class_label.'_'.$str->stream_type.'_'.$section.'.xlsx');
-}
+    }
     public function generateExcelForStudentCard($getStudent,$class2,$stream2,$section,$getTerm){
-        $getAllSubject = subject::all();
+        $now1 = \Andegna\DateTimeFactory::now();
+        $current_date = $now1->getYear();
+        // $getAllSubject = subject::all();
+        $getAllSubject = DB::table('subject_groups')
+                            ->join('subjects','subject_groups.subject_id','subjects.id')
+                            ->where('subject_groups.class_id',$class2)
+                            ->get(['subject_name','subject_groups.id']);
         $clas = classes::find($class2);
          $str = stream::find($stream2);
         $studentCardCollection = collect();
@@ -272,14 +294,15 @@ class MarklistController extends Controller
                 $subjectTotalLoad = 0;
                 $getStudentMark = DB::table('student_mark_lists')
                                     ->join('semisters','student_mark_lists.semister_id','=','semisters.id')
-                                    ->join('subjects','student_mark_lists.subject_id','=','subjects.id')
+                                    ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+                                    ->join('subjects','subject_groups.subject_id','=','subjects.id')
                                     ->where('student_id',$student->id)
                                     ->where('semister_id',$getTerm)
-                                    ->where('subject_id',$subject->id)
-                                    ->where('academic_year','2021')
+                                    ->where('subject_group_id',$subject->id)
+                                    ->where('academic_year',$current_date)
                                     ->get();
                 foreach($getStudentMark as $mark){
-                    $subjectTotalMark = $subjectTotalMark + $mark->mark;
+                    $subjectTotalMark = round($subjectTotalMark + $mark->mark,2);
                     $subjectTotalLoad = $subjectTotalLoad + $mark->test_load;
                 }
                  $item = (object) [
@@ -288,7 +311,7 @@ class MarklistController extends Controller
                      "total"=>$subjectTotalMark,
                      "load"=>$subjectTotalLoad,
                      "semister"=>$getTerm
-                    ];
+                ];
                  $oneStudentCard->push($item);
             }
             foreach($oneStudentCard as $studentCard){
@@ -308,7 +331,11 @@ class MarklistController extends Controller
 
 
     public function setAvarageForClass($classes){
+        $now1 = \Andegna\DateTimeFactory::now();
+        $current_date = $now1->getYear();
         $data = explode(",",$classes);
+
+        $collection = collect();
         $getClass = classes::where('class_label',$data[1])->get()->first();
         $getStream = stream::where('stream_type',$data[2])->get()->first();
         $getStudent = DB::table('sections')
@@ -318,25 +345,73 @@ class MarklistController extends Controller
                         ->where('sections.class_id',$getClass->id)
                         ->where('sections.stream_id',$getStream->id)
                         ->where('section_name',$data[0])
-                        ->get();
-        foreach($getStudent as $row){
-            $semister = semister::all();
-            $subject = SubjectGroup::where('class_id',$row->class_id)->get();
-            foreach($subject as $sub){
-                $assasment = 0;
-                $total = 0;
-                foreach($semister as $sem){
-                    $mark =student_mark_list::where('student_id',$row->id)
-                                            ->where('subject_id',$sub->id)
-                                            ->where('semister_id',$sem->id)
-                                            ->where('academic_year',date("Y"))
-                                            ->get()
-                                            ->first();
-                }
+                        ->get(['students.id','sections.class_id','sections.stream_id']);
 
+        foreach($getStudent as $row){
+            $count_subject = 0;
+            $semister = semister::where('current_semister',true)->get()->first();
+            $subject = DB::table('subject_groups')
+                            ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                            ->where('class_id',$row->class_id)
+                            ->get(['subject_groups.id','subject_name']);
+            $one_student_mark = 0;
+            $one_student_load = 0;
+            foreach($subject as $sub){
+                $total_mark = 0;
+                $total_load = 0;
+                $count_subject++;
+                $mark = student_mark_list::where('student_id',$row->id)
+                                        ->where('subject_group_id',$sub->id)
+                                        ->where('semister_id',$semister->id)
+                                        ->where('academic_year',$current_date)
+                                        ->get();
+                foreach ($mark as $ma) {
+                    $total_mark += $ma->mark;
+                    $total_load += $ma->test_load;
+                }
+                if ($total_load > 100) {
+                    $total_mark = round(($total_mark * 100) / $total_load,2);
+                    $total_load = 100;
+                }
+                    $one_student_mark += round($total_mark ,2);
+                    $one_student_load += round($total_load ,2);
+            }
+
+            error_log("Subject:  Mark: ".$one_student_mark / count($subject));
+            $item = (Object) ['student_id'=>$row->id,"mark"=>round(($one_student_mark / count($subject)),2),"load"=>round(($one_student_load / count($subject)),2)];
+            $collection->push($item);
+            $count_subject = 0;
+
+        }
+
+        foreach($collection as $row){
+            $mark_list = student_class_transfer::where('student_id',$row->student_id)
+                                                ->where('academic_year',$current_date)
+                                                ->get()
+                                                ->first();
+            error_log("MARK-->: ".$row->mark." LOAD-->: ".$row->load );
+            $avarage = 0.00;
+            if ($row->load >= 100) {
+                if ($row->load == 100) {
+                    $avarage = round(($row->mark),2);
+                }else{
+                    $avarage = round(($row->mark * 100) / $row->load,2);
+                }
+                    error_log("AVG: ".$avarage);
+                if (($mark_list)) {
+                    $update_mark_list = student_class_transfer::find($mark_list->id);
+                    $update_mark_list->yearly_average = $avarage;
+                    if ($row->mark >= 60) {
+                        $update_mark_list->status = 'pass';
+                    }else{
+                        $update_mark_list->status = 'loading';
+                    }
+                    $update_mark_list->update();
+                }
             }
         }
-        return response()->json($getStudent);
+
+        return response()->json($collection);
     }
 }
 

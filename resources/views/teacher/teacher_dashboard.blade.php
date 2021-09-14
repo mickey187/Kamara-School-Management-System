@@ -254,7 +254,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" onclick="closeAddMl()" class="btn btn-secondary" data-dismiss="modal-editMark">Close</button>
-                    <button type="button" onclick="sendMarkList()" class="btn btn-primary">Save changes</button>
+                    <button type="button" onclick="sendMarkList()" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -336,7 +336,7 @@
 {{-- Promote Student Modal --}}
 <div class="modal_class">
     <div class="modal fade" id="modal-promote-student">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content ">
                 <div class="modal-header">
                     <h4 class="modal-title" id="title">Promote Students</h4>
@@ -345,14 +345,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <h5 id="teacher_id"></h5>
+                    <h5 id="section_name"></h5>
+                    <h5 id="stream"></h5>
+                    <h5 id="class1"></h5>
                     <div class="row col-12 form-group">
-                        <div class="col-12">
-                        </div>
+                        <p>Once the student promoted, </p>
+                        <p>student list will be erased from your page</p>
+                        <p></p>
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">cancel</button><button id="promoteStudentModal" class="btn btn-primary" value="promote">promote</button>
                 </div>
             </div>
         </div>
@@ -376,19 +381,21 @@
                         <div class="col-12">
                         </div>
                     </div>
-                    <center><form action="generateStudentCard" method="GET">
-                        @csrf
-                        <input hidden class="form-control" type="text" name="data" id="class_id">
-                        <select class="form-control col-6 m-3" type="text" name="get_term">
-                            @foreach ($semister as $sem)
-                            <option value="{{ $sem->id }}">Semister {{ $sem->semister }} {{ $sem->term }}</option>
-                            @endforeach
-                            <option value="semisterOne">Semister One</option>
-                            <option value="All">One Year</option>
-                        </select>
-                        <input name="generate_one_year_card" class="btn btn-primary  col-6" type="submit" value="Generate Card">
+                    <center>
+                        <form action="generateStudentCard" method="GET">
+                            @csrf
+                            <input hidden class="form-control" type="text" name="data" id="class_id">
+                            <select class="form-control col-6 m-3" type="text" name="get_term">
+                                @foreach ($semister as $sem)
+                                <option value="{{ $sem->id }}">Semister {{ $sem->semister }} {{ $sem->term }}</option>
+                                @endforeach
+                                <option value="semisterOne">Semister One</option>
+                                <option value="All">One Year</option>
+                            </select>
+                            <input name="generate_one_year_card" class="btn btn-primary  col-6" type="submit" value="Generate Card">
 
-                    </form></center>
+                        </form>
+                    </center>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

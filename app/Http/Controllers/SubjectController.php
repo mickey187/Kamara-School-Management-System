@@ -8,6 +8,7 @@ use App\Models\subject;
 use App\Models\stream;
 use App\Models\subject_group;
 use App\Models\SubjectGroup;
+use App\Models\SubjectPeriod;
 use Illuminate\Database;
 use Illuminate\Support\Facades\DB;
 
@@ -139,5 +140,46 @@ class SubjectController extends Controller
             echo "failed";
         }
 
+    }
+
+    public function getSubjectForPeriod($class){
+        // $data = explode(",",$class);
+        $collection = collect();
+        // for ($i=0; $i < count($data); $i++) {
+            # code...
+            $subject_group = DB::table('subject_groups')
+            ->join('classes','subject_groups.class_id','=','classes.id')
+            ->join('subjects','subject_groups.subject_id','=','subjects.id')
+            ->where('subject_groups.class_id',(int) $class)
+            ->get(['subject_groups.id','subjects.subject_name','class_label']);
+            foreach($subject_group as $row){
+                // if ($collection->contains('subject', $row->subject_name)){
+                    $item = (object) ['subject'=>$row->subject_name,'id'=>$row->id, 'class'=>$row->class_label];
+                    $collection->push($item);
+                // }
+            }
+        // }
+        return response()->json($collection);
+    }
+
+    public function setSubjectPeriod($class,$period,$subject){
+        $subjects = explode(",",$subject);
+        for ($i=0; $i < count($subjects); $i++) {
+            $Period = SubjectPeriod::where('subject_group_id',$subjects[$i])
+                                    ->where('class_id',(int) $class)->get()->first();
+            if (!$Period) {
+                $setPeriod = new SubjectPeriod();
+                $setPeriod->subject_group_id = $subjects[$i];
+                $setPeriod->class_id = (int) $class;
+                $setPeriod->total_period =(int) $period;
+                if(!$setPeriod->save()){
+                    return response()->json("error-Error-Error Happen While insering");
+                }
+            }else{
+                return response()->json("warning-Warning-Already Exist");
+            }
+
+        }
+        return response()->json("success-Successful-Successfuly Inserted");
     }
 }

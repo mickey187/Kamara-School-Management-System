@@ -19,8 +19,9 @@ use Maatwebsite\Excel\Concerns\WithFormatData;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpWord\Style\Shadow;
-use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
+use Maatwebsite\Excel\Events\BeforeExport;
+
 
 class PreStudentsCardPerTermExport implements FromCollection,WithTitle,WithEvents,WithColumnWidths,WithDrawings,WithCustomStartCell
 {
@@ -43,8 +44,6 @@ class PreStudentsCardPerTermExport implements FromCollection,WithTitle,WithEvent
             ->join('subjects','subject_groups.subject_id','=','subjects.id')
             ->where('subject_groups.class_id',$this->class)
             ->get('subject_name'))+14;
-            // SubjectGroup::where('id',(int)$class)->get())+14;
-            // error_log("Size BOP: ".$this->subjectSize);
         $this->getTraitSize = count(StudentTraits::all())+14;
                     // error_log("Size BOP: ".count(StudentTraits::all())+14);
 
@@ -107,18 +106,23 @@ class PreStudentsCardPerTermExport implements FromCollection,WithTitle,WithEvent
     {
         return [
             'A' => 15,
-            'B' => 20,
-            'C' => 15,
-            'E' => 18,
-            'F' => 15,
+            'B' => 24,
+            'C' => 11,
+            'E' => 20,
+            'F' => 13,
         ];
     }
 
 
     public function registerEvents(): array{
         return [
+            BeforeExport::class  => function(BeforeExport $event) {
+                $event->writer->getDelegate()->getSecurity()->setLockWindows(true);
+                $event->writer->getDelegate()->getSecurity()->setLockStructure(true);
+                $event->writer->getDelegate()->getSecurity()->setWorkbookPassword("1234");
+            },
             AfterSheet::class    => function(AfterSheet $event) {
-
+                $event->sheet->getProtection()->setSheet(true);
                 $event->sheet->styleCells(
                     'B13:C14',
                     [
@@ -405,7 +409,7 @@ class PreStudentsCardPerTermExport implements FromCollection,WithTitle,WithEvent
                     ]
                 );
                 $event->sheet->styleCells(
-                    'E15:E'.$this->getTraitSize,
+                    'E14:E'.$this->getTraitSize,
                     [
                         //Set border Style
                         'borders' => [
@@ -434,6 +438,36 @@ class PreStudentsCardPerTermExport implements FromCollection,WithTitle,WithEvent
                     ]
                 );
                 $event->sheet->getDelegate()->getStyle('A1:B1')->getAlignment('center');
+                for ($i=15; $i < $this->subjectSize+6; $i++) {
+                    $event->sheet->styleCells(
+                        'B'.($i).':C'.($i),
+                        [
+                            //Set border Style
+                            'borders' => [
+                                'outline' => [
+                                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                    'color' => ['argb' => '0492c2'],
+                                ],
+
+                            ],
+                        ]
+                    );
+                }
+                for ($i=15; $i < $this->getTraitSize; $i++) {
+                    $event->sheet->styleCells(
+                        'E'.($i).':F'.($i),
+                        [
+                            //Set border Style
+                            'borders' => [
+                                'outline' => [
+                                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                    'color' => ['argb' => '0492c2'],
+                                ],
+
+                            ],
+                        ]
+                    );
+                }
 
             },
         ];

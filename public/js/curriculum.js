@@ -2,44 +2,83 @@ $('#addClass').click(function(){
    
    
     var class_label = $('#class_label').val();
-    var class_priority = $('#priority').val();
+    var priority = $('#priority').val();
     
+    if(class_label !=''){
     $.ajax({
         type: "get",
-        url:"/addClass/"+class_label+"/"+class_priority,
+        url:"/addClass",
+        data:{class_label,priority},
         dataType:"json",
         success:function (data){
-            console.log(data)
-            if(data == "success"){
-                Swal.fire({
+            var class_label_status = JSON.parse(JSON.stringify(data.status));
+            var htmlString='';
+            if(class_label_status !="success" || class_label_status !="failed"){
+                if(Array.isArray(class_label_status)){
+                    class_label_status.forEach(element=>{
+                        htmlString +='<h6 class="text-danger">'+element+'</h6>'
+                    });
+                }
+            }
+
+            $('#class_error_message').html(htmlString);
+            $('#class_error_message').removeAttr("hidden");
+
+            if(class_label_status =="success"){
+                 Swal.fire({
                     icon: 'success',
                     title:'successful',
                     text:'Added'+class_label,
-                })
-            } else if(data == "failed"){
-                Swal.fire({
+                });
+            }else if(class_label_status =="failed"){
+                 Swal.fire({
                 icon: 'danger',
                 title: 'failed!',
                 text:' please try again',
                 
               });
-            } else if(data == "failed"){
-                Swal.fire({
-                    icon:'error',
-                    title: 'failde to add'+class_label,
-                    footer: '<a href="">Why do I have this issue?</a>'
-                })
-            }              
-        }, error: function (data) {
-        Swal.fire({
+            }
+        },
+    });
+}else if(class_label ==''){
+       Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>'
+            text: 'job position can not be empty!',
     });
-        }
+}
 });
-});
+
+//             if(data == "success"){
+//                 Swal.fire({
+//                     icon: 'success',
+//                     title:'successful',
+//                     text:'Added'+class_label,
+//                 })
+//             } else if(data == "failed"){
+//                 Swal.fire({
+//                 icon: 'danger',
+//                 title: 'failed!',
+//                 text:' please try again',
+                
+//               });
+//             } else if(data == "failed"){
+//                 Swal.fire({
+//                     icon:'error',
+//                     title: 'failde to add'+class_label,
+//                     footer: '<a href="">Why do I have this issue?</a>'
+//                 })
+//             }              
+//         }, error: function (data) {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Oops...',
+//             text: 'Something went wrong!',
+//             footer: '<a href="">Why do I have this issue?</a>'
+//     });
+//         }
+// });
+// });
 
 
 $('#view_class_label_tab_link').click(function (){
@@ -180,59 +219,67 @@ $('#delete_class_label_modal').on('show.bs.modal', function(event){
 
 $('#saveAllSubject').click(function(){
      var subject_name = $('#subject_name').val();
-    
-    $.ajax({
+     if(subject_name != ''){
+
+         $.ajax({
         type: "get",
-        url:"/indexAddSubject/"+subject_name,
+        url:"/indexAddSubject",
+        data:{subject_name},
         dataType:"json",
         success:function (data){
-            console.log(data)
-            if(data == "success"){
+
+            var subject_name_status = JSON.parse(JSON.stringify(data.status));
+            var htmlString = '';
+                if(subject_name_status !="success" || subject_name_status !="failed"){
+                    if(Array.isArray(subject_name_status)){
+                        subject_name_status.forEach(element =>{
+                            htmlString +='<h6 class="text-danger">'+element+'</h6>'
+                        });
+                    }
+                }
+                $('#subject_error_message').html(htmlString);
+                $('#subject_error_message').removeAttr("hidden");
+
+            if(subject_name_status == "success"){
                 Swal.fire({
                     icon: 'success',
                     title:'successful',
                     text:'Added'+subject_name,
                 });
 
-            } else if(data == "failed"){
+            } else if(subject_name_status == "failed"){
                 Swal.fire({
                 icon: 'danger',
                 title: 'failed!',
                 text:' please try again',
                 });
+            }
+        },
+    });
 
-              }else if(data == "failed"){
+              }else if(subject_name == ''){
                 Swal.fire({
                     icon:'error',
-                    title: 'failde to add'+subject_name,
-                    footer: '<a href="">Why do I have this issue?</a>'
-                })
+                    title: 'Oops...',
+                    text: 'subject can not be empty!',
+                });
             }              
-        }, error: function (data) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>'
-    });
-        }
-});
-});
+        }); 
 
 $('#view_subject_tab_link').click(function (){
+
     $.ajax({
         type:"get",
         url:"/view_subject",
         dataType:"json",
         success:function (data) {
-
-            data.forEach(d =>{
-               
+            console.log(data);
+          data.forEach(d =>{
                 Object.assign(d,{action:'<button class="btn btn-success btn-sm"'+
-                'data-toggle="modal"'+ 
-               'data-target="#view_subject_modal" '+
-                'data-view_subject_tab="'+d.id+','+d.subject_name+'">'+
-                 '<i class="fa fa-eye" aria-hidden="true"></i>'+             
+                    'data-toggle="modal"'+ 
+                    'data-target="#view_subject_modal" '+
+                    'data-view_subject_tab="'+d.id+','+d.subject_name+'">'+
+                    '<i class="fa fa-eye" aria-hidden="true"></i>'+             
                '</button>'+' '+
 
                '<button class="btn btn-info btn-sm"'+
@@ -247,9 +294,11 @@ $('#view_subject_tab_link').click(function (){
                    'data-delete_subject_modal="'+d.id+','+d.subject_name+'">'+
                    '<i class="fa fa-trash" aria-hidden="true"></i>'+
                  '</button>'
-            });
+                }
+                );
             });
 
+            console.log(data)
             $("#view_subject_table").DataTable({
                 "destroy":true,
                 "data":data,
@@ -351,22 +400,149 @@ $('#delete_subject_modal').on('show.bs.modal', function(event){
     });
 })
 
+ $('#addSubjectToClass').click(function(){
+    classes = '';
+    subjects = '';
+    var assignSection =  $('input[name="class"]:checked').each(function(){
+        classes += this.value+",";
+    });
+    var assignSection =  $('input[name="subject"]:checked').each(function(){
+    subjects += this.value+",";
+    });
+    alert("Class-> "+classes+" Subject-> "+subjects);
+    $.ajax({
+        type: "GET",
+        url: "view_subject_group/"+classes+"/"+subjects,
+        dataType: "json",
+        success: function (response) {
+            row = '';
+            response.forEach(element => {
+                row += '<tr>'+
+                            '<td></td>'+
+                            '<td>'+element.class_label+'</td>'+
+                            '<td>'+element.subject_name+'</td>'+
+                        '</tr>';
+
+            });
+            $('#subjectGroupBody').html(row);
+            swal.fire("Data Inserted",'success');
+        }
+    });
+})
+
+$("#nav-Subject-period-tab").click(function(){
+    $("#nav-Subject-period").show();
+    $("#nav-Subject-group").hide();
+    $("#nav-Subject").hide();
+});
+
+$("#nav-Subject-group-tab").click(function(){
+    $("#nav-Subject-period").hide();
+    $("#nav-Subject-group").show();
+    $("#nav-Subject").hide();
+});
+
+$("#nav-Subject-tab").click(function(){
+    $("#nav-Subject-period").hide();
+    $("#nav-Subject-group").hide();
+    $("#nav-Subject").show();
+});
+$(window).on('load', function(){
+    $("#nav-Subject-period").hide();
+    $("#nav-Subject-group").hide();
+    $("#nav-Subject").show();
+});
+
+$('#get_subject_for_period').change(function(){
+    var classes = $(this).val();
+    var htmlString = '';
+    if(classes.length ===0){
+        $("#subjectList").html(htmlString);
+    }else
+        $.ajax({
+            type: "GET",
+            url: "get_subject_for_period/"+classes,
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                response.forEach(element => {
+                    htmlString += '<label class="PillList-item">'+
+                                '<input id="selectedSection" type="checkbox" name="subject" value="'+element.id+'">'+
+                                '<span class="PillList-label" >'+element.class+" "+element.subject+
+                                '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>'+
+                                '</span>'+
+                                '</label>';
+                });
+                htmlString += '<div class="row col-12"><div class="col-3"><input id="periodValue" class="form-control col-12" type="number" min="1" max ="10" placeholder="period">'+
+                                '</div><div class="col-3"><button onclick="addSubjectPeriod(this)" class="btn btn-primary col-12" type="button" value="'+classes+'">submit</button></div></div>';
+            $("#subjectList").html(htmlString);
+            }
+        });
+});
+
+function addSubjectPeriod(val) {
+    var subject = [];
+    var period = $("#periodValue").val();
+    var classes = val.value;
+
+    $('input[name="subject"]:checked').each(function(){
+         subject.push(this.value);
+    });
+    if(period === ''){
+       swal.fire('Fualt','please set period box?!','error')
+    }else if(subject.length === 0){
+        swal.fire('Fualt','please select subject box?!','error')
+    }else{
+        $.ajax({
+            type: "GET",
+            url: "set_subject_period/"+classes+"/"+period+"/"+subject,
+            dataType: "json",
+            success: function (response) {
+                var spliter = response.split("-");
+                swal.fire(
+                    spliter[1],
+                    spliter[2],
+                    spliter[0]
+                  )
+            }
+            
+        });
+    }
+
+}
+        
+
 $('#addStreames').click(function(){
      var stream_type = $('#stream_type').val();
-    
-    $.ajax({
+     if(stream_type !=''){
+
+          $.ajax({
         type: "get",
-        url:"/indexaddStream/"+stream_type,
+        url:"/indexaddStream",
+        data:{stream_type},
         dataType:"json",
         success:function (data){
-            console.log(data)
-            if(data == "success"){
-                Swal.fire({
+
+            var stream_type_status = JSON.parse(JSON.stringify(data.status));
+            var htmlString='';
+
+            if(stream_type_status !="success" || stream_type_status !="failed"){
+                if(Array.isArray(stream_type_status)){
+                    stream_type_status.forEach(element=>{
+                        htmlString +='<h6 class="text-danger">'+element+'</h6>'
+                    });
+                }
+            }
+            $('#stream_error_message').html(htmlString);
+            $('#stream_error_message').removeAttr("hidden");
+
+            if(stream_type_status =="success"){
+                 Swal.fire({
                     icon: 'success',
                     title:'successful',
                     text:'Added'+stream_type,
-                });
-            } else if(data == "failed"){
+                });  
+            } else if(stream_type_status == "failed"){
                 Swal.fire({
                 icon: 'danger',
                 title: 'failed!',
@@ -374,26 +550,17 @@ $('#addStreames').click(function(){
                 
               });
             }
+        },
+    });
 
-            else if(data == "failed"){
+ } else if(stream_type == ''){
                 Swal.fire({
                     icon:'error',
-                    title: 'failde to add'+stream_type,
-                    footer: '<a href="">Why do I have this issue?</a>'
-                })
+                    title: 'Oops',
+                    text: 'stream can not be empty!'
+                });
             }              
-        }, error: function (data) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>'
-    });
-        }
-});
-});
-
-
+        });   
 
 $('#view_stream_tab_link').click(function (){
     $.ajax({

@@ -45,17 +45,10 @@
                                         value="{{$class_label->class_label}}"
 
                                         @endif  >
+                                  <div id="class_error_message">
 
-                                        @if ($errors->any())
-                                        
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                @foreach ($errors->get('class_label') as $error)
-                                                <li>{{ $error }}</li>
-                                                @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif
+                                  </div>
+                                      
                                 </div>
 
                 <div class="col-6">
@@ -63,16 +56,9 @@
                     <label for="addPriority">Add Priority</label>
                     <input type="number" name ="class_priority" min="1" max="15" class="form-control" id="priority" placeholder="priority" >
 
-                    @if ($errors->any())
-                
-                      <div class="alert alert-danger">
-                          <ul>
-                          @foreach ($errors->get('class_priority') as $error)
-                           <li>{{ $error }}</li>
-                           @endforeach
-                          </ul>
-                      </div>
-                  @endif
+                   <div id="class_error_message">
+                                    
+                                  </div>
 
                   </div>
               </div>
@@ -107,7 +93,7 @@
 
                     </div>
 
-                    <div class="tab-pane" id="add_subject_tab" role="tabpanel">
+                     <div class="tab-pane" id="add_subject_tab" role="tabpanel">
                         <label for="">Add Subject</label>
                         <div class="row d-flex justify-content-center mt-3">
                             <div class="col-6">
@@ -116,19 +102,12 @@
                         <input type="text" name ="subject_name" class="form-control"  id="subject_name" placeholder="Subject Name"
                          @if (isset($editSubject))
                          value="{{$editSubject->subject_name}}"
+                         @endif  
+                        >
 
-                     @endif  >
+                        <div id="subject_error_message">
 
-                       @if ($errors->any())                  
-                  
-                      <div class="alert alert-danger">
-                          <ul>
-                          @foreach ($errors->get('subject_name') as $error)
-                           <li>{{ $error }}</li>
-                           @endforeach
-                          </ul>
-                      </div>
-                  @endif
+                        </div>
 
                       </div>
 
@@ -138,9 +117,25 @@
                             </div>
                         </div>
                     </div>
+                    
 
-                    <div class="tab-pane" id="view_subject_tab" role="tabpanel">
-                        <p>View subject</p>
+   <div class="tab-pane" id="view_subject_tab" role="tabpanel">
+  <nav>
+    <div class="nav nav-tabs nav-fill bg-orange" id="nav-tab" role="tablist">
+   <a class="nav-item nav-link active" id="nav-Subject-tab" data-toggle="tab" href="#nav-Subject" role="tab" aria-controls="nav-Subject" aria-selected="true">Subject</a>
+      <a class="nav-item nav-link" id="nav-Subject-group-tab" data-toggle="tab" href="#nav-Subject-group" role="tab" aria-controls="nav-Subject-group" aria-selected="false">Subject Group</a>
+      <a class="nav-item nav-link" id="nav-Subject-period-tab" data-toggle="tab" href="#nav-Subject-period" role="tab" aria-controls="nav-Subject-period" aria-selected="false">Subject Period</a>
+    </div>
+  </nav>
+
+  <div class="card-body">
+
+    <div class="col-xs-12 col-lg-12 col-sm-12 ">
+
+        <div class="col-12 tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+            <div class="col-12 tab-pane fade show active" id="nav-Subject" role="tabpanel" aria-labelledby="nav-Subject-tab">
+                <section class="content">
+                                 <p>View subject</p>
                         <div class="row">
                             <div class="col-12">
                                 <table id="view_subject_table" class="table table-bordered table-striped">
@@ -157,13 +152,110 @@
                                   </table>
                             </div>
                         </div>
-                        
-                    </div>
+                </section>
+            </div>
+            <div class="col-12 tab-pane fade show active" id="nav-Subject-group" role="tabpanel" aria-labelledby="nav-Subject-group-tab">
+                <div class="mr-1">
+                    {{-- <input type="button" class="btn btn-primary" id="swapTableWithDiv" value="Assign Subject Group"> --}}
+                    <section>
+                        <hr>
+                        <div class="row col-12">
+                            <div class="card row col-8">
+                                <div class="" >
+                                    <div  class="card-header">Classes</div>
+                                    <div class="card-body"  id="class_list">
+                                        @foreach ($classes as $class)
+                                        <label class="PillList-item">
+                                            <input id="selectedSection" type="checkbox" name="class" value="{{ $class->id }}">
+                                            <span class="PillList-label" >{{ $class->class_label }}
+                                            <span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>
+                                            </span>
+                                        </label>
+                                        @endforeach
+                                    </div>
+                                </div>
 
-                    <div class="tab-pane" id="add_stream_tab" role="tabpanel">
-                        <div class="row d-flex justify-content-center mt-3">
-                    <div class="col-6">
-                    <div class="form-group">
+                                <div class="card" >
+                                    <div class="card-header">Subjects</div>
+                                    <div class="card-body" id="subject_list">
+                                        @foreach ($subjects as $subject)
+                                        <label class="PillList-item ">
+                                            <input id="selectedSection" type="checkbox" name="subject" value="{{ $subject->id }}">
+                                            <span class="PillList-label" >{{ $subject->subject_name }}
+                                            <span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span>
+                                            </span>
+                                        </label>
+                                        @endforeach
+                                    </div>
+                                    <input class="btn btn-primary" id="addSubjectToClass" type="button" value="Add Subject">
+                                </div>
+                            </div>
+                            <div class="col-4" id="subject_group_list">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Assign Subjects
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container-fluid mt-3" id="subject_table">
+                                            <table id="example11" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Grade</th>
+                                                        <th>Subject</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="subjectGroupBody">
+
+                                                    @foreach ($subject_group as $group)
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>{{  $group->class_label }}</td>
+                                                            <td>{{  $group->subject_name }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                </div>
+            </div>
+            <div class="col-12 tab-pane fade show active" id="nav-Subject-period" role="tabpanel" aria-labelledby="nav-Subject-period-tab">
+                <section> 
+
+              <select id="get_subject_for_period" class="form-control col-6 " data-placeholder="Select classes" >
+                  @foreach ($classes as $class)
+                      <option value="{{ $class->id }}">{{ $class->class_label }}</option>
+                  @endforeach
+              </select>
+
+                    <div class="card m-2">
+                        <div class="card-header">Subjects</div>
+                        <div class="card-body" id="subjectList"></div>                   
+                   </div>
+                    <div style="display: none;" class="card m-2">
+                        <div class="card-header">Subjects List</div>
+                        <div class="card-body" id="subjectListTable">
+
+                        </div>
+                    </div>
+                </section>
+                  
+            </div>
+        </div>
+    </div>
+
+  </div>
+                    </div> 
+
+              <div class="tab-pane" id="add_stream_tab" role="tabpanel">
+                  <div class="row d-flex justify-content-center mt-3">
+              <div class="col-6">
+              <div class="form-group">
 
                 <label for="exampleFormControlInput1">Stream Name</label>
                 <input type="text" name ="stream_type" class="form-control" id="stream_type" 
@@ -172,16 +264,7 @@
                   value="{{$stream->stream_type}}"
                 @endif>
 
-                @if ($errors->any())                  
-                  
-                      <div class="alert alert-danger">
-                          <ul>
-                          @foreach ($errors->get('stream_type') as $error)
-                           <li>{{ $error }}</li>
-                           @endforeach
-                          </ul>
-                      </div>
-                  @endif
+                <div id="stream_error_message"></div>
               </div>
 
                <div class="form-group">
@@ -291,7 +374,8 @@
           </div>
          </div> 
 
-        <div class="modal fade" id="view_subject_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="col-12 tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+       <div class="modal fade" id="view_subject_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -328,7 +412,7 @@
                 <div class="col-8">
                   <div class="form-group">
 
-                <label for="edit_subject"> Edit religion</label>
+                <label for="edit_subject"> Edit subject</label>
                 <input type="text" name="subject" id="edit_subject" class="form-control"  placeholder="subject">
                </div>
               </div>
@@ -365,6 +449,7 @@
           </div>
         </div>
         </div>
+
 
          <div class="modal fade" id="view_streamm_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -431,7 +516,7 @@
               <h5 class="text-primary" id="delete_stream_id"></h5>
               <h5 class="text-primary" id="delete_stream_name"></h5>
                
-              </div>
+            </div>
         
             <div class="modal-footer">
               <button type="button" class="btn btn-success" data-dismiss="modal" id="cancel_delete_stream_modal">Cancel</button>
