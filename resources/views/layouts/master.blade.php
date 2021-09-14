@@ -257,10 +257,16 @@
                                         <p>List Student</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{ url('student_enrollment')  }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Enrollment</p>
+                                    </a>
+                                </li>  --}}
+                                <li class="nav-item">
+                                    <a href="{{ url('generateIdPage') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Generate ID</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -812,6 +818,7 @@ $(function() {
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('dist/js/schedule.js') }}"></script>
+    <script src="{{ asset('dist/js/student_id_generate.js') }}"></script>
 
 
     <script src="{{ asset('root_admin_dashboard.js') }}"></script>

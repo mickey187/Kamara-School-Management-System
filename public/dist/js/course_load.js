@@ -4,7 +4,7 @@ $("#selectedStream").change(function () {
     var class_id = splitter[1];
     var select = '';
     //  swal.fire(stream_id+" : "+class_id);
-    modal();
+    // modal();
     $.ajax({
         type: "GET",
         url: "getSectionForSelectedStream/"+class_id+"/"+stream_id,
@@ -16,7 +16,7 @@ $("#selectedStream").change(function () {
                 select += '<option value="'+element.section_name+'">'+element.section_name+'</option>'
             });
             $("#selectedSection2").html(select);
-            loadingModalHide();
+            // loadingModalHide();
         }
     });
 

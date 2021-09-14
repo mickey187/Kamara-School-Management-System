@@ -23,6 +23,9 @@ use App\Http\Controllers\StudentPersonalDevelopmentController;
 use GrahamCampbell\ResultType\Success;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ExportController;
+use App\Models\assasment_type;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('generatedox',[StudentController::class, 'generateDocx']);
 
@@ -363,7 +366,10 @@ Route::get('/viewParentPaymentDetail',[ParentController::class, 'viewParentPayme
 
 // admin
 Route::get('dashboard',[StudentController::class, 'adminDashboard']);
-
+Route::get('generateIdPage',[ExcelController::class, 'generateIdPage']);
+Route::get('getStudentDetail/{id}',[ExcelController::class, 'getStudentDetail']);
+Route::get('generateOneIdForSingleID/{id}',[ExcelController::class, 'generateOneIdForSingleID']);
+Route::get('getCLassStreamSection',[ClassController::class,'getCLassStreamSection']);
 //marklist
 
 Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
@@ -454,6 +460,8 @@ Route::get('addSemisterI',[SectionController::class, 'insertSemister']);
 
 Route::get('exportstudent/{class}/{stream}/{section}/{assasmnet}/{courseLoad}/{subject}', [ExcelController::class, 'export']);
 
+Route::get('exportstudent/{class}/{stream}/{section}/{assasmnet}/{subject}', [ExcelController::class, 'multipleExport']);
+
 Route::get('generateStudentCard', [MarklistController::class, 'generateTotalCard']);
 
 // Student Traits
@@ -479,6 +487,33 @@ Route::get('getHomeRoomSection/{class}/{stream}', [ListTeacherController::class,
 
 // promote student
 Route::get('promoteStudentToNextClass/{class}/{stream}/{section}/{teacher}', [ListTeacherController::class, 'promoteStudentToNextClass']);
+
+// Assasment
+
+Route::get('getAllAssasment', function () {
+    return response()->json(assasment_type::all());
+});
+
+Route::get('pdf/generate/{path}', [ExcelController::class, 'create']);
+
+Route::get('downloadSingleStudentId/{id}', [ExcelController::class, 'downloadSingleId']);
+
+// Route::get('cd/{id}', function($id)
+// {
+//     // ->resize(323.527,204.01)
+//     // $img = Image::make(storage_path('app/public/student_id_image/idcard.jpg'));
+//     // $path = Storage::path('public/student_id_image/idcard.jpg');
+//     // return response()->download($path, "student.png");
+//     // $generator = new Picqer\Barcode\BarcodeGeneratorJPG();
+//     // file_put_contents(storage_path('app/public/student_id_image/barcode/barcode.jpg'), $generator->getBarcode('081231723897', $generator::TYPE_CODABAR));
+//     // $barcode = $generator->getBarcode($id, $generator::TYPE_CODE_128);
+//     // if (!extension_loaded('imagick')){
+//     //     echo 'imagick not installed';
+//     // }else
+//         // return  QRCode::text('Laravel QR Code Generator!')->png();
+//         return QRCode::text('John Doe ABraham')->setOutfile(storage_path('app/public/student_id_image/qrcode/qrcode.png'))->png();
+//     // return storage_path('app/public/student_id_image/barcode/barcode.jpg');
+// });
 
 
 require __DIR__.'/auth.php';

@@ -8,7 +8,7 @@ $('#modal-teacher-home-room').on('show.bs.modal', function(event) {
     modal.find('.modal-body #section').text(split[2])
     modal.find('.modal-body #stream').text(split[3])
     modal.find('.modal-footer button').val(detail);
-    modal();
+    // modal();
     $.ajax({
         type: 'GET',
         url: 'getHomeRoom/'+(split[1].trim()),
@@ -37,7 +37,7 @@ $('#modal-teacher-home-room').on('show.bs.modal', function(event) {
                 // "dom":'',
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             }).buttons().container().appendTo('#home_room_table_wrapper .col-md-6:eq(0)');
-            loadingModalHide();
+            // loadingModalHide();
         },
         error:function (data) {
             console.log("it is not works fine");
@@ -61,7 +61,7 @@ function deleteHomeRoom($val)
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
-            modal();
+            // modal();
             $.ajax({
                 type: 'GET',
                 url: 'deleteHomeRoom/'+deleteID,
@@ -102,7 +102,7 @@ function deleteHomeRoom($val)
                 },
                 error:function (data) {
                     console.log("it is not works fine");
-                    loadingModalHide();
+                    // loadingModalHide();
                 }
              });
 
@@ -124,7 +124,7 @@ $('#modal-generate-card').on('show.bs.modal', function(event) {
 $("#homeRoomClass").change(function (e) {
     e.preventDefault();
     var class_id = this.value;
-    modal();
+    // modal();
     $.ajax({
         type: "GET",
         url: "getHomeRoomStream/"+class_id,
@@ -137,7 +137,7 @@ $("#homeRoomClass").change(function (e) {
                 select += '<option value="'+element.stream_id+'">'+element.stream_type+'</option>'
             });
             $("#homeRoomStream").html(select);
-            loadingModalHide();
+            // loadingModalHide();
         }
     });
 });
@@ -146,7 +146,7 @@ $("#homeRoomStream").change(function (e) {
     e.preventDefault();
     var stream_id = this.value;
     var class_id = $("#homeRoomClass").val();
-    modal();
+    // modal();
     $.ajax({
         type: "GET",
         url: "getHomeRoomSection/"+class_id+"/"+stream_id,
@@ -159,7 +159,7 @@ $("#homeRoomStream").change(function (e) {
                 select += '<option value="'+element.section_name+'">'+element.section_name+'</option>'
             });
             $("#homeRoomSection").html(select);
-            loadingModalHide();
+            // loadingModalHide();
         }
     });
 });
@@ -170,7 +170,7 @@ $("#addHomeRoom").click(function (e) {
     var section = $("#homeRoomSection").val();
     var class_id = $("#homeRoomClass").val();
     var stream_id = $("#homeRoomStream").val();
-    modal();
+    // modal();
     $.ajax({
         type: "GET",
         url: "setHomeRoom/"+teacher+"/"+section+"/"+class_id+"/"+stream_id,
@@ -202,7 +202,7 @@ $("#addHomeRoom").click(function (e) {
                     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 }).buttons().container().appendTo('#home_room_table_wrapper .col-md-6:eq(0)');
             }
-            loadingModalHide();
+            // loadingModalHide();
         }
     });
 });

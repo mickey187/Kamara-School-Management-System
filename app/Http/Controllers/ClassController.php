@@ -301,4 +301,8 @@ return redirect()->route('/viewClassSubject');
         $subject = subject::where('subject_group_id',$class_group)->get();
         return response()->json($subject);
     }
+
+    public function getCLassStreamSection(){
+        return response()->json("ww");
+    }
 }
