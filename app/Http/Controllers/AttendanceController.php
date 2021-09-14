@@ -57,7 +57,30 @@ error_log($class_id." ".$stream_id." ".$section."wzuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
         $gregorian = new DateTime('today');
         $ethipic = new Andegna\DateTime($gregorian);
         $today_date_cookie = $ethipic->format(DATE_COOKIE);
-        $current_date = $now1->getYear()."-".$now1->getMonth()."-".$now1->getDay();
+        // $current_date = $now1->getYear()."-".$now1->getMonth()."-".$now1->getDay();
+
+
+        $current_year = $now1->getYear();
+        $current_month = null;        
+        $current_date = null;
+
+        if (strlen($now1->getMonth()) < 2) {
+            $current_month = "0".$now1->getMonth();
+        }
+
+        else{
+            $current_month = $now1->getMonth();
+        }
+
+        if (strlen($now1->getDay() ) < 2) {
+            $current_date = "0".$now1->getDay();
+        }
+
+        else {
+            $current_date = $now1->getDay();
+        }
+
+        $current_date = $current_year."-".$current_month."-".$current_date;
 
         return response()->json(['current_date'=> $current_date,'section'=>$section,'today_date_cookie'=>$today_date_cookie]);
     }
@@ -112,27 +135,29 @@ error_log($class_id." ".$stream_id." ".$section."wzuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
         return response()->json($status);
     }
 
-    public function viewAttendance($date){
+    public function viewAttendance($class_id, $stream_id, $section, $date){
         $status = null;
-
-        $user_id = Auth::user()->user_id;
-        $employee = employee::where('employee_id',$user_id)->first();
-        $employee_id = employee::where('employee_id',$user_id)->value('id');
-        $home_room = home_room::where('employee_id',$employee_id)->first();
-       // $stream_id = stream::where('stream_type',$home_room->stream)->value('id');
-        $stream_id = home_room::where('employee_id',$employee_id)->value('stream_id');
+        error_log($class_id."-".$stream_id."-".$section."-".$date); 
+    //     $user_id = Auth::user()->user_id;
+    //     $employee = employee::where('employee_id',$user_id)->first();
+    //     $employee_id = employee::where('employee_id',$user_id)->value('id');
+    //     $home_room = home_room::where('employee_id',$employee_id)->first();
+    //    // $stream_id = stream::where('stream_type',$home_room->stream)->value('id');
+    //     $stream_id = home_room::where('employee_id',$employee_id)->value('stream_id');
 
         $student_attendance = DB::table('attendances')
                                 ->join('students','attendances.student_id','=','students.id')
                                 ->join('classes','attendances.class_id','=','classes.id')
                                 ->join('streams','attendances.stream_id','=','streams.id')
-                                ->where('attendances.class_id',$home_room->class_id)
+                                ->where('attendances.class_id',$class_id)
                                 ->where('attendances.stream_id',$stream_id)
-                                ->where('attendances.section_name',$home_room->section)
+                                ->where('attendances.section_name',$section)
                                 ->where('date',$date)
                                 ->get([DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name'),
-                                     'students.student_id',
-                                     'classes.class_label','stream_type','attendances.section_name','status','date']);
+                                     'students.student_id', 'attendances.student_id as student_table_id',
+                                     'classes.class_label','stream_type','attendances.section_name','status','date'
+                                    ,'attendances.stream_id','attendances.class_id','semister_id','academic_calendar']);
+        error_log($student_attendance);
         // if (isset($student_attendance)) {
         //     $status = "success";
         //     return response()->json(['status'=>$status,'student_attendance'=>$student_attendance]);
@@ -145,15 +170,15 @@ error_log($class_id." ".$stream_id." ".$section."wzuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
         return response()->json($student_attendance);
     }
 
-    public function viewAttendanceForSpecificDate($date){
+    public function viewAttendanceForSpecificDate($class_id, $stream_id, $section, $date){
         $status = null;
 
-        $user_id = Auth::user()->user_id;
-        $employee = employee::where('employee_id',$user_id)->first();
-        $employee_id = employee::where('employee_id',$user_id)->value('id');
-        $home_room = home_room::where('employee_id',$employee_id)->first();
-        //$stream_id = stream::where('stream_type',$home_room->stream)->value('id');
-        $stream_id = home_room::where('employee_id',$employee_id)->value('stream_id');
+        // $user_id = Auth::user()->user_id;
+        // $employee = employee::where('employee_id',$user_id)->first();
+        // $employee_id = employee::where('employee_id',$user_id)->value('id');
+        // $home_room = home_room::where('employee_id',$employee_id)->first();
+        // //$stream_id = stream::where('stream_type',$home_room->stream)->value('id');
+        // $stream_id = home_room::where('employee_id',$employee_id)->value('stream_id');
 
         $student_attendance = null;
 
@@ -173,22 +198,23 @@ error_log($class_id." ".$stream_id." ".$section."wzuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
         ->join('students','attendances.student_id','=','students.id')
         ->join('classes','attendances.class_id','=','classes.id')
         ->join('streams','attendances.stream_id','=','streams.id')
-        ->where('attendances.class_id',$home_room->class_id)
+        ->where('attendances.class_id',$class_id)
         ->where('attendances.stream_id',$stream_id)
-        ->where('attendances.section_name',$home_room->section)
+        ->where('attendances.section_name',$section)
         ->where('date',$date)->exists() ) {
 
             $student_attendance = DB::table('attendances')
             ->join('students','attendances.student_id','=','students.id')
             ->join('classes','attendances.class_id','=','classes.id')
             ->join('streams','attendances.stream_id','=','streams.id')
-            ->where('attendances.class_id',$home_room->class_id)
+            ->where('attendances.class_id',$class_id)
             ->where('attendances.stream_id',$stream_id)
-            ->where('attendances.section_name',$home_room->section)
+            ->where('attendances.section_name',$section)
             ->where('date',$date)
             ->get([DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name'),
-                 'students.student_id',
-                 'classes.class_label','stream_type','attendances.section_name','status','date']);
+                 'students.student_id','attendances.student_id as student_table_id',
+                 'classes.class_label','stream_type','attendances.section_name','status','date',
+                 'attendances.stream_id','attendances.class_id','semister_id','academic_calendar']);
 
                  $status = "success";
                  return response()->json(['status'=>$status,'student_attendance'=>$student_attendance]);
@@ -206,6 +232,36 @@ error_log($class_id." ".$stream_id." ".$section."wzuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
         //     $status = "failed";
         //     return response()->json(['status'=>$status]);
         // }
+    }
+
+    public function editStudentAttendanceForSpecificDate($student_id, $class_id, $stream_id, $section, $academic_calendar, $semister_id, $date, $status, $new_status){
+        $student_attendance_detail = attendance::where('student_id',$student_id)
+                                     ->where('class_id',$class_id)
+                                     ->where('stream_id',$stream_id)
+                                     ->where('section_name',$section)
+                                     ->where('academic_calendar',$academic_calendar)
+                                     ->where('semister_id',$semister_id)
+                                     ->where('date',$date)
+                                     ->where('status',$status)
+                                     ->first();
+
+            error_log("hellooo");
+            error_log($student_attendance_detail);
+
+        $student_attendance_detail->student_id = $student_id;
+        $student_attendance_detail->class_id = $class_id;
+        $student_attendance_detail->stream_id = $stream_id;
+        $student_attendance_detail->section_name = $section;
+        $student_attendance_detail->status = $new_status;
+        $student_attendance_detail->date = $date;
+        $student_attendance_detail->semister_id = $semister_id;
+        $student_attendance_detail->academic_calendar = $academic_calendar;
+        $status = "failed";
+        if ($student_attendance_detail->save()) {
+            $status = "success";
+        }
+
+        return response()->json($status);
     }
 
     public function indexHomeRoomAttendance(){

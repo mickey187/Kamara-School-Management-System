@@ -291,15 +291,20 @@ Route::get('/generateAttendanceList/{class_id}/{stream_id}/{section}', [Attendan
 
 Route::get('/submitAttendance', [AttendanceController::class,'submitAttendance']);
 
-Route::get('/viewAttendance/{date}', [AttendanceController::class,'viewAttendance']);
+Route::get('/viewAttendance/{class_id}/{stream_id}/{section}/{date}', [AttendanceController::class,'viewAttendance']);
 
-Route::get('/viewAttendanceForSpecificDate/{date}', [AttendanceController::class,'viewAttendanceForSpecificDate']);
+Route::get('/viewAttendanceForSpecificDate/{class_id}/{stream_id}/{section}/{date}', [AttendanceController::class,'viewAttendanceForSpecificDate']);
+
+Route::get('/editStudentAttendanceForSpecificDate/{student_id}/{class_id}/{stream_id}/{section}/{academic_calendar}/{semister_id}/{date}/{status}/{new_status}', 
+[AttendanceController::class,'editStudentAttendanceForSpecificDate']);
 
 Route::get('/indexAttendanceForParent', [ParentController::class,'indexAttendanceForParent']);
 
 Route::get('/getCurrentYearMonthForParentAttendance', [ParentController::class,'getCurrentYearMonthForParentAttendance']);
 
 Route::get('/viewStudentAttendanceForMonth/{year_month}', [ParentController::class,'viewStudentAttendanceForMonth']);
+
+
 //Role
 
 // Route::get('indexaddrole', [RoleController::class, 'indexAddRole']);

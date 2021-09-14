@@ -7,9 +7,9 @@
         <div class="card-header">
             <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="orange">
                 
-                <li class="nav-item ethio-month">
-                    <a class="nav-link active text-bold " id="ethio_month1"  data-toggle="tab" href="#" role="tab" data-month="{{$year_month[1]}}">መስከረም</a>
-                </li>
+                
+
+               
 
                 <li class="nav-item ethio-month">
                     <a class="nav-link text-bold " id="ethio_month1"  data-toggle="tab" href="#" role="tab" data-month="{{$year_month[1]}}">መስከረም</a>
