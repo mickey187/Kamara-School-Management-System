@@ -1,6 +1,8 @@
 
+
 var current_date_global = null;
 var today_date_cookie_global = null;
+var isCurrentDateAttendanceAvailable = null;
 $(window).on("load", function () {
     var class_id = $('#attendance_data').data("class_id");
     var stream_id = $('#attendance_data').data("stream_id");
@@ -10,6 +12,7 @@ $(window).on("load", function () {
     url: "/generateAttendanceList/"+class_id+"/"+stream_id+"/"+section,
     dataType: "json",
     success: function (data) {
+        
         console.log(data);
         var section_data = JSON.parse(JSON.stringify(data.section));
         var current_date = JSON.parse(JSON.stringify(data.current_date));
@@ -193,14 +196,66 @@ $('#submit_attendance').click(function () {
 
 $('#view_attendance_tab_link').click(function () { 
     var today = new Date().toISOString().split('T')[0]
+    var class_id = $('#attendance_data').data("class_id");
+    var stream_id = $("#attendance_data").data("stream_id");
+    var section = $("#attendance_data").data("section");
+
+    temp_date = current_date_global.split("-");
+    new_date_format = temp_date[2]+"/"+temp_date[1]+"/"+temp_date[0];
+    $('#ethio_date_inline_view').val(new_date_format);
+    // alert(class_id+"-"+stream_id+"-"+section+"-"+current_date_global);
     console.log(today);
-    $.ajax({
+    viewAttendanceForSpecificDate();
+    isCurrentDateAttendanceAvailable = true;
+  /*  $.ajax({
         type: "GET",
-        url: "/viewAttendance/"+current_date_global,
+        url: "/viewAttendance/"+class_id+"/"+stream_id+"/"+section+"/"+current_date_global,
         dataType: "json",
         success: function (data) {
             console.log(data);
+
+            if (data.length == 0) {
+                $('#date_header').text("Attendance for date: "+today_date_cookie_global+" NOT FOUND");
+            }
+
+            else {
+
+            
             $('#date_header').text("Attendance for date: "+today_date_cookie_global);
+            data.forEach(d => {
+                Object.assign(d, { action:
+                   '<button class="btn btn-success btn-sm" data-full_name="'+d.full_name+'"'+
+                   'data-student_id="'+d.student_id+'" data-class_label="'+d.class_label+'"'+
+                   'data-stream_type="'+d.stream_type+'"'+
+                   'data-section="'+d.section_name+'"'+
+                   'data-acedemic_calendar="'+d.academic_calendar+'"'+
+                   'data-semister_id="'+d.semister_id+'"'+
+                   'data-date="'+d.date+'"'+
+                   'data-status="'+d.status+'"'+
+                   'data-toggle="modal"'+
+                   'data-target="#view_attendance_for_specific_student"'+
+                   '><i class="fa fa-eye" aria-hidden="true"></i>'+
+                   '</button>'+' '+
+
+                   '<button class="btn btn-info btn-sm" data-full_name="'+d.full_name+'"'+
+                   'data-student_id="'+d.student_id+'" data-class_label="'+d.class_label+'"'+
+                   'data-student_table_id="'+d.student_table_id+'"'+
+                   'data-class_id="'+d.class_id+'"'+
+                   'data-stream_id="'+d.stream_id+'"'+
+                   'data-stream_type="'+d.stream_type+'"'+
+                   'data-section="'+d.section_name+'"'+
+                   'data-academic_calendar="'+d.academic_calendar+'"'+
+                   'data-semister_id="'+d.semister_id+'"'+
+                   'data-date="'+d.date+'"'+
+                   'data-status="'+d.status+'"'+
+                   'data-toggle="modal"'+
+                   'data-target="#edit_attendance_for_specific_student"'+
+                   '><i class="fa fa-pencil" aria-hidden="true"></i>'+
+                   '</button>'
+                    
+                 });
+            });
+            console.log(data);
             $("#view_attendance_table").DataTable({
                 "destroy":true,
                 "data":data,
@@ -211,7 +266,7 @@ $('#view_attendance_tab_link').click(function () {
                     { "data": "class_label" },
                     { "data": "section_name" },
                     { "data": "status"},
-                    //{ "data": "action" }
+                    { "data": "action" }
                     
                    
                 ],
@@ -222,8 +277,10 @@ $('#view_attendance_tab_link').click(function () {
                 "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#view_attendance_table_wrapper .col-md-6:eq(0)');
+
+            }
         }
-    });
+    }); */
     
 });
 
@@ -242,77 +299,328 @@ $(function () {
    //  $('#ethio_date').calendarsPicker({calendar: calendar, onSelect: showDate});
    });
 $('#ethio_date_inline_view').on("change", function () {
-  if ($(this).val()== '') {
+
+    viewAttendanceForSpecificDate();
+    isCurrentDateAttendanceAvailable = false;
+//   console.log("clicked it");
+//   if ($(this).val()== '') {
       
-  }
-  else{
-    var date_string = $('#ethio_date_inline_view').val();
-    var date_full = date_string.split('/');
-    var date_now = date_full[0];
-    var date_month = date_full[1];
-    var year = date_full[2];
-    var date_format = year+"-"+date_month+"-"+date_now;
-    // alert(date_format);
+//   }
+//   else{
+//     var date_string = $('#ethio_date_inline_view').val();
+//     var date_full = date_string.split('/');
+//     var date_now = date_full[0];
+//     var date_month = date_full[1];
+//     var year = date_full[2];
+//     var date_format = year+"-"+date_month+"-"+date_now;
+//     // alert(date_format);
+//     var class_id = $('#attendance_data').data("class_id");
+//     var stream_id = $("#attendance_data").data("stream_id");
+//     var section = $("#attendance_data").data("section");
 
-    $.ajax({
-        type: "GET",
-        url: "/viewAttendanceForSpecificDate/"+date_format,
+//     $.ajax({
+//         type: "GET",
+//         url: "/viewAttendanceForSpecificDate/"+class_id+"/"+stream_id+"/"+section+"/"+date_format,
     
-        dataType: "json",
-        success: function (data) {
+//         dataType: "json",
+//         success: function (data) {
 
-            $('#view_attendance_table tbody').empty();
+//             $('#view_attendance_table tbody').empty();
 
-            var student_attendance_data = JSON.parse(JSON.stringify(data.student_attendance));
-            var status = JSON.parse(JSON.stringify(data.status));
+
+//             var student_attendance_data = JSON.parse(JSON.stringify(data.student_attendance));
+//             var status = JSON.parse(JSON.stringify(data.status));
 
             
-            if (status == "success") {
-                $('#date_header').text("Attendance for date: "+date_format);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Found Attendance Record for Date: '+date_format,
-                  
-                  });
+//             if (status == "success") {
+//                 $('#date_header').text("Attendance for date: "+date_format);
+                
 
-                 $("#view_attendance_table").DataTable({
-                "destroy":true,
-                "data":student_attendance_data,
-                "rowId":"student_id",
-                "columns": [
-                    { "data": "student_id" },
-                    { "data": "full_name" },
-                    { "data": "class_label" },
-                    { "data": "section_name" },
-                    { "data": "status"},
-                    //{ "data": "action" }
+//                student_attendance_data.forEach(d => {
+
+//                 Object.assign(d, { action:
+//                     '<button class="btn btn-success btn-sm" data-full_name="'+d.full_name+'"'+
+//                     'data-student_id="'+d.student_id+'" data-class_label="'+d.class_label+'"'+
+//                     'data-stream_type="'+d.stream_type+'"'+
+//                     'data-section="'+d.section_name+'"'+
+//                     'data-acedemic_calendar="'+d.academic_calendar+'"'+
+//                     'data-semister_id="'+d.semister_id+'"'+
+//                     'data-date="'+d.date+'"'+
+//                     'data-status="'+d.status+'"'+
+//                     'data-toggle="modal"'+
+//                     'data-target="#view_attendance_for_specific_student"'+
+//                     '><i class="fa fa-eye" aria-hidden="true"></i>'+
+//                     '</button>'+' '+
+ 
+//                     '<button class="btn btn-info btn-sm" data-full_name="'+d.full_name+'"'+
+//                     'data-student_id="'+d.student_id+'" data-class_label="'+d.class_label+'"'+
+//                     'data-student_table_id="'+d.student_table_id+'"'+
+//                     'data-class_id="'+d.class_id+'"'+
+//                     'data-stream_id="'+d.stream_id+'"'+
+//                     'data-stream_type="'+d.stream_type+'"'+
+//                     'data-section="'+d.section_name+'"'+
+//                     'data-academic_calendar="'+d.academic_calendar+'"'+
+//                     'data-semister_id="'+d.semister_id+'"'+
+//                     'data-date="'+d.date+'"'+
+//                     'data-status="'+d.status+'"'+
+//                     'data-toggle="modal"'+
+//                     'data-target="#edit_attendance_for_specific_student"'+
+//                     '><i class="fa fa-pencil" aria-hidden="true"></i>'+
+//                     '</button>'
+                     
+//                   });
+
+                    
+//                 });
+//                 Swal.fire({
+//                     icon: 'success',
+//                     title: 'Success',
+//                     text: 'Found Attendance Record for Date: '+date_format,
+                  
+//                   });
+
+//                  $("#view_attendance_table").DataTable({
+//                 "destroy":true,
+//                 "data":student_attendance_data,
+//                 "rowId":"student_id",
+//                 "columns": [
+//                     { "data": "student_id" },
+//                     { "data": "full_name" },
+//                     { "data": "class_label" },
+//                     { "data": "section_name" },
+//                     { "data": "status"},
+//                     { "data": "action" }
                     
                    
-                ],
-               "paging": false,
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "ordering": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#view_attendance_table_wrapper .col-md-6:eq(0)');
-            }
+//                 ],
+//                "paging": false,
+//                 "responsive": true,
+//                 "lengthChange": false,
+//                 "autoWidth": false,
+//                 "ordering": false,
+//                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+//             }).buttons().container().appendTo('#view_attendance_table_wrapper .col-md-6:eq(0)');
+//             }
 
-            else if(status == "failed"){
-                $('#date_header').text("Attendance Record For This Date NOT FOUND");
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Attendance Record for Date: '+date_format+" NOT FOUND",
-                    text: 'Please submit Attendance first and try again!',
+//             else if(status == "failed"){
+//                 $('#date_header').text("Attendance Record For This Date NOT FOUND");
+//                 Swal.fire({
+//                     icon: 'warning',
+//                     title: 'Attendance Record for Date: '+date_format+" NOT FOUND",
+//                     text: 'Please submit Attendance first and try again!',
                   
-                  });
-            }
+//                   });
+//             }
 
            
            
-        }
-    });
-  }
+//         }
+//     });
+//   }
   });
 
+
+//   modals js
+
+$('#view_attendance_for_specific_student').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var student_id = button.data('student_id');// Extract info from data-* attributes
+    var full_name = button.data('full_name');
+    var class_label = button.data('class_label');
+    var stream_type = button.data('stream_type');
+    var section = button.data('section');
+    var date = button.data('date');
+    var status = button.data('status');
+
+    $('#view_attendance_student_id').text("Student ID: "+student_id);
+    $('#view_attendance_full_name').text("Full Name: "+full_name);
+    $('#view_attendance_class_label').text("Class Label: "+class_label);
+    $('#view_attendance_stream_type').text("Stream Type: "+stream_type);
+    $('#view_attendance_section').text("Section: "+section);
+    $('#view_attendance_date').text("Date: "+date);
+    $('#view_attendance_status').text("Status: "+status);
+
+    var modal = $(this)
+    // modal.find('.modal-title').text('New message to ' + recipient)
+    // modal.find('.modal-body input').val(recipient)
+  })
+
+  $('#edit_attendance_for_specific_student').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var student_id = button.data('student_id');// Extract info from data-* attributes
+    var student_table_id = button.data('student_table_id');
+    var full_name = button.data('full_name');
+    var class_label = button.data('class_label');
+    var class_id = button.data('class_id');
+    var stream_id = button.data('stream_id');
+    var stream_type = button.data('stream_type');
+    var section = button.data('section');
+    var academic_calendar = button.data('academic_calendar');
+    var semister_id = button.data('semister_id');
+    var date = button.data('date');
+    var status = button.data('status');
+
+    $('#edit_attendance_student_id').text("Student ID: "+student_id);
+    $('#edit_attendance_full_name').text("Full Name: "+full_name);
+    $('#edit_attendance_class_label').text("Class Label: "+class_label);
+    $('#edit_attendance_stream_type').text("Stream Type: "+stream_type);
+    $('#edit_attendance_section').text("Section: "+section);
+    $('#edit_attendance_date').text("Date: "+date);
+    $('#edit_attendance_status').text("Status: "+status);
+
+    
+   
+    var modal = $(this)
+    $('#edit_attendance_btn').click(function () { 
+        // alert(academic_calendar);
+        var new_status = $('#edit_student_attendance_status').val();
+        alert(new_status);
+$.ajax({
+    type: "GET",
+    url: "/editStudentAttendanceForSpecificDate/"+student_table_id+"/"+class_id+"/"+stream_id+"/"+section+"/"+academic_calendar+"/"+semister_id+"/"+date+"/"+status+"/"+new_status,
+    dataType: "json",
+    success: function (data) {
+
+        if (data == "success") {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Edited Attendance of '+full_name+' to '+new_status+' for Date: '+date,
+              
+              });
+
+              $('#cancel_edit_attendance_modal').click();
+        }
+        $('#view_attendance_tab_link').click();
+    }
+});        
+    });
+    // modal.find('.modal-title').text('New message to ' + recipient)
+    // modal.find('.modal-body input').val(recipient)
+
+    $(this).on('hide.bs.modal', function(){
+        $('#edit_attendance_btn').off('click');
+    });
+  });
+
+
+  function viewAttendanceForSpecificDate() { 
+    console.log("clicked it");
+    if ($('#ethio_date_inline_view').val() == '') {
+        
+    }
+    else{
+      var date_string = $('#ethio_date_inline_view').val();
+      var date_full = date_string.split('/');
+      var date_now = date_full[0];
+      var date_month = date_full[1];
+      var year = date_full[2];
+      var date_format = year+"-"+date_month+"-"+date_now;
+      // alert(date_format);
+      var class_id = $('#attendance_data').data("class_id");
+      var stream_id = $("#attendance_data").data("stream_id");
+      var section = $("#attendance_data").data("section");
+  
+      $.ajax({
+          type: "GET",
+          url: "/viewAttendanceForSpecificDate/"+class_id+"/"+stream_id+"/"+section+"/"+date_format,
+      
+          dataType: "json",
+          success: function (data) {
+  
+              $('#view_attendance_table tbody').empty();
+  
+  
+              var student_attendance_data = JSON.parse(JSON.stringify(data.student_attendance));
+              var status = JSON.parse(JSON.stringify(data.status));
+  
+              
+              if (status == "success") {
+                  $('#date_header').text("Attendance for date: "+date_format);
+                  
+  
+                 student_attendance_data.forEach(d => {
+  
+                  Object.assign(d, { action:
+                      '<button class="btn btn-success btn-sm" data-full_name="'+d.full_name+'"'+
+                      'data-student_id="'+d.student_id+'" data-class_label="'+d.class_label+'"'+
+                      'data-stream_type="'+d.stream_type+'"'+
+                      'data-section="'+d.section_name+'"'+
+                      'data-acedemic_calendar="'+d.academic_calendar+'"'+
+                      'data-semister_id="'+d.semister_id+'"'+
+                      'data-date="'+d.date+'"'+
+                      'data-status="'+d.status+'"'+
+                      'data-toggle="modal"'+
+                      'data-target="#view_attendance_for_specific_student"'+
+                      '><i class="fa fa-eye" aria-hidden="true"></i>'+
+                      '</button>'+' '+
+   
+                      '<button class="btn btn-info btn-sm" data-full_name="'+d.full_name+'"'+
+                      'data-student_id="'+d.student_id+'" data-class_label="'+d.class_label+'"'+
+                      'data-student_table_id="'+d.student_table_id+'"'+
+                      'data-class_id="'+d.class_id+'"'+
+                      'data-stream_id="'+d.stream_id+'"'+
+                      'data-stream_type="'+d.stream_type+'"'+
+                      'data-section="'+d.section_name+'"'+
+                      'data-academic_calendar="'+d.academic_calendar+'"'+
+                      'data-semister_id="'+d.semister_id+'"'+
+                      'data-date="'+d.date+'"'+
+                      'data-status="'+d.status+'"'+
+                      'data-toggle="modal"'+
+                      'data-target="#edit_attendance_for_specific_student"'+
+                      '><i class="fa fa-pencil" aria-hidden="true"></i>'+
+                      '</button>'
+                       
+                    });
+  
+                      
+                  });
+                  if (!isCurrentDateAttendanceAvailable) {
+                      Swal.fire({
+                      icon: 'success',
+                      title: 'Success',
+                      text: 'Found Attendance Record for Date: '+date_format,
+                    
+                    });
+                  }
+                  
+  
+                   $("#view_attendance_table").DataTable({
+                  "destroy":true,
+                  "data":student_attendance_data,
+                  "rowId":"student_id",
+                  "columns": [
+                      { "data": "student_id" },
+                      { "data": "full_name" },
+                      { "data": "class_label" },
+                      { "data": "section_name" },
+                      { "data": "status"},
+                      { "data": "action" }
+                      
+                     
+                  ],
+                 "paging": false,
+                  "responsive": true,
+                  "lengthChange": false,
+                  "autoWidth": false,
+                  "ordering": false,
+                  "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+              }).buttons().container().appendTo('#view_attendance_table_wrapper .col-md-6:eq(0)');
+              }
+  
+              else if(status == "failed"){
+                  $('#date_header').text("Attendance Record For This Date NOT FOUND");
+                  Swal.fire({
+                      icon: 'warning',
+                      title: 'Attendance Record for Date: '+date_format+" NOT FOUND",
+                      text: 'Please submit Attendance first and try again!',
+                    
+                    });
+              }
+  
+             
+             
+          }
+      });
+    }
+   }

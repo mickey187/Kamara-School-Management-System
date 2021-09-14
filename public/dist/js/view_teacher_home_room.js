@@ -269,7 +269,7 @@ function getHomeRoomStudent(nb){
            });
            row+='</tbody></table></div></div></div>';
            row2 += 'Dashboard / Home Room / '+stream+' Section '+section;
-           alert(section);
+        //    alert(section);
            generator = '<a class="btn btn-sm btn-primary text-bold"  href="indexAttendance/'+class_id_new+'/'+stream_id_new+'/'+section+'" >Attendance</a> ';
 
            '<button class="shadow p-1 rounded m-1 btn btn-primary btn-sm"';

@@ -4,7 +4,7 @@ var payment_type ;
 var select_recurring;
 
 $('#add_payment_type').click(function () { 
-    
+    $(selector).html(htmlString);
      payment_type  = $('#payment_type').val();
      select_recurring = $('#select_recurring').val();
     
