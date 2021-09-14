@@ -104,8 +104,8 @@ $("#sectionForId").change(function (e) {
     var stream_id =  $("#streamForId").val();
     var section_name =  $("#sectionForId").val();
     if(!(class_id === "Choose class" || stream_id === "Choose stream" || section_name === "Choose section")){
-       var btn ='<button id="generateIdForOneClassBtn" class="btn btn-success btn-secondary" >Generate ID</button>'+
-                '<button id="downloadIdForOneClassBtn" class="btn btn-disabled btn-secondary" disabled>Download</button>';
-        $("#idBtnList").html();
+       var btn ='<button id="generateIdForOneClassBtn" class="btn btn-success btn-secondary m-2" >Generate ID</button>'+
+                '<button id="downloadIdForOneClassBtn" class="btn btn-disabled btn-secondary m-2" disabled>Download</button>';
+        $("#idBtnList").html(btn);
     }
 });

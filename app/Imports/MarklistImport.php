@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
-
+use Andegna;
 class MarklistImport implements ToModel,WithHeadingRow,WithStartRow
 {
 
@@ -41,6 +41,8 @@ class MarklistImport implements ToModel,WithHeadingRow,WithStartRow
     public function model(array $row)
     {
         error_log($row['id']);
+        $now1 = \Andegna\DateTimeFactory::now();
+        $current_date = $now1->getYear();
         $student = student::where('student_id',(int)$row['id'])->first();
         $getStream = stream::where("stream_type",$this->stream)->get()->first();
         $assasment = assasment_type::where("assasment_type",$this->assasment)->get()->first();
@@ -66,7 +68,7 @@ class MarklistImport implements ToModel,WithHeadingRow,WithStartRow
                 'student_id' => (int)$student->id,
                 'test_load' => floatval($this->load),
                 'mark' =>floatval($row['mark']),
-                'academic_year' =>2021
+                'academic_year' => $current_date,
             ]);
         }
     }
