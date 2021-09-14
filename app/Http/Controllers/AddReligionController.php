@@ -12,25 +12,17 @@ class AddReligionController extends Controller
     public function addReligionPage(){
         return view('admin.employee.add_religion');
     }
-    // public function addReligion()
-    // {
-    
-    //     $religion =new employee_religion();
-    //     $religion->religion_name = request('employee_religion');
-    //     if ($religion->save()) {
-    //         $view_religion = employee_religion::all();
-    //     return view('admin.employee.view_religion')->with('view_religion', $view_religion);
-    //     }
-    // }
 
-   public function addReligion($religiion)
+
+   public function addReligion(Request $req)
     {
-    
-        $religion =new employee_religion();
-        $religion->religion_name = $religiion;
+        $religion =new employee_religion;
+        $validated = $req->validate(['religion_name'=>'required|unique:employee_religions|max:30']);
+        $religion->religion_name = $validated['religion_name'];
+        
         if ($religion->save()) {
             $view_religion = employee_religion::all();
-        return view('admin.employee.view_religion')->with('view_religion', $view_religion);
+        return redirect()->route('/viewReligion')->with('view_religion', $view_religion);
         }
     }
 

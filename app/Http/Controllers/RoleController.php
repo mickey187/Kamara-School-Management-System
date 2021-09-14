@@ -23,24 +23,21 @@ class RoleController extends Controller
     //
     public function indexAddRole(){
 
-        //$user = User::find(1);
-       // return $user->roles;
-        // foreach ($user->roles as $role) {
-        //     //
-        //     echo $role;
-        // }
         return view('admin.add_role');
     }
 
     public function addRole(Request $req){
-        $role = new Role();
-        $role->role_name = $req->rolename;
+        $role = new Role;
+        $add_role = Role::all();
+        // $role->role_name = $req->role_name;
+        $validated = $req->validate(['role_name'=>'unique:roles|required|max:30']);
+        $role->role_name = $validated['role_name'];
         
         if ($role->save()) {
+
            $view_role = Role::all();
            return redirect()->route('viewrole')->with('view_role',$view_role);
-            //return $role->id;
-           
+   
         }
     }
 

@@ -366,7 +366,7 @@ class StudentController extends Controller{
     }
 
     public function insertStudent($data,$req){
-
+        $generate_id = $this->idGeneratorFun();
         $studentBg_fk = student_background::latest('created_at')->pluck('id')->first();
         $studentMedicalInfo_fk = student_medical_info::latest('created_at')->pluck('id')->first();
         $student = new student();
@@ -380,7 +380,7 @@ class StudentController extends Controller{
         // $student->image = $data['image'];
         if($req->image->getClientOriginalName()){
             $ext =$req->image->getClientOriginalExtension();
-            $image = $data['first_name'].'_'.$data['middle_name'].'_'.$data['last_name'].date('YmdHis').rand(0,99999).'.'.$ext;
+            $image = $data['first_name'].'_'.$data['middle_name'].'_'.$data['last_name'].$generate_id.'.'.$ext;
             $req->image->storeAs('public/student_image',$image);
         }else{
             $image='';
@@ -388,7 +388,7 @@ class StudentController extends Controller{
         $student->image = $image;
         $student->class_id = $data['class'];
         $student->stream_id = $data['stream'];
-        $student->student_id = $this->idGeneratorFun();
+        $student->student_id = $generate_id;
         $student->save();
 
 

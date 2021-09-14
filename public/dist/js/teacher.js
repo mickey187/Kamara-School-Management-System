@@ -1,3 +1,5 @@
+
+
 $('#modal-teacher').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget)
     var detail = button.data('teacher')
@@ -7,7 +9,7 @@ $('#modal-teacher').on('show.bs.modal', function(event) {
     modal.find('.modal-body #full_name').text(split[0])
     modal.find('.modal-body #id').text(split[1]);
     modal.find('.modal-footer button').val(detail);
-    modal();
+    // modal();
     $.ajax({
         type: 'GET',
         url: 'getCourseLoad/'+(split[1].trim()),
@@ -36,11 +38,11 @@ $('#modal-teacher').on('show.bs.modal', function(event) {
                 // "dom":'',
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             }).buttons().container().appendTo('#course_load_table_wrapper .col-md-6:eq(0)');
-            loadingModalHide();
+            // loadingModalHide();
         },
         error:function (data) {
             console.log("it is not works fine");
-            loadingModalHide();
+            // loadingModalHide();
         }
      });
 })
@@ -112,9 +114,9 @@ $("#promoteStudentModal").click(function(){
                         swal.fire('Promoted!',response,'success');
                     }
                 });
-            }
-        })
-})
+            };
+        });
+});
 
 // $("#generate_one_year_card").click(function(){
 //     get_term = $("#get_term").val();
@@ -137,50 +139,34 @@ $("#promoteStudentModal").click(function(){
 //     loadingModalHide();
 // });
 $("#generate_one_year_card").click(function(){
-    // $("#modal-generate-card").modal('hide');
-    // setTimeout(function () {
-
-    // $('#modal-generate-card').hide();
-    // }, 1);
-    // modal();
 
 })
 
-// // $(window).ready(function(){
-// //     loadingModalHide();
-// // });
-// $(window).on('load', function() {
-//     loadingModalHide();
-// })
-// document.addEventListener('readystatechange', event => {
-//     if (event.target.readyState === "complete") {
-//         loadingModalHide();
-//     }
-// });
+
 function moreAssasment()
 {
         var courseLoad = ($("#courseExcel").val()).trim();
         var data = ($("#classExcel").val()).split(",");
         var assasment = ($("#generateAs").val()).trim();
         var subject = (data[3]).trim();
-        alert(data);
-    assasment = '<div class="col-6">'+
-                    '<label>Assasment</label>'+
-                    '<select  class="form-control" id="generateAs">'+
-                    '</select>'+
-                '</div>';
-    assasment += '<div class="col-4">'+
-                    '<label>Test Load</label>'+
-                    '<input type="Number"  class="form-control" id="courseExcel">'+
-                    '<input hidden type="text"  class="form-control" id="classExcel">'+
-                    '<input hidden type="text"  class="form-control" id="generateSub">';
-                '</div>';
+        // alert(data);
+        assasment ='';
+    // assasment = '<div class="col-6">'+
+    //                 '<label>Assasment</label>'+
+    //                 '<select  class="form-control" id="generateAs">'+
+    //                 '</select>'+
+    //             '</div>';
+    // assasment += '<div class="col-4">'+
+    //                 '<label>Test Load</label>'+
+    //                 '<input type="Number"  class="form-control" id="courseExcel">'+
+    //                 '<input hidden type="text"  class="form-control" id="classExcel">'+
+    //                 '<input hidden type="text"  class="form-control" id="generateSub">';
+    //             '</div>';
+    assasment += '<div class="row col-12"> <input id="numberOfAssasmentField" type="number" class="col-2 form-control" min="1" max="15" placeholder="size"> <input onclick="prepareAssasmentBtn();" type="button" class="btn btn-secondary btn-sm m-1" value="prepare"></div>'
     // assasment += '<button class="col-2 btn btn-danger btn-sm"><i class=" btn-danger fa fa-trash"> </i></button>';
 
-    $("#addListOfAssasment").html(assasment);
+    $("#more_assasment").html(assasment);
+    $("#moreItem").hide();
 }
 
-// $("#addListOfAssasment").click(function (e) {
-//     e.preventDefault();
 
-// });

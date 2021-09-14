@@ -75,12 +75,14 @@ $('#view_payment_load_tab_link').click(function () {
                 'data-view_payment_load="'+d.payment_load_id+','+d.payment_type+','+d.class_label+','+d.amount+'">'+
                  '<i class="fa fa-eye" aria-hidden="true"></i>'+             
                '</button>'+' '+
+
                '<button class="btn btn-info btn-sm"'+
                'data-toggle="modal"'+ 
               'data-target="#edit_payment_load_modal"'+
                'data-edit_payment_load="'+d.payment_load_id+','+d.payment_type_id+','+d.class_id+','+d.amount+'">'+
                 '<i class="fas fa-pencil-alt" aria-hidden="true"></i>'+                   
               '</button>'+' '+
+
                '<button class="btn btn-danger btn-sm" data-toggle="modal"'+ 
                'data-target="#delete_payment_load_modal"'+ 
                 'data-delete_payment_load_modal="'+d.payment_load_id+','+d.payment_type_id+','+d.class_id+','+d.amount+'">'+
@@ -156,8 +158,7 @@ $('#view_payment_load_modal').on('show.bs.modal', function (event) {
                     $('#payment_type_edit_load').append('<option value="'+element.id+'">'+
                                            element.payment_type+'</option>');
                                       
-                                      
-                   
+               
                 });
                 class_detail.forEach(element => {
                     $('#class_id_edit_val').append('<option value="'+element.id+'">'+

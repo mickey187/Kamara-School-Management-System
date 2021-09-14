@@ -49,7 +49,7 @@ class EmployeeRegistrationController extends Controller
       }
 
     //
-    public function store(){
+    public function store(Request $req){
         if(Request('job_position')==='1'){
             // $this->insertRole();
             $this->insertAddress();
@@ -95,7 +95,7 @@ class EmployeeRegistrationController extends Controller
 
 
     public function update($id){
-       $first_name = Request('first_name');
+    //    $first_name = Request('first_name');
 
         $employee = employee::find($id);
 

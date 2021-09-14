@@ -8,5 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Sentry\\Laravel\\' => array($vendorDir . '/sentry/sentry-laravel/src'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
+    'Milon\\Barcode' => array($vendorDir . '/milon/barcode/src'),
+    'Imagick' => array($vendorDir . '/calcinai/php-imagick/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
 );

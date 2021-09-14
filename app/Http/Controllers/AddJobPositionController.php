@@ -15,15 +15,18 @@ class AddJobPositionController extends Controller
     public function indexAddJobPosition(){
         return view('admin.employee.add_job_position');
     }
-    public function addJobPosition($position2)
+    public function addJobPosition(Request $req)
     {
-        $position =new employee_job_position();
-        $position->position_name = $position2;
+        $position =new employee_job_position;
+        // $position->position_name = $position2;
+        $validated =  $req->validate(['position_name'=>'required|unique:employee_job_positions|max:10']);
+        $position->position_name = $validated['position_name'];
         
         if ($position->save()) {
-            $view_position = employee_job_position::all();
             
-        return view('admin.employee.view_job_position')->with('view_position', $view_position);
+             $view_position = employee_job_position::all();
+            
+        return redirect()->route('/viewJobPosition')->with('view_position', $view_position);
         }
     }
 
@@ -60,7 +63,7 @@ class AddJobPositionController extends Controller
         if ($position->delete()) {
 
             $view_position = employee_job_position::all();
-           return redirect()->route('viewJobPosition')->with('view_position',$view_position);
+           return redirect()->route('/viewJobPosition')->with('view_position',$view_position);
         }
 
         else 

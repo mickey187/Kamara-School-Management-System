@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\stream;
 
 class StreamController extends Controller
+
 {
     //
 
@@ -23,17 +24,16 @@ class StreamController extends Controller
     function addStream(Request $req){
         $stream = new stream;
         $streams = stream::all();
-        $stream->stream_type = $req->streamname;
+    //    $stream->stream_type = $req->streamname;
+
+        $validated = $req->validate(['stream_type'=>'unique:streams|required|max:20']);
+         $stream->stream_type = $validated['stream_type'];
 
         if( $stream->save()){
 
             return redirect()->route('/viewStream')->with('streams',$streams);
         }
-
-        
-
-
-    }
+      }
 
     public function editStream($id){
 

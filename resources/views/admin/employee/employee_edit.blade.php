@@ -96,15 +96,15 @@
 
                     <div class="field">
                             <div class="label">citizen</div>
-                            {{-- <select class="form-control selectpicker countrypicker" data-live-search="true"
-                                                            data-default="ET"
-                                                            @if(isset($edit_employee))
-                                                            data-default="{{ $edit_employee->citizen  }}"
-                                                                        @else
-                                                                        data-default="ET"
-                                                                        @endif>
-                                                            ></select> --}}
-                            <input type="text" id="citizen"  name="citizen" class="form-control" placeholder="Cityzenship">
+                            
+                            <input type="text" id="citizen"  name="citizen" class="form-control" placeholder="Cityzenship"
+
+                                                   @if(isset($edit_employee))
+                                                        value="{{ $edit_employee->nationality }}"
+                                                    @else
+                                                        value=""
+                                                    @endif
+                            >
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                     </div>
                                             </div>

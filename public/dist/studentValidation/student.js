@@ -81,6 +81,7 @@ studentCitizen.oninput=function(){
     }
 };
 
+
 // var studentGrade = document.getElementById("studentGrade")
 // studentGrade.oninput = function(){
 //     if((studentGrade.value).length >= 3){
@@ -104,103 +105,66 @@ studentCitizen.oninput=function(){
 // };
 
 studentFirstNextBtn.addEventListener("click",function(){
-    var studentFirstName = document.getElementById("studentFirstName")
-    var studentMiddleName = document.getElementById("studentMiddleName")
-    var studentLastName = document.getElementById("studentLastName")
-    var studentBirthDate = document.getElementById("studentBirthDate")
-    var studentBirthPlace = document.getElementById("studentBirthPlace")
-    var studentGender = document.getElementById("studentGender")
-    var studentCitizen = document.getElementById("studentCitizen")
+    var studentFirstName = $('#studentFirstName').val();
+    var studentMiddleName = $('#studentMiddleName').val();
+    var studentLastName = $('#studentLastName').val();
+    var studentBirthDate = $('#studentBirthDate').val();
+    var studentBirthPlace = $('#studentBirthPlace').val();
+    var studentGender = $('#studentGender').val();
+    var studentCitizen = $('#studentCitizen').val();
+    var studentImage = $('#img-pro').val();
     // var studentGrade = document.getElementById("studentGrade")
     // var studentStream = document.getElementById("studentStream")
-    var studentImage = document.getElementById("img-pro")
+    
 
-    if(studentImage.value.trim() === ''){
-
-        setErorFor(studentImage,"Image can not be empty")
-     }else{
-         setSuccessFor(studentImage)
-     }
-
-if((studentFirstName.value).length<3){
-         setDefaultFor(studentFirstName,"First name can not be min length")
-        }else{
-            setSuccessFor(studentFirstName)
-        }
-
-  if((studentMiddleName.value).length<3){
-      setDefaultFor(studentMiddleName,"Middle name can not be min length")
-
-     }else{
-            setSuccessFor(studentMiddleName)
-        }
-
-    if((studentLastName.value).length<3){
-            setDefaultFor(studentLastName,"Last name can not be min length")
-
-        }else{
-            setSuccessFor(studentLastName)
-        }
-
-       if((studentBirthDate.value).length<3){
-            setDefaultFor(studentBirthDate,"Birth date can not be min length")
-
-        }else{
-            setSuccessFor(studentBirthDate)
-        }
-    if((studentBirthPlace.value).length < 3){
-            setDefaultFor(studentBirthPlace,"Birth place can not be min length")
-
-        }else{
-            setSuccessFor(studentBirthPlace)
-        }
-
-     if((studentGender.value).length<3){
-            setDefaultFor(studentGender,"Gender can not be min length")
-
-        }else{
-            setSuccessFor(studentGender)
-        }
-
-     if((studentCitizen.value).length<3){
-            setDefaultFor(studentCitizen,"citizenship can not be min length")
-
-        }else{
-            setSuccessFor(studentCitizen)
-        }
-    //   if((studentGrade.value).length<3){
-    //         setDefaultFor(studentGrade,"grade can not be min length")
-
-    //     }else{
-    //         setSuccessFor(studentGrade)
-    //     }
-    // if((studentStream.value).length <3){
-    //     setDefaultFor(studentStream,"stream can not be min length")
-    // }else{
-    //     setSuccessFor(studentStream)
-    // }
-
-if(
-    studentImage.value.trim() === '' ||
-    (studentFirstName.value).length < 3 ||
-   ( studentMiddleName.value).length < 3 ||
-    (studentLastName.value).length < 3 ||
-    (studentBirthDate.value).length < 3 ||
-    (studentBirthPlace.value).length < 3 ||
-    (studentGender.value).length < 3 ||
-    (studentCitizen.value).length < 3 
-    // studentGrade.value.trim() === '' ||
-    // studentStream.value.trim() === ''
-
-    ){
-
-    }else{
-            movePages.style.marginLeft = "-25%";
+    if(studentFirstName && studentMiddleName && studentLastName && studentBirthDate && studentBirthPlace &&  studentGender && studentCitizen && studentImage)
+    {
+         movePages.style.marginLeft = "-25%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
             progressCheck[current - 1].classList.add("active");
             current += 1;
-    }
+    }else{
+         if($('#studentFirstName').val()==="")
+            setErorFor(document.getElementById('studentFirstName'),"የተማሪ የመጀመሪያ ስም ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('studentFirstName'));
+
+        if($('#studentMiddleName').val()==="")
+            setErorFor(document.getElementById('studentMiddleName'),"የተማሪ የአባት ስም ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('studentMiddleName'));
+
+        if($('#studentLastName').val()==="")
+            setErorFor(document.getElementById('studentLastName'),"የተማሪ የአያት ስም ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('studentLastName'));
+
+        if($('#studentGender').val()==="")
+            setErorFor(document.getElementById('studentGender'),"የተማሪ ጾታ ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('studentGender'));
+
+        if($('#studentCitizen').val()==="")
+            setErorFor(document.getElementById('studentCitizen'),"የተማሪ ዜግነት ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('studentCitizen'));
+
+        if($('#studentBirthPlace').val()==="")
+            setErorFor(document.getElementById('studentBirthPlace'),"የተማሪ ትውልድ ቦታ ባዶ መሆን አይችልም፡፡  ");
+        else
+            setSuccessFor(document.getElementById('studentBirthPlace'));
+
+        if($('#img-pro').val()==="")
+            setErorFor(document.getElementById('img-pro'),"የተማሪ ፎቶ ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('img-pro'));
+
+       if($('#studentBirthDate').val()==="")
+            setErorFor(document.getElementById('studentBirthDate'),"የተማሪ የልደት ቀን ባዶ መሆን አይችልም፡፡ ");
+       else
+           setSuccessFor(document.getElementById('studentBirthDate'));   
+    }   
 
 });
 
@@ -312,90 +276,72 @@ studentTransferReason.oninput=function(){
   };
 
 studentSecondNextBtn.addEventListener("click",function(){
-    var studentPreviousSchool = document.getElementById('studentPreviousSchool')
-    var studentTransferReason = document.getElementById('studentTransferReason')
-    var studentExpelsiionStatus = document.getElementById('studentExpelsiionStatus')
-    var studentSespensionStatus = document.getElementById('studentSespensionStatus')
-    var studentSpecialEducation = document.getElementById('studentSpecialEducation')
-    var studentNativeLanguage = document.getElementById('studentNativeLanguage')
-    var studentDisability = document.getElementById('studentDisability')
-    var studentMedicalCondition = document.getElementById('studentMedicalCondition')
-    var studentBloodType = document.getElementById('studentBloodType')
+    var studentPreviousSchool = $('#studentPreviousSchool').val();
+    var studentTransferReason = $('#studentTransferReason').val();
+    var studentExpelsiionStatus = $('#studentExpelsiionStatus').val();
+    var studentSespensionStatus = $('#studentSespensionStatus').val();
+    var studentSpecialEducation = $('#studentSpecialEducation').val();
+    var studentNativeLanguage = $('#studentNativeLanguage').val();
+    var studentDisability = $('#studentDisability').val();
+    var studentMedicalCondition = $('#studentMedicalCondition').val();
+    var studentBloodType = $('#studentBloodType').val();
 
-    if((studentPreviousSchool.value).length < 3){
-        setDefaultFor(studentPreviousSchool,"student previos school can not be min length")
-    }else{
-        setSuccessFor(studentPreviousSchool)
-    }
-
-    if((studentTransferReason.value).length < 2){
-        setDefaultFor(studentTransferReason,"student previos school can not be min length")
-    }else{
-        setSuccessFor(studentTransferReason)
-    }
-
-    if((studentExpelsiionStatus.value).length < 2){
-        setDefaultFor(studentExpelsiionStatus,"student previos school can not be min length")
-    }else{
-        setSuccessFor(studentExpelsiionStatus)
-    }
-
-    if((studentSespensionStatus.value).length < 2){
-        setDefaultFor(studentSespensionStatus,"student previos school can not be min length")
-    }else{
-        setSuccessFor(studentSespensionStatus)
-    }
-
-    if((studentSpecialEducation.value).length < 2){
-        setDefaultFor(studentSpecialEducation,"student previos school can not be min length")
-    }else{
-        setSuccessFor(studentSpecialEducation)
-    }
-
-    if((studentNativeLanguage.value).length < 3){
-        setDefaultFor(studentNativeLanguage,"student previos school can not be min length")
-    }else{
-        setSuccessFor(studentNativeLanguage)
-    }
-
-    if((studentDisability.value).length < 2){
-        setDefaultFor(studentDisability,"student previos school can not be min length")
-    }else{
-        setSuccessFor(studentDisability)
-    }
-
-    if((studentMedicalCondition.value).length < 2){
-        setDefaultFor(studentMedicalCondition,"student previos school can not be min length")
-    }else{
-        setSuccessFor(studentMedicalCondition)
-    }
-
-    if((studentBloodType.value).length > 3){
-        setDefaultFor(studentBloodType,"student previos school can not be max length")
-    }else{
-        setSuccessFor(studentBloodType)
-    }
-
-    if(
-        (studentPreviousSchool.value).length < 3 ||
-        (studentTransferReason.value).length < 2 ||
-        (studentExpelsiionStatus.value).length < 2 ||
-        (studentSespensionStatus.value).length < 2 ||
-        (studentSpecialEducation.value).length < 2 ||
-        (studentNativeLanguage.value).length < 3 ||
-        (studentDisability.value).length < 2 ||
-        (studentMedicalCondition.value).length < 2 ||
-        (studentBloodType.value).length > 3
-    ){
-
-    }else{
-        movePages.style.marginLeft = "-50%";
+ if(studentPreviousSchool && studentTransferReason && studentExpelsiionStatus && studentSespensionStatus && 
+ studentSpecialEducation && studentNativeLanguage && studentDisability && studentMedicalCondition && studentBloodType)
+ {
+           movePages.style.marginLeft = "-50%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
             progressCheck[current - 1].classList.add("active");
             current += 1;
+}else{
+           if(studentPreviousSchool==="")
+                setErorFor(document.getElementById('studentPreviousSchool'),"ከዚህ በፊት የ ተማረበት ት/ቤት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('studentPreviousSchool'));
+
+            if(studentTransferReason==="")
+                setErorFor(document.getElementById('studentTransferReason'),"ካለፈው ት/ቤት የተዘዋወረበት ምክንያት ባዶ መሆን አይችልም፡፡");
+            else
+                setSuccessFor(document.getElementById('studentTransferReason'));
+
+            if(studentExpelsiionStatus==="")
+                setErorFor(document.getElementById('studentExpelsiionStatus'),"ተማሪው ተባሮ ያቃል ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('studentExpelsiionStatus'));
+
+            if(studentSespensionStatus==="")
+                setErorFor(document.getElementById('studentSespensionStatus'),"አሁን ላይ ታግዷል ወይ የሚለው ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('studentSespensionStatus'));
+
+            if(studentSpecialEducation==="")
+                setErorFor(document.getElementById('studentSpecialEducation'),"የልዩ ት/ት ስልጠና ወስዷል የሚለው ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('studentSpecialEducation'));
+
+            if(studentNativeLanguage==="")
+                setErorFor(document.getElementById('studentNativeLanguage'),"በቤት ውስጥ የሚናገረው ቋንቋ ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('studentNativeLanguage'));
+
+            if(studentDisability==="")
+                setErorFor(document.getElementById('studentDisability'),"የአካል ጉዳት አለበት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('studentDisability'));
+
+            if(studentMedicalCondition==="")
+                setErorFor(document.getElementById('studentMedicalCondition'),"የጤና ሁኔት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('studentMedicalCondition'));
+
+            if(studentBloodType==="")
+                setErorFor(document.getElementById('studentBloodType'),"የደም አይነት ባዶ መሆን አይችልም፡፡ ");
+            else
+                setSuccessFor(document.getElementById('studentBloodType'));
     }
 });
+
 
 var parentFirstName = document.getElementById('parentFirstName')
 parentFirstName.oninput=function(){
@@ -455,80 +401,56 @@ parentFirstName.oninput=function(){
 
     studentThirdNextBtn.addEventListener("click", function(){
 
-    var parentFirstName = document.getElementById('parentFirstName')
-    var parentMiddleName = document.getElementById('parentMiddleName')
-    var parentLastName = document.getElementById('parentLastName')
-    var parentGender = document.getElementById('parentGender')
-    var parentRelation = document.getElementById('parentRelation')
-    var parentEmergencyContact = document.getElementById('parentEmergencyContact')
-    var parentPriority = document.getElementById('parentPriority')
+    var parentFirstName = $('#parentFirstName').val();
+    var parentMiddleName = $('#parentMiddleName').val();
+    var parentLastName = $('#parentLastName').val();
+    var parentGender = $('#parentGender').val();
+    var parentRelation = $('#parentRelation').val();
+    var parentEmergencyContact = $('#parentEmergencyContact').val();
+    var parentPriority = $('#parentPriority').val();
 
-    if((parentFirstName.value).length<3){
-        setDefaultFor(parentFirstName,'parent first name can not be min length')
-
-    }else{
-        setSuccessFor(parentFirstName)
-    }
-
-    if((parentMiddleName.value).length<3){
-        setDefaultFor(parentMiddleName,"parent middle name can not be min length")
-
-    }else{
-        setSuccessFor(parentMiddleName)
-    }
-
-    if((parentLastName.value).length<3){
-        setDefaultFor(parentLastName,"parent last name can not be min length")
-
-    }else{
-        setSuccessFor(parentLastName)
-    }
-
-    if((parentGender.value).length<3){
-        setSuccessFor(parentGender,"parent gender can not be min length")
-
-    }else{
-        setSuccessFor(parentGender)
-    }
-
-    if((parentRelation.value).length<3){
-        setDefaultFor(parentRelation,"parent relation can not be min length")
-
-    }else{
-        setSuccessFor(parentRelation)
-    }
-
-    if(parentEmergencyContact.value.trim()=== ''){
-        setErorFor(parentEmergencyContact,"parent emergency contact can not be min length")
-
-    }else{
-        setSuccessFor(parentEmergencyContact)
-    }
-
-    if(parentPriority.value.trim()=== ''){
-        setErorFor(parentPriority,"parent priority can not be null")
-
-    }else{
-        setSuccessFor(parentPriority)
-    }
-
-    if(
-        (parentFirstName.value).length < 3||
-        (parentMiddleName.value).length < 3 ||
-        (parentLastName.value).length < 3 ||
-        (parentGender.value).length < 3 ||
-        (parentRelation.value).length < 3 ||
-        parentEmergencyContact.value.trim() === '' ||
-        parentPriority.value.trim() === ''
-
-    ){
-
-    }else{
-             movePages.style.marginLeft = "-75%";
+    if(parentFirstName && parentMiddleName && parentLastName && parentGender && parentRelation && parentEmergencyContact && parentPriority)
+    {
+            movePages.style.marginLeft = "-75%";
             bullet[current - 1].classList.add("active");
             progressText[current - 1].classList.add("active");
             progressCheck[current - 1].classList.add("active");
             current += 1;
+    }else{
+         if($('#parentFirstName').val()==="")
+            setErorFor(document.getElementById('parentFirstName'),"የወላጅ የመጀመሪያ ስም ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('parentFirstName'));
+
+        if($('#parentMiddleName').val()==="")
+            setErorFor(document.getElementById('parentMiddleName'),"የወላጅ የአባት ስም ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('parentMiddleName'));
+
+        if($('#parentLastName').val()==="")
+            setErorFor(document.getElementById('parentLastName'),"የወላጅ የአያት ስም ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('parentLastName'));
+
+        if($('#parentGender').val()==="")
+            setErorFor(document.getElementById('parentGender'),"የወላጅ ጾታ ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('parentGender'));
+
+        if($('#parentRelation').val()==="")
+            setErorFor(document.getElementById('parentRelation'),"ከተማሪው ጋር ያለው ግንኙነት ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('parentRelation'));
+
+        if($('#parentEmergencyContact').val()==="")
+            setErorFor(document.getElementById('parentEmergencyContact'),"የአደጋ ጌዜ ተጠሪ ባዶ መሆን አይችልም፡፡  ");
+        else
+            setSuccessFor(document.getElementById('parentEmergencyContact'));
+
+        if($('#parentPriority').val()==="")
+            setErorFor(document.getElementById('parentPriority'),"የአደጋ ጌዜ ተጠሪ ቅድሚያ ባዶ መሆን አይችልም፡፡ ");
+        else
+            setSuccessFor(document.getElementById('parentPriority'));
     }
 });
 
@@ -574,91 +496,62 @@ parentSubCity.oninput=function(){
 
 
 studentSubmitBtn.addEventListener("click", function(){
-    var studentParentCity = document.getElementById('parentCity')
-    var parentSubCity = document.getElementById('parentSubCity')
-    var parentKebele = document.getElementById('parentKebele')
-    var parentHouseNumber = document.getElementById('parentHouseNumber')
-    var parentPOB = document.getElementById('parentPOB')
-    var parentEmail = document.getElementById('parentEmail')
-    var parentPhone1 = document.getElementById('parentPhone1')
-    var parentPhone2 = document.getElementById('parentPhone2')
+    var studentParentCity =  $('#parentCity').val();
+    var parentSubCity = $('#parentSubCity').val();
+    var parentKebele = $('#parentKebele').val();
+    var parentHouseNumber = $('#parentHouseNumber').val();
+    var parentPOB = $('#parentPOB').val();
+    var parentEmail = $('#parentEmail').val();
+    var parentPhone1 = $('#parentPhone1').val();
+    var parentPhone2 = $('#parentPhone2').val();
 
-    if((studentParentCity.value).length < 3){
-        setDefaultFor(studentParentCity,"can not be minimum length")
-    }else{
-        setSuccessFor(studentParentCity)
-    }
-
-      if((parentSubCity.value).length<3){
-        setDefaultFor(parentSubCity,"parent subb city can not be min length")
-
-    }else{
-        setSuccessFor(parentSubCity)
-    }
-
-    if(parentKebele.value.trim() === ''){
-        setErorFor(parentKebele,"parent kebele can not be null")
-
-    }else{
-        setSuccessFor(parentKebele)
-    }
-
-    if(parentHouseNumber.value.trim() === ''){
-        setErorFor(parentHouseNumber,"parent house number can not be null")
-
-    }else{
-        setSuccessFor(parentHouseNumber)
-    }
-
-    if(parentPOB.value.trim() === ''){
-        setErorFor(parentPOB,"parent post box is can not be null")
-
-    }else{
-        setSuccessFor(parentPOB)
-    }
-
-    if(parentEmail.value.trim() === ''){
-        setErorFor(parentEmail,"parent email can not be null")
-
-    }else{
-        setSuccessFor(parentEmail)
-    }
-
-    if(parentPhone1.value.trim() === ''){
-        setErorFor(parentPhone1,"parent phone number can not be null")
-
-    }else{
-        setSuccessFor(parentPhone1)
-    }
-
-    if(parentPhone2.value.trim()=== ''){
-        setErorFor(parentPhone2,"parent phone number 2 can not be null")
-
-    }else{
-        setSuccessFor(parentPhone2)
-    }
-
-    if(
-        studentParentCity.value.trim === '' ||
-        parentSubCity.value.trim === '' ||
-        parentKebele.value.trim === '' ||
-        parentHouseNumber.value.trim === '' ||
-        parentPOB.value.trim === '' ||
-        parentEmail.value.trim === '' ||
-        parentPhone1.value.trim === '' ||
-        parentPhone2.value.trim === ''
-    ){
-
-    }else{
-           movePages.style.marginLeft = "-75%";
+    if(studentParentCity && parentSubCity && parentKebele && parentHouseNumber && parentPOB && parentEmail && parentPhone1 && parentPhone2)
+    {
+             movePages.style.marginLeft = "-75%";
              bullet[current - 1].classList.add("active");
              progressText[current - 1].classList.add("active");
              progressCheck[current - 1].classList.add("active");
              current += 1;
-              setTimeout(function() {
-        alert("You're successfully inserted your data");
-        location.reload();
-    }, 800);
+    }else{
+     if(parentCity==="")
+        setErorFor(document.getElementById('parentCity'),"ከተማ ባዶ መሆን አይችልም፡፡ ");
+     else
+       setSuccessFor(document.getElementById('parentCity'));
+
+     if(parentSubCity==="")
+        setErorFor(document.getElementById('parentSubCity'),"ክፍለ ከተማ ባዶ መሆን አይችልም፡፡ ");
+     else
+        setSuccessFor(document.getElementById('parentSubCity'));
+
+    if(parentKebele==="")
+        setErorFor(document.getElementById('parentKebele'),"ቀበሌ ባዶ መሆን አይችልም፡፡ ");
+     else
+        setSuccessFor(document.getElementById('parentKebele'));
+
+    if(parentHouseNumber==="")
+        setErorFor(document.getElementById('parentHouseNumber'),"የቤት ቁጥር ባዶ መሆን አይችልም፡፡ ");
+     else
+        setSuccessFor(document.getElementById('parentHouseNumber'));
+
+     if(parentPOB==="")
+        setErorFor(document.getElementById('parentPOB'),"ፖስታ ሳጥን ባዶ መሆን አይችልም፡፡ ");
+     else
+         setSuccessFor(document.getElementById('parentPOB'));
+
+     if(parentEmail==="")
+        setErorFor(document.getElementById('parentEmail'),"ኢሜል  ባዶ መሆን አይችልም፡፡ ");
+     else
+        setSuccessFor(document.getElementById('parentEmail'));
+
+    if(parentPhone1==="")
+        setErorFor(document.getElementById('parentPhone1'),"ስልክ ቁጥር ባዶ መሆን አይችልም፡፡ ");
+     else
+        setSuccessFor(document.getElementById('parentPhone1'));
+
+   if(parentPhone2==="")
+        setErorFor(document.getElementById('parentPhone2'),"ሁለተኛ ስልክ ቁጥር ባዶ መሆን አይችልም፡፡ ");
+    else
+      setSuccessFor(document.getElementById('parentPhone2'));
     }
 
 });
@@ -692,8 +585,8 @@ function alphaOnly(event) {
   return ((key >= 65 && key <= 90) || key == 8);
 };
 
-function allCharacter(event){
-    var special = event.keyCode;
-    return ((special >=65  && special <= 90) || special == 8 ||  32 ||  43 ||
-    special >=47 && special < 58);
+function allCharacter(event) {
+    var specialCharacter = event.keyCode;
+    return ((specialCharacter >= 65 && key <= 90) || specialCharacter == 8 || specialCharacter ==32 ||
+    specialCharacter >=47 && specialCharacter <=57 );
 };

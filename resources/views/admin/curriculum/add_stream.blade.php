@@ -21,11 +21,23 @@
             <div class="col-6">
               <div class="form-group">
                 <label for="exampleFormControlInput1">Stream Name</label>
-                <input type="text" name ="streamname" class="form-control" id="exampleFormControlInput1" 
+                <input type="text" name ="stream_type" class="form-control" id="exampleFormControlInput1" 
                 placeholder="Stream Name"
                 @if (isset($stream))
                   value="{{$stream->stream_type}}"
                 @endif>
+
+                @if ($errors->any())                  
+                  
+                      <div class="alert alert-danger">
+                          <ul>
+                          @foreach ($errors->get('stream_type') as $error)
+                           <li>{{ $error }}</li>
+                           @endforeach
+                          </ul>
+                      </div>
+                  @endif
+
               </div>
               <button type="submit" class="btn btn-primary btn-md">Submit</button>
             </div>

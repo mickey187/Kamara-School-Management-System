@@ -156,6 +156,7 @@ class ListTeacherController extends Controller
                                                     ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
                                                     ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
                                                     ->get();
+                    
                     $promotedStudentSize++;
                 }
             }

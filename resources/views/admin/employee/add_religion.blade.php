@@ -15,37 +15,38 @@
 <div class="card-body">
   <section class="content">
     <div class="container-fluid mt-3">                 
-        <form  id="religion_form" action="
+        <form action="
         @if (isset($edit_employee_religion))
-        {{url('editReligionValue/'.$edit_employee_religion->id)}}
+        {{url('/editReligionValue/'.$edit_employee_religion->id)}}
         @else
-        {{url('addReligion')}}
+        {{url('/addReligion')}}
         @endif
         "method="get">
           @csrf      
           <div class="row">
             <div class="col-6">
+
+               @if ($errors->any())
+                      <div class="alert alert-danger">
+                          <ul>
+                          @foreach ($errors->all() as $error)
+                           <li>{{ $error }}</li>
+                           @endforeach
+                          </ul>
+                      </div>
+                  @endif
+
               <div class="form-group">
-                <div class="field">
-               <div class="label"> Add Religion </div>
-                <input type="text"  name ="employee_religion"  class="form-control"
+                
+               <label for="exampleFormControlInput1"> Add Religion </label>
+                <input type="text"  name ="religion_name"  class="form-control"
                  id="employee_religion"
-                  
-
-                   oninput="checkInput()"
-                  onkeydown="return alphaOnly(event);"
-                  onblur="if (this.value == '')"
-                   onfocus="if (this.value == '') {this.value = '';}"
-                   placeholder="religion Name" required size="30" minlength="3" maxlength="21"
-
-
                 @if (isset($edit_employee_religion))
                     value="{{$edit_employee_religion->religion_name}}"
-                @endif
-                ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
+                @endif>
+              
               </div>
-              </div>
-              <button type="button"  id="submit12" class="btn btn-primary btn-md">
+              <button type="submit"  class="btn btn-primary btn-md">
                                 @if (isset($edit_employee_religion))
                                 Save Changes
                                 @else

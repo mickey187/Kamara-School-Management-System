@@ -221,41 +221,34 @@
                         </div>
                         <div class="field">
                             <div class="label">Expelsion status</div>
-                            <input type="text" name="expelsionStatus" id="studentExpelsiionStatus" class="form-control"
-                            placeholder="Expelsion status"
+                            <select name="expelsionStatus" id="studentExpelsiionStatus" class="form-select">
+                                <option>Yes</option>
+                                <option selected>No</option>
 
-                             onkeydown="return allCharacter(event);"
-                                onblur="if (this.value == '')"
-                                onfocus="if (this.value == '') {this.value = '';}"
-                                 size="30" minlength="2" maxlength="21">
+                            </select>
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="row col-12" style="padding-bottom: 10px;">
                             <div class="field col-6">
-                                <div class="label">Sespension status</div>
-                                <input type="text" name="sespensionStatus" id="studentSespensionStatus" class="form-control"
-                                placeholder="Sespension status"
-                                onkeydown="return allCharacter(event);"
-                                onblur="if (this.value == '')"
-                                onfocus="if (this.value == '') {this.value = '';}"
-                                size="30" minlength="2" maxlength="21">
+                                <div class="label">Sespension status</div>  
+                               <select name="sespensionStatus" id="studentSespensionStatus" class="form-select">
+                                   <option>Yes</option>
+                                   <option selected>No</option>
+                               </select>
                                 <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                             </div>
                             <div class="field col-6">
-                                <div class="label">Previous special education</div>
-                                <input type="text" name="specialEducation" id="studentSpecialEducation" class="form-control"
-                                placeholder="Previous special education"
-                                onkeydown="return alphaOnly(event);"
-                                onblur="if (this.value == '')"
-                                onfocus="if (this.value == '') {this.value = '';}"
-                                size="30" minlength="2" maxlength="21">
-                                {{-- > --}}
+                                <div class="label">Previous special education</div>  
+                                <select name="specialEducation" id="studentSpecialEducation" class="form-select">
+
+                                    <option>Yes</option>
+                                    <option selected>No</option>
+                                    <option>Unsure</option>
+
+                                </select>
                                 <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                             </div>
                         </div>
-
-
-
                     </div>
 
                     <div class="col-6">
@@ -295,14 +288,22 @@
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
-                            <div class="label">Blood type</div>
-                            <input type="text" name="bloodType" id="studentBloodType" class="form-control"
-                            placeholder="Blood type"
+                            <div class="label">Blood type</div>  
+                           <select id="studentBloodType" name="bloodType" class="form-select">
 
-                             onkeydown="return allCharacter(event);"
-                                onblur="if (this.value == '')"
-                                onfocus="if (this.value == '') {this.value = '';}"
-                                size="4" minlength="" maxlength="5">
+                                <option>A</option>
+                                <option>B</option>
+                                <option selected>O</option>
+                                <option>AB</option>
+                                <option>A+</option>
+                                <option>A-</option>
+                                <option>B+</option>
+                                <option>B-</option>
+                                <option>O+</option>
+                                <option>O-</option>
+                                <option>AB+</option>
+                                <option>AB-</option>
+                         </select>
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                     </div>

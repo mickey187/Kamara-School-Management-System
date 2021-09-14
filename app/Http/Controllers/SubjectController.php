@@ -42,6 +42,9 @@ class SubjectController extends Controller
     function addSubject(Request $req)
     {
         $subject = new subject();
+        $validated = $req->validate(['subject_name'=>'unique:subjects|required|max:20']);
+        $subject->subject_name = $validated['subject_name'];
+        // $subject->subject_name = $subject;
         $subject->subject_name = $req->subjectname;
 
         if ($subject->save()) {

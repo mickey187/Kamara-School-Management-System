@@ -153,9 +153,9 @@
                         <hr>
                         <div class="row col-12">
                             <div class="col-8">
-                                <div class="card"  id="class_list">
+                                <div class=""  >
                                     <div class="card-header">Classes</div>
-                                    <div class="card-body">
+                                    <div class="card-body" id="class_list">
                                         @foreach ($classes as $class)
                                         <label class="PillList-item">
                                             <input id="selectedSection" type="checkbox" name="class" value="{{ $class->id }}">
@@ -167,9 +167,9 @@
                                     </div>
                                 </div>
 
-                                <div class="card" id="subject_list">
+                                <div class="card" >
                                     <div class="card-header">Subjects</div>
-                                    <div class="card-body">
+                                    <div class="card-body" id="subject_list">
                                         @foreach ($subjects as $subject)
                                         <label class="PillList-item ">
                                             <input id="selectedSection" type="checkbox" name="subject" value="{{ $subject->id }}">
