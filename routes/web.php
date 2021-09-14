@@ -164,6 +164,8 @@ Route::get('viewsubjectgroup', [SubjectController::class, 'viewSubjectGroup'])->
 
 Route::post('addsubjectgroup', [SubjectController::class, 'addSubjectGroup']);
 
+
+
 // Subject Period
 
 Route::get('getSubjectForPeriod/{class}', [SubjectController::class, 'getSubjectForPeriod']);
@@ -283,9 +285,9 @@ Route::get('my_student/{id}', [TeacherController::class,'myStudent']);
 
 Route::get('my_student/getClassSection/{class_Label}/{section}', [TeacherController::class,'getClassAndSection']);
 
-Route::get('/indexAttendance', [AttendanceController::class,'indexAttendance']);
+Route::get('/indexAttendance/{class_label}/{stream_type}/{section}', [AttendanceController::class,'indexAttendance']);
 
-Route::get('/generateAttendanceList', [AttendanceController::class,'generateAttendanceList']);
+Route::get('/generateAttendanceList/{class_id}/{stream_id}/{section}', [AttendanceController::class,'generateAttendanceList']);
 
 Route::get('/submitAttendance', [AttendanceController::class,'submitAttendance']);
 
@@ -370,6 +372,11 @@ Route::get('generateIdPage',[ExcelController::class, 'generateIdPage']);
 Route::get('getStudentDetail/{id}',[ExcelController::class, 'getStudentDetail']);
 Route::get('generateOneIdForSingleID/{id}',[ExcelController::class, 'generateOneIdForSingleID']);
 Route::get('getCLassStreamSection',[ClassController::class,'getCLassStreamSection']);
+
+Route::get('/indexHomeRoomAttendance',[AttendanceController::class, 'indexHomeRoomAttendance']);
+
+Route::get('/getHomeRoomAttendance/{year_month}',[AttendanceController::class, 'getHomeRoomAttendance']);
+
 //marklist
 
 Route::get('addMarkList',[MarklistController::class, 'addMarkListForm']);
@@ -477,6 +484,16 @@ Route::get('getSection/{class}/{stream}', [ScheduleController::class, 'getSectio
 Route::get('addSchedule/{class}/{stream}/{subject}/{day}/{section}/{period}', [ScheduleController::class, 'addSchedule']);
 
 Route::get('getSubjectGroup/{class}', [ScheduleController::class, 'getSubjectGroup']);
+
+//mickey schedule experiment
+
+Route::get('/indexNewSchedule', [ScheduleController::class, 'indexNewSchedule']);
+
+Route::get('/generateNewSchedule', [ScheduleController::class, 'generateNewSchedule']);
+
+Route::get('/getGeneratedSchedule', [ScheduleController::class, 'getGeneratedSchedule']);
+
+Route::get('/getScheduleForSpecificeSection/{class_id}/{stream_id}/{section_name}', [ScheduleController::class, 'getScheduleForSpecificeSection']);
 
 
 // Home Room

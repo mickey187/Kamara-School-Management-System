@@ -42,10 +42,14 @@
     <!-- DataTables -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    {{-- <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> --}}
+    <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
+    <script src="{{asset('plugins/pace-progress/pace.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('plugins/pace-progress/themes/red/pace-theme-material.css')}}">
+
+    
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -528,12 +532,38 @@
                                     </a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a href="{{ url('/indexNewSchedule')  }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>New Schedule</p>
+                                    </a>
+                                </li>
+
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                Attendance
+                                <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{url('/indexHomeRoomAttendance')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> Home Room Attendance</p>
+                                    </a>
 
+                                </li>
 
+                            </ul>
 
+                        </li>
+
+{{-- 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-dollar-sign"></i>
@@ -599,7 +629,7 @@
                                 </li>
 
                          </ul>
-                        </li>
+                        </li> --}}
 
                         <hr>
                         <li class="nav-header">MISCELLANEOUS</li>
@@ -822,6 +852,8 @@ $(function() {
 
 
     <script src="{{ asset('root_admin_dashboard.js') }}"></script>
+    <script src="{{ asset('admin_home_room_attendance.js')}}"></script>
+    <script src="{{asset('new_schedule_experiment.js')}}"></script>
 
     <script>
         $(function() {

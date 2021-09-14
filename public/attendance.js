@@ -2,9 +2,12 @@
 var current_date_global = null;
 var today_date_cookie_global = null;
 $(window).on("load", function () {
+    var class_id = $('#attendance_data').data("class_id");
+    var stream_id = $('#attendance_data').data("stream_id");
+    var section = $('#attendance_data').data("section");
     $.ajax({
     type: "GET",
-    url: "/generateAttendanceList",
+    url: "/generateAttendanceList/"+class_id+"/"+stream_id+"/"+section,
     dataType: "json",
     success: function (data) {
         console.log(data);
@@ -14,17 +17,37 @@ $(window).on("load", function () {
         today_date_cookie_global = today_date_cookie;
         current_date_global = current_date;
         section_data.forEach(d => {
-            Object.assign(d,{action:     '<div class="form-check">'+
-            '<input class="form-check-input"  type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'" data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="present" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',present" name="'+d.student_table_id+'" id="'+d.student_table_id+'present" checked>'+
-            '<label class="form-check-label mr-5" for="flexRadioDefault1">Present</label>'+
-            
-            '<input class="form-check-input "  type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="absent" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',absent" name="'+d.student_table_id+'" id="'+d.student_table_id+'absent">'+
-            '<label class="form-check-label mr-5" for="flexRadioDefault2">Absent</label>'+
-            
-            '<input class="form-check-input"  type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="leave" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',leave" name="'+d.student_table_id+'" id="'+d.student_table_id+'leave">'+
-            '<label class="form-check-label mr-5" for="flexRadioDefault3">Leave</label>'+
+            Object.assign(d,{action:  
+            '<div class="d-flex flex-row">'+
+            '<div class="custom-control custom-radio">'+
+            '<input type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'" data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="present" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',present" name="'+d.student_table_id+'" id="'+d.student_table_id+'present" checked  class="custom-control-input ">'+
+            '<label class="custom-control-label pl-4"  for="'+d.student_table_id+'present">Present</label>'+
+            '</div>'+
+
+            '<div class="custom-control custom-radio">'+
+            '<input type="radio"  data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="absent" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',absent" name="'+d.student_table_id+'" id="'+d.student_table_id+'absent" class="custom-control-input">'+
+            '<label class="custom-control-label pl-4"  for="'+d.student_table_id+'absent">Absent</label>'+
+            '</div>'+
+
+            '<div class="custom-control custom-radio">'+
+            '<input type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="leave" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',leave" name="'+d.student_table_id+'" id="'+d.student_table_id+'leave" class="custom-control-input">'+
+            '<label class="custom-control-label pl-4"  for="'+d.student_table_id+'leave">Leave</label>'+
+            '</div>'+
             '</div>'
+            
+
+          
              
+            //       '<div class="custom-control custom-radio">'+
+            // '<input class="custom-control-input"   type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'" data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="present" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',present" name="'+d.student_table_id+'" id="'+d.student_table_id+'present" checked>'+
+            // '<label class="custom-control-label mr-5" for="'+d.student_table_id+'present">Present</label>'+
+            
+            // '<input class="custom-control-input mr-5 "  type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="absent" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',absent" name="'+d.student_table_id+'" id="'+d.student_table_id+'absent">'+
+            // '<label class="custom-control-label mr-5" for="'+d.student_table_id+'absent">Absent</label>'+
+            
+            // '<input class="custom-control-input"  type="radio" data-student_table_id="'+d.student_table_id+'" data-student_id="'+d.student_table_id+'"  data-class_id="'+d.class_id+'" data-stream_id="'+d.stream_id+'" data-section_name="'+d.section_name+'" data-status="leave" value="'+d.student_table_id+','+d.class_id+','+d.stream_id+','+d.section_name+',leave" name="'+d.student_table_id+'" id="'+d.student_table_id+'leave">'+
+            // '<label class="custom-control-label mr-5" for="'+d.student_table_id+'leave">Leave</label>'+
+            // '</div>'
          
     
             });
@@ -66,7 +89,9 @@ $('#submit_attendance').click(function () {
     // console.log(data);
    if ($('#ethio_date_inline').val() != "") {
         
-   
+
+    
+
     var date_format = null;
     var student_status_arr = new Array();
     
@@ -102,6 +127,9 @@ $('#submit_attendance').click(function () {
           data: {student_status_arr},
           dataType: "json",
           success: function (data) {
+         
+            
+
               console.log("ayoooooooo");
               console.log(data);
               if (data == "success") {

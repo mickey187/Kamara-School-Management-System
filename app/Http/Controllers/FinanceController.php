@@ -495,7 +495,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                     $student_transfer = student_class_transfer::where('student_id',$stud_id)
                      ->where('academic_year',$now1->getYear() )
                      ->where('status','=','on load')->first();
-                     $student_transfer->status = "registered";
+                     $student_transfer->status = "loading";
                      $student_transfer->isRegistered = true;
                      $student_transfer->save();
                      
@@ -564,7 +564,7 @@ public function fetchLoad($class_id, $pay_type, $stud_id, $selected_individual_p
                    $student_transfer = student_class_transfer::where('student_id',$stud_id)
                     ->where('academic_year',$now1->getYear() )
                     ->where('status','=','on load')->first();
-                    $student_transfer->status = "registered";
+                    $student_transfer->status = "loading";
                     $student_transfer->isRegistered = true;
                     $student_transfer->save();
                     

@@ -16,7 +16,19 @@ class SubjectSeeder extends Seeder
     public function run()
     {
         DB::table('subjects')->insert([
-            'subject_name' => 'Gada',
+            'subject_name' => 'English',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('subjects')->insert([
+            'subject_name' => 'Mathmatics',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('subjects')->insert([
+            'subject_name' => 'Biology',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -28,11 +40,23 @@ class SubjectSeeder extends Seeder
         ]);
 
         DB::table('subjects')->insert([
-            'subject_name' => 'English',
+            'subject_name' => 'Physics',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
+        DB::table('subjects')->insert([
+            'subject_name' => 'Social Studies',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('subjects')->insert([
+            'subject_name' => 'Gada',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        
         DB::table('subjects')->insert([
             'subject_name' => 'Amharic',
             'created_at' => Carbon::now(),
@@ -45,11 +69,21 @@ class SubjectSeeder extends Seeder
             'updated_at' => Carbon::now(),
         ]);
 
-        DB::table('subjects')->insert([
-            'subject_name' => 'Mathmatics',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        
+
+        
+      
+        
+
+
+        
+       
+
+        
+
+        
+
+        
         //
     }
 }
