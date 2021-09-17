@@ -19,8 +19,15 @@ class CreateStudentBackgroundsTable extends Migration
             $table->string('suspension_status')->nullable(true);
             $table->string('expulsion_status')->nullable(true);
             $table->string('previous_special_education')->nullable(true);
+            $table->string('country_of_birth')->nullable(false);
+            $table->string('state_of_birth')->nullable(false);
             $table->string('citizenship')->nullable(false);
+            $table->string('daycare_program')->nullable(true);
+            $table->string('kindengarten')->nullable(true);
             $table->string('previous_school')->nullable(true);
+            $table->string('previous_school_city')->nullable(true);
+            $table->string('previous_school_state')->nullable(true);
+            $table->string('previous_school_country')->nullable(true);
             $table->string('native_tongue')->nullable(false);
             $table->timestamps();
         });

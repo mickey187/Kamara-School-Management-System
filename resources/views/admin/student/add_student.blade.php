@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 <link rel="stylesheet" href="{{ asset('dist/css/student/student.css') }}">
 <div class="formcontainer">
     <div class="form-outer">
@@ -230,7 +230,7 @@
                         </div>
                         <div class="row col-12" style="padding-bottom: 10px;">
                             <div class="field col-6">
-                                <div class="label">Sespension status</div>  
+                                <div class="label">Sespension status</div>
                                <select name="sespensionStatus" id="studentSespensionStatus" class="form-select">
                                    <option>Yes</option>
                                    <option selected>No</option>
@@ -238,7 +238,7 @@
                                 <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                             </div>
                             <div class="field col-6">
-                                <div class="label">Previous special education</div>  
+                                <div class="label">Previous special education</div>
                                 <select name="specialEducation" id="studentSpecialEducation" class="form-select">
 
                                     <option>Yes</option>
@@ -262,7 +262,7 @@
                                     <option>Sheko</option>
                                     <option>Somaligna</option>
                                     <option>guragegna</option>
-                                    </select>
+                            </select>
                                     <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
@@ -288,7 +288,7 @@
                             <i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                         </div>
                         <div class="field">
-                            <div class="label">Blood type</div>  
+                            <div class="label">Blood type</div>
                            <select id="studentBloodType" name="bloodType" class="form-select">
 
                                 <option>A</option>
