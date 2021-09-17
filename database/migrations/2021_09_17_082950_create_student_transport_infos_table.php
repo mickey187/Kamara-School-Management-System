@@ -19,6 +19,7 @@ class CreateStudentTransportInfosTable extends Migration
             $table->string('middle_name')->nullable(true);
             $table->string('last_name')->nullable(true);
             $table->string('transportation_type')->nullable(true);
+            $table->string('phone_number')->nullable(true);
             $table->timestamps();
         });
     }

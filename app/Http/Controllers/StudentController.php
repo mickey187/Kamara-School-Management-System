@@ -42,8 +42,8 @@ class StudentController extends Controller{
         $all_class = classes::all();
         $all_stream = stream::all();
         $all_role = Role::all();
-        // return view('admin.student.add_student_form')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
-         return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
+        return view('admin.student.add_student_form')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
+        //  return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
 
     }
 
