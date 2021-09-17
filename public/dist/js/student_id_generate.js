@@ -104,8 +104,22 @@ $("#sectionForId").change(function (e) {
     var stream_id =  $("#streamForId").val();
     var section_name =  $("#sectionForId").val();
     if(!(class_id === "Choose class" || stream_id === "Choose stream" || section_name === "Choose section")){
-       var btn ='<button id="generateIdForOneClassBtn" class="btn btn-success btn-secondary m-2" >Generate ID</button>'+
-                '<button id="downloadIdForOneClassBtn" class="btn btn-disabled btn-secondary m-2" disabled>Download</button>';
-        $("#idBtnList").html(btn);
+        $.ajax({
+            type: "GET",
+            url: "checkIfIdGeneratedForClass/"+class_id+"/"+stream_id+"/"+section_name,
+            data: "data",
+            dataType: "json",
+            success: function (response) {
+                if(response===true){
+                    var btn ='<button id="generateIdForOneClassBtn" class="btn btn-secondary m-2" disabled>Generate ID</button>'+
+                            '<button id="downloadIdForOneClassBtn" class="btn  btn-primary m-2" ><i class="fa fa-download"></i>Download</button>';
+                        $("#idBtnList").html(btn);
+                }else{
+                    var btn ='<button id="generateIdForOneClassBtn" class="btn btn-success m-2" >Generate</button>'+
+                            '<button id="downloadIdForOneClassBtn" class="btn  btn-secondary m-2" disabled><i class="fa fa-download"></i>Download</button>';
+                        $("#idBtnList").html(btn);
+                }
+            }
+        });
     }
 });

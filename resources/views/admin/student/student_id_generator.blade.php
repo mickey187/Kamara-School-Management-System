@@ -101,8 +101,8 @@
                         <option value="Choose section">Choose section</option>
                     </select>
                     <div class="m-2" id="idBtnList">
-                        <button id="generateIdForOneClassBtn" class="btn btn-disabled btn-secondary" disabled>Generate ID</button>
-                        <button id="downloadIdForOneClassBtn" class="btn btn-disabled btn-secondary" disabled>Download</button>
+                        <button id="generateIdForOneClassBtn" class="btn btn-disabled btn-secondary" disabled>Generate</button>
+                        <button id="downloadIdForOneClassBtn" class="btn btn-disabled btn-secondary" disabled><i class="fa fa-download"></i>Download</button>
                     </div>
                 </div>
                 <div id="idGeneratePageForAllClass">

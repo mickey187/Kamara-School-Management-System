@@ -49,7 +49,7 @@
     <script src="{{asset('plugins/pace-progress/pace.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('plugins/pace-progress/themes/red/pace-theme-material.css')}}">
 
-    
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -434,14 +434,14 @@
                                         <p>Add Subject</p>
                                     </a>
                                 </li> --}}
-                                 
+
                                     {{-- <li class="nav-item">
                                     <a href="/viewSubject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Subjects</p>
                                     </a>
                                 </li> --}}
-                                                                {{-- 
+                                                                {{--
 
                                 <li class="nav-item">
                                     <a href="/indexAddClassSubject" class="nav-link">
@@ -580,7 +580,7 @@
 
                         </li>
 
-{{-- 
+{{--
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-dollar-sign"></i>
@@ -765,6 +765,7 @@ $(function() {
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <script src="{{ asset('section.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('dist/js/add_student_form.js') }}"></script>
 
 {{-- Curriculum --}}
 
@@ -799,7 +800,7 @@ $(function() {
       <!-- student discount js -->
       <script src="{{ asset('student_discount.js') }}"></script>
 
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> --}}
 
 
 
@@ -858,7 +859,7 @@ $(function() {
 
 
      {{--employee validation --}}
-   
+
 
       <script src="{{ asset('dist/employee/add_employee_validation.js') }}"></script>
      {{-- <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script> --}}

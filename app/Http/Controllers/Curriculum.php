@@ -22,9 +22,10 @@ class Curriculum extends Controller
         $this->middleware('auth');
     }
     public function indexCurriculum(){
-        $subject = DB::table('subject_groups')
-        ->join('subjects','subject_groups.subject_id','=' , 'subjects.id')
-        ->get();
+        // $subject = DB::table('subject_groups')
+        // ->join('subjects','subject_groups.subject_id','=' , 'subjects.id')
+        // ->get();
+        $subject = subject::all();
         $subject_group = DB::table('subject_groups')
         ->join('subjects','subject_groups.subject_id','=' , 'subjects.id')
         ->join('classes','subject_groups.class_id' , '=' ,'classes.id')
