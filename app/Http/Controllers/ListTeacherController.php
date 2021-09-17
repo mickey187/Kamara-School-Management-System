@@ -137,7 +137,7 @@ class ListTeacherController extends Controller
             foreach($getStudents as $row){
                 $preClass = classes::where('id',$getClass->id)->get()->first();
                 $nxtClass = classes::where('priority',$preClass->priority + 1)->get()->first();
-                if ($this->checkStudentGrade($row->student_id,$preClass->id)) {
+                // if ($this->checkStudentGrade($row->student_id,$preClass->id)) {
                     $getPromoteId = student_class_transfer::where('student_id',$row->student_id)->get()->first();
                     $promote = student_class_transfer::find( $getPromoteId->id);
                     $promote->transfered_from = $preClass->id;
@@ -158,7 +158,7 @@ class ListTeacherController extends Controller
                                                     ->get();
                     
                     $promotedStudentSize++;
-                }
+                // }
             }
             return response()->json((string) $promotedStudentSize);
         }
