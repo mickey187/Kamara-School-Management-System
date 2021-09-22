@@ -34,45 +34,42 @@
                                     <div class="card-header bg-light">Basic student information</div>
                                     <div class="card-body">
                                         <div class="row col-12">
-                                            <div class="col-3"><hr>
+                                            <div class="col-lg-3 col-md-6 col-sm-12"><hr>
                                                 <div class=" row col-lg-12 col-md-12 col-sm-12 form-group mt-2">
-                                                        <img src="{{ asset('img/default_picture.png') }}" id="dsp-pro" class="img-fluid img-thumbnail ml-5 mr-5 mb-2" style="height: 200px;" alt="">
-                                                    <div class="custom-file input col-12 mt-2" >
+                                                        <img src="{{ asset('img/default_picture.png') }}" id="dsp-pro" class="img-fluid img-thumbnail  mr-5 mb-2" style="height: 200px;" alt="">
+                                                    <div class="custom-file input col-lg-12 col-md-12 mt-2" >
                                                         <input  type="file" name="image" class="custom-file-input " id="img-pro">
                                                         <label class="custom-file-label" for="img-pro">choose</label>
                                                     </div>
-                                                    {{-- <div class="col-lg-12"> --}}
-
-                                                    {{-- </div> --}}
                                                 </div><hr>
                                             </div>
-                                            <div class="col-9">
+                                            <div class="col-lg-9 col-md-12 col-sm-12">
                                                 <div class="row col-12">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">First name</div>
                                                             <input type="text" id="student_page_first_name_id" onkeypress="return /[a-zA-Z]/i.test(event.key)" name="studentFirstName" maxlength="15" minlength="2" placeholder="required*" required class="form-control">
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">Middle name</div>
                                                             <input type="text" id="student_page_middle_name_id" onkeypress="return /[a-z]/i.test(event.key)" name="studentMiddleName" placeholder="required*" required class="form-control">
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">Last name</div>
                                                             <input type="text" id="student_page_last_name_id" name="studentLastName" placeholder="required*" required class="form-control">
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">Gender</div>
-                                                            <select  id="student_page_gender_id" name="studentGender" data-placeholder="required*" required class="select2 form-control" >
+                                                            <select id="student_page_gender_id" style="width: 100%;" name="studentGender" class="form-control select2" data-placeholder="required*" required >
                                                                 <option></option>
                                                                 <option>Male</option>
                                                                 <option>Female</option>
@@ -80,14 +77,14 @@
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">Birth date</div>
                                                             <input type="date" id="student_page_birthdate_id" name="studentBirthDate" placeholder="required*" value="" required class="form-control">
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">Citizenship</div>
                                                             <input id="student_page_citizen_id" type="text" name="studentCitizenship" placeholder="optional" class="form-control">
@@ -96,7 +93,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row col-12">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">Day care program</div>
                                                             <select id="student_page_daycareprogram_id" style="width: 100%;" name="studentDayCareProgram" data-placeholder="required*" required class="form-control select2">
@@ -108,7 +105,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">Student kinder garten</div>
                                                             <select id="student_page_kindergarten_id" style="width: 100%;" name="studentKindergarten" data-placeholder="required*" required class="form-control select2">
@@ -119,67 +116,51 @@
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2 ">
                                                             <div class="label">Native language</div>
-                                                            <select name="studentLanguage" id="student_page_nativlanguage_id"
-                                                                    class="form-control select2"
+                                                            <input name="studentLanguage" id="student_page_nativlanguage_id"
+                                                                    class="form-control"
                                                                     style="width: 100%;"
-                                                                    {{-- multiple multiple data-live-search="true" --}}
-                                                                    data-placeholder="required*"
+                                                                    placeholder="required*"
                                                                     required
                                                                     >
-                                                                    <option></option>
-                                                                    <option>Amharic</option>
-                                                                    <option>Oromofaa</option>
-                                                                    <option>Tiray</option>
-                                                                    <option>English</option>
-                                                                    <option>Sheko</option>
-                                                                    <option>Somaligna</option>
-                                                                    <option>guragegna</option>
-                                                            </select>
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row col-12">
 
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2 ">
                                                             <div class="label">Country of birth</div>
                                                             <input id="student_page_country_of_birth_id" type="text" name="studentCountryOfBirth" placeholder="optional" class="form-control">
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                 </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">state of birth</div>
                                                             <input id="student_page_state_of_birth_id" type="text" name="studentStateOfBirth" placeholder="optional" class="form-control">
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
-                                                        <div class="form-group mt-2">
-                                                            <div class="label">unit of birth</div>
-                                                            <input id="student_page_unit_of_birth_id" type="text" name="studentUnitOfBirth" placeholder="optional" class="form-control">
-                                                            <small style="color:#fff;">error message</small>
-                                                        </div>
+                                                    <div class="form-group col-lg-4 col-md-6 col-sm-12 mt-2">
+                                                        <div class="label">Academic year</div>
+                                                        <select  id="student_page_academic_year_id" style="width: 100%;" name="studentAcademicYear" data-placeholder="required*" required class="select2 form-control m-2" >
+                                                            <option selected value="{{    \Andegna\DateTimeFactory::now()->getYear(); }}" >EC {{    \Andegna\DateTimeFactory::now()->getYear(); }}</option>
+                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+1; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+1; }}</option>
+                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+2; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+2; }}</option>
+                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+3; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+3; }}</option>
+                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+4; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+4; }}</option>
+                                                        </select>
+                                                        <small style="color:#fff;">error message</small>
                                                     </div>
 
                                                 </div>
                                                     <div class="row col-12">
-                                                        <div class="form-group col-4 mt-2">
-                                                            <div class="label">Academic year</div>
-                                                            <select  id="student_page_academic_year_id" name="studentAcademicYear" data-placeholder="required*" required class="select2 form-control m-2" >
-                                                                <option selected value="{{    \Andegna\DateTimeFactory::now()->getYear(); }}" >EC {{    \Andegna\DateTimeFactory::now()->getYear(); }}</option>
-                                                                <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+1; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+1; }}</option>
-                                                                <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+2; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+2; }}</option>
-                                                                <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+3; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+3; }}</option>
-                                                                <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+4; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+4; }}</option>
-                                                            </select>
-                                                            <small style="color:#fff;">error message</small>
-                                                        </div>
-                                                    <div class="col-4">
+
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">Grade</div>
                                                             <select  id="student_page_grade_id" style="width: 100%;" type="text" name="studentGrade" class="form-control select2" data-placeholder="required*" required>
@@ -191,7 +172,7 @@
                                                             <small style="color:#fff;">error message</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-group mt-2">
                                                             <div class="label">Stream</div>
                                                             <select  id="student_page_stream_id" style="width: 100%;" type="number" name="studentStream" class="form-control select2" data-placeholder="required*" required>

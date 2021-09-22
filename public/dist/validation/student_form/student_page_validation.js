@@ -12,7 +12,6 @@ var student_stream_check = false;
 var student_page_academic_year_check = true;
 var student_page_country_of_birth_check = false;
 var student_page_state_of_birth_check = false;
-var student_page_unit_of_birth_check = false;
 
 
 var student_first_name = document.getElementById('student_page_first_name_id');
@@ -29,7 +28,6 @@ var student_stream = document.getElementById('student_page_stream_id');
 
 var student_page_country_of_birth = document.getElementById('student_page_country_of_birth_id');
 var student_page_state_of_birth = document.getElementById('student_page_state_of_birth_id');
-var student_page_unit_of_birth = document.getElementById('student_page_unit_of_birth_id');
 var student_page_academic_year = document.getElementById('student_page_academic_year_id');
 
 
@@ -335,20 +333,7 @@ $( "#student_page_state_of_birth_id" ).focusout(function() {
     }
 })
 
-$( "#student_page_unit_of_birth_id" ).focusout(function() {
-    if($("#student_page_unit_of_birth_id").val().length === 0){
-        setErorFor2(student_page_unit_of_birth,'unit is required!.');
-        student_page_unit_of_birth_check = false;
 
-    }else if($("#student_page_unit_of_birth_id").val().length < 2){
-        setErorFor2(student_page_unit_of_birth,'unit require at least 2 letters!.');
-        student_page_unit_of_birth_check = false;
-
-    }else{
-        setSuccessFor2(student_page_unit_of_birth);
-        student_page_unit_of_birth_check = true;
-    }
-})
 
 // Basic Student Info Next Button
 $("#basicStudentInfoBtn").click(function (e) {
@@ -364,7 +349,6 @@ $("#basicStudentInfoBtn").click(function (e) {
         student_page_academic_year_check &
         student_page_country_of_birth_check &
         student_page_state_of_birth_check &
-        student_page_unit_of_birth_check &
         student_language_check &
         student_grade_check &
         student_stream_check
@@ -548,18 +532,6 @@ $("#basicStudentInfoBtn").click(function (e) {
         }else{
             setSuccessFor2(student_page_state_of_birth);
             student_page_state_of_birth_check = true;
-        }
-        if($("#student_page_unit_of_birth_id").val().length === 0){
-            setErorFor2(student_page_unit_of_birth,'unit is required!.');
-            student_page_unit_of_birth_check = false;
-
-        }else if($("#student_page_unit_of_birth_id").val().length < 2){
-            setErorFor2(student_page_unit_of_birth,'unit require at least 2 letters!.');
-            student_page_unit_of_birth_check = false;
-
-        }else{
-            setSuccessFor2(student_page_unit_of_birth);
-            student_page_unit_of_birth_check = true;
         }
     }
 
