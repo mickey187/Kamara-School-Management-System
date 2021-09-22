@@ -144,7 +144,6 @@ class ListTeacherController extends Controller
                     $promote->transfered_to = $nxtClass->id;
                     $promote->isRegistered = false;
                     $promote->update();
-
                     $student = student::find($row->student_id);
                     $student->class_id = $nxtClass->id;
                     $student->update();

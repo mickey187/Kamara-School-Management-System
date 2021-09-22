@@ -718,8 +718,8 @@
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
-    {{-- <script src="{{ asset('plugins/jquery-validation/jquery.validation.min.js') }}"></script>
-     <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script> --}}
+    <script src="{{ asset('plugins/jquery-validation/jquery.validation.min.js') }}"></script>
+     <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -765,7 +765,6 @@ $(function() {
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <script src="{{ asset('section.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('dist/js/add_student_form.js') }}"></script>
 
 {{-- Curriculum --}}
 
@@ -855,8 +854,14 @@ $(function() {
     {{-- Curriculum validation --}}
 
     {{-- <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script> --}}
+    
+    <script type="text/javascript" src="{{ asset('dist/js/add_student_form.js') }}"></script>
     <script src="{{ asset('dist/validation/add_subject_validation.js') }}"></script>
-
+    <script src="{{ asset('dist/validation/student_form/student_page_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/student_form/academic_page_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/student_form/parent_page_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/student_form/emergency_page_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/student_form/transportation_page_validation.js') }}"></script>
 
      {{--employee validation --}}
 
@@ -942,6 +947,11 @@ $(function() {
         })
       </script>
       <script>
+          $('.selectpicker').selectpicker(
+            {
+                liveSearchPlaceholder: 'Placeholder text'
+            }
+            );
         $('.countrypicker').countrypicker();
         $(document).on('click', '.number-spinner button', function () {
         var btn = $(this),

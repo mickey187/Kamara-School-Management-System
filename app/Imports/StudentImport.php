@@ -38,7 +38,7 @@ class StudentImport implements ToModel,WithHeadingRow,WithStartRow{
             $studentMedical->blood_type = 'not set';
             $studentMedical->medical_condtion = $row['medical_alert_info'];
             $studentMedical->disablity = 'no';
-            $studentMedical->save();
+            $studentMedical->save(); 
 
         $full_name = explode(" ",$row['student_pickup_guardian']);
         $studentTranspartation = new student_transport_info();
