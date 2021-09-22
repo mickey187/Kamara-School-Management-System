@@ -17,83 +17,83 @@ class PaymentLoadSeeder extends Seeder
     public function run()
     {
         //
-        // for ($i=0; $i < 8; $i++) {
-        //     switch ($i) {
-        //         case 1:
-        //             DB::table('payment_types')->insert([
-        //                 'id' => 1,
-        //                 'payment_type' => 'Registration Fee',
-        //                 'recurring_type' =>'non-recurring',
-        //                 'created_at' => Carbon::now(),
-        //                 'updated_at' => Carbon::now(),
-        //              ]);
-        //             break;
-        //         case 2:
-        //                 DB::table('payment_types')->insert([
-        //                     'id' => 2,
-        //                     'payment_type' => 'Tuition Fee',
-        //                     'recurring_type' =>'recurring',
-        //                     'created_at' => Carbon::now(),
-        //                     'updated_at' => Carbon::now(),
-        //                  ]);
-        //                 break;
-        //         case 3:
-        //                     DB::table('payment_types')->insert([
-        //                         'id' => 3,
-        //                         'payment_type' => 'Book Fee',
-        //                         'recurring_type' =>'non-recurring',
-        //                         'created_at' => Carbon::now(),
-        //                         'updated_at' => Carbon::now(),
-        //                      ]);
-        //                     break;
+        for ($i=0; $i < 8; $i++) {
+            switch ($i) {
+                case 1:
+                    DB::table('payment_types')->insert([
+                        'id' => 1,
+                        'payment_type' => 'Registration Fee',
+                        'recurring_type' =>'non-recurring',
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                     ]);
+                    break;
+                case 2:
+                        DB::table('payment_types')->insert([
+                            'id' => 2,
+                            'payment_type' => 'Tuition Fee',
+                            'recurring_type' =>'recurring',
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                         ]);
+                        break;
+                case 3:
+                            DB::table('payment_types')->insert([
+                                'id' => 3,
+                                'payment_type' => 'Book Fee',
+                                'recurring_type' =>'non-recurring',
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now(),
+                             ]);
+                            break;
 
-        //         case 4:
-        //                         DB::table('payment_types')->insert([
-        //                             'id' => 4,
-        //                             'payment_type' => 'Transportation Fee',
-        //                             'recurring_type' =>'recurring',
-        //                             'created_at' => Carbon::now(),
-        //                             'updated_at' => Carbon::now(),
-        //                          ]);
-        //                         break;
+                case 4:
+                                DB::table('payment_types')->insert([
+                                    'id' => 4,
+                                    'payment_type' => 'Transportation Fee',
+                                    'recurring_type' =>'recurring',
+                                    'created_at' => Carbon::now(),
+                                    'updated_at' => Carbon::now(),
+                                 ]);
+                                break;
 
-        //         case 5:
-        //                             DB::table('payment_types')->insert([
-        //                                 'id' => 5,
-        //                                 'payment_type' => 'Tutorial Fee',
-        //                                 'recurring_type' =>'non-recurring',
-        //                                 'created_at' => Carbon::now(),
-        //                                 'updated_at' => Carbon::now(),
-        //                              ]);
-        //                             break;
+                case 5:
+                                    DB::table('payment_types')->insert([
+                                        'id' => 5,
+                                        'payment_type' => 'Tutorial Fee',
+                                        'recurring_type' =>'non-recurring',
+                                        'created_at' => Carbon::now(),
+                                        'updated_at' => Carbon::now(),
+                                     ]);
+                                    break;
 
-        //         case 6:
-        //                                 DB::table('payment_types')->insert([
-        //                                     'id' => 6,
-        //                                     'payment_type' => 'Graduation Magazine & Gown Fee',
-        //                                     'recurring_type' =>'non-recurring',
-        //                                     'created_at' => Carbon::now(),
-        //                                     'updated_at' => Carbon::now(),
-        //                                  ]);
-        //                                 break;
+                case 6:
+                                        DB::table('payment_types')->insert([
+                                            'id' => 6,
+                                            'payment_type' => 'Graduation Magazine & Gown Fee',
+                                            'recurring_type' =>'non-recurring',
+                                            'created_at' => Carbon::now(),
+                                            'updated_at' => Carbon::now(),
+                                         ]);
+                                        break;
 
-        //         case 7:
-        //                                     DB::table('payment_types')->insert([
-        //                                         'id' => 7,
-        //                                         'payment_type' => 'School Trip',
-        //                                         'recurring_type' =>'non-recurring',
-        //                                         'created_at' => Carbon::now(),
-        //                                         'updated_at' => Carbon::now(),
-        //                                      ]);
-        //                                     break;
+                case 7:
+                                            DB::table('payment_types')->insert([
+                                                'id' => 7,
+                                                'payment_type' => 'School Trip',
+                                                'recurring_type' =>'non-recurring',
+                                                'created_at' => Carbon::now(),
+                                                'updated_at' => Carbon::now(),
+                                             ]);
+                                            break;
 
 
-        //         default:
+                default:
 
-        //             break;
-        //     }
+                    break;
+            }
 
-        // }
+        }
 
         //Registration Fee Load seeder
 

@@ -40,7 +40,7 @@ class TeacherController extends Controller
         $employee = DB::table('employees')
                     ->join('addresses','employees.address_id','=','addresses.id')
                     ->where('employee_id',$user->user_id)
-                    ->get(['employees.id as id', 'first_name','middle_name','last_name','email','phone_number','house_number','alternative_phone_number','p_o_box','gender','city','subcity'])->first();
+                    ->get(['employees.id as id', 'first_name','middle_name','last_name','email','phone_number','house_number','work_phone_number','p_o_box','gender','city','unit'])->first();
         // $employee = employee::where('employee_id',$user->user_id)->first();
         $assasment = assasment_type::all();
         $semister = semister::all();
