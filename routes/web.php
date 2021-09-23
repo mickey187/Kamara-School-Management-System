@@ -441,6 +441,11 @@ Route::get('/addAssasment',[MarklistController::class, 'addAssasment'])->name('/
 
 Route::get('Assasmentform',[MarklistController::class, 'Assasmentform']);
 
+Route::get('/view_assasment_type',[MarklistController::class, 'view_assasment_type']);
+Route::get('/edit_assasment_type',[MarklistController::class, 'edit_assasment_type']);
+Route::get('edit_assasment_type_value/{id}',[MarklistController::class, 'edit_assasment_type_value']);
+Route::get('/delete_assasment',[MarklistController::class, 'delete_assasment']);
+
 Route::get('editMarkStudentList/{id}/{mark}/{load}/{assasment}',[MarklistController::class, 'editMarkStudentList']);
 
 Route::get('setAvarageForClass/{classes}',[MarklistController::class, 'setAvarageForClass']);

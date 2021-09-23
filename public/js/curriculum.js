@@ -49,37 +49,6 @@ $('#addClass').click(function(){
 }
 });
 
-//             if(data == "success"){
-//                 Swal.fire({
-//                     icon: 'success',
-//                     title:'successful',
-//                     text:'Added'+class_label,
-//                 })
-//             } else if(data == "failed"){
-//                 Swal.fire({
-//                 icon: 'danger',
-//                 title: 'failed!',
-//                 text:' please try again',
-                
-//               });
-//             } else if(data == "failed"){
-//                 Swal.fire({
-//                     icon:'error',
-//                     title: 'failde to add'+class_label,
-//                     footer: '<a href="">Why do I have this issue?</a>'
-//                 })
-//             }              
-//         }, error: function (data) {
-//         Swal.fire({
-//             icon: 'error',
-//             title: 'Oops...',
-//             text: 'Something went wrong!',
-//             footer: '<a href="">Why do I have this issue?</a>'
-//     });
-//         }
-// });
-// });
-
 
 $('#view_class_label_tab_link').click(function (){
     $.ajax({

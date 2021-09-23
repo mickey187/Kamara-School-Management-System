@@ -473,12 +473,12 @@
                                         <p>Add Semister</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{ url('addMarkList') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Mark List</p>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="{{ url('Assasmentform') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -791,6 +791,9 @@ $(function() {
 
      <!-- view stream js -->
      <script src="{{ asset('view_stream.js') }}"></script>
+     
+     {{-- view assasment js --}}
+     <script src="{{ asset('view_assasment.js') }}"></script>
 
 
      <!-- add payments js -->

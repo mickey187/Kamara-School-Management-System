@@ -116,7 +116,7 @@ class MarklistController extends Controller
 
     public function addAssasment(Request $req){
         $assasment = new assasment_type;
-        $validated = $req->validate(['assasment_type'=>'unique:assasment_types|required|max:20']);
+        $validated = $req->validate(['assasment_type'=>'required|unique:assasment_types|max:20']);
         $assasment->assasment_type = $validated['assasment_type'];
 
         if ($assasment->save()) {
@@ -128,6 +128,35 @@ class MarklistController extends Controller
     public function assasmentForm(){
         $ass = assasment_type::all();
         return view('admin.curriculum.add_assasment_label')->with('assasment',$ass);
+    }
+
+
+    public function edit_assasment_type($id){
+        $edit_assasment = assasment_type::find($id);
+        return view('admin.curriculum.add_assasment_label')->with('edit_assasment',$edit_assasment);
+    }
+
+    public function edit_assasment_type_value($id){
+        $edit_assasment = assasment_type::find($id);
+        $edit_assasment->assasment_type = request('assasment_type');
+
+        if($edit_assasment->save()){
+            $view_assasment = assasment_type::all();
+
+            return redirect()->route('add_assasment_label')->with('view_assasment',$view_assasment);
+        }
+    }
+
+    public function delete_assasment(Request $req){
+        $assasment_id = $req->delete_btn;
+        $assasment = assasment_type::find($assasment_id);
+
+        if($assasment->delete()){
+            $view_assasment = assasment_type::all();
+            return redirect()->route('/add_assasment_label')->with('view_assasment',$view_assasment);
+        }
+        else
+        echo "couldn't delete please try again";
     }
 
     public function editMarkStudentList($id,$mark,$load,$assasment){

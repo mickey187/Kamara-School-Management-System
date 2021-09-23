@@ -35,9 +35,10 @@
                      <a href="{{ url('editJobPosition/'.$row->id) }}" type="button" class="btn bg-blue btn-sm"><i class="fa fa-pen"></i></a>
 
                       <button class="btn btn-danger btn-sm" 
-                      data-toggle="modal" data-target="#delete_position"
-                       data-position_delete="{{$row->id}},{{$row->position_name}}">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
+                          data-toggle="modal" 
+                          data-target="#delete_position"
+                          data-position_delete="{{$row->id}},{{$row->position_name}}">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 
                 </td>              

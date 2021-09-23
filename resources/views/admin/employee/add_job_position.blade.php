@@ -17,11 +17,11 @@
     <div class="container-fluid mt-3">                 
         <form action="
         @if (isset($edit_emp_position))
-        {{url('/editPositionValue/'.$edit_emp_position->id)}}
+        {{url('/editPositionValue/'.$edit_emp_position->id)}}"
         @else
         {{url('/addJobPosition')}}
         @endif
-        "method="get">
+        method="get">
           @csrf      
           <div class="row">
             <div class="col-6">

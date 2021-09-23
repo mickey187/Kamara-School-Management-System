@@ -35,7 +35,7 @@ class Curriculum extends Controller
 
      public function addClass(Request $req){
          $validator = Validator::make($req->all(),[
-             'class_label'=>'required|unique:classes|max:4',
+             'class_label'=>'required|unique:classes|max:30',
              'priority'=>'required',
          ]);
          if($validator->passes()){
@@ -80,7 +80,7 @@ public function delete_class_label(Request $request){
 
 public function indexAddSubject(Request $req){
     $validator =Validator::make($req->all(), [
-        'subject_name'=>'required|max:5',
+        'subject_name'=>'required|max:30',
     ]);
     if ($validator->passes()) {
         $subject = new subject();
