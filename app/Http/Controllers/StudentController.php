@@ -83,7 +83,7 @@ class StudentController extends Controller{
             'day_care_program' => $req->studentDayCareProgram,
             'kinder_garten' => $req->studentKindergarten,
             'country_of_birth' => $req->studentCountryOfBirth,
-            'state_of_birth' => $req->studentStateOfBirth." ".$req->studentUnitOfBirth,
+            'state_of_birth' => $req->studentStateOfBirth,
 
         );
 
