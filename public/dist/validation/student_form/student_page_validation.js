@@ -218,28 +218,50 @@ $("#student_page_kindergarten_id").change(function (e) {
 
 
 
-$("#student_page_nativlanguage_id").change(function (e) {
-    e.preventDefault();
-        setSuccessForselect(student_language);
-        student_language_check = true;
+// $("#student_page_nativlanguage_id").change(function (e) {
+//     e.preventDefault();
+//         setSuccessForselect(student_language);
+//         student_language_check = true;
 
-});
+// });
 
-$(document).on("mouseleave", ".select2-container", function(e) {
-    if ($(e.toElement || e.relatedTarget).closest(".select2-container").length == 0) {
-        $("#student_page_nativlanguage_id").select2("close");
-        if($('#student_page_nativlanguage_id').val().length === 0){
-            setErorForSelect(student_language,'language is required!.');
-            student_language_check = false;
+// $(document).on("mouseleave", ".select2-container", function(e) {
+//     if ($(e.toElement || e.relatedTarget).closest(".select2-container").length == 0) {
+//         $("#student_page_nativlanguage_id").select2("close");
+//         if($('#student_page_nativlanguage_id').val().length === 0){
+//             setErorForSelect(student_language,'language is required!.');
+//             student_language_check = false;
 
-        }else{
-            setSuccessForselect(student_language);
+//         }else{
+//             setSuccessForselect(student_language);
+//             student_language_check = true;
+
+//         }
+//     }
+
+// });
+
+$( "#student_page_nativlanguage_id" ).focusout(function() {
+    if($('#student_page_nativlanguage_id').val().length === 0){
+        setErorFor2(student_language,'language is required!.');
+        student_language_check = false;
+    }
+    if($("#student_page_nativlanguage_id").val().length > 15 & $(this).val().length != 0){
+        setErorFor2(student_language,'maximum letter is 15!.');
+        student_language_check = false;
+
+    }else if($("#student_page_nativlanguage_id").val().length < 3 & $(this).val().length != 0){
+        setErorFor2(student_language,'language require at least 3 letters!.');
+        student_language_check = false;
+
+    }
+    else{
+        setSuccessFor2(student_language);
             student_language_check = true;
 
-        }
     }
+})
 
-});
 
 $("#student_page_grade_id").change(function (e) {
     e.preventDefault();
@@ -487,11 +509,22 @@ $("#basicStudentInfoBtn").click(function (e) {
 
         }
         if($('#student_page_nativlanguage_id').val().length === 0){
-            setErorForSelect(student_language,'language is required!.');
+            setErorFor2(student_language,'language is required!.');
             student_language_check = false;
-        }else{
-            setSuccessForselect(student_language);
-            student_language_check = true;
+        }
+        else if($("#student_page_nativlanguage_id").val().length > 15 & $(this).val().length != 0){
+            setErorFor2(student_language,'maximum letter is 15!.');
+            student_language_check = false;
+
+        }else if($("#student_page_nativlanguage_id").val().length < 3 & $(this).val().length != 0){
+            setErorFor2(student_language,'language require at least 3 letters!.');
+            student_language_check = false;
+
+        }
+        else{
+            setSuccessFor2(student_language);
+                student_language_check = true;
+
         }
         if($('#student_page_grade_id').val().length === 0){
             setErorForSelect(student_grade,'grade is required!.');

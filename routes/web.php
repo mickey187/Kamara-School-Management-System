@@ -415,7 +415,10 @@ Route::get('/viewParentPaymentDetail',[ParentController::class, 'viewParentPayme
 Route::get('dashboard',[StudentController::class, 'adminDashboard']);
 Route::get('generateIdPage',[ExcelController::class, 'generateIdPage']);
 Route::get('getStudentDetail/{id}',[ExcelController::class, 'getStudentDetail']);
-Route::get('generateOneIdForSingleID/{id}',[ExcelController::class, 'generateOneIdForSingleID']);
+Route::get('generateOneIdForSingleID/{id}',[ExportController::class, 'generateOneIdForSingleID']);
+Route::get('generateOneClassIdCard/{class_id}/{stream_id}/{section_name}',[ExportController::class, 'generateOneClassIdCard']);
+Route::get('download-zip', [ExportController::class, 'downloadZip']);
+
 Route::get('getCLassStreamSection',[Curriculum::class,'getCLassStreamSection']);
 Route::get('getCLassStreamSection2/{class_id}/{stream_id}',[Curriculum::class,'getCLassStreamSection2']);
 

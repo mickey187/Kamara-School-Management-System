@@ -111,15 +111,25 @@ $("#sectionForId").change(function (e) {
             dataType: "json",
             success: function (response) {
                 if(response===true){
-                    var btn ='<button id="generateIdForOneClassBtn" class="btn btn-secondary m-2" disabled>Generate ID</button>'+
-                            '<button id="downloadIdForOneClassBtn" class="btn  btn-primary m-2" ><i class="fa fa-download"></i>Download</button>';
+                    var btn ='<button onclick="generateIdForOneClassBtn();" id="generateIdForOneClassBtn" class="btn btn-secondary m-2" disabled>Generate ID</button>'+
+                            '<button onclick="" id="downloadIdForOneClassBtn" class="btn  btn-primary m-2" ><i class="fa fa-download"></i>Download</button>';
                         $("#idBtnList").html(btn);
                 }else{
-                    var btn ='<button id="generateIdForOneClassBtn" class="btn btn-success m-2" >Generate</button>'+
-                            '<button id="downloadIdForOneClassBtn" class="btn  btn-secondary m-2" disabled><i class="fa fa-download"></i>Download</button>';
+                    var btn ='<button onclick="generateIdForOneClassBtn();" id="generateIdForOneClassBtn" class="btn btn-success m-2" >Generate</button>'+
+                            '<button onclick="downloadIdForOneClassBtn();" id="downloadIdForOneClassBtn" class="btn  btn-secondary m-2" disabled><i class="fa fa-download"></i>Download</button>';
                         $("#idBtnList").html(btn);
                 }
             }
         });
     }
 });
+
+function generateIdForOneClassBtn(){
+    var class_id = $("#classForId").val();
+    var stream_id = $("#streamForId").val();
+    var section_label = $("#sectionForId").val();
+
+    window.location.href =  "generateOneClassIdCard/"+class_id+"/"+stream_id+"/"+section_label;
+
+}
+
