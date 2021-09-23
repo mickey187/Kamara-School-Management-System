@@ -1,6 +1,7 @@
 function studentIdFetchBtn() {
 
     student_id = $("#studentIdForDetail").val();
+    swal.fire(student_id)
     $.ajax({
         type: "GET",
         url: "getStudentDetail/"+student_id,
@@ -23,7 +24,8 @@ function studentIdFetchBtn() {
 }
 
 function singleStudentIdBtn(){
-    $("#idGeneratePageList").hide();
+    $("#idGeneratePageList").html('');
+    $('#idGeneratePageForClass').hide();
     $("#idGeneratPage").show();
     page='<div class="row col-12">'+
             '<input type="number" placeholder="ID" id="studentIdForDetail" class="form-control col-6 m-1">'+
@@ -53,22 +55,71 @@ function generateSingleId(val){
 function downloadSingleId(val){
     window.location = 'downloadSingleStudentId/'+val.value;
 }
+
 function singleClassIdBtn(){
-    $("#idGeneratePageList").show();
+    $("#idGeneratePageList").html('');
     $("#idGeneratPage").hide();
+    $('#idGeneratePageForClass').show();
+}
+
+$("#classForId").change(function (e) {
+    e.preventDefault();
+    var class_id = $("#classForId").val();
+    var stream_id =  $("#streamForId").val();
+    if(!(class_id === "Choose class" || stream_id === "Choose stream")){
+        fetchSectionForId(class_id,stream_id);
+    }
+});
+
+$("#streamForId").change(function (e) {
+    e.preventDefault();
+    var class_id = $("#classForId").val();
+    var stream_id =  $("#streamForId").val();
+    if(!(class_id === "Choose class" || stream_id === "Choose stream")){
+        fetchSectionForId(class_id,stream_id);
+    }
+});
+
+function fetchSectionForId(class_id,stream_id){
+    // swal.fire("Worked");
     $.ajax({
         type: "GET",
-        url: "getCLassStreamSection",
+        url: "getCLassStreamSection2/"+class_id+"/"+stream_id,
         data: "data",
         dataType: "json",
         success: function (response) {
-            swal.fire(response);
-            var page =  '<div class="m-2">'+
-                            '<select class="form-control">'+
-                                '<></>'+
-                            '</select>'+
-                        '</div>';
-            $("#idGeneratePageList").html(page);
+            var option = '<option value="Choose section">Choose section</option>';
+            response.forEach(element => {
+                option += '<option value="'+element.section_name+'">'+element.section_name+'</option>';
+            });
+            $("#sectionForId").html(option);
         }
     });
 }
+
+
+$("#sectionForId").change(function (e) {
+    e.preventDefault();
+    var class_id = $("#classForId").val();
+    var stream_id =  $("#streamForId").val();
+    var section_name =  $("#sectionForId").val();
+    if(!(class_id === "Choose class" || stream_id === "Choose stream" || section_name === "Choose section")){
+        $.ajax({
+            type: "GET",
+            url: "checkIfIdGeneratedForClass/"+class_id+"/"+stream_id+"/"+section_name,
+            data: "data",
+            dataType: "json",
+            success: function (response) {
+                if(response===true){
+                    var btn ='<button id="generateIdForOneClassBtn" class="btn btn-secondary m-2" disabled>Generate ID</button>'+
+                            '<button id="downloadIdForOneClassBtn" class="btn  btn-primary m-2" ><i class="fa fa-download"></i>Download</button>';
+                        $("#idBtnList").html(btn);
+                }else{
+                    var btn ='<button id="generateIdForOneClassBtn" class="btn btn-success m-2" >Generate</button>'+
+                            '<button id="downloadIdForOneClassBtn" class="btn  btn-secondary m-2" disabled><i class="fa fa-download"></i>Download</button>';
+                        $("#idBtnList").html(btn);
+                }
+            }
+        });
+    }
+});

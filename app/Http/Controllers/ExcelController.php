@@ -9,6 +9,7 @@ use App\Imports\MarklistImport;
 use App\Imports\MultipleMarkListImporter;
 use App\Imports\StudentImport;
 use App\Models\classes;
+use App\Models\stream;
 use App\Models\student;
 use App\Models\subject;
 use Facade\FlareClient\Http\Response;
@@ -111,7 +112,9 @@ class ExcelController extends Controller
 
 
      public function generateIdPage(){
-         return view('admin.student.student_id_generator');
+         $class = classes::all();
+         $stream = stream::all();
+         return view('admin.student.student_id_generator')->with('class',$class)->with('stream',$stream);
      }
 
      public function getStudentDetail($id){

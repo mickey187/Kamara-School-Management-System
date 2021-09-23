@@ -20,6 +20,8 @@ use App\Models\teacher;
 use App\Models\student_payment_load;
 use App\Models\payment_type;
 use App\Models\payment_load;
+use App\Models\student_emergency_contact;
+use App\Models\student_transport_info;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,92 +44,211 @@ class StudentController extends Controller{
         $all_class = classes::all();
         $all_stream = stream::all();
         $all_role = Role::all();
-         return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
+        return view('admin.student.add_student_form')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
+        //  return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
 
     }
 
     public function insert(Request $req){
-
+        // return $req;
         $student = array(
-            'first_name' => $req->firstName,
-            'middle_name' => $req->middleName,
-            'last_name' => $req->lastName,
-            'birth_date' => $req->birthDate,
-            'gender' => $req->gender,
+            'first_name' => $req->studentFirstName,
+            'middle_name' => $req->studentMiddleName,
+            'last_name' => $req->studentLastName,
+            'birth_date' => $req->studentBirthDate,
+            'gender' => $req->studentGender,
             'image' => $req->image,
-            'class' => $req->grade,
-            'stream' => $req->stream,
-            'role' => $req->role,
-            'transport' => $req->transport
+            'class' => $req->studentGrade,
+            'stream' => $req->studentStream,
+            'role' => 4,
+            'transport' => 'no'//$req->transport
         );
-        echo request('class');
+
         $student_class_transfer = array(
-            'average' =>request('average'),
-            'class' =>request('grade'),
-            'academic_year' =>request('academic_year'),
+            'average' =>0,
+            'class' =>$req->studentGrade,
+            'academic_year' =>$req->studentAcademicYear
         );
         $student_background = array(
-            'transfer_reason' => $req->transferReason,
-            'suspension_status' => $req->sespensionStatus,
-            'expulsion_status' => $req->expelsionStatus,
-            'special_education' => $req->specialEducation,
-            'previous_school' => $req->previousSchool,
-            'citizenship' => $req->citizenship,
-            'native_tongue' => $req->language,
+            'transfer_reason' => $req->academicTransferReason,
+            'suspension_status' => $req->academicSuspension,
+            'expulsion_status' => $req->academicExpulsion,
+            'special_education' => $req->academicSpecialEducation,
+            'previous_school' => $req->academicPreviousSchool,
+            'previous_school_city' => $req->academicPreviousSchoolCity,
+            'previous_school_state' => $req->academicPreviousSchoolState,
+            'previous_school_country' => $req->academicPreviousSchoolCountry,
+            'citizenship' => $req->studentCitizenship,
+            'native_tongue' => $req->studentLanguage,
+            'day_care_program' => $req->studentDayCareProgram,
+            'kinder_garten' => $req->studentKindergarten,
+            'country_of_birth' => $req->studentCountryOfBirth,
+            'state_of_birth' => $req->studentStateOfBirth." ".$req->studentUnitOfBirth,
+
         );
 
         $student_medical_info = array(
-            'disablity' => $req->disability,
-            'medical_condtion' => $req->medicalCondtion,
-            'blood_type' => $req->bloodType,
+            'disablity' => '',
+            'medical_condtion' => $req->academicMedicalCondtion,
+            'blood_type' => $req->academicBloodType,
         );
 
-        $parent = array(
-            'first_name' => $req->pFirstName,
-            'middle_name' => $req->pMiddleName,
-            'last_name' => $req->pLastName,
+        $parent1 = array(
+            'first_name' => $req->parentFirstName,
+            'middle_name' => $req->parentFirstName,
+            'last_name' => $req->parentLastName,
             'birth_date' => $req->birthDate,
-            'gender' => $req->pGender,
-            'relation' => $req->pRelation,
-            'role' => $req->parent_role,
-            'school_closur_priority' => $req->School_Closure_Priority,
-            'emergency_contact_priority' => $req->pEmergency,
+            'gender' => $req->parentGender,
+            'relation' => $req->parentRelation,
+            'role' => 5,
+            'school_closur_priority' => $req->parentSchoolClosurePriority,
+            'emergency_contact_priority' => $req->parentEmergencyContactPriority,
         );
 
-        $addres = array(
-            'city' => $req->pFirstName,
-            'subcity' => $req->pMiddleName,
-            'kebele' => $req->pLastName,
-            'houseNumber' => $req->houseNumber,
-            'p_o_box' => $req->p_o_box,
-            'email' => $req->pRelation,
-            'phone1' => $req->School_Closure_Priority,
-            'phone2' => $req->pEmergency,
+        $parent2 = array(
+            'first_name' => $req->parentFirstName2,
+            'middle_name' => $req->parentFirstName2,
+            'last_name' => $req->parentLastName2,
+            'birth_date' => $req->birthDate2,
+            'gender' => $req->parentGender2,
+            'relation' => $req->parentRelation2,
+            'role' => 5,
+            'school_closur_priority' => $req->parentSchoolClosurePriority2,
+            'emergency_contact_priority' => $req->parentEmergencyContactPriority2,
         );
 
-        if ($req->has('student')) {
+        $parent3 = array(
+            'first_name' => $req->parentFirstName3,
+            'middle_name' => $req->parentFirstName3,
+            'last_name' => $req->parentLastName3,
+            'birth_date' => $req->birthDate3,
+            'gender' => $req->parentGender3,
+            'relation' => $req->parentRelation3,
+            'role' => 5,
+            'school_closur_priority' => $req->parentSchoolClosurePriority3,
+            'emergency_contact_priority' => $req->parentEmergencyContactPriority3,
+        );
+
+        $address1 = array(
+            'unit' => $req->parentUnit,
+            'city' => $req->parentState,
+            'country' => $req->parentCountry,
+            'kebele' => $req->parentKebele,
+            'houseNumber' => $req->parentHouseNo,
+            'p_o_box' => $req->parentPOBOX,
+            'email' => $req->parentEmail,
+            'home_phone_number' => $req->parentHomePhoneNo,
+            'work_phone_number' => $req->parentWorkPhoneNo,
+            'phone_number' =>$req->parentMobilePhoneNo
+        );
+
+        $address2 = array(
+            'unit' => $req->parentUnit2,
+            'city' => $req->parentState2,
+            'country' => $req->parentCountry2,
+            'kebele' => $req->parentKebele2,
+            'houseNumber' => $req->parentHouseNo2,
+            'p_o_box' => $req->parentPOBOX2,
+            'email' => $req->parentEmail2,
+            'home_phone_number' => $req->parentHomePhoneNo2,
+            'work_phone_number' => $req->parentWorkPhoneNo2,
+            'phone_number' =>$req->parentMobilePhoneNo2
+        );
+        $address3 = array(
+            'unit' => $req->parentUnit3,
+            'city' => $req->parentState3,
+            'country' => $req->parentCountry3,
+            'kebele' => $req->parentKebele3,
+            'houseNumber' => $req->parentHouseNo3,
+            'p_o_box' => $req->parentPOBOX3,
+            'email' => $req->parentEmail3,
+            'home_phone_number' => $req->parentHomePhoneNo3,
+            'work_phone_number' => $req->parentWorkPhoneNo3,
+            'phone_number' =>$req->parentMobilePhoneNo3
+        );
+
+        $emergency1 = array(
+            'first_name' => $req->emergencyFirstName,
+            'middle_name' => $req->emergencyMiddleName,
+            'last_name' => $req->emergencyLastName,
+            'gender' => $req->emergencyGender,
+            'phone' => $req->emergencyPhoneNo
+        );
+
+        $emergency2 = array(
+            'first_name' => $req->emergencyFirstName2,
+            'middle_name' => $req->emergencyMiddleName2,
+            'last_name' => $req->emergencyLastName2,
+            'gender' => $req->emergencyGender2,
+            'phone' => $req->emergencyPhoneNo2
+        );
+
+        $emergency3 = array(
+            'first_name' => $req->emergencyFirstName3,
+            'middle_name' => $req->emergencyMiddleName3,
+            'last_name' => $req->emergencyLastName3,
+            'gender' => $req->emergencyGender3,
+            'phone' => $req->emergencyPhoneNo3
+        );
+
+        $transport1 = array(
+            'transport_type' => $req->transportType,
+            'first_name' => $req->transportFirstName,
+            'middle_name' => $req->transportMiddleName,
+            'last_name' => $req->transportLastName,
+            'gender' => $req->transportGender,
+            'phone' => $req->transportPhoneNo
+        );
+
+        $transport2 = array(
+            'transport_type' => $req->transportType2,
+            'first_name' => $req->transportFirstName2,
+            'middle_name' => $req->transportMiddleName2,
+            'last_name' => $req->transportLastName2,
+            'gender' => $req->transportGender2,
+            'phone' => $req->transportPhoneNo2
+        );
+        $transport3 = array(
+            'transport_type' => $req->transportType3,
+            'first_name' => $req->transportFirstName3,
+            'middle_name' => $req->transportMiddleName3,
+            'last_name' => $req->transportLastName3,
+            'gender' => $req->transportGender3,
+            'phone' => $req->transportPhoneNo3
+        );
+
+
             $this->insertStudentBackgroud($student_background);
             $this->insertStudentMedicalInfo($student_medical_info);
             $this->insertStudent($student,$req);
             $this->insertStudentClassTransfer($student_class_transfer);
+            $this->insertAddress($address1);
+            $this->insertParent($parent1);
+            if ($parent2['first_name'] && $parent2['middle_name'] && $parent2['last_name']) {
+                $this->insertAddress($address2);
+                $this->insertParent($parent2);
+            }if ($parent3['first_name'] && $parent3['middle_name'] && $parent3['last_name']) {
+                $this->insertAddress($address3);
+                $this->insertParent($parent3);
+            }
+            $this->insertEmegency($emergency1);
+            if ($emergency2['first_name'] && $emergency2['middle_name'] && $emergency2['last_name']) {
+                $this->insertEmegency($emergency2);
+            }if ($emergency3['first_name'] && $emergency3['middle_name'] && $emergency3['last_name']) {
+                $this->insertEmegency($emergency3);
+            }
+            $this->insertTransport($transport1);
+            if ($transport2['first_name'] && $transport2['middle_name'] && $transport2['last_name']) {
+                $this->insertTransport($transport2);
+            }if ($transport3['first_name'] && $transport3['middle_name'] && $transport3['last_name']) {
+                $this->insertTransport($transport3);
+            }
+
             $all_class = classes::all();
             $all_stream = stream::all();
             $all_role = Role::all();
-            return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
+            return view('admin.student.add_student_form')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
 
-        }else{
-
-            $this->insertStudentBackgroud($student_background);
-            $this->insertStudentMedicalInfo($student_medical_info);
-            $this->insertStudent($student,$req);
-            $this->insertStudentClassTransfer($student_class_transfer);
-            $this->insertAddress($addres);
-            $this->insertParent($parent);
-            $all_class = classes::all();
-            $all_stream = stream::all();
-            $all_role = Role::all();
-            return view('admin.student.add_student')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
-        }
 
     }
 
@@ -316,15 +437,15 @@ class StudentController extends Controller{
     public function insertAddress($data){
         $address = new Address();
         $address->city = $data['city'];
-        $address->subcity = $data['subcity'];
+        $address->unit = $data['unit'];
         $address->email = $data['email'];
         $address->kebele = $data['kebele'];
         $address->p_o_box = $data['p_o_box'];
-        $address->phone_number = $data['phone1'];
-        $address->alternative_phone_number = $data['phone2'];
+        $address->home_phone_number = $data['home_phone_number'];
+        $address->work_phone_number = $data['work_phone_number'];
+        $address->phone_number = $data['phone_number'];
         $address->house_number = $data['houseNumber'];
         $address->save();
-
     }
     public function insertParent($data){
         $address_fk = Address::latest('created_at')->pluck('id')->first();
@@ -351,7 +472,14 @@ class StudentController extends Controller{
         $studentBackground->suspension_status = $data['suspension_status'];
         $studentBackground->expulsion_status = $data['expulsion_status'];
         $studentBackground->citizenship = $data['citizenship'];
+        $studentBackground->state_of_birth = $data['state_of_birth'];
+        $studentBackground->country_of_birth = $data['country_of_birth'];
         $studentBackground->previous_school = $data['previous_school'];
+        $studentBackground->previous_school_city = $data['previous_school_city'];
+        $studentBackground->previous_school_state = $data['previous_school_state'];
+        $studentBackground->previous_school_country = $data['previous_school_country'];
+        $studentBackground->daycare_program = $data['day_care_program'];
+        $studentBackground->kindengarten = $data['kinder_garten'];
         $studentBackground->previous_special_education = $data['special_education'];
         $studentBackground->native_tongue = $data['native_tongue'];
         $studentBackground->save();
@@ -366,6 +494,7 @@ class StudentController extends Controller{
     }
 
     public function insertStudent($data,$req){
+
         $generate_id = $this->idGeneratorFun();
         $studentBg_fk = student_background::latest('created_at')->pluck('id')->first();
         $studentMedicalInfo_fk = student_medical_info::latest('created_at')->pluck('id')->first();
@@ -378,13 +507,20 @@ class StudentController extends Controller{
         $student->birth_year = $data['birth_date'];
         $student->gender = $data['gender'];
         // $student->image = $data['image'];
-        if($req->image->getClientOriginalName()){
-            $ext =$req->image->getClientOriginalExtension();
-            $image = $data['first_name'].'_'.$data['middle_name'].'_'.$data['last_name'].$generate_id.'.'.$ext;
-            $req->image->storeAs('public/student_image',$image);
+        if (!$req->image == '') {
+            # code...
+            if($req->image->getClientOriginalName()){
+                $ext =$req->image->getClientOriginalExtension();
+                $image = $data['first_name'].'_'.$data['middle_name'].'_'.$data['last_name'].$generate_id.'.'.$ext;
+                $req->image->storeAs('public/student_image',$image);
+            }else{
+                $image = null;
+            }
         }else{
-            $image='';
+            $image = null;
+
         }
+
         $student->image = $image;
         $student->class_id = $data['class'];
         $student->stream_id = $data['stream'];
@@ -421,17 +557,26 @@ class StudentController extends Controller{
         $enrollment->acadamic_year = $student_class_transfer->academic_year;
         $enrollment->save();
     }
-    // public function idGeneratorFun(){
-    //     $fourRandomDigit = rand(1000,9999);
-    //     $student = student::get(['id']);
-    //     foreach($student as $row){
-    //         if($row->id==$fourRandomDigit){
-    //             $this->idGeneratorFun();
-    //         }
-    //     }
-    //     return $fourRandomDigit;
-    // }
 
+    public function insertEmegency($data){
+        $studentEmergencyContact = new student_emergency_contact();
+        $studentEmergencyContact->first_name = $data['first_name'];
+        $studentEmergencyContact->middle_name = $data['middle_name'];
+        $studentEmergencyContact->last_name = $data['last_name'];
+        $studentEmergencyContact->gender = $data['gender'];
+        $studentEmergencyContact->phone_number = $data['phone'];
+        $studentEmergencyContact->save();
+    }
+    public function insertTransport($data){
+        $studentTranspartation = new student_transport_info();
+        $studentTranspartation->transportation_type = $data['transport_type'];
+        $studentTranspartation->first_name = $data['first_name'];;
+        $studentTranspartation->middle_name = $data['middle_name'];
+        $studentTranspartation->last_name = $data['last_name'];
+        $studentTranspartation->gender = $data['gender'];
+        $studentTranspartation->phone_number = $data['phone'];
+        $studentTranspartation->save();
+    }
     public function idGeneratorFun(){
         $fourRandomDigit = rand(100000,999999);
         $student = student::get(['student_id']);

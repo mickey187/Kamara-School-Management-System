@@ -23,6 +23,7 @@ use App\Models\subject;
 use App\Models\teacher_course_load;
 use App\Models\training_institution_info;
 use App\Models\teacher;
+use App\Models\student_payment;
 use Illuminate\Support\Facades\DB;
 use Andegna;
 use App\Models\semister;
@@ -143,7 +144,6 @@ class ListTeacherController extends Controller
                     $promote->transfered_to = $nxtClass->id;
                     $promote->isRegistered = false;
                     $promote->update();
-
                     $student = student::find($row->student_id);
                     $student->class_id = $nxtClass->id;
                     $student->update();
@@ -151,7 +151,11 @@ class ListTeacherController extends Controller
                     $section = section::where('student_id',$row->student_id);
                     $section->delete();
 
-                    
+                    $student_payment_detail = DB::table('student_payment_load')
+                                                    ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
+                                                    ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
+                                                    ->get();
+
                     $promotedStudentSize++;
                 }
             }

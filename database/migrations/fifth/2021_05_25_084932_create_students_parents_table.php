@@ -21,14 +21,14 @@ class CreateStudentsParentsTable extends Migration
             $table->foreign('address_id')->references('id')->on('addresses')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('student');
             $table->foreign('student')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('first_name')->nullable(false);
-            $table->string('parent_id')->uniqid()->nullable(false);
-            $table->string('middle_name')->nullable(false);
+            $table->string('first_name')->nullable(true);
+            $table->string('parent_id')->uniqid()->nullable(true);
+            $table->string('middle_name')->nullable(true);
             $table->string('last_name')->nullable(true);
-            $table->string('gender')->nullable(false);
-            $table->string('relation')->nullable(false);
-            $table->integer('school_closur_priority')->nullable(false);
-            $table->integer('emergency_contact_priority')->nullable(false);
+            $table->string('gender')->nullable(true);
+            $table->string('relation')->nullable(true);
+            $table->integer('school_closur_priority')->nullable(true);
+            $table->integer('emergency_contact_priority')->nullable(true);
             $table->timestamps();
         });
     }

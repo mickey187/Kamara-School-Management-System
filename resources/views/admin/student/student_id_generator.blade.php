@@ -84,6 +84,29 @@
                 <div id="idGeneratePageList">
 
                 </div>
+                <div id="idGeneratePageForClass">
+                    <select id="classForId" class="form-control m-2">
+                        <option>Choose class</option>
+                        @foreach ($class as $row)
+                            <option value="{{ $row->id }}">{{ $row->class_label }}</option>
+                        @endforeach
+                    </select>
+                    <select id="streamForId" class="form-control m-2">
+                        <option>Choose stream</option>
+                        @foreach ($stream as $row)
+                            <option value="{{ $row->id }}">{{ $row->stream_type }}</option>
+                        @endforeach
+                    </select>
+                    <select id="sectionForId" class="form-control m-2">
+                        <option value="Choose section">Choose section</option>
+                    </select>
+                    <div class="m-2" id="idBtnList">
+                        <button id="generateIdForOneClassBtn" class="btn btn-disabled btn-secondary" disabled>Generate</button>
+                        <button id="downloadIdForOneClassBtn" class="btn btn-disabled btn-secondary" disabled><i class="fa fa-download"></i>Download</button>
+                    </div>
+                </div>
+                <div id="idGeneratePageForAllClass">
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

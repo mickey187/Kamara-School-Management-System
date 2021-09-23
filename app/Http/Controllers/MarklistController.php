@@ -64,7 +64,7 @@ class MarklistController extends Controller
         $mark_list->test_load = $load;
         $mark_list->subject_group_id = $sub->id;
         $mark_list->academic_year = $current_date;
-        $mark_list->assasment_type_id = $assasment_id;
+        $mark_list->assasment_type_id = $assasment_id; 
         if($mark_list->save()){
             $as = assasment_type::where('id',$assasment_id)->get('assasment_type')->first();
             //'class_label']);

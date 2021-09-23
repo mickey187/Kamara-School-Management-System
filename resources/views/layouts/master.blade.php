@@ -49,7 +49,7 @@
     <script src="{{asset('plugins/pace-progress/pace.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('plugins/pace-progress/themes/red/pace-theme-material.css')}}">
 
-    
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -434,14 +434,14 @@
                                         <p>Add Subject</p>
                                     </a>
                                 </li> --}}
-                                 
+
                                     {{-- <li class="nav-item">
                                     <a href="/viewSubject" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Subjects</p>
                                     </a>
                                 </li> --}}
-                                                                {{-- 
+                                                                {{--
 
                                 <li class="nav-item">
                                     <a href="/indexAddClassSubject" class="nav-link">
@@ -580,7 +580,7 @@
 
                         </li>
 
-{{-- 
+{{--
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-dollar-sign"></i>
@@ -718,8 +718,8 @@
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
-    {{-- <script src="{{ asset('plugins/jquery-validation/jquery.validation.min.js') }}"></script>
-     <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script> --}}
+    <script src="{{ asset('plugins/jquery-validation/jquery.validation.min.js') }}"></script>
+     <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -802,7 +802,7 @@ $(function() {
       <!-- student discount js -->
       <script src="{{ asset('student_discount.js') }}"></script>
 
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> --}}
 
 
 
@@ -857,11 +857,17 @@ $(function() {
     {{-- Curriculum validation --}}
 
     {{-- <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script> --}}
+    
+    <script type="text/javascript" src="{{ asset('dist/js/add_student_form.js') }}"></script>
     <script src="{{ asset('dist/validation/add_subject_validation.js') }}"></script>
-
+    <script src="{{ asset('dist/validation/student_form/student_page_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/student_form/academic_page_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/student_form/parent_page_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/student_form/emergency_page_validation.js') }}"></script>
+    <script src="{{ asset('dist/validation/student_form/transportation_page_validation.js') }}"></script>
 
      {{--employee validation --}}
-   
+
 
       <script src="{{ asset('dist/employee/add_employee_validation.js') }}"></script>
      {{-- <script src="{{ asset('dist/validation/add_religion_validation.js') }}"></script> --}}
@@ -944,6 +950,11 @@ $(function() {
         })
       </script>
       <script>
+          $('.selectpicker').selectpicker(
+            {
+                liveSearchPlaceholder: 'Placeholder text'
+            }
+            );
         $('.countrypicker').countrypicker();
         $(document).on('click', '.number-spinner button', function () {
         var btn = $(this),
