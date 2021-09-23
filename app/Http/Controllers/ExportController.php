@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\classes;
+use App\Models\stream;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -116,6 +117,10 @@ class ExportController extends Controller
 
 
     public function generateOneClassIdCard($class_id,$stream_id,$section_name){
+
+        $stream_label = stream::where('id',$stream_id)->get()->first()->stream_type;
+        $class_label2 = classes::where('id',$class_id)->get()->first()->class_label.' '.$stream_label.' '.strtoupper($section_name);
+        ini_set('max_execution_time','120');
         $getStudent = DB::table('sections')
         ->join('students','sections.student_id','=','students.id')
         ->join('classes','sections.class_id','=','classes.id')
@@ -124,15 +129,16 @@ class ExportController extends Controller
         ->where('streams.id',$stream_id)
         ->where('section_name',$section_name)
         ->get(['students.student_id','stream_type','gender','students.created_at','section_name','class_label','first_name','middle_name','last_name',DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name')]);
-        // return $getStudent;
-        File::makeDirectory(storage_path('app/public/student_id_image/grade/'.classes::where('id',$class_id)->get()->first()->class_label.$section_name));
+
+        if(!File::exists(storage_path('app/public/student_id_image/grade/'.$class_label2))){
+            File::makeDirectory(storage_path('app/public/student_id_image/grade/'.$class_label2));
+        }
         foreach($getStudent as $row){
             $generator = new Picqer\Barcode\BarcodeGeneratorJPG();
+
             file_put_contents(storage_path('app/public/student_id_image/barcode/barcode.jpg'), $generator->getBarcode("Name: ".$row->full_name." ID: ".$row->student_id, $generator::TYPE_CODE_128));
 
             QRCode::text("Name: ".$row->full_name." ID: ".$row->student_id)->setOutfile(storage_path('app/public/student_id_image/qrcode/qrcode.png'))->png();        // QrCode::size(500)
-            //             ->format('png')
-            //             ->generate('ItSolutionStuff.com', storage_path('app/public/student_id_image/qrcode/qrcode.png'),100,100);
 
             $img = Image::make(storage_path('app/public/student_id_image/idcard.jpg'))->resize(1016,638);
                  $img->text('Name : ',320,270, function($font){
@@ -207,36 +213,31 @@ class ExportController extends Controller
 
                  $img->save(storage_path('app/public/student_id_image/temp/temp.png'));
                  $img2 = Image::make(storage_path('app/public/student_id_image/temp/temp.png'));
-                 $img2->save(storage_path('app/public/student_id_image/grade/'.$row->first_name."_".$row->middle_name."_".$row->last_name."_".$row->student_id.'.png'));
-
-        }
-        return "Id Card Generated!";
-    }
-
-
-
-
-
-    public function downloadZip()
-    {
-        $zip = new ZipArchive;
-
-        $fileName = 'myNewFile.zip';
-
-        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
-        {
-            $files = File::files(public_path('myFiles'));
-
-            foreach ($files as $key => $value) {
-                $relativeNameInZipFile = basename($value);
-                $zip->addFile($value, $relativeNameInZipFile);
+                 $img2->save(storage_path('app/public/student_id_image/grade/'.$class_label2."/".$row->first_name."_".$row->middle_name."_".$row->last_name."_".$row->student_id.'.png'));
             }
-
-            $zip->close();
+           return $this->downloadZip(storage_path('app/public/student_id_image/grade/collection.zip'),storage_path('app/public/student_id_image/grade/'.$class_label2),$class_label2.' '.$stream_label);
         }
 
-        return response()->download(public_path($fileName));
+    public function downloadZip($path,$incom_file,$class_name){
+        $zip_file = $path;
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+        $path = $incom_file;
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+        foreach ($files as $name => $file)
+        {
+            // We're skipping all subfolders
+            if (!$file->isDir()) {
+                $filePath = $file->getRealPath();
+                // extracting filename with substr/strlen
+                $relativePath = $class_name.'/' . substr($filePath, strlen($path) + 1);
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $zip->close();
+        return response()->download($zip_file);
     }
+
 }
 
 
