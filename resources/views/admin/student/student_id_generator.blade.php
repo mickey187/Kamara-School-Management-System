@@ -48,7 +48,12 @@
                     </a>
                 </div>
                 <div class="col-4" style="margin-top: 20px;">
-                    <a  style="cursor: pointer;" >
+                    <a  style="cursor: pointer;"
+                        onclick="idCardForAllClassBtn();"
+                        data-toggle="modal"
+                        data-card3=""
+                        data-target="#idGeneratrModal"
+                    >
                         <div class="small-box bg-primary">
                             <div class="inner p-3">
                               <p>Generate ID For All Classes</p><br>
@@ -83,28 +88,56 @@
                 <div id="idGeneratePageList">
 
                 </div>
-                <div id="idGeneratePageForClass">
-                    <select id="classForId" class="form-control m-2">
-                        <option>Choose class</option>
-                        @foreach ($class as $row)
-                            <option value="{{ $row->id }}">{{ $row->class_label }}</option>
-                        @endforeach
-                    </select>
-                    <select id="streamForId" class="form-control m-2">
-                        <option>Choose stream</option>
-                        @foreach ($stream as $row)
-                            <option value="{{ $row->id }}">{{ $row->stream_type }}</option>
-                        @endforeach
-                    </select>
-                    <select id="sectionForId" class="form-control m-2">
-                        <option value="Choose section">Choose section</option>
-                    </select>
-                    <div class="m-2" id="idBtnList">
+                <div id="idGeneratePageForClass" class="col-6 ">
+                    <div class="m-2">
+                        <select id="classForId" style="width: 100%;" class="form-control select2 ">
+                            <option>Choose class</option>
+                            @foreach ($class as $row)
+                                <option value="{{ $row->id }}">{{ $row->class_label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="m-2">
+                        <select id="streamForId" style="width: 100%;" class="form-control select2">
+                            <option>Choose stream</option>
+                            @foreach ($stream as $row)
+                                <option value="{{ $row->id }}">{{ $row->stream_type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="m-2">
+                        <select id="sectionForId" style="width: 100%;" class="form-control select2">
+                            <option value="Choose section">Choose section</option>
+                        </select>
+                    </div>
+                    <div class="ml-2 mt-5" id="idBtnList">
                         <button id="generateIdForOneClassBtn" class="btn btn-disabled btn-secondary" disabled>Generate</button>
                         <button id="downloadIdForOneClassBtn" class="btn btn-disabled btn-secondary" disabled><i class="fa fa-download"></i>Download</button>
                     </div>
                 </div>
-                <div id="idGeneratePageForAllClass">
+                <div id="idGeneratePageForAllClass" class="row justify-content-center">
+
+                    <div class="col-6" style="margin-top: 20px;">
+                        <a  style="cursor: pointer;"
+                            onclick="idCardForAllClass();"
+                        >
+                            <div class="small-box bg-primary">
+                                <div class="inner p-3">
+                                  <p id="title_for_spinner">Generate id for all student</p><br>
+                                </div>
+                                <div class="icon" style="color:white"><br>
+                                    <i id="static_icon" class="fas fa-cogs"></i>
+                                    {{-- <div class="fa-3x"> --}}
+                                        <i id="anim_icon" style="display: none;" class="fas fa-cogs fa-spin"></i>
+                                      {{-- </div> --}}
+                                </div>
+                                <a class="small-box-footer">
+                                    <i class="fas fa-cogs"></i>
+                                </a>
+                              </div>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

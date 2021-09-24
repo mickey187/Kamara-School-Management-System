@@ -425,6 +425,8 @@ Route::get('getCLassStreamSection2/{class_id}/{stream_id}',[Curriculum::class,'g
 Route::get('/indexHomeRoomAttendance',[AttendanceController::class, 'indexHomeRoomAttendance']);
 
 Route::get('/getHomeRoomAttendance/{year_month}',[AttendanceController::class, 'getHomeRoomAttendance']);
+Route::get('generateIDForAllClass',[ExportController::class,'generateIDForAllClass']);
+
 
 //marklist
 
@@ -563,6 +565,9 @@ Route::get('getAllAssasment', function () {
 Route::get('pdf/generate/{path}', [ExcelController::class, 'create']);
 
 Route::get('downloadSingleStudentId/{id}', [ExcelController::class, 'downloadSingleId']);
+Route::get('downloadOneClassIdCard/{class_id}/{stream_id}/{section_name}', [ExportController::class, 'downloadSingleClassIdCard']);
+
+
 
 Route::get('checkIfIdGeneratedForClass/{class_id}/{stream_id}/{section_name}',[ExportController::class, 'checkIfIdGeneratedForClass']);
 require __DIR__.'/auth.php';

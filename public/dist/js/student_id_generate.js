@@ -27,6 +27,7 @@ function singleStudentIdBtn(){
     $("#idGeneratePageList").html('');
     $('#idGeneratePageForClass').hide();
     $("#idGeneratPage").show();
+    $("#idGeneratePageForAllClass").hide();
     page='<div class="row col-12">'+
             '<input type="number" placeholder="ID" id="studentIdForDetail" class="form-control col-6 m-1">'+
             '<input type="button" value="fetch" onclick="studentIdFetchBtn();" class="btn btn-success col-1 m-1">'+
@@ -59,6 +60,7 @@ function downloadSingleId(val){
 function singleClassIdBtn(){
     $("#idGeneratePageList").html('');
     $("#idGeneratPage").hide();
+    $("#idGeneratePageForAllClass").hide();
     $('#idGeneratePageForClass').show();
 }
 
@@ -112,11 +114,11 @@ $("#sectionForId").change(function (e) {
             success: function (response) {
                 if(response===true){
                     var btn ='<button onclick="generateIdForOneClassBtn();" id="generateIdForOneClassBtn" class="btn btn-secondary m-2" disabled>Generate ID</button>'+
-                            '<button onclick="" id="downloadIdForOneClassBtn" class="btn  btn-primary m-2" ><i class="fa fa-download"></i>Download</button>';
+                            '<button onclick="downloadIdForOneClassBtn();" id="downloadIdForOneClassBtn" class="btn  btn-primary m-2" ><i class="fa fa-download"></i>Download</button>';
                         $("#idBtnList").html(btn);
                 }else{
-                    var btn ='<button onclick="generateIdForOneClassBtn();" id="generateIdForOneClassBtn" class="btn btn-success m-2" >Generate</button>'+
-                            '<button onclick="downloadIdForOneClassBtn();" id="downloadIdForOneClassBtn" class="btn  btn-secondary m-2" disabled><i class="fa fa-download"></i>Download</button>';
+                    var btn ='<button onclick="generateIdForOneClassBtn();" id="generateIdForOneClassBtn" class="btn btn-success ">Generate</button>'+
+                            '<button onclick="downloadIdForOneClassBtn();" id="downloadIdForOneClassBtn" class="btn  btn-secondary m-1" disabled><i class="fa fa-download"></i>Download</button>';
                         $("#idBtnList").html(btn);
                 }
             }
@@ -128,8 +130,49 @@ function generateIdForOneClassBtn(){
     var class_id = $("#classForId").val();
     var stream_id = $("#streamForId").val();
     var section_label = $("#sectionForId").val();
-
-    window.location.href =  "generateOneClassIdCard/"+class_id+"/"+stream_id+"/"+section_label;
+    $.ajax({
+        type: "GET",
+        url: "generateOneClassIdCard/"+class_id+"/"+stream_id+"/"+section_label,
+        dataType: "json",
+        success: function (response) {
+            // swal.fire(response);
+            var btn ='<button onclick="generateIdForOneClassBtn();" id="generateIdForOneClassBtn" disabled class="btn btn-secondary" disabled>Generate ID</button>'+
+                    '<button onclick="downloadIdForOneClassBtn()" id="downloadIdForOneClassBtn" class="btn  btn-primary m-2"  ><i class="fa fa-download"></i>Download</button>';
+                    $("#idBtnList").html(btn);
+        }
+    });
+    // window.location.href =  "generateOneClassIdCard/"+class_id+"/"+stream_id+"/"+section_label;
 
 }
 
+function downloadIdForOneClassBtn(){
+    var class_id = $("#classForId").val();
+    var stream_id = $("#streamForId").val();
+    var section_label = $("#sectionForId").val();
+    window.location.href =  "downloadOneClassIdCard/"+class_id+"/"+stream_id+"/"+section_label;
+}
+
+function idCardForAllClassBtn(){
+    $("#idGeneratePageList").html('');
+    $('#idGeneratePageForClass').hide();
+    $("#idGeneratPage").hide();
+    $("#idGeneratePageForAllClass").show();
+}
+
+function idCardForAllClass()
+{
+    $('#static_icon').hide();
+    $('#title_for_spinner').html('Generating...');
+    $('#anim_icon').show();
+
+    $.ajax({
+        type: "GET",
+        url: "generateIDForAllClass",
+        dataType: "json",
+        success: function (response) {
+            $('#static_icon').show();
+            $('#anim_icon').hide();
+            $('#title_for_spinner').html('Completed!');
+        }
+    });
+}
