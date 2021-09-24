@@ -114,6 +114,11 @@ class MarklistController extends Controller
         return "Student inserted";
     }
 
+    public function assasmentForm(){
+        $ass = assasment_type::all();
+        return view('admin.curriculum.add_assasment_label')->with('assasment',$ass);
+    }
+
     public function addAssasment(Request $req){
         $assasment = new assasment_type;
         $validated = $req->validate(['assasment_type'=>'required|unique:assasment_types|max:20']);
@@ -124,12 +129,6 @@ class MarklistController extends Controller
             return redirect()->route('/addAssasment')->with('ass', $ass);
         }
     }
-
-    public function assasmentForm(){
-        $ass = assasment_type::all();
-        return view('admin.curriculum.add_assasment_label')->with('assasment',$ass);
-    }
-
 
     public function edit_assasment_type($id){
         $edit_assasment = assasment_type::find($id);

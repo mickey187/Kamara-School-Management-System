@@ -416,9 +416,9 @@
                                         </div>
                                         <div class="field">
                                             <div class="label">Sub city</div>
-                                            <input type="text" name="sub_city" class="form-control" placeholder="Subcity"
+                                            <input type="text" name="emp_unit" class="form-control" placeholder="Subcity"
                                              @if(isset($edit_employee))
-                                               value="{{ $edit_employee->subcity }}"
+                                               value="{{ $edit_employee->unit }}"
                                                @else
                                                value=""
                                             @endif
@@ -473,7 +473,7 @@
                                         <div class="col-4">
                                             <div class="field">
                                                 <div class="label">Phone</div>
-                                                <input type="text" name="phone1" class="form-control" placeholder="Phone"
+                                                <input type="text" name="phone_number" class="form-control" placeholder="Phone"
                                                  @if(isset($edit_employee))
                                                    value="{{ $edit_employee->phone_number }}"
                                                    @else
@@ -483,9 +483,9 @@
                                             </div>
                                             <div class="field">
                                                 <div class="label">Alternative Phone</div>
-                                                <input type="text" name="phone2" class="form-control" placeholder="Alternative phone"
+                                                <input type="text" name="home_phone_number" class="form-control" placeholder="Alternative phone"
                                                  @if(isset($edit_employee))
-                                                   value="{{ $edit_employee->alternative_phone_number }}"
+                                                   value="{{ $edit_employee->home_phone_number }}"
                                                  @else
                                                     value=""
                                                 @endif

@@ -148,11 +148,11 @@
                                                     <div class="form-group col-lg-4 col-md-6 col-sm-12 mt-2">
                                                         <div class="label">Academic year</div>
                                                         <select  id="student_page_academic_year_id" style="width: 100%;" name="studentAcademicYear" data-placeholder="required*" required class="select2 form-control m-2" >
-                                                            <option selected value="{{    \Andegna\DateTimeFactory::now()->getYear(); }}" >EC {{    \Andegna\DateTimeFactory::now()->getYear(); }}</option>
-                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+1; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+1; }}</option>
-                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+2; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+2; }}</option>
-                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+3; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+3; }}</option>
-                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+4; }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+4; }}</option>
+                                                            <option selected value="{{    \Andegna\DateTimeFactory::now()->getYear() }}" >EC {{    \Andegna\DateTimeFactory::now()->getYear() }}</option>
+                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+1 }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+1 }}</option>
+                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+2 }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+2 }}</option>
+                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+3 }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+3 }}</option>
+                                                            <option value="{{    \Andegna\DateTimeFactory::now()->getYear()+4 }}">EC {{    \Andegna\DateTimeFactory::now()->getYear()+4 }}</option>
                                                         </select>
                                                         <small style="color:#fff;">error message</small>
                                                     </div>

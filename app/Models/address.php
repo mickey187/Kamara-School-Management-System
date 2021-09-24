@@ -15,7 +15,8 @@ class address extends Model
                             'kebele',
                             'p_o_box',
                             'phone_number',
-                            'alternative_phone_number',
+                            'home_phone_number',
+                            'unit',
                             'house_number'
                         ];
 }

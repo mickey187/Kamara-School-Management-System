@@ -574,21 +574,21 @@ emp_city.oninput=function(){
         setErorFor(emp_city,"you reach max length")
     }
 };
-var emp_sub_city = document.getElementById('emp_sub_city')
-emp_sub_city.oninput=function(){
-     if((emp_sub_city.value).length >= 3){
-        setSuccessFor(emp_sub_city);
-    }if((emp_sub_city.value).length < 3){
-        setDefaultFor(emp_sub_city,"please enter the valid city")
-    }if((emp_sub_city.value).length > 20){
-        setErorFor(emp_sub_city,"you reach max length")
+var emp_unit = document.getElementById('emp_unit')
+emp_unit.oninput=function(){
+     if((emp_unit.value).length >= 3){
+        setSuccessFor(emp_unit);
+    }if((emp_unit.value).length < 3){
+        setDefaultFor(emp_unit,"please enter the valid city")
+    }if((emp_unit.value).length > 20){
+        setErorFor(emp_unit,"you reach max length")
     }
 };
 
 
 emp_addBtn.addEventListener("click", function() {
     var emp_city = document.getElementById('emp_city')
-    var emp_sub_city = document.getElementById('emp_sub_city')
+    var emp_unit = document.getElementById('emp_unit')
     var emp_kebele = document.getElementById('emp_kebele')
     var emp_house_number = document.getElementById('emp_house_number')
     var emp_POBox = document.getElementById('emp_POBox')
@@ -602,11 +602,11 @@ emp_addBtn.addEventListener("click", function() {
         setSuccessFor(emp_city)
     }
 
-    if((emp_sub_city.value).length<3){
-        setDefaultFor(emp_sub_city,"employee sub city can not be min length")
+    if((emp_unit.value).length<3){
+        setDefaultFor(emp_unit,"employee sub city can not be min length")
 
     }else{
-        setSuccessFor(emp_sub_city)
+        setSuccessFor(emp_unit)
     }
 
     if(emp_kebele.value.trim() === '' ){

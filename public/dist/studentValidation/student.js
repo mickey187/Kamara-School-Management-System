@@ -105,7 +105,7 @@ studentCitizen.oninput=function(){
 // };
 
 studentFirstNextBtn.addEventListener("click",function(){
-    var studentFirstName = $('#studentFirstName').val();
+    // var studentFirstName = $('#studentFirstName').val();
     var studentMiddleName = $('#studentMiddleName').val();
     var studentLastName = $('#studentLastName').val();
     var studentBirthDate = $('#studentBirthDate').val();

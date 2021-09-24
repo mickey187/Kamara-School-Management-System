@@ -109,12 +109,12 @@ class EmployeeRegistrationController extends Controller
 
         $address = address::find($employee->address_id);
         $address->city = request('City');
-        $address->subcity = request('sub_city');
+        $address->unit = request('emp_unit');
         $address->email = request('email');
         $address->kebele = request('Kebele');
         $address->p_o_box = request('POBox');
-        $address->phone_number = request('phone1');
-        $address->alternative_phone_number = request('phone2');
+        $address->phone_number = request('phone_number');
+        $address->home_phone_number = request('home_phone_number');
         $address->house_number = request('house_number');
         $address->update();
 
@@ -183,12 +183,12 @@ class EmployeeRegistrationController extends Controller
      public function insertAddress(){
         $address = new Address();
         $address->city = request('City');
-        $address->subcity = request('sub_city');
+        $address->unit = request('emp_unit');
         $address->email = request('email');
         $address->kebele = request('Kebele');
         $address->p_o_box = request('POBox');
-        $address->phone_number = request('phone1');
-        $address->alternative_phone_number = request('phone2');
+        $address->phone_number = request('phone_number');
+        $address->home_phone_number = request('home_phone_number');
         $address->house_number = request('house_number');
         $address->save();
     }

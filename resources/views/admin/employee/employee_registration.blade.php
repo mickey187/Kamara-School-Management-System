@@ -568,7 +568,7 @@
                                         </div>
                                         <div class="field">
                                             <div class="label">Sub city</div>
-                                            <input type="text" id="emp_sub_city" name="sub_city" class="form-control"
+                                            <input type="text" id="emp_unit" name="emp_unit" class="form-control"
                                              placeholder="Subcity"
 
                                                       onkeydown="return alphaOnly(event);"
@@ -577,7 +577,7 @@
                                                       required size="30" minlength="3" maxlength="21"
 
                                              @if(isset($edit_employee))
-                                               value="{{ $edit_employee->subcity }}"
+                                               value="{{ $edit_employee->unit}}"
                                                @else
                                                value=""
                                             @endif
@@ -637,7 +637,7 @@
                                         <div class="col-4">
                                             <div class="field">
                                                 <div class="label">Phone</div>
-                                                <input type="number" id="emp_phone1"   required name="phone1" class="form-control"
+                                                <input type="number" id="emp_phone1"   required name="phone_number" class="form-control"
                                                 placeholder="Phone"   maxlength="14"
 
                                                  @if(isset($edit_employee))
@@ -649,10 +649,10 @@
                                             </div>
                                             <div class="field">
                                                 <div class="label">Alternative Phone</div>
-                                                <input type="number" id="emp_phone2" required name="phone2" class="form-control"
+                                                <input type="number" id="emp_phone2" required name="home_phone_number" class="form-control"
                                                  placeholder="Alternative phone" maxlength="14"
                                                  @if(isset($edit_employee))
-                                                   value="{{ $edit_employee->alternative_phone_number }}"
+                                                   value="{{ $edit_employee->home_phone_number }}"
                                                  @else
                                                     value=""
                                                 @endif
