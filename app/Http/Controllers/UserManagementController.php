@@ -173,7 +173,7 @@ class UserManagementController extends Controller
 
     public function changeUserPassword(Request $req){
 
-    
+
 
             if (DB::table('users')
             ->where('users.id',$req->user_table_id)
