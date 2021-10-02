@@ -98,7 +98,7 @@
                                         <div class="mt-3">
                                           <h4>{{ $employee->first_name.' '.$employee->middle_name.' '.$employee->last_name }}</h4>
                                           <p class="text-secondary mb-1">{{ $employee->gender }}</p>
-                                          <p class="text-muted font-size-sm"> City: {{ $employee->city }},{{ $employee->subcity }}</p>
+                                          <p class="text-muted font-size-sm"> City: {{ $employee->city }},{{ $employee->unit }}</p>
                                         </div>
                                       </div>
                                     </div>
@@ -139,7 +139,7 @@
                                           <h6 class="mb-0">Mobile</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                          {{ $employee->alternative_phone_number }}
+                                          {{ $employee->home_phone_number }}
                                         </div>
                                       </div>
                                       <hr>
