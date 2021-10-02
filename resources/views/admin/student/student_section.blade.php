@@ -17,37 +17,29 @@
                           <div class="col-xs-12 col-lg-12 col-sm-12 ">
                             <nav>
                               <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Section All</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sectioned Classes</a>
+                                {{-- <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Section All</a> --}}
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Sectioned Classes</a>
                                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Unsectioned Classes</a>
-                                <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Individualy Assign Section</a>
+                                <a class="nav-item nav-link bg-secondary" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Individualy Assign Section</a>
                               </div>
                             </nav>
                             <div class="col-12 tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                              <div class="col-12 tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                              {{-- <div class="col-12 tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <section>
-                {{-- <form action="{{ url('setSection') }}" method="GET">
-                                        @csrf --}}
                                         <div class="row col-6 m-2">
-                                            {{-- <div> --}}
                                                 <select name="class" class="form-control col-4 m-1" id="class">
                                                     @foreach ($class as $row)
                                                         <option value="{{ $row->id }}">{{ $row->class_label }}</option>
                                                     @endforeach
                                                 </select>
-                                            {{-- </div>
-                                            <div> --}}
                                                 <select name="stream" class="form-control col-4 m-1" id="stream">
                                                     @foreach ($stream as $row)
                                                         <option value="{{ $row->id }}">{{ $row->stream_type }}</option>
                                                     @endforeach
                                                 </select>
                                                 <input class="btn btn-primary col-4 m-1" type="button" id="searchStudentClass" value="List Students" >
-                                            {{-- </div> --}}
+
                                         </div>
-                                        {{-- <div class="form-group row m-4">
-                                            <input class="btn btn-primary col-4" type="button" id="searchStudentClass" value="Find" >
-                                        </div> --}}
                                         <div class="card col-5 ml-2">
                                             <div class=" m-3 flex" id="sections">
 
@@ -70,7 +62,7 @@
                                                 <input class="form-control btn btn-primary" type="button" id="setSection" value="Set Section">
                                             </div>
                                         </div>
-                                                            {{-- </form> --}}
+
                                         <br>
                                         <div class="col-12">
                                         <div style="display: none;" id="table1" class="table">
@@ -98,7 +90,7 @@
                                                 </div>
                                             </div>
                                                 <div id="customSection" style="display: none;" class="customSection btn-group btn-group-toggle bg-light" data-toggle="buttons">
-                                                    {{-- <div class="row m-1" > --}}
+
                                                         <label class="btn btn-secondary active">
                                                             <input type="radio" name="section" id="option1" autocomplete="off" value="A"> A
                                                         </label>
@@ -132,9 +124,6 @@
                                                         <label class="btn btn-secondary ">
                                                             <input type="radio" name="section" id="option11" autocomplete="off" value="K"> K
                                                         </label>
-
-                                                    {{-- </div> --}}
-                                                    {{-- <button class="btn btn-primary" onclick="addSectionSize()"><i class="fa fa-plus"> add section size</i></button> --}}
                                                 </div>
                                                 <div class="row" style="display: none;" id="assignCustomSection">
                                                     <input id="assignSectionForSelectedStudent" type="button" class="btn btn-success m-2" value="Assign Section">
@@ -153,7 +142,7 @@
                                             </table>
                                         </div>
                                 </section>
-                              </div>
+                              </div> --}}
                               <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
                                 {{-- <table id="example1" class="table table-bordered table-striped table-sm">
