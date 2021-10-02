@@ -52,206 +52,351 @@ class StudentController extends Controller{
     }
 
     public function insert(Request $req){
-        // return $req;
-        $student = array(
-            'first_name' => $req->studentFirstName,
-            'middle_name' => $req->studentMiddleName,
-            'last_name' => $req->studentLastName,
-            'birth_date' => $req->studentBirthDate,
-            'gender' => $req->studentGender,
-            'image' => $req->image,
-            'class' => $req->studentGrade,
-            'stream' => $req->studentStream,
-            'role' => 4,
-            'transport' => 'no'//$req->transport
-        );
+        // return $req;              
+                $validated = $req->validate([
+                    // student info 1st page
+                    'studentFirstName' => 'required|max:30|min:2',
+                    'studentMiddleName' => 'required|max:30|min:2',
+                    'studentLastName' => 'required|max:30|min:2',
+                    'studentGender' => 'required',
+                    'studentGrade' =>'required',
+                    'studentStream' => 'required',
+                    'studentBirthDate' => 'required',
+                    'studentLanguage' => 'required|min:2',
+                    'studentKindergarten' => 'required',
+                    'studentDayCareProgram' => 'required',
+                    'studentAcademicYear' => 'required',
+                    'studentCitizenship' => "nullable|min:2",
+                    'studentCountryOfBirth' => "nullable|min:2",
+                    'studentStateOfBirth' => "nullable|min:2",
 
-        $student_class_transfer = array(
-            'average' =>0,
-            'class' =>$req->studentGrade,
-            'academic_year' =>$req->studentAcademicYear
-        );
-        $student_background = array(
-            'transfer_reason' => $req->academicTransferReason,
-            'suspension_status' => $req->academicSuspension,
-            'expulsion_status' => $req->academicExpulsion,
-            'special_education' => $req->academicSpecialEducation,
-            'previous_school' => $req->academicPreviousSchool,
-            'previous_school_city' => $req->academicPreviousSchoolCity,
-            'previous_school_state' => $req->academicPreviousSchoolState,
-            'previous_school_country' => $req->academicPreviousSchoolCountry,
-            'citizenship' => $req->studentCitizenship,
-            'native_tongue' => $req->studentLanguage,
-            'day_care_program' => $req->studentDayCareProgram,
-            'kinder_garten' => $req->studentKindergarten,
-            'country_of_birth' => $req->studentCountryOfBirth,
-            'state_of_birth' => $req->studentStateOfBirth,
+                    //student academic background
+                    'academicTransferReason' => "nullable|min:2",
+                    'academicSuspension' => "nullable|min:2",
+                    'academicExpulsion' => "nullable|min:2",
+                    'academicSpecialEducation' => "nullable|min:2",
+                    'academicPreviousSchool' => "nullable|min:2",
+                    'academicPreviousSchoolCity' => "nullable|min:2",
+                    'academicPreviousSchoolState' => "nullable|min:2",
+                    'academicPreviousSchoolCountry' => "nullable|min:2",                   
+                    'academicMedicalCondtion' => "nullable|min:2",
+                    'academicBloodType' => "nullable|min:1",
+                    
+                    // parent info 3rd page
+                    'parentFirstName' => 'required|max:30',
+                    'parentMiddleName' => 'required|max:30',
+                    'parentLastName' => 'required|max:30',
+                    'parentGender' => 'required',
+                    'parentRelation' => 'required',              
+                    'parentSchoolClosurePriority' => "nullable|min:1",
+                    'parentEmergencyContactPriority' => "nullable|min:1",
 
-        );
+                    //1st parent address info 3rd page
+                    'parentKebele' => 'required',
+                    'parentMobilePhoneNo' => 'required|min:10|max:13',
+                    'parentUnit' => "nullable|min:1",
+                    'parentState' => "nullable|min:2",
+                    'parentCountry' => "nullable|min:2",
+                    'parentHouseNo' => "nullable|min:2",
+                    'parentPOBOX' => "nullable|min:2",
+                    'parentEmail' => "nullable|min:2",
+                    'parentHomePhoneNo' => "nullable|min:10|max:13",
+                    'parentWorkPhoneNo' => "nullable|min:10|max:13",
 
-        $student_medical_info = array(
-            'disablity' => '',
-            'medical_condtion' => $req->academicMedicalCondtion,
-            'blood_type' => $req->academicBloodType,
-        );
+                    // parent 2 info 3rd page
+                    'parentFirstName2' => "nullable|min:2|max:20",
+                    'parentMiddleName2' => "nullable|min:2|max:20",
+                    'parentLastName2' => "nullable|min:2|max:20",
+                    'birthDate2' => "nullable|min:2|max:20",
+                    'parentGender2' => "nullable|min:1|max:10",
+                    'parentRelation2' => "nullable|min:2",
+                    'parentSchoolClosurePriority2' => "nullable|min:1",
+                    'parentEmergencyContactPriority2' => "nullable|min:1",
 
-        $parent1 = array(
-            'first_name' => $req->parentFirstName,
-            'middle_name' => $req->parentFirstName,
-            'last_name' => $req->parentLastName,
-            'birth_date' => $req->birthDate,
-            'gender' => $req->parentGender,
-            'relation' => $req->parentRelation,
-            'role' => 5,
-            'school_closur_priority' => $req->parentSchoolClosurePriority,
-            'emergency_contact_priority' => $req->parentEmergencyContactPriority,
-        );
+                    //2nd parent address info 3rd page
+                    'parentUnit2' => "nullable|min:1",
+                    'parentState2' => "nullable|min:1",
+                    'parentCountry2' => "nullable|min:1",
+                    'parentKebele2' => "nullable|min:1",
+                    'parentHouseNo2' => "nullable|min:1",
+                    'parentPOBOX2' => "nullable|min:1",
+                    'parentEmail2' => "nullable|min:2",
+                    'parentHomePhoneNo2' => "nullable|min:10|max:13",
+                    'parentWorkPhoneNo2' => "nullable|min:10|max:13",
+                    'parentMobilePhoneNo2' => "nullable|min:10|max:13",
 
-        $parent2 = array(
-            'first_name' => $req->parentFirstName2,
-            'middle_name' => $req->parentFirstName2,
-            'last_name' => $req->parentLastName2,
-            'birth_date' => $req->birthDate2,
-            'gender' => $req->parentGender2,
-            'relation' => $req->parentRelation2,
-            'role' => 5,
-            'school_closur_priority' => $req->parentSchoolClosurePriority2,
-            'emergency_contact_priority' => $req->parentEmergencyContactPriority2,
-        );
+                    // parent 3 info 3rd page
+                    'parentFirstName3' => "nullable|min:2|max:20",
+                    'parentMiddleName3' => "nullable|min:2|max:20",
+                    'parentLastName3' => "nullable|min:2|max:20",
+                    'birthDate3' => "nullable|min:2|max:20",
+                    'parentGender3' => "nullable|min:1",
+                    'parentRelation3' => "nullable|min:2",
+                    'parentSchoolClosurePriority3' => "nullable|min:1",
+                    'parentEmergencyContactPriority3' => "nullable|min:1",
 
-        $parent3 = array(
-            'first_name' => $req->parentFirstName3,
-            'middle_name' => $req->parentFirstName3,
-            'last_name' => $req->parentLastName3,
-            'birth_date' => $req->birthDate3,
-            'gender' => $req->parentGender3,
-            'relation' => $req->parentRelation3,
-            'role' => 5,
-            'school_closur_priority' => $req->parentSchoolClosurePriority3,
-            'emergency_contact_priority' => $req->parentEmergencyContactPriority3,
-        );
+                    //3rd parent address info 3rd page
+                    'parentUnit3' => "nullable|min:1",
+                    'parentState3' => "nullable|min:1",
+                    'parentCountry3' => "nullable|min:1",
+                    'parentKebele3' => "nullable|min:1",
+                    'parentHouseNo3' => "nullable|min:1",
+                    'parentPOBOX3' => "nullable|min:1",
+                    'parentEmail3' => "nullable|min:2",
+                    'parentHomePhoneNo3' => "nullable|min:10|max:13",
+                    'parentWorkPhoneNo3' => "nullable|min:10|max:13",
+                    'parentMobilePhoneNo3' => "nullable|min:10|max:13",
 
-        $address1 = array(
-            'unit' => $req->parentUnit,
-            'city' => $req->parentState,
-            'country' => $req->parentCountry,
-            'kebele' => $req->parentKebele,
-            'houseNumber' => $req->parentHouseNo,
-            'p_o_box' => $req->parentPOBOX,
-            'email' => $req->parentEmail,
-            'home_phone_number' => $req->parentHomePhoneNo,
-            'work_phone_number' => $req->parentWorkPhoneNo,
-            'phone_number' =>$req->parentMobilePhoneNo
-        );
+                    // emergency information 4th page
+                    'emergencyFirstName' => 'required|max:30',
+                    'emergencyMiddleName' => 'required|max:30',
+                    'emergencyLastName' => 'required|max:30',
+                    'emergencyGender' => 'required',
+                    'emergencyPhoneNo' => 'required|min:10|max:13',
 
-        $address2 = array(
-            'unit' => $req->parentUnit2,
-            'city' => $req->parentState2,
-            'country' => $req->parentCountry2,
-            'kebele' => $req->parentKebele2,
-            'houseNumber' => $req->parentHouseNo2,
-            'p_o_box' => $req->parentPOBOX2,
-            'email' => $req->parentEmail2,
-            'home_phone_number' => $req->parentHomePhoneNo2,
-            'work_phone_number' => $req->parentWorkPhoneNo2,
-            'phone_number' =>$req->parentMobilePhoneNo2
-        );
-        $address3 = array(
-            'unit' => $req->parentUnit3,
-            'city' => $req->parentState3,
-            'country' => $req->parentCountry3,
-            'kebele' => $req->parentKebele3,
-            'houseNumber' => $req->parentHouseNo3,
-            'p_o_box' => $req->parentPOBOX3,
-            'email' => $req->parentEmail3,
-            'home_phone_number' => $req->parentHomePhoneNo3,
-            'work_phone_number' => $req->parentWorkPhoneNo3,
-            'phone_number' =>$req->parentMobilePhoneNo3
-        );
+                    // emergency2 information 4th page
+                    'emergencyFirstName2' => "nullable|min:2|max:20",
+                    'emergencyMiddleName2' => "nullable|min:2|max:20",
+                    'emergencyLastName2' => "nullable|min:2|max:20",
+                    'emergencyGender2' => "nullable|min:2|max:20",
+                    'emergencyPhoneNo2' => "nullable|min:10|max:13",
 
-        $emergency1 = array(
-            'first_name' => $req->emergencyFirstName,
-            'middle_name' => $req->emergencyMiddleName,
-            'last_name' => $req->emergencyLastName,
-            'gender' => $req->emergencyGender,
-            'phone' => $req->emergencyPhoneNo
-        );
+                    // emergency3 information 4th page
+                    'emergencyFirstName3' => "nullable|min:2|max:20",
+                    'emergencyMiddleName3' => "nullable|min:2|max:20",
+                    'emergencyLastName3' => "nullable|min:2|max:20",
+                    'emergencyGender3' => "nullable|min:2|max:20",
+                    'emergencyPhoneNo3' => "nullable|min:10|max:13",
 
-        $emergency2 = array(
-            'first_name' => $req->emergencyFirstName2,
-            'middle_name' => $req->emergencyMiddleName2,
-            'last_name' => $req->emergencyLastName2,
-            'gender' => $req->emergencyGender2,
-            'phone' => $req->emergencyPhoneNo2
-        );
+                    // transportation & gurdian info 5th page
+                    'transportType' => 'required|max:40',
+                    'transportFirstName' => 'required|max:30',
+                    'transportMiddleName' => 'required|max:30',
+                    'transportLastName' => 'required|max:30',
+                    'transportGender' => 'required',
+                    'transportPhoneNo' => 'required|min:10|max:13',
 
-        $emergency3 = array(
-            'first_name' => $req->emergencyFirstName3,
-            'middle_name' => $req->emergencyMiddleName3,
-            'last_name' => $req->emergencyLastName3,
-            'gender' => $req->emergencyGender3,
-            'phone' => $req->emergencyPhoneNo3
-        );
+                    // transportation 2 & gurdian info 5th page
+                    'transportType2' => "nullable|min:2|max:20",
+                    'transportFirstName2' => "nullable|min:2|max:20",
+                    'transportMiddleName2'=> "nullable|min:2|max:20",
+                    'transportLastName2' => "nullable|min:2|max:20",
+                    'transportGender2' => "nullable|min:1|max:20",
+                    'transportPhoneNo2' => "nullable|min:10|max:13",
 
-        $transport1 = array(
-            'transport_type' => $req->transportType,
-            'first_name' => $req->transportFirstName,
-            'middle_name' => $req->transportMiddleName,
-            'last_name' => $req->transportLastName,
-            'gender' => $req->transportGender,
-            'phone' => $req->transportPhoneNo
-        );
+                    // transportation 3 & gurdian info 5th page
+                    'transportType3' => "nullable|min:1|max:20",
+                    'transportFirstName3' => "nullable|min:1|max:20",
+                    'transportMiddleName3' => "nullable|min:1|max:20",
+                    'transportLastName3' => "nullable|min:1|max:20",
+                    'transportGender3' => "nullable|min:1|max:20",
+                    'transportPhoneNo3' => "nullable|min:10|max:13",
+                ]);
+            if ($validated) {
+                $student = array(
+                'first_name' => $req->studentFirstName,
+                'middle_name' => $req->studentMiddleName,
+                'last_name' => $req->studentLastName,
+                'birth_date' => $req->studentBirthDate,
+                'gender' => $req->studentGender,
+                'image' => $req->image,
+                'class' => $req->studentGrade,
+                'stream' => $req->studentStream,
+                'role' => 4,
+                'transport' => 'no'//$req->transport
+                );
 
-        $transport2 = array(
-            'transport_type' => $req->transportType2,
-            'first_name' => $req->transportFirstName2,
-            'middle_name' => $req->transportMiddleName2,
-            'last_name' => $req->transportLastName2,
-            'gender' => $req->transportGender2,
-            'phone' => $req->transportPhoneNo2
-        );
-        $transport3 = array(
-            'transport_type' => $req->transportType3,
-            'first_name' => $req->transportFirstName3,
-            'middle_name' => $req->transportMiddleName3,
-            'last_name' => $req->transportLastName3,
-            'gender' => $req->transportGender3,
-            'phone' => $req->transportPhoneNo3
-        );
+                $student_class_transfer = array(
+                    'average' =>0,
+                    'class' =>$req->studentGrade,
+                    'academic_year' =>$req->studentAcademicYear
+                );
+                $student_background = array(
+                    'transfer_reason' => $req->academicTransferReason,
+                    'suspension_status' => $req->academicSuspension,
+                    'expulsion_status' => $req->academicExpulsion,
+                    'special_education' => $req->academicSpecialEducation,
+                    'previous_school' => $req->academicPreviousSchool,
+                    'previous_school_city' => $req->academicPreviousSchoolCity,
+                    'previous_school_state' => $req->academicPreviousSchoolState,
+                    'previous_school_country' => $req->academicPreviousSchoolCountry,
+                    'citizenship' => $req->studentCitizenship,
+                    'native_tongue' => $req->studentLanguage,
+                    'day_care_program' => $req->studentDayCareProgram,
+                    'kinder_garten' => $req->studentKindergarten,
+                    'country_of_birth' => $req->studentCountryOfBirth,
+                    'state_of_birth' => $req->studentStateOfBirth,
+
+                );
+
+                $student_medical_info = array(
+                    'disablity' => '',
+                    'medical_condtion' => $req->academicMedicalCondtion,
+                    'blood_type' => $req->academicBloodType,
+                );
+
+                $parent1 = array(
+                    'first_name' => $req->parentFirstName,
+                    'middle_name' => $req->parentMiddleName,
+                    'last_name' => $req->parentLastName,
+                    'birth_date' => $req->birthDate,
+                    'gender' => $req->parentGender,
+                    'relation' => $req->parentRelation,
+                    'role' => 5,
+                    'school_closur_priority' => $req->parentSchoolClosurePriority,
+                    'emergency_contact_priority' => $req->parentEmergencyContactPriority,
+                );
+
+                $parent2 = array(
+                    'first_name' => $req->parentFirstName2,
+                    'middle_name' => $req->parentMiddleName2,
+                    'last_name' => $req->parentLastName2,
+                    'birth_date' => $req->birthDate2,
+                    'gender' => $req->parentGender2,
+                    'relation' => $req->parentRelation2,
+                    'role' => 5,
+                    'school_closur_priority' => $req->parentSchoolClosurePriority2,
+                    'emergency_contact_priority' => $req->parentEmergencyContactPriority2,
+                );
+
+                $parent3 = array(
+                    'first_name' => $req->parentFirstName3,
+                    'middle_name' => $req->parentFirstName3,
+                    'last_name' => $req->parentLastName3,
+                    'birth_date' => $req->birthDate3,
+                    'gender' => $req->parentGender3,
+                    'relation' => $req->parentRelation3,
+                    'role' => 5,
+                    'school_closur_priority' => $req->parentSchoolClosurePriority3,
+                    'emergency_contact_priority' => $req->parentEmergencyContactPriority3,
+                );
+
+                $address1 = array(
+                    'unit' => $req->parentUnit,
+                    'city' => $req->parentState,
+                    'country' => $req->parentCountry,
+                    'kebele' => $req->parentKebele,
+                    'houseNumber' => $req->parentHouseNo,
+                    'p_o_box' => $req->parentPOBOX,
+                    'email' => $req->parentEmail,
+                    'home_phone_number' => $req->parentHomePhoneNo,
+                    'work_phone_number' => $req->parentWorkPhoneNo,
+                    'phone_number' =>$req->parentMobilePhoneNo
+                );
+
+                $address2 = array(
+                    'unit' => $req->parentUnit2,
+                    'city' => $req->parentState2,
+                    'country' => $req->parentCountry2,
+                    'kebele' => $req->parentKebele2,
+                    'houseNumber' => $req->parentHouseNo2,
+                    'p_o_box' => $req->parentPOBOX2,
+                    'email' => $req->parentEmail2,
+                    'home_phone_number' => $req->parentHomePhoneNo2,
+                    'work_phone_number' => $req->parentWorkPhoneNo2,
+                    'phone_number' =>$req->parentMobilePhoneNo2
+                );
+                $address3 = array(
+                    'unit' => $req->parentUnit3,
+                    'city' => $req->parentState3,
+                    'country' => $req->parentCountry3,
+                    'kebele' => $req->parentKebele3,
+                    'houseNumber' => $req->parentHouseNo3,
+                    'p_o_box' => $req->parentPOBOX3,
+                    'email' => $req->parentEmail3,
+                    'home_phone_number' => $req->parentHomePhoneNo3,
+                    'work_phone_number' => $req->parentWorkPhoneNo3,
+                    'phone_number' =>$req->parentMobilePhoneNo3
+                );
+
+                $emergency1 = array(
+                    'first_name' => $req->emergencyFirstName,
+                    'middle_name' => $req->emergencyMiddleName,
+                    'last_name' => $req->emergencyLastName,
+                    'gender' => $req->emergencyGender,
+                    'phone' => $req->emergencyPhoneNo
+                );
+
+                $emergency2 = array(
+                    'first_name' => $req->emergencyFirstName2,
+                    'middle_name' => $req->emergencyMiddleName2,
+                    'last_name' => $req->emergencyLastName2,
+                    'gender' => $req->emergencyGender2,
+                    'phone' => $req->emergencyPhoneNo2
+                );
+
+                $emergency3 = array(
+                    'first_name' => $req->emergencyFirstName3,
+                    'middle_name' => $req->emergencyMiddleName3,
+                    'last_name' => $req->emergencyLastName3,
+                    'gender' => $req->emergencyGender3,
+                    'phone' => $req->emergencyPhoneNo3
+                );
+
+                $transport1 = array(
+                    'transport_type' => $req->transportType,
+                    'first_name' => $req->transportFirstName,
+                    'middle_name' => $req->transportMiddleName,
+                    'last_name' => $req->transportLastName,
+                    'gender' => $req->transportGender,
+                    'phone' => $req->transportPhoneNo
+                );
+
+                $transport2 = array(
+                    'transport_type' => $req->transportType2,
+                    'first_name' => $req->transportFirstName2,
+                    'middle_name' => $req->transportMiddleName2,
+                    'last_name' => $req->transportLastName2,
+                    'gender' => $req->transportGender2,
+                    'phone' => $req->transportPhoneNo2
+                );
+                $transport3 = array(
+                    'transport_type' => $req->transportType3,
+                    'first_name' => $req->transportFirstName3,
+                    'middle_name' => $req->transportMiddleName3,
+                    'last_name' => $req->transportLastName3,
+                    'gender' => $req->transportGender3,
+                    'phone' => $req->transportPhoneNo3
+                );
 
 
-            $this->insertStudentBackgroud($student_background);
-            $this->insertStudentMedicalInfo($student_medical_info);
-            $this->insertStudent($student,$req);
-            $this->insertStudentClassTransfer($student_class_transfer);
-            $this->insertAddress($address1);
-            $this->insertParent($parent1);
-            if ($parent2['first_name'] && $parent2['middle_name'] && $parent2['last_name']) {
-                $this->insertAddress($address2);
-                $this->insertParent($parent2);
-            }if ($parent3['first_name'] && $parent3['middle_name'] && $parent3['last_name']) {
-                $this->insertAddress($address3);
-                $this->insertParent($parent3);
-            }
-            $this->insertEmegency($emergency1);
-            if ($emergency2['first_name'] && $emergency2['middle_name'] && $emergency2['last_name']) {
-                $this->insertEmegency($emergency2);
-            }if ($emergency3['first_name'] && $emergency3['middle_name'] && $emergency3['last_name']) {
-                $this->insertEmegency($emergency3);
-            }
-            $this->insertTransport($transport1);
-            if ($transport2['first_name'] && $transport2['middle_name'] && $transport2['last_name']) {
-                $this->insertTransport($transport2);
-            }if ($transport3['first_name'] && $transport3['middle_name'] && $transport3['last_name']) {
-                $this->insertTransport($transport3);
-            }
+                $this->insertStudentBackgroud($student_background);
+                $this->insertStudentMedicalInfo($student_medical_info);
+                $this->insertStudent($student, $req);
+                $this->insertStudentClassTransfer($student_class_transfer);
+                $this->insertAddress($address1);
+                $this->insertParent($parent1);
+                if ($parent2['first_name'] && $parent2['middle_name'] && $parent2['last_name']) {
+                    $this->insertAddress($address2);
+                    $this->insertParent($parent2);
+                }
+                if ($parent3['first_name'] && $parent3['middle_name'] && $parent3['last_name']) {
+                    $this->insertAddress($address3);
+                    $this->insertParent($parent3);
+                }
+                $this->insertEmegency($emergency1);
+                if ($emergency2['first_name'] && $emergency2['middle_name'] && $emergency2['last_name']) {
+                    $this->insertEmegency($emergency2);
+                }
+                if ($emergency3['first_name'] && $emergency3['middle_name'] && $emergency3['last_name']) {
+                    $this->insertEmegency($emergency3);
+                }
+                $this->insertTransport($transport1);
+                if ($transport2['first_name'] && $transport2['middle_name'] && $transport2['last_name']) {
+                    $this->insertTransport($transport2);
+                }
+                if ($transport3['first_name'] && $transport3['middle_name'] && $transport3['last_name']) {
+                    $this->insertTransport($transport3);
+                }
+            }  
 
-            $all_class = classes::all();
-            $all_stream = stream::all();
-            $all_role = Role::all();
-            return view('admin.student.add_student_form')->with('classes',$all_class)->with('streams',$all_stream)->with('role',$all_role);
-
-
+                $all_class = classes::all();
+                $all_stream = stream::all();
+                $all_role = Role::all();
+                return view('admin.student.add_student_form')->with('classes', $all_class)->with('streams', $all_stream)->with('role', $all_role);
+            
+            
+            
     }
 
     // public function retrive($id){

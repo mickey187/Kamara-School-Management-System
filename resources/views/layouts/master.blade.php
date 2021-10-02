@@ -356,12 +356,12 @@
                                         <p>Add Teacher</p>
                                     </a>
                                 </li> -->
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="/listTeacher" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Teacher List</p>
                                     </a>
-                                </li>
+                                </li> --}}
                                  {{-- <li class="nav-item">
                                     <a href="/addReligionPage" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -482,18 +482,18 @@
                                         <p>Add Semister</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{ url('addMarkList') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Mark List</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
+                                </li> --}}
+                                {{-- <li class="nav-item">
                                     <a href="{{ url('Assasmentform') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Assasment</p>
                                     </a>
-                                </li>
+                                </li> --}}
 
                                 <li class="nav-item">
                                     <a href="/indexCurriculum" class="nav-link">
@@ -542,7 +542,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-calendar"></i>
                                 <p>
@@ -566,7 +566,7 @@
                                 </li>
 
                             </ul>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -866,6 +866,9 @@ $(function() {
 
      <!-- view stream js -->
      <script src="{{ asset('view_stream.js') }}"></script>
+     
+     {{-- view assasment js --}}
+     <script src="{{ asset('view_assasment.js') }}"></script>
 
 
      <!-- add payments js -->

@@ -30,6 +30,14 @@
                     <a class="nav-link text-bold" data-toggle="tab" href="#view_stream_tab" role="tab" id="view_stream_tab_link">View stream</a>
                 </li>
 
+                 <li class="nav-item">
+                    <a class="nav-link text-bold" data-toggle="tab" href="#add_assasment_tab" role="tab">Add assasment</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-bold" data-toggle="tab" href="#view_assasment_tab" role="tab" id="view_assasment_tab_link">View assasment</a>
+                </li>
+
             </ul>
         </div>
             <div class="card-body">
@@ -122,7 +130,7 @@
    <div class="tab-pane" id="view_subject_tab" role="tabpanel">
   <nav>
     <div class="nav nav-tabs nav-fill bg-orange" id="nav-tab" role="tablist">
-   <a class="nav-item nav-link active" id="nav-Subject-tab" data-toggle="tab" href="#nav-Subject" role="tab" aria-controls="nav-Subject" aria-selected="true">Subject</a>
+     <a class="nav-item nav-link active" id="nav-Subject-tab" data-toggle="tab" href="#nav-Subject" role="tab" aria-controls="nav-Subject" aria-selected="true">Subject</a>
       <a class="nav-item nav-link" id="nav-Subject-group-tab" data-toggle="tab" href="#nav-Subject-group" role="tab" aria-controls="nav-Subject-group" aria-selected="false">Subject Group</a>
       <a class="nav-item nav-link" id="nav-Subject-period-tab" data-toggle="tab" href="#nav-Subject-period" role="tab" aria-controls="nav-Subject-period" aria-selected="false">Subject Period</a>
     </div>
@@ -293,6 +301,50 @@
                             </div>
                         </div>
                     </div>
+
+                <div class="tab-pane" id="add_assasment_tab" role="tabpanel">
+              <div class="row d-flex justify-content-center mt-3">
+              <div class="col-6">
+              <div class="form-group">
+
+                <label for="exampleFormControlInput1">assasment type</label>
+                <input type="text" name ="assasment_type" class="form-control" id="assasment_type" 
+                placeholder="Assasment type"
+                {{-- @if (isset($assasment))
+                  value="{{$assasment->assasment_type}}"
+                @endif --}}
+                >
+
+                <div id="assasment_error_message"></div>
+              </div>
+
+               <div class="form-group">
+                       <button type="button" name="" id="add_assasment" class="btn btn-primary btn-md btn-block mt-3">submit</button>
+                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="view_assasment_tab" role="tabpanel">
+                        <p>View assasment</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <table id="view_assasment_table" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>assasment ID</th>
+                                            <th>assasment Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
              <div class="modal fade" id="view_class_label_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -525,6 +577,82 @@
           </div>
         </div>
         </div>
+
+        <div class="modal fade" id="view_assasment_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">View assasment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card" style="width: 28rem;">
+                <div class="card-body" id="card_register">
+              <h5 class="text-primary" id="assasment_id_view"></h5>
+              <h5 class="text-primary" id="assasment_name_view"></h5>
+                </div>
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>   
+
+      <div class="modal fade" id="edit_assasment_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit assasment</h5>
+              
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-8">
+                  <div class="form-group">
+
+                <label for="edit_stream"> Edit assasment</label>
+                <input type="text" name="assasment" id="edit_assasment" class="form-control"  placeholder="assasment">
+               </div>
+              </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal" id="cancel_edit_assasment_modal">Cancel</button>
+              <button type="button" class="btn btn-info" id="save_changes_assasment">Save Changes</button>
+            </div>
+          
+        </div>
+      </div>     
+       </div>
+      
+        <div class="modal fade" id="delete_assasment_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete assasment </h5>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h5 class="text-primary" id="delete_assasment_id"></h5>
+              <h5 class="text-primary" id="delete_assasment_name"></h5>
+               
+            </div>
+        
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal" id="cancel_delete_assasment_modal">Cancel</button>
+              <button type="button" class="btn btn-danger" id="delete_assasment">Delete assasment</button>
+         </div>
+          </div>
+        </div>
+        </div>
+
      </div>
             
 

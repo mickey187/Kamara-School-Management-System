@@ -55,16 +55,20 @@ class AuthenticatedSessionController extends Controller
                 return redirect('teacherDashBoard');
                 break;
             case 'student':
-                return response()->view('errors.401',[],401);;
+                return response()->view('errors.401',[],401);
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
                 break;
             case 'admin':
-                return redirect()->intended(RouteServiceProvider::HOME);
+                return redirect('dashboard');
                 break;
             case 'parent':
                 return redirect('parentDashboard');
                 break;
             default:
-                return response()->view('errors.401',[],401);;
+                return response()->view('errors.401',[],401);
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
            // return redirect()->intended(RouteServiceProvider::HOME);
                 break;
         }

@@ -49,37 +49,6 @@ $('#addClass').click(function(){
 }
 });
 
-//             if(data == "success"){
-//                 Swal.fire({
-//                     icon: 'success',
-//                     title:'successful',
-//                     text:'Added'+class_label,
-//                 })
-//             } else if(data == "failed"){
-//                 Swal.fire({
-//                 icon: 'danger',
-//                 title: 'failed!',
-//                 text:' please try again',
-                
-//               });
-//             } else if(data == "failed"){
-//                 Swal.fire({
-//                     icon:'error',
-//                     title: 'failde to add'+class_label,
-//                     footer: '<a href="">Why do I have this issue?</a>'
-//                 })
-//             }              
-//         }, error: function (data) {
-//         Swal.fire({
-//             icon: 'error',
-//             title: 'Oops...',
-//             text: 'Something went wrong!',
-//             footer: '<a href="">Why do I have this issue?</a>'
-//     });
-//         }
-// });
-// });
-
 
 $('#view_class_label_tab_link').click(function (){
     $.ajax({
@@ -684,6 +653,190 @@ $('#delete_stream_modal').on('show.bs.modal', function(event){
                 if(response == "success"){
                     $('#cancel_delete_stream_modal').click();
                     $('#view_stream_tab_link').click();
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'deleted',
+                        text:  'stream deleted!',
+                    });
+                };
+            }
+        });
+    });
+})
+
+
+$('#add_assasment').click(function(){
+     var assasment_type = $('#assasment_type').val();
+     if(assasment_type !=''){
+
+          $.ajax({
+        type: "get",
+        url:"/indexAssasment",
+        data:{assasment_type},
+        dataType:"json",
+        success:function (data){
+
+            var assasment_type_status = JSON.parse(JSON.stringify(data.status));
+            var htmlString='';
+
+            if(assasment_type_status !="success" || assasment_type_status !="failed"){
+                if(Array.isArray(assasment_type_status)){
+                    assasment_type_status.forEach(element=>{
+                        htmlString +='<h6 class="text-danger">'+element+'</h6>'
+                    });
+                }
+            }
+            $('#assasment_error_message').html(htmlString);
+            $('#assasment_error_message').removeAttr("hidden");
+
+            if(assasment_type_status =="success"){
+                 Swal.fire({
+                    icon: 'success',
+                    title:'successful',
+                    text:'Added'+assasment_type,
+                });  
+            } else if(assasment_type_status == "failed"){
+                Swal.fire({
+                icon: 'danger',
+                title: 'failed!',
+                text:' please try again',
+                
+              });
+            }
+        },
+    });
+
+ } else if(assasment_type == ''){
+                Swal.fire({
+                    icon:'error',
+                    title: 'Oops',
+                    text: 'assasment can not be empty!'
+                });
+            }              
+        });   
+
+$('#view_assasment_tab_link').click(function (){
+    $.ajax({
+        type:"get",
+        url:"/view_assasment",
+        dataType:"json",
+        success:function (data) {
+
+            data.forEach(d =>{
+
+                Object.assign(d,{action:'<button class="btn btn-success btn-sm"'+
+                'data-toggle="modal"'+ 
+               'data-target="#view_assasment_modal" '+
+                'data-view_subject_tab="'+d.id+','+d.assasment_type+'">'+
+                 '<i class="fa fa-eye" aria-hidden="true"></i>'+             
+               '</button>'+' '+
+
+               '<button class="btn btn-info btn-sm"'+
+                'data-toggle="modal"'+ 
+               'data-target="#edit_assasment_modal"'+
+                'data-edit_assasment_modal="'+d.id+','+d.assasment_type+'">'+
+                 '<i class="fas fa-pencil-alt" aria-hidden="true"></i>'+             
+               '</button>'+' '+
+              
+              '<button class="btn btn-danger btn-sm" data-toggle="modal"'+ 
+                  'data-target="#delete_assasment_modal"'+ 
+                   'data-delete_assasment_modal="'+d.id+','+d.assasment_type+'">'+
+                   '<i class="fa fa-trash" aria-hidden="true"></i>'+
+                 '</button>'
+            });
+            });
+
+            $("#view_assasment_table").DataTable({
+                "destroy":true,
+                "data":data,
+                "columns": [
+                    { "data": "id" },
+                    { "data": "assasment_type" },
+                    { "data": "action" }
+                    
+              ],
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "ordering": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#view_assasment_table_wrapper .col-md-6:eq(0)');
+
+
+        }
+    })
+})
+
+$('#view_assasment_modal').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget)
+    var recipient = button.data('view_subject_tab')
+    var data = recipient.split(",");
+
+    $('#assasment_id_view').text("ID: "+[data[0]]);
+    $('#assasment_name_view').text("assasment name: "+data[1]);
+    var modal = $(this)
+
+});
+
+$('#edit_assasment_modal').on('show.bs.modal', function (event){
+    
+    var button = $(event.relatedTarget)
+    var recipient = button.data('edit_assasment_modal') 
+    var data = recipient.split(",");
+  
+    $('#edit_assasment').val(data[1]);
+
+    $('#save_changes_assasment').click(function (){
+        var id = data[0];
+        var edit_assasment = $('#edit_assasment').val();
+
+        $.ajax({
+        type: "get",
+        url: "/edit_assasment",
+        data: {id,edit_assasment},
+        dataType: "json",
+        success: function (response){
+           if (response == "success"){
+               $('#cancel_edit_assasment_modal').click();
+               $('#view_assasment_tab_link').click();
+
+                Swal.fire({
+                        icon: 'success',
+                        title: 'Successful',
+                        text: 'edited successfuly',
+                    });
+           }
+        }
+            });
+
+    });
+
+    var modal = $(this);
+    $(this).on('hide.bs.modal', function(){
+        $('#save_changes_assasment').off('click');
+    });
+});
+
+$('#delete_assasment_modal').on('show.bs.modal', function(event){
+    var button = $(event.relatedTarget)
+    var recipient = button.data('delete_assasment_modal');
+    var data = recipient.split(",");
+
+    $('#delete_assasment_id').text("ID: "+[data[0]]);
+    $('#delete_assasment_name').text("assasment name: "+data[1]);
+
+    $('#delete_assasment').click(function (){
+        var delete_assasment_id = data[0];
+
+        $.ajax({
+            type: "get",
+            url: "/delete_assasment",
+            data: {delete_assasment_id},
+            dataType: "json",
+            success: function(response){
+                if(response == "success"){
+                    $('#cancel_delete_assasment_modal').click();
+                    $('#view_assasment_tab_link').click();
                     Swal.fire({
                         icon: 'info',
                         title: 'deleted',

@@ -262,24 +262,24 @@ $( "#emergency_phone_no_id3" ).focusout(function() {
 // Emergency Next Button
 $("#emergencyNextBtn").click(function (e) {
     if (
-        emergency_first_name_check &
-        emergency_middle_name_check &
-        emergency_last_name_check &
-        emergency_gender_check &
-        emergency_phone_no_check &
+        // emergency_first_name_check &
+        // emergency_middle_name_check &
+        // emergency_last_name_check &
+        // emergency_gender_check &
+        // emergency_phone_no_check &
 
-        emergency_first_name_check2 &
-        emergency_middle_name_check2 &
-        emergency_last_name_check2 &
-        emergency_gender_check2 &
-        emergency_phone_no_check2 &
+        // emergency_first_name_check2 &
+        // emergency_middle_name_check2 &
+        // emergency_last_name_check2 &
+        // emergency_gender_check2 &
+        // emergency_phone_no_check2 &
 
-        emergency_first_name_check3 &
-        emergency_middle_name_check3 &
-        emergency_last_name_check3 &
-        emergency_gender_check3 &
-        emergency_phone_no_check3
-        // true
+        // emergency_first_name_check3 &
+        // emergency_middle_name_check3 &
+        // emergency_last_name_check3 &
+        // emergency_gender_check3 &
+        // emergency_phone_no_check3
+        true
         ) {
             transport_page = true;
         e.preventDefault();

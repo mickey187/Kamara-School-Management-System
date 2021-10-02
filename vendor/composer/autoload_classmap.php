@@ -71,7 +71,6 @@ return array(
     'App\\Http\\Controllers\\ScheduleController' => $baseDir . '/app/Http/Controllers/ScheduleController.php',
     'App\\Http\\Controllers\\SectionController' => $baseDir . '/app/Http/Controllers/SectionController.php',
     'App\\Http\\Controllers\\StreamController' => $baseDir . '/app/Http/Controllers/StreamController.php',
-    'App\\Http\\Controllers\\StudentController' => $baseDir . '/app/Http/Controllers/StudentController.php',
     'App\\Http\\Controllers\\StudentPersonalDevelopmentController' => $baseDir . '/app/Http/Controllers/StudentPersonalDevelopmentController.php',
     'App\\Http\\Controllers\\SubjectController' => $baseDir . '/app/Http/Controllers/SubjectController.php',
     'App\\Http\\Controllers\\SubjectGroupController' => $baseDir . '/app/Http/Controllers/SubjectGroupController.php',

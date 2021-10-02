@@ -109,7 +109,7 @@ class EmployeeRegistrationController extends Controller
 
         $address = address::find($employee->address_id);
         $address->city = request('City');
-        $address->unit = request('sub_city');
+        $address->unit = request('emp_unit');
         $address->email = request('email');
         $address->kebele = request('Kebele');
         $address->p_o_box = request('POBox');

@@ -28,7 +28,11 @@ class StudentImport implements ToModel,WithHeadingRow,WithStartRow{
             $getSTudentId = $this->idGeneratorFun();
         }
         error_log("=============================================================================");
+        
         $insertStudentBackground = new student_background();
+        if ($row['transfer_reason'] == null) {
+            error_log("*******************************".$row['transfer_reason']);
+        }
             $insertStudentBackground->transfer_reason = $row['transfer_reason'];
             $insertStudentBackground->suspension_status = $row['suspension_status'];
             $insertStudentBackground->expulsion_status = $row['expulsion_status'];

@@ -127,6 +127,99 @@
 
     </div>
 </div>
+
+
+
+<div class="modal fade" id="view_user_account_detail_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">View User Account Detail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <h5 id="view_user_id" class="text-success"></h5>
+                <h5 id="view_user_name" class="text-success"></h5>
+                <h5 id="view_user_role" class="text-success"></h5>
+                <h5 id="view_user_email" class="text-success"></h5>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="edit_user_account_detail_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit User Account Detail</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+              <div class="col-6">
+
+                <h5 class="text-info" id="edit_user_id"></h5>
+                  <div class="form-group">
+                    <label for="">User Name</label>
+                        <input type="text"class="form-control" name="" placeholder="user name" id="edit_username_input">                                
+                        <small id="username_validation" class="form-text text-danger" hidden></small>
+                    </div>
+
+                
+
+                    <div class="form-group">
+                      <label for="">Email</label>
+                      <input type="email"
+                        class="form-control" name=""   placeholder="email" id="edit_email_input">
+                        <small id="email_validation" class="form-text text-danger" hidden></small>                   
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Role</label>
+                        <select name="" id="select_role_for_edit" class="form-control">
+                            @foreach ($roles as $row)
+                                <option value="{{$row->id}}">{{$row->role_name}}</option>
+                            @endforeach
+                        </select>
+                        <small id="role_validation" class="form-text text-danger" hidden></small>
+                      </div>
+
+                      
+
+
+                      <div class="form-group">
+                          <form action="{{url('/account/userPassword')}}" method="POST">
+                            @csrf
+                            <input type="text" name="user_id" id="user_id_input" value="" hidden  class="form-control mt-3">
+                            <button type="submit" id="reset_password_btn" class="btn btn-primary">Reset Password</button>
+                            
+                          </form>
+                      </div>
+
+                      
+              </div>
+              
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" id="save_account_changes">Save Changes</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
 {{-- <div class="card card-orange">
     <div class="card-header">
       <h3 class="card-title"> <i class="fas fa-tachometer-alt"></i> User Account Management</h3>
