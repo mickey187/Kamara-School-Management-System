@@ -12,7 +12,6 @@ var student_stream_check = false;
 var student_page_academic_year_check = true;
 var student_page_country_of_birth_check = false;
 var student_page_state_of_birth_check = false;
-var student_page_unit_of_birth_check = false;
 
 
 var student_first_name = document.getElementById('student_page_first_name_id');
@@ -29,7 +28,6 @@ var student_stream = document.getElementById('student_page_stream_id');
 
 var student_page_country_of_birth = document.getElementById('student_page_country_of_birth_id');
 var student_page_state_of_birth = document.getElementById('student_page_state_of_birth_id');
-var student_page_unit_of_birth = document.getElementById('student_page_unit_of_birth_id');
 var student_page_academic_year = document.getElementById('student_page_academic_year_id');
 
 
@@ -220,28 +218,50 @@ $("#student_page_kindergarten_id").change(function (e) {
 
 
 
-$("#student_page_nativlanguage_id").change(function (e) {
-    e.preventDefault();
-        setSuccessForselect(student_language);
-        student_language_check = true;
+// $("#student_page_nativlanguage_id").change(function (e) {
+//     e.preventDefault();
+//         setSuccessForselect(student_language);
+//         student_language_check = true;
 
-});
+// });
 
-$(document).on("mouseleave", ".select2-container", function(e) {
-    if ($(e.toElement || e.relatedTarget).closest(".select2-container").length == 0) {
-        $("#student_page_nativlanguage_id").select2("close");
-        if($('#student_page_nativlanguage_id').val().length === 0){
-            setErorForSelect(student_language,'language is required!.');
-            student_language_check = false;
+// $(document).on("mouseleave", ".select2-container", function(e) {
+//     if ($(e.toElement || e.relatedTarget).closest(".select2-container").length == 0) {
+//         $("#student_page_nativlanguage_id").select2("close");
+//         if($('#student_page_nativlanguage_id').val().length === 0){
+//             setErorForSelect(student_language,'language is required!.');
+//             student_language_check = false;
 
-        }else{
-            setSuccessForselect(student_language);
+//         }else{
+//             setSuccessForselect(student_language);
+//             student_language_check = true;
+
+//         }
+//     }
+
+// });
+
+$( "#student_page_nativlanguage_id" ).focusout(function() {
+    if($('#student_page_nativlanguage_id').val().length === 0){
+        setErorFor2(student_language,'language is required!.');
+        student_language_check = false;
+    }
+    if($("#student_page_nativlanguage_id").val().length > 15 & $(this).val().length != 0){
+        setErorFor2(student_language,'maximum letter is 15!.');
+        student_language_check = false;
+
+    }else if($("#student_page_nativlanguage_id").val().length < 3 & $(this).val().length != 0){
+        setErorFor2(student_language,'language require at least 3 letters!.');
+        student_language_check = false;
+
+    }
+    else{
+        setSuccessFor2(student_language);
             student_language_check = true;
 
-        }
     }
+})
 
-});
 
 $("#student_page_grade_id").change(function (e) {
     e.preventDefault();
@@ -335,20 +355,7 @@ $( "#student_page_state_of_birth_id" ).focusout(function() {
     }
 })
 
-$( "#student_page_unit_of_birth_id" ).focusout(function() {
-    if($("#student_page_unit_of_birth_id").val().length === 0){
-        setErorFor2(student_page_unit_of_birth,'unit is required!.');
-        student_page_unit_of_birth_check = false;
 
-    }else if($("#student_page_unit_of_birth_id").val().length < 2){
-        setErorFor2(student_page_unit_of_birth,'unit require at least 2 letters!.');
-        student_page_unit_of_birth_check = false;
-
-    }else{
-        setSuccessFor2(student_page_unit_of_birth);
-        student_page_unit_of_birth_check = true;
-    }
-})
 
 // Basic Student Info Next Button
 $("#basicStudentInfoBtn").click(function (e) {
@@ -364,7 +371,6 @@ $("#basicStudentInfoBtn").click(function (e) {
         student_page_academic_year_check &
         student_page_country_of_birth_check &
         student_page_state_of_birth_check &
-        student_page_unit_of_birth_check &
         student_language_check &
         student_grade_check &
         student_stream_check
@@ -503,11 +509,22 @@ $("#basicStudentInfoBtn").click(function (e) {
 
         }
         if($('#student_page_nativlanguage_id').val().length === 0){
-            setErorForSelect(student_language,'language is required!.');
+            setErorFor2(student_language,'language is required!.');
             student_language_check = false;
-        }else{
-            setSuccessForselect(student_language);
-            student_language_check = true;
+        }
+        else if($("#student_page_nativlanguage_id").val().length > 15 & $(this).val().length != 0){
+            setErorFor2(student_language,'maximum letter is 15!.');
+            student_language_check = false;
+
+        }else if($("#student_page_nativlanguage_id").val().length < 3 & $(this).val().length != 0){
+            setErorFor2(student_language,'language require at least 3 letters!.');
+            student_language_check = false;
+
+        }
+        else{
+            setSuccessFor2(student_language);
+                student_language_check = true;
+
         }
         if($('#student_page_grade_id').val().length === 0){
             setErorForSelect(student_grade,'grade is required!.');
@@ -548,18 +565,6 @@ $("#basicStudentInfoBtn").click(function (e) {
         }else{
             setSuccessFor2(student_page_state_of_birth);
             student_page_state_of_birth_check = true;
-        }
-        if($("#student_page_unit_of_birth_id").val().length === 0){
-            setErorFor2(student_page_unit_of_birth,'unit is required!.');
-            student_page_unit_of_birth_check = false;
-
-        }else if($("#student_page_unit_of_birth_id").val().length < 2){
-            setErorFor2(student_page_unit_of_birth,'unit require at least 2 letters!.');
-            student_page_unit_of_birth_check = false;
-
-        }else{
-            setSuccessFor2(student_page_unit_of_birth);
-            student_page_unit_of_birth_check = true;
         }
     }
 

@@ -10,12 +10,13 @@ class address extends Model
     protected $fillable = [
                             'id',
                             'city',
-                            'subcity',
+                            'unit',
                             'email',
                             'kebele',
                             'p_o_box',
                             'phone_number',
-                            'alternative_phone_number',
-                            'house_number'
+                            'work_phone_number',
+                            'house_number',
+                            'home_phone_number',
                         ];
 }

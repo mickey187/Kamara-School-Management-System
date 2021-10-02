@@ -27,6 +27,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+
 class StudentController extends Controller{
 
 
@@ -83,7 +85,7 @@ class StudentController extends Controller{
             'day_care_program' => $req->studentDayCareProgram,
             'kinder_garten' => $req->studentKindergarten,
             'country_of_birth' => $req->studentCountryOfBirth,
-            'state_of_birth' => $req->studentStateOfBirth." ".$req->studentUnitOfBirth,
+            'state_of_birth' => $req->studentStateOfBirth,
 
         );
 
@@ -252,12 +254,76 @@ class StudentController extends Controller{
 
     }
 
+    // public function retrive($id){
+    //     $student = DB::table('students')
+    //     ->join('student_medical_infos','student_medical_infos.id','=','students.student_medical_info_id')
+    //     ->join('student_backgrounds','student_backgrounds.id','=','students.student_background_id')
+    //     ->where('students.id',$id)
+    //     ->get([
+
+    //         'students.id',
+    //         'students.first_name',
+    //         'students.middle_name',
+    //         'students.last_name',
+    //         'students.gender',
+    //         'students.birth_year',
+    //         'students.image',
+    //         'student_backgrounds.citizenship',
+    //         'student_backgrounds.previous_school',
+    //         'student_backgrounds.transfer_reason',
+    //         'student_backgrounds.expulsion_status',
+    //         'student_backgrounds.suspension_status',
+    //         'student_backgrounds.native_tongue',
+    //         'student_backgrounds.previous_special_education',
+    //         'student_medical_infos.disablity',
+    //         'student_medical_infos.medical_condtion',
+    //         'student_medical_infos.blood_type'
+    //         ]);
+    //          return view('admin.student.edit_student')->with('stud',$student);
+    // }
+
+    public function retriveAll(){
+        // $student_list = student::all();
+
+        $stud_sec = DB::table('students')
+        ->join('student_backgrounds','students.student_background_id','=','student_backgrounds.id')
+        ->join('student_medical_infos','students.student_medical_info_id','=','student_medical_infos.id')
+        ->join('classes','students.class_id','=','classes.id')
+        ->join('streams','streams.id','=','students.stream_id')
+        // ->join('sections','students.id','=','sections.student_id')
+       // ->join('streams','sections.stream_id','=','streams.id')
+        ->get([
+            'students.id',
+            'students.student_id',
+            'students.first_name',
+            'students.middle_name',
+            'students.last_name',
+            'students.gender',
+            'students.image',
+            'classes.class_label',
+            'stream_type',
+            'disablity',
+            'medical_condtion',
+            'blood_type',
+            'transfer_reason',
+            'suspension_status',
+            'expulsion_status',
+            'previous_special_education',
+            'citizenship',
+            'previous_school',
+            'native_tongue',
+            'birth_year'
+        ]);
+        return view('admin.student.view_student')->with('student_list',$stud_sec);
+    }
+
     public function retrive($id){
         $student = DB::table('students')
         ->join('student_medical_infos','student_medical_infos.id','=','students.student_medical_info_id')
         ->join('student_backgrounds','student_backgrounds.id','=','students.student_background_id')
         ->where('students.id',$id)
         ->get([
+
             'students.id',
             'students.first_name',
             'students.middle_name',
@@ -274,32 +340,30 @@ class StudentController extends Controller{
             'student_backgrounds.previous_special_education',
             'student_medical_infos.disablity',
             'student_medical_infos.medical_condtion',
-            'student_medical_infos.blood_type']
-        );
+            'student_medical_infos.blood_type'
+            ]);
              return view('admin.student.edit_student')->with('stud',$student);
     }
 
-    public function retriveAll(){
-        $student_list = student::all();
-        //$stud_sec = classes::all();
+    public function retriveDetails($id){
         $stud_sec = DB::table('students')
+
         ->join('student_backgrounds','students.student_background_id','=','student_backgrounds.id')
         ->join('student_medical_infos','students.student_medical_info_id','=','student_medical_infos.id')
         ->join('classes','students.class_id','=','classes.id')
         ->join('streams','streams.id','=','students.stream_id')
-        ->join('sections','students.id','=','sections.student_id')
-       // ->join('streams','sections.stream_id','=','streams.id')
+        // ->join('sections','students.id','=','sections.student_id')
+        ->where('students.student_id',$id)
+    //    ->join('streams','sections.stream_id','=','streams.id')
         ->get([
             'students.id',
             'students.student_id',
-            'students.first_name',
-            'students.middle_name',
-            'students.last_name',
+            DB::raw('CONCAT(first_name," ",middle_name," ",last_name) AS full_name'),
             'students.gender',
             'students.image',
             'classes.class_label',
             'stream_type',
-            'section_name',
+            // 'section_name',
             'disablity',
             'medical_condtion',
             'blood_type',
@@ -311,8 +375,8 @@ class StudentController extends Controller{
             'previous_school',
             'native_tongue',
             'birth_year'
-        ]);
-        return view('admin.student.view_student')->with('student_list',$stud_sec);
+        ])->first();
+        return view('admin.student.view_student_detail')->with('student_list',$stud_sec)->with('image', (asset('storage/app/public/student_image/Yomag_sdawca_zenebe813937.png')));
     }
 
     public function update(Request $req, $id){
@@ -578,21 +642,22 @@ class StudentController extends Controller{
         $studentTranspartation->save();
     }
     public function idGeneratorFun(){
+        global $idArray;
         $fourRandomDigit = rand(100000,999999);
-        $student = student::get(['student_id']);
-        $employee = employee::get(['employee_id']);
-        $parent = students_parent::get(['parent_id']);
+        $student = student::all();
+        $employee = employee::all();
+        $parent = students_parent::all();
         foreach($student as $row){
-            if($row->id==$fourRandomDigit){
+            if($row->student_id == $fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
         foreach($employee as $row){
-            if($row->id==$fourRandomDigit){
+            if($row->employee_id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }foreach($parent as $row){
-            if($row->id==$fourRandomDigit){
+            if($row->parent_id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
@@ -650,6 +715,7 @@ class StudentController extends Controller{
     }
 
     function teacherMarklist($id){
+        
         $count_term = 0;
         $term = '';
         $semister = 0;

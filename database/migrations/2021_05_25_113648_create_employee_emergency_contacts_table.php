@@ -16,8 +16,8 @@ class CreateEmployeeEmergencyContactsTable extends Migration
         Schema::create('employee_emergency_contacts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('contact_name') ->nullable(false);
-            $table->string('relation') ->nullable(false);
+            $table->string('contact_name') ->nullable(true);
+            $table->string('relation') ->nullable(true);
         });
     }
 

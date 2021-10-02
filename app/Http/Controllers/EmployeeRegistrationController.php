@@ -113,8 +113,8 @@ class EmployeeRegistrationController extends Controller
         $address->email = request('email');
         $address->kebele = request('Kebele');
         $address->p_o_box = request('POBox');
-        $address->phone_number = request('phone1');
-        $address->home_phone_number = request('phone2');
+        $address->phone_number = request('phone_number');
+        $address->home_phone_number = request('home_phone_number');
         $address->house_number = request('house_number');
         $address->update();
 
@@ -183,12 +183,12 @@ class EmployeeRegistrationController extends Controller
      public function insertAddress(){
         $address = new Address();
         $address->city = request('City');
-        $address->unit = request('sub_city');
+        $address->unit = request('unit');
         $address->email = request('email');
         $address->kebele = request('Kebele');
         $address->p_o_box = request('POBox');
-        $address->phone_number = request('phone1');
-        $address->home_phone_number = request('phone2');
+        $address->phone_number = request('phone_number');
+        $address->home_phone_number = request('home_phone_number');
         $address->house_number = request('house_number');
         $address->save();
     }
@@ -295,23 +295,24 @@ public function insertAcademicBackgroundInfo(){
         $teacher->save();
 
     }
-    
+
     public function idGeneratorFun(){
+        global $idArray;
         $fourRandomDigit = rand(100000,999999);
-        $student = student::get(['student_id']);
-        $employee = employee::get(['employee_id']);
-        $parent = students_parent::get(['parent_id']);
+        $student = student::all();
+        $employee = employee::all();
+        $parent = students_parent::all();
         foreach($student as $row){
-            if($row->id==$fourRandomDigit){
+            if($row->student_id == $fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
         foreach($employee as $row){
-            if($row->id==$fourRandomDigit){
+            if($row->employee_id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }foreach($parent as $row){
-            if($row->id==$fourRandomDigit){
+            if($row->parent_id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
@@ -327,5 +328,5 @@ public function insertAcademicBackgroundInfo(){
         $userAccount->save();
         $roleId = $role_id2;
         $userAccount->roles()->attach($roleId);
-}
+    }
 }

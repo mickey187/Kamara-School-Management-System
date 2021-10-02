@@ -16,8 +16,8 @@
                     <th>No</th>
                     <th>full name</th>
                     <th>field of study</th>
-                    <th>place of study</th>
-                    <th>year of study</th>
+                    {{-- <th>place of study</th>
+                    <th>year of study</th> --}}
                     <th>Action</th>
                 </tr>
             </thead>
@@ -27,8 +27,8 @@
                         <td>{{$row->id}}</td>
                         <td>{{$row->first_name.' '.$row->middle_name.' '.$row->last_name}}</td>
                         <td>{{$row->field_of_study}}</td>
-                        <td>{{$row->place_of_study}}</td>
-                        <td>{{$row->date_of_study}}</td>
+                        {{-- <td>{{$row->place_of_study}}</td>
+                        <td>{{$row->date_of_study}}</td> --}}
                          <td>
                         <button type="button" class="btn bg-primary btn-sm"
                             data-toggle="modal"
@@ -253,7 +253,7 @@
                             </div>
 
                         </div>
-             
+
                     </div>
                     <div class="col-12">
                         <div class="row">

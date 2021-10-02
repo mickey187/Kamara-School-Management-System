@@ -40,6 +40,7 @@ class MarklistImport implements ToModel,WithHeadingRow,WithStartRow
 
     public function model(array $row)
     {
+
         error_log($row['id']);
         $now1 = \Andegna\DateTimeFactory::now();
         $current_date = $now1->getYear();

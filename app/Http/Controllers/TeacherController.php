@@ -40,7 +40,7 @@ class TeacherController extends Controller
         $employee = DB::table('employees')
                     ->join('addresses','employees.address_id','=','addresses.id')
                     ->where('employee_id',$user->user_id)
-                    ->get(['employees.id as id', 'first_name','middle_name','last_name','email','phone_number','house_number','work_phone_number','p_o_box','gender','city','unit'])->first();
+                    ->get(['employees.id as id', 'first_name','middle_name','last_name','email','phone_number','house_number','home_phone_number','p_o_box','gender','city','unit'])->first();
         // $employee = employee::where('employee_id',$user->user_id)->first();
         $assasment = assasment_type::all();
         $semister = semister::all();
@@ -74,12 +74,12 @@ class TeacherController extends Controller
 
         $address = address::find($employee->address_id);
         $address->city = request('City');
-        $address->subcity = request('sub_city');
+        $address->unit = request('unit');
         $address->email = request('email');
         $address->kebele = request('Kebele');
         $address->p_o_box = request('POBox');
-        $address->phone_number = request('phone1');
-        $address->alternative_phone_number = request('phone2');
+        $address->phone_number = request('phone_number');
+        $address->home_phone_number = request('home_phone_number');
         $address->house_number = request('house_number');
         $address->update();
 

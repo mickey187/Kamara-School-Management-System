@@ -396,7 +396,16 @@
                                         <p>employee information</p>
                                     </a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a  data-toggle="modal"
+                                        data-detail=""
+                                        data-target="#modal-import-excel3"
+                                        class="nav-link"
+                                        style="cursor: pointer;">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Import Employee Data</p>
+                                    </a>
+                                </li>
                                 {{-- <li class="nav-item">
                                     <a href="/addHomeRoom" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -695,6 +704,72 @@
 
 
     </div>
+
+    <div class="modal_class">
+        <div class="modal fade" id="modal-import-excel2">
+            <div class="modal-dialog modal-dialog-centered modal-md">
+                <div class="modal-content row justify-content-center">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="title">Import Student list from Excel File</h4>
+                        <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('importStudent') }}" method="POST" enctype="multipart/form-data">
+                            <div class="row col-12 form-group">
+                                {{-- @csrf --}}
+                                {{-- <input type="text" name="_import" id="import"> --}}
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input hidden type="text" name="data" id="exportdata">
+                                <div class="col-12">
+                                    <input id="input-id" name="exel" type="file" class="file" >
+                                    <input type="submit" class="btn btn-primary" value="submit">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        {{-- <button type="button"  class="btn btn-primary">Import</button> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal_class">
+        <div class="modal fade" id="modal-import-excel3">
+            <div class="modal-dialog modal-dialog-centered modal-md">
+                <div class="modal-content row justify-content-center">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="title">Import Employee list from Excel File</h4>
+                        <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('importEmployee') }}" method="POST" enctype="multipart/form-data">
+                            <div class="row col-12 form-group">
+                                {{-- @csrf --}}
+                                {{-- <input type="text" name="_import" id="import"> --}}
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input hidden type="text" name="data" id="exportdata">
+                                <div class="col-12">
+                                    <input id="input-id" name="exel" type="file" class="file" >
+                                    <input type="submit" class="btn btn-primary" value="submit">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        {{-- <button type="button"  class="btn btn-primary">Import</button> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
         <strong>Copyright &copy; 2014-2021 <a href="https://hawisoftware.com.et">hawisoftware.com.et</a></strong>
@@ -854,7 +929,7 @@ $(function() {
     {{-- Curriculum validation --}}
 
     {{-- <script src="{{ asset('dist/validation/add_class_validation.js') }}"></script> --}}
-    
+
     <script type="text/javascript" src="{{ asset('dist/js/add_student_form.js') }}"></script>
     <script src="{{ asset('dist/validation/add_subject_validation.js') }}"></script>
     <script src="{{ asset('dist/validation/student_form/student_page_validation.js') }}"></script>
