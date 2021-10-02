@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('generatedox',[StudentController::class, 'generateDocx']);
 
-Route::get('/home',[UserManagementController::class, 'defaultUser']);
+// Route::get('/home',[UserManagementController::class, 'defaultUser']);
 
 
 Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
