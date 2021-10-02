@@ -114,49 +114,49 @@ class MarklistController extends Controller
         return "Student inserted";
     }
 
-    public function assasmentForm(){
-        $ass = assasment_type::all();
-        return view('admin.curriculum.add_assasment_label')->with('assasment',$ass);
-    }
+    // public function assasmentForm(){
+    //     $ass = assasment_type::all();
+    //     return view('admin.curriculum.add_assasment_label')->with('assasment',$ass);
+    // }
 
-    public function addAssasment(Request $req){
-        $assasment = new assasment_type;
-        $validated = $req->validate(['assasment_type'=>'required|unique:assasment_types|max:20']);
-        $assasment->assasment_type = $validated['assasment_type'];
+    // public function addAssasment(Request $req){
+    //     $assasment = new assasment_type;
+    //     $validated = $req->validate(['assasment_type'=>'required|unique:assasment_types|max:20']);
+    //     $assasment->assasment_type = $validated['assasment_type'];
 
-        if ($assasment->save()) {
-            $ass = assasment_type::all();
-            return redirect()->route('/addAssasment')->with('ass', $ass);
-        }
-    }
+    //     if ($assasment->save()) {
+    //         $ass = assasment_type::all();
+    //         return redirect()->route('/addAssasment')->with('ass', $ass);
+    //     }
+    // }
 
-    public function edit_assasment_type($id){
-        $edit_assasment = assasment_type::find($id);
-        return view('admin.curriculum.add_assasment_label')->with('edit_assasment',$edit_assasment);
-    }
+    // public function edit_assasment_type($id){
+    //     $edit_assasment = assasment_type::find($id);
+    //     return view('admin.curriculum.add_assasment_label')->with('edit_assasment',$edit_assasment);
+    // }
 
-    public function edit_assasment_type_value($id){
-        $edit_assasment = assasment_type::find($id);
-        $edit_assasment->assasment_type = request('assasment_type');
+    // public function edit_assasment_type_value($id){
+    //     $edit_assasment = assasment_type::find($id);
+    //     $edit_assasment->assasment_type = request('assasment_type');
 
-        if($edit_assasment->save()){
-            $view_assasment = assasment_type::all();
+    //     if($edit_assasment->save()){
+    //         $view_assasment = assasment_type::all();
 
-            return redirect()->route('add_assasment_label')->with('view_assasment',$view_assasment);
-        }
-    }
+    //         return redirect()->route('add_assasment_label')->with('view_assasment',$view_assasment);
+    //     }
+    // }
 
-    public function delete_assasment(Request $req){
-        $assasment_id = $req->delete_btn;
-        $assasment = assasment_type::find($assasment_id);
+    // public function delete_assasment(Request $req){
+    //     $assasment_id = $req->delete_btn;
+    //     $assasment = assasment_type::find($assasment_id);
 
-        if($assasment->delete()){
-            $view_assasment = assasment_type::all();
-            return redirect()->route('/add_assasment_label')->with('view_assasment',$view_assasment);
-        }
-        else
-        echo "couldn't delete please try again";
-    }
+    //     if($assasment->delete()){
+    //         $view_assasment = assasment_type::all();
+    //         return redirect()->route('/delete_assasment')->with('view_assasment',$view_assasment);
+    //     }
+    //     else
+    //     echo "couldn't delete please try again";
+    // }
 
     public function editMarkStudentList($id,$mark,$load,$assasment){
         $mark_list = student_mark_list::find($id);

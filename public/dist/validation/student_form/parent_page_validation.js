@@ -788,60 +788,60 @@ $( "#parent_work_phone_no_id3" ).focusout(function() {
 $("#parentInfoBtn").click(function (e) {
     e.preventDefault();
     if(
-        parent_first_name_check &
-        parent_middle_name_check &
-        parent_last_name_check &
-        parent_gender_check &
-        parent_relation_check &
-        parent_schoolclosurepriority_check &
-        parent_emeregency_contact_priority_check &
-        parent_kebele_check &
-        parent_unit_check &
-        parent_state_check &
-        parent_country_check &
-        parent_email_check &
-        parent_p_o_box_check &
-        parent_house_no_check &
-        parent_home_phone_no_check &
-        parent_mobile_phone_no_check &
-        parent_work_phone_no_check &
-// // parent 2
-        parent_first_name_check2 &
-        parent_middle_name_check2 &
-        parent_last_name_check2 &
-        parent_gender_check2 &
-        parent_relation_check2 &
-        parent_schoolclosurepriority_check2 &
-        parent_emeregency_contact_priority_check2 &
-        parent_kebele_check2 &
-        parent_unit_check2 &
-        parent_state_check2 &
-        parent_country_check2 &
-        parent_email_check2 &
-        parent_p_o_box_check2 &
-        parent_house_no_check2 &
-        parent_home_phone_no_check2 &
-        parent_mobile_phone_no_check2 &
-        parent_work_phone_no_check2 &
-// // parent 3
-        parent_first_name_check3 &
-        parent_middle_name_check3 &
-        parent_last_name_check3 &
-        parent_gender_check3 &
-        parent_relation_check3 &
-        parent_schoolclosurepriority_check3 &
-        parent_emeregency_contact_priority_check3 &
-        parent_kebele_check3 &
-        parent_unit_check3 &
-        parent_state_check3 &
-        parent_country_check3 &
-        parent_email_check3 &
-        parent_p_o_box_check3 &
-        parent_house_no_check3 &
-        parent_home_phone_no_check3 &
-        parent_mobile_phone_no_check3 &
-        parent_work_phone_no_check3
-        // true
+//         parent_first_name_check &
+//         parent_middle_name_check &
+//         parent_last_name_check &
+//         parent_gender_check &
+//         parent_relation_check &
+//         parent_schoolclosurepriority_check &
+//         parent_emeregency_contact_priority_check &
+//         parent_kebele_check &
+//         parent_unit_check &
+//         parent_state_check &
+//         parent_country_check &
+//         parent_email_check &
+//         parent_p_o_box_check &
+//         parent_house_no_check &
+//         parent_home_phone_no_check &
+//         parent_mobile_phone_no_check &
+//         parent_work_phone_no_check &
+// // // parent 2
+//         parent_first_name_check2 &
+//         parent_middle_name_check2 &
+//         parent_last_name_check2 &
+//         parent_gender_check2 &
+//         parent_relation_check2 &
+//         parent_schoolclosurepriority_check2 &
+//         parent_emeregency_contact_priority_check2 &
+//         parent_kebele_check2 &
+//         parent_unit_check2 &
+//         parent_state_check2 &
+//         parent_country_check2 &
+//         parent_email_check2 &
+//         parent_p_o_box_check2 &
+//         parent_house_no_check2 &
+//         parent_home_phone_no_check2 &
+//         parent_mobile_phone_no_check2 &
+//         parent_work_phone_no_check2 &
+// // // parent 3
+//         parent_first_name_check3 &
+//         parent_middle_name_check3 &
+//         parent_last_name_check3 &
+//         parent_gender_check3 &
+//         parent_relation_check3 &
+//         parent_schoolclosurepriority_check3 &
+//         parent_emeregency_contact_priority_check3 &
+//         parent_kebele_check3 &
+//         parent_unit_check3 &
+//         parent_state_check3 &
+//         parent_country_check3 &
+//         parent_email_check3 &
+//         parent_p_o_box_check3 &
+//         parent_house_no_check3 &
+//         parent_home_phone_no_check3 &
+//         parent_mobile_phone_no_check3 &
+//         parent_work_phone_no_check3
+        true
         ){
             emergency_page = true;
 

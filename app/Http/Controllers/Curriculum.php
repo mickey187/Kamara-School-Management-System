@@ -10,6 +10,7 @@ use App\Models\stream;
 use App\Models\subject;
 use App\Models\SubjectGroup;
 use App\Models\SubjectPeriod;
+use App\Models\assasment_type;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -216,6 +217,48 @@ class Curriculum extends Controller
     public function delete_stream(Request $request){
         $status = "";
         if(stream::destroy($request->delete_stream_id)){
+            $status = "success";
+            return response()->json($status);
+        }
+    }
+
+public function indexAssasment(Request $req){
+    $validator = Validator::make($req->all(),[
+    'assasment_type'=>'required|unique:assasment_types|max:5',
+    ]);
+
+    if($validator->passes()){
+        $assasment = new assasment_type();
+        $assasment->assasment_type = $req->assasment_type;
+
+        if($assasment->save()){
+            $status = 'success';
+            return response()->json((['status'=>'success']));
+        }else{
+            $status ='failed';
+            return response()->json((['status'=>'failed']));
+        }
+    }
+        return response()->json(['status'=>$validator->errors()->all()]);
+    }
+
+    public function view_assasment(){
+        $assasment = assasment_type::all();
+        return response()->json($assasment);
+    }
+
+    public function edit_assasment(Request $request){
+        $assasment = assasment_type::find($request->id);
+        $assasment->assasment_type = $request->edit_assasment;
+
+        if($assasment->save()){
+            return response()->json("success");
+        }
+    }
+
+    public function delete_assasment(Request $request){
+        $status = "";
+        if(assasment_type::destroy($request->delete_assasment_id)){
             $status = "success";
             return response()->json($status);
         }

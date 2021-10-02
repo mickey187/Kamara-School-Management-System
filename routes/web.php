@@ -169,6 +169,12 @@ Route::get('/viewUserAccount', [UserManagementController::class, 'viewUserAccoun
  Route::get('/edit_stream', [Curriculum::class, 'edit_stream']);
  Route::get('/delete_stream', [Curriculum::class, 'delete_stream']);
 
+// assasment
+
+Route::get('/indexAssasment',[Curriculum::class, 'indexAssasment']);
+Route::get('/view_assasment',[Curriculum::class, 'view_assasment']);
+Route::get('/edit_assasment',[Curriculum::class, 'edit_assasment']);
+Route::get('/delete_assasment',[Curriculum::class, 'delete_assasment']);
 
 // });
 //subject
@@ -441,14 +447,14 @@ Route::post('importExcel',[ExcelController::class, 'importExcel'])->name('import
 
 // Route::post('/importExcel/{gclass}/{gstream}/{gsection}',[ExcelController::class, 'importExcel'])->name('importExcel');
 
-Route::get('/addAssasment',[MarklistController::class, 'addAssasment'])->name('/addAssasment');
+// Route::get('/addAssasment',[MarklistController::class, 'addAssasment'])->name('/addAssasment');
 
-Route::get('Assasmentform',[MarklistController::class, 'Assasmentform']);
+// Route::get('Assasmentform',[MarklistController::class, 'Assasmentform']);
 
-Route::get('/view_assasment_type',[MarklistController::class, 'view_assasment_type']);
-Route::get('/edit_assasment_type',[MarklistController::class, 'edit_assasment_type']);
-Route::get('edit_assasment_type_value/{id}',[MarklistController::class, 'edit_assasment_type_value']);
-Route::get('/delete_assasment',[MarklistController::class, 'delete_assasment']);
+// Route::get('/view_assasment_type',[MarklistController::class, 'view_assasment_type']);
+// Route::get('/edit_assasment_type',[MarklistController::class, 'edit_assasment_type']);
+// Route::get('edit_assasment_type_value/{id}',[MarklistController::class, 'edit_assasment_type_value']);
+// Route::get('/delete_assasment',[MarklistController::class, 'delete_assasment']);
 
 Route::get('editMarkStudentList/{id}/{mark}/{load}/{assasment}',[MarklistController::class, 'editMarkStudentList']);
 

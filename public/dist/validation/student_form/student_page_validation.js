@@ -360,21 +360,21 @@ $( "#student_page_state_of_birth_id" ).focusout(function() {
 // Basic Student Info Next Button
 $("#basicStudentInfoBtn").click(function (e) {
     if(
-        student_first_name_check &
-        student_middle_name_check &
-        student_last_name_check &
-        student_gender_check &
-        student_birthdate_check &
-        student_citizen_check &
-        student_daycare_program_check &
-        student_kindergarten_check &
-        student_page_academic_year_check &
-        student_page_country_of_birth_check &
-        student_page_state_of_birth_check &
-        student_language_check &
-        student_grade_check &
-        student_stream_check
-        // true
+        // student_first_name_check &
+        // student_middle_name_check &
+        // student_last_name_check &
+        // student_gender_check &
+        // student_birthdate_check &
+        // student_citizen_check &
+        // student_daycare_program_check &
+        // student_kindergarten_check &
+        // student_page_academic_year_check &
+        // student_page_country_of_birth_check &
+        // student_page_state_of_birth_check &
+        // student_language_check &
+        // student_grade_check &
+        // student_stream_check
+        true
         ){
         e.preventDefault();
         academic_page = true;
