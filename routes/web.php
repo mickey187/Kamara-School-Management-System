@@ -570,6 +570,8 @@ Route::get('pdf/generate/{path}', [ExcelController::class, 'create']);
 Route::get('downloadSingleStudentId/{id}', [ExcelController::class, 'downloadSingleId']);
 Route::get('downloadOneClassIdCard/{class_id}/{stream_id}/{section_name}', [ExportController::class, 'downloadSingleClassIdCard']);
 
+
+
 Route::get('checkIfIdGeneratedForClass/{class_id}/{stream_id}/{section_name}',[ExportController::class, 'checkIfIdGeneratedForClass']);
 
 

@@ -180,8 +180,3 @@ function idCardForAllClass()
 }
 
 
-$("#cancelIdGeneratingForAllClassBtn").click(function (e) {
-    e.preventDefault();
-    swal.fire('canceling Generating.');
-    window.location.href = "cancelTheCurrentPtogram";
-});
