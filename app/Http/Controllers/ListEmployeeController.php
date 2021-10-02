@@ -26,10 +26,10 @@ class ListEmployeeController extends Controller
     //
     public function listEmployee()
     {
-        //$emp_list= employee::all();
-        $emp_list = DB::table('employees')
-                                ->join('employee_job_positions', 'employees.employee_job_position_id', '=', 'employee_job_positions.id')
-                                ->get(['first_name','middle_name','last_name','gender','position_name','hire_type','hired_date','employees.id']);
+        $emp_list= employee::all();
+        // $emp_list = DB::table('employees')
+        //                         ->join('employee_job_positions', 'employees.employee_job_position_id', '=', 'employee_job_positions.id')
+        //                         ->get(['first_name','middle_name','last_name','gender','position_name','hire_type','hired_date','employees.id']);
 
         return view('admin.employee.listEmployee')->with('emp_list', $emp_list);
     }
@@ -59,7 +59,7 @@ class ListEmployeeController extends Controller
             'employees.id','first_name','middle_name','last_name','gender','birth_date','hired_date',
             'education_status','marrage_status','previous_employment','special_skill','net_salary','relation','role_id','employee_job_position_id',
             'job_trainning','nationality','hire_type','contact_name','past_job_position','past_employee_place','house_number','employee_religion_id',
-            'position_name','religion_name','city','subcity','email','kebele','p_o_box','phone_number','alternative_phone_number'
+            'position_name','religion_name','city','unit','email','kebele','p_o_box','phone_number','home_phone_number'
         ]);
 
 

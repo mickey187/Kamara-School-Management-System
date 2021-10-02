@@ -18,8 +18,8 @@ class CreateEmployeeJobExperiencesTable extends Migration
             $table->unsignedBigInteger('address_id');
             $table->foreign('address_id') ->references('id')->on('addresses')->onUpdate('cascade')->onDelete('cascade');;
             $table->timestamps();
-            $table->string('past_job_position');
-            $table->string('past_employee_place');
+            $table->string('past_job_position')->nullable(true);
+            $table->string('past_employee_place')->nullable(true);
         });
     }
 

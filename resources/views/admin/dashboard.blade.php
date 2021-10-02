@@ -145,36 +145,5 @@
 
 
 <!-- /.modal-dialog-Import Excel File -->
-<div class="modal_class"> 
-    <div class="modal fade" id="modal-import-excel2">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="title">Import Student list from Excel File</h4>
-                    <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ url('importStudent') }}" method="POST" enctype="multipart/form-data">
-                        <div class="row col-12 form-group">
-                            {{-- @csrf --}}
-                            {{-- <input type="text" name="_import" id="import"> --}}
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input hidden type="text" name="data" id="exportdata">
-                            <div class="col-12">
-                                <input id="input-id" name="exel" type="file" class="file" >
-                                <input type="submit" class="btn btn-primary" value="submit">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button"  class="btn btn-primary">Import</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection
