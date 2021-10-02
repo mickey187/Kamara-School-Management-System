@@ -32,6 +32,8 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('generatedox',[StudentController::class, 'generateDocx']);
 
+// Route::get('/home',[UserManagementController::class, 'defaultUser']);
+
 
 Route::get('/fetchStudent/{class_id}/{stream_id}',[SectionController::class, 'fetchStudent']);
 
@@ -131,6 +133,7 @@ Route::get('/deleteTransportDetail/{student_id}/{payment_load_id}',[FinanceContr
 //user management
 
 Route::middleware(['role:admin,null,null'])->prefix('account')->group(function () {
+  
 
 Route::get('/indexUserAccount',[UserManagementController::class,'indexUserAccount']);
 
@@ -141,6 +144,15 @@ Route::get('/viewRole', [UserManagementController::class, 'viewRole']);
 Route::get('/createAccount/{user_name}/{email}/{role_id}/{password}', [UserManagementController::class, 'createAccount']);
 
 Route::get('/viewUserAccount', [UserManagementController::class, 'viewUserAccount']);
+
+Route::get('/updateUserAccount', [UserManagementController::class, 'updateUserAccount']);
+
+
+Route::post('/userPassword', [UserManagementController::class, 'userPassword']);
+
+Route::post('/changeUserPassword', [UserManagementController::class, 'changeUserPassword']);
+
+
 });
 
 // Curriculum
@@ -420,7 +432,7 @@ Route::get('/parentDashboard',[ParentController::class, 'ParentDashboard']);
 Route::get('/viewParentPaymentDetail',[ParentController::class, 'viewParentPaymentDetail']);
 
 // admin
-Route::get('dashboard',[StudentController::class, 'adminDashboard']);
+Route::get('/dashboard',[StudentController::class, 'adminDashboard']);
 Route::get('generateIdPage',[ExcelController::class, 'generateIdPage']);
 Route::get('getStudentDetail/{id}',[ExcelController::class, 'getStudentDetail']);
 Route::get('generateOneIdForSingleID/{id}',[ExportController::class, 'generateOneIdForSingleID']);

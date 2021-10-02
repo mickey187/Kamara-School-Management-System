@@ -23,7 +23,10 @@ use App\Models\subject;
 use App\Models\teacher_course_load;
 use App\Models\training_institution_info;
 use App\Models\teacher;
+use App\Models\payment_type;
+use App\Models\payment_load;
 use App\Models\student_payment;
+use App\Models\student_payment_load;
 use Illuminate\Support\Facades\DB;
 use Andegna;
 use App\Models\semister;
@@ -137,7 +140,7 @@ class ListTeacherController extends Controller
             foreach($getStudents as $row){
                 $preClass = classes::where('id',$getClass->id)->get()->first();
                 $nxtClass = classes::where('priority',$preClass->priority + 1)->get()->first();
-                if ($this->checkStudentGrade($row->student_id,$preClass->id)) {
+                // if ($this->checkStudentGrade($row->student_id,$preClass->id)) {
                     $getPromoteId = student_class_transfer::where('student_id',$row->student_id)->get()->first();
                     $promote = student_class_transfer::find( $getPromoteId->id);
                     $promote->transfered_from = $preClass->id;
@@ -154,10 +157,24 @@ class ListTeacherController extends Controller
                     $student_payment_detail = DB::table('student_payment_load')
                                                     ->join('payment_loads','student_payment_load.payment_load_id','=','payment_loads.id')
                                                     ->join('payment_types','payment_loads.payment_type_id','=','payment_types.id')
-                                                    ->get();
+                                                    ->where('student_payment_load.student_id',$student->id)
+                                                    ->get(['student_payment_load.id as student_payment_load_id','payment_type_id',
+                                                          'payment_loads.id as pay_load_id','payment_loads.class_id'
+                                                            ]);
+                    
+                    foreach ($student_payment_detail as $key) {
+                        if (payment_load::where('payment_type_id',$key->payment_type_id)->where('class_id',$nxtClass->id)->exists()) {
+
+                            $student_payment_detail_edit = student_payment_load::find('id',$student_payment_detail->student_payment_load_id);
+                            $new_payment_load_id = payment_load::where('payment_type_id',$key->payment_type_id)->where('class_id',$nxtClass->id)->value('id');
+                            
+                            $student_payment_detail_edit->payment_load_id = $new_payment_load_id;
+                            $student_payment_detail_edit->save();
+                        }
+                    }
 
                     $promotedStudentSize++;
-                }
+                // }
             }
             return response()->json((string) $promotedStudentSize);
         }
