@@ -373,6 +373,8 @@ Route::get('add_student', [StudentController::class, 'index']);
 
 Route::get('view_student',[StudentController::class, 'retriveAll']);
 
+Route::get('student_detail/{id}',[StudentController::class, 'retriveDetails']);
+
 Route::get('edit_student_form/{id}',[StudentController::class, 'retrive']);
 
 Route::post('edit_student_value/{id}',[StudentController::class, 'update']);
@@ -431,6 +433,8 @@ Route::get('getCLassStreamSection2/{class_id}/{stream_id}',[Curriculum::class,'g
 Route::get('/indexHomeRoomAttendance',[AttendanceController::class, 'indexHomeRoomAttendance']);
 
 Route::get('/getHomeRoomAttendance/{year_month}',[AttendanceController::class, 'getHomeRoomAttendance']);
+Route::get('generateIDForAllClass',[ExportController::class,'generateIDForAllClass']);
+Route::get('cancelTheCurrentPtogram',[ExportController::class,'handle']);
 
 //marklist
 
@@ -440,6 +444,7 @@ Route::get('singleAddMarkList/{student_id}/{class_id}/{semister_id}/{assasment_i
 [MarklistController::class, 'singleAddMarkList']);
 
 Route::post('/importStudent',[ExcelController::class, 'importStudent']);
+Route::post('/importEmployee',[ExcelController::class, 'importEmployee']);
 
 Route::post('importExcel',[ExcelController::class, 'importExcel'])->name('importExcel');
 
@@ -574,6 +579,11 @@ Route::get('getAllAssasment', function () {
 Route::get('pdf/generate/{path}', [ExcelController::class, 'create']);
 
 Route::get('downloadSingleStudentId/{id}', [ExcelController::class, 'downloadSingleId']);
+Route::get('downloadOneClassIdCard/{class_id}/{stream_id}/{section_name}', [ExportController::class, 'downloadSingleClassIdCard']);
+
+
 
 Route::get('checkIfIdGeneratedForClass/{class_id}/{stream_id}/{section_name}',[ExportController::class, 'checkIfIdGeneratedForClass']);
+
+
 require __DIR__.'/auth.php';

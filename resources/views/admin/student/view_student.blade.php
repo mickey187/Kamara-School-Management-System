@@ -15,7 +15,6 @@
                             <th>Full name</th>
                             <th>Sex</th>
                             <th>Grade</th>
-                            <th>Section</th>
                             <th>Stream</th>
                             <th>Action</th>
                         </tr>
@@ -33,17 +32,16 @@
                                 <td>{{$row->first_name.' '.$row->middle_name.' '.$row->last_name}}</td>
                                 <td>{{$row->gender}}</td>
                                 <td>{{$row->class_label}}</td>
-                                <td>{{ $row->section_name }}</td>
                                 <td>{{ $row->stream_type }}</td>
                                 <td>
                                     @php
                                         $img = "storage/student_image/".$row->image;
                                     @endphp
-                                    <a type="button" class="btn bg-green btn-sm"
-                                    data-toggle="modal"
+                                    <a href="student_detail/{{ $row->student_id }}" class="btn bg-green btn-sm"
+                                    {{-- data-toggle="modal"
                                     data-target="#modal-student"
-                                    data-detail1="
-                                                {{ $row->first_name.' '.$row->middle_name.' '.$row->last_name }},
+                                    data-detail1=" --}}
+                                                {{-- {{ $row->first_name.' '.$row->middle_name.' '.$row->last_name }},
                                                 {{ $row->id }},
                                                 {{ $row->gender }},
                                                 {{ $img }},
@@ -59,14 +57,14 @@
                                                 {{ $row->citizenship }},
                                                 {{ $row->previous_school }},
                                                 {{ $row->native_tongue }},
-                                                {{ $row->birth_year }}
+                                                {{ $row->birth_year }} --}}
 
-                                                {{-- {{ $row->emergency_contact_priority }} --}}
-                                    ">
+                                                {{-- {{ $row->emergency_contact_priority }} --}}"
+                                    >
                                     <i class="fa fa-eye "></i></a>
                                     <a href="{{ url('edit_student_form/'.$row->id) }}" type="button" class="btn bg-primary btn-sm"><i class="fa fa-pen "></i></a>
                                     <a href="{{ url('studentParentList/'.$row->id) }}" class="fa fa-user btn bg-primary btn-sm"> parent</a>
-                                    <a href="{{ url('marklist/'.$row->id) }}" class=" btn bg-primary btn-sm"><i class="fas fa-angle-double-right"></i> Mark List </a>
+                                    {{-- <a href="{{ url('marklist/'.$row->id) }}" class=" btn bg-primary btn-sm"><i class="fas fa-angle-double-right"></i> Mark List </a> --}}
                                 </td>
                             </tr>
 

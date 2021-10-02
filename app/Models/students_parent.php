@@ -18,6 +18,8 @@ class students_parent extends Model
                         'school_closur_priority',
                         'emergency_contact_priority',
                         'address',
-                        'student'
+                        'student',
+                        'parent_id',
+                        'relation'
                     ];
 }

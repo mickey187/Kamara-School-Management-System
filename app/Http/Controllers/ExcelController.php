@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\StudentsExport;
 use App\Exports\StudentsMultipleAssasmentExport;
+use App\Imports\EmployeeImport;
 use App\Imports\HeaderFileImport;
 use App\Imports\MarklistImport;
 use App\Imports\MultipleMarkListImporter;
@@ -33,6 +34,7 @@ class ExcelController extends Controller
     }
 
     public function importExcel(Request $req){
+        
         $data = explode(",",$req->data);
         $class = $data[0];
         $stream = $data[1];
@@ -107,6 +109,17 @@ class ExcelController extends Controller
          }
 
      }
+
+     public function importEmployee(Request $req){
+        if(Excel::import(new EmployeeImport(), $req->exel))
+        {
+           echo 'impoted successfuly';
+        }else{
+           echo 'Error';
+
+        }
+
+    }
 
 
      public function generateIdPage(){

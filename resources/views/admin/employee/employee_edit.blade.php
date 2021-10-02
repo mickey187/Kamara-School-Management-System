@@ -96,7 +96,7 @@
 
                     <div class="field">
                             <div class="label">citizen</div>
-                            
+
                             <input type="text" id="citizen"  name="citizen" class="form-control" placeholder="Cityzenship"
 
                                                    @if(isset($edit_employee))
@@ -415,8 +415,8 @@
                                             ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                         </div>
                                         <div class="field">
-                                            <div class="label">Sub city</div>
-                                            <input type="text" name="emp_unit" class="form-control" placeholder="Subcity"
+                                            <div class="label">Unit</div>
+                                            <input type="text" name="unit" class="form-control" placeholder="unit"
                                              @if(isset($edit_employee))
                                                value="{{ $edit_employee->unit }}"
                                                @else
@@ -482,7 +482,7 @@
                                                 ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i>  <small>error message message appear here</small>
                                             </div>
                                             <div class="field">
-                                                <div class="label">Alternative Phone</div>
+                                                <div class="label">Home Phone number</div>
                                                 <input type="text" name="home_phone_number" class="form-control" placeholder="Alternative phone"
                                                  @if(isset($edit_employee))
                                                    value="{{ $edit_employee->home_phone_number }}"

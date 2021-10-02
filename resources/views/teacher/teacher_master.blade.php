@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kamara School Management System | Dashboard</title>
-    {{-- <script src="{{asset('plugins/pace-progress/pace.min.js')}}"></script> 
+    {{-- <script src="{{asset('plugins/pace-progress/pace.min.js')}}"></script>
      <link rel="stylesheet" href="{{asset('plugins/pace-progress/themes/red/pace-theme-material.css')}}"> --}}
-     <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> 
+     <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 
     {{-- <link rel="stylesheet" href="sweetalert2.min.css"> --}}
 

@@ -52,7 +52,7 @@
                                                      {{-- @if($errors->has('first_name'))
                                                      <span class="text-danger">{{$errors->first('first_name')}}</span>
                                                         @endif --}}
-                                                        
+
                                                         oninput="checkInput()"
                                                         onkeydown="return alphaOnly(event);"
                                                         onblur="if (this.value == '')"
@@ -81,7 +81,7 @@
                                                 <div class="field">
                                                     <div class="label">Education Status</div>
                                                     <input type="text" id="emp_education_status" name="education_status" class="form-control" id="hired_date"
-                                                    placeholder="Enter your education status" 
+                                                    placeholder="Enter your education status"
 
                                                         onkeydown="return alphaOnly(event);"
                                                         onblur="if (this.value == '')"
@@ -149,7 +149,7 @@
                                           <div class="col-4">
                                                 <div class="field">
                                                     <div class="label">Last name</div>
-                                                    <input type="text" id="emp_last_name" name="last_name"  class="form-control" 
+                                                    <input type="text" id="emp_last_name" name="last_name"  class="form-control"
                                                     placeholder="Last name"
 
                                                       onkeydown="return alphaOnly(event);"
@@ -204,7 +204,7 @@
                                                 <div class="field">
                                                     <div class="label">Job Trainning</div>
                                                     <input type="text" id="emp_job_trainning" name="job_trainning" class="form-control"
-                                                    placeholder="Enter your job trainning" 
+                                                    placeholder="Enter your job trainning"
 
                                                       onkeydown="return alphaOnly(event);"
                                                       onblur="if (this.value == '')"
@@ -347,7 +347,7 @@
                                                       onblur="if (this.value == '')"
                                                       onfocus="if (this.value == '') {this.value = '';}"
                                                       required size="30" minlength="3" maxlength="21"
-                                                      
+
                                                       @if(isset($edit_employee))
                                                          value="{{ $edit_employee->past_job_position }}"
                                                       @else
@@ -567,9 +567,9 @@
                                             ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                                         </div>
                                         <div class="field">
-                                            <div class="label">Sub city</div>
-                                            <input type="text" id="emp_unit" name="emp_unit" class="form-control"
-                                             placeholder="Subcity"
+                                            <div class="label">Unit</div>
+                                            <input type="text" id="emp_sub_city" name="unit" class="form-control"
+                                             placeholder="unit"
 
                                                       onkeydown="return alphaOnly(event);"
                                                       onblur="if (this.value == '')"
@@ -577,7 +577,7 @@
                                                       required size="30" minlength="3" maxlength="21"
 
                                              @if(isset($edit_employee))
-                                               value="{{ $edit_employee->unit}}"
+                                               value="{{ $edit_employee->unit }}"
                                                @else
                                                value=""
                                             @endif
@@ -638,7 +638,7 @@
                                             <div class="field">
                                                 <div class="label">Phone</div>
                                                 <input type="number" id="emp_phone1"   required name="phone_number" class="form-control"
-                                                placeholder="Phone"   maxlength="14"
+                                                placeholder="phone_number"   maxlength="14"
 
                                                  @if(isset($edit_employee))
                                                    value="{{ $edit_employee->phone_number }}"
@@ -648,9 +648,9 @@
                                                 ><i class="fas fa-check-circle"></i><i class="fas fa-exclamation-circle"></i> <i class="fas fa-exclamation-circle"></i> <small>error message message appear here</small>
                                             </div>
                                             <div class="field">
-                                                <div class="label">Alternative Phone</div>
+                                                <div class="label">Home Phone number</div>
                                                 <input type="number" id="emp_phone2" required name="home_phone_number" class="form-control"
-                                                 placeholder="Alternative phone" maxlength="14"
+                                                 placeholder="Home Phone number" maxlength="14"
                                                  @if(isset($edit_employee))
                                                    value="{{ $edit_employee->home_phone_number }}"
                                                  @else

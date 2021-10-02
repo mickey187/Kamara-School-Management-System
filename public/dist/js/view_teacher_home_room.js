@@ -321,7 +321,7 @@ function setAvarageForClass(val){
 
 }
 
-function getAttendanceList (data) { 
+function getAttendanceList (data) {
 // var data = $(this).val();
 alert(data.value)
     document.location.url = "/indexAttendance/"+data.value;
