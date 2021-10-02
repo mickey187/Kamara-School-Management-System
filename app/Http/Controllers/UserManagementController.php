@@ -20,6 +20,10 @@ class UserManagementController extends Controller
         $this->middleware('auth');
     }
 
+    public function defaultUser(){
+        return view('auth.login');
+    }
+
     public function indexUserAccount(){
 
         $roles = Role::all();
@@ -97,22 +101,25 @@ class UserManagementController extends Controller
      return response()->json($user_detail);
     }
 
+ 
+
     public function idGeneratorFun(){
+        global $idArray;
         $fourRandomDigit = rand(100000,999999);
-        $student = student::get(['student_id']);
-        $employee = employee::get(['employee_id']);
-        $parent = students_parent::get(['parent_id']);
+        $student = student::all();
+        $employee = employee::all();
+        $parent = students_parent::all();
         foreach($student as $row){
-            if($row->id==$fourRandomDigit){
+            if($row->student_id == $fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
         foreach($employee as $row){
-            if($row->id==$fourRandomDigit){
+            if($row->employee_id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }foreach($parent as $row){
-            if($row->id==$fourRandomDigit){
+            if($row->parent_id==$fourRandomDigit){
                 $this->idGeneratorFun();
             }
         }
