@@ -51,6 +51,18 @@ class EmployeeImport implements ToModel,WithHeadingRow,WithStartRow
         $role = null;
         if($row['job_position'] == 'Teacher' || $row['job_position'] == 'teacher'){
             $role = Role::where('role_name',strtolower((string)$row['job_position']))->value('id');
+        }else if ($row['job_position']=='Adminster and Finance' || $row['job_position']=='adminster and finance') {
+            $role = Role::where('role_name','finance');
+        }else if ($row['job_position']=='Asistant teacher' || $row['job_position']=='asistant teacher') {
+            $role = Role::where('role_name','asistant teacher');
+        }else if ($row['job_position']=='Vice Director' || $row['job_position']=='vice director') {
+            $role = Role::where('role_name','vice director');
+        }else if ($row['job_position']=='Assistance' || $row['job_position']=='assistance') {
+            $role = Role::where('role_name','assistance');
+        }else if ($row['job_position']=='Supervisor' || $row['job_position']=='supervisor') {
+            $role = Role::where('role_name','supervisor');
+        }else if ($row['job_position']=='Secretary' || $row['job_position']=='secretary') {
+            $role = Role::where('role_name','secretary');
         }
         // $employee_emergency_contact = new employee_emergency_contact();
         // $employee_emergency_contact->contact_name = $row['emergency_contact'];
@@ -89,7 +101,7 @@ class EmployeeImport implements ToModel,WithHeadingRow,WithStartRow
         $employee->job_trainning =$row['training'];
         $employee->save();
 
-        if($row['job_position']=='Teacher'){
+        if($row['job_position']=='Teacher' || $row['job_position']=='teacher'){
             $academic_background = new academic_background_info();
             $academic_background->field_of_study = $row['education_status'];
             // $academic_background->place_of_study = $row['place_of_study'];

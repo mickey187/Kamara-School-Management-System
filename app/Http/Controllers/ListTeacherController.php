@@ -47,7 +47,8 @@ class ListTeacherController extends Controller
         $teach_list= DB::table('teachers')
                  ->join('academic_background_infos','teachers.academic_background_id','=','academic_background_infos.id')
                  ->join('employees','employees.id','=','teachers.id')
-                ->get(['first_name','middle_name','last_name','teachers.id','field_of_study','place_of_study','date_of_study']);
+                 ->join('employee_job_positions', 'employees.employee_job_position_id', '=', 'employee_job_positions.id')
+                ->get(['first_name','middle_name','last_name','teachers.id','field_of_study','position_name','place_of_study','date_of_study']);
         $subject = subject::all();
         $class = classes::all();
         $stream = stream::all();
@@ -161,13 +162,13 @@ class ListTeacherController extends Controller
                                                     ->get(['student_payment_load.id as student_payment_load_id','payment_type_id',
                                                           'payment_loads.id as pay_load_id','payment_loads.class_id'
                                                             ]);
-                    
+
                     foreach ($student_payment_detail as $key) {
                         if (payment_load::where('payment_type_id',$key->payment_type_id)->where('class_id',$nxtClass->id)->exists()) {
 
                             $student_payment_detail_edit = student_payment_load::find('id',$student_payment_detail->student_payment_load_id);
                             $new_payment_load_id = payment_load::where('payment_type_id',$key->payment_type_id)->where('class_id',$nxtClass->id)->value('id');
-                            
+
                             $student_payment_detail_edit->payment_load_id = $new_payment_load_id;
                             $student_payment_detail_edit->save();
                         }

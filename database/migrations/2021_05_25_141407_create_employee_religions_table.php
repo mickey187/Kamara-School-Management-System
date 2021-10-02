@@ -15,7 +15,7 @@ class CreateEmployeeReligionsTable extends Migration
     {
         Schema::create('employee_religions', function (Blueprint $table) {
             $table->id();
-            $table->string('religion_name') ->nullable(false);
+            $table->string('religion_name') ->nullable(true);
             $table->timestamps();
         });
     }

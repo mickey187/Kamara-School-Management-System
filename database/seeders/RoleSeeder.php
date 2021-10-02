@@ -48,6 +48,36 @@ class RoleSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+        DB::table('roles')->insert([
+            'id' => 6,
+            'role_name' => 'vice director',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        DB::table('roles')->insert([
+            'id' => 7,
+            'role_name' => ' asistant teacher',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        DB::table('roles')->insert([
+            'id' => 8,
+            'role_name' => 'assistance',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        DB::table('roles')->insert([
+            'id' => 9,
+            'role_name' => 'supervisor',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        DB::table('roles')->insert([
+            'id' => 10,
+            'role_name' => 'secretary',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
 
     }
 }

@@ -15,7 +15,7 @@ class CreateEmployeeJobExperiencesTable extends Migration
     {
         Schema::create('employee_job_experiences', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('address_id');
+            $table->unsignedBigInteger('address_id')->nullable(true);
             $table->foreign('address_id') ->references('id')->on('addresses')->onUpdate('cascade')->onDelete('cascade');;
             $table->timestamps();
             $table->string('past_job_position')->nullable(true);

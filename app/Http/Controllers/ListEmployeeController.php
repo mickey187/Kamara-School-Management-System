@@ -26,10 +26,10 @@ class ListEmployeeController extends Controller
     //
     public function listEmployee()
     {
-        $emp_list= employee::all();
-        // $emp_list = DB::table('employees')
-        //                         ->join('employee_job_positions', 'employees.employee_job_position_id', '=', 'employee_job_positions.id')
-        //                         ->get(['first_name','middle_name','last_name','gender','position_name','hire_type','hired_date','employees.id']);
+        // $emp_list= employee::all();
+        $emp_list = DB::table('employees')
+                                ->join('employee_job_positions', 'employees.employee_job_position_id', '=', 'employee_job_positions.id')
+                                ->get(['first_name','middle_name','last_name','gender','position_name','hire_type','hired_date','employees.id']);
 
         return view('admin.employee.listEmployee')->with('emp_list', $emp_list);
     }

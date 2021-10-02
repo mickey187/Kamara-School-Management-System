@@ -66,6 +66,11 @@ class AssasmenetSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+        DB::table('assasment_types')->insert([
+            'assasment_type' => 'Presentation',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
 
     }
 }

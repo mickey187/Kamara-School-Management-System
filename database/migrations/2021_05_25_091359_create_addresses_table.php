@@ -19,12 +19,12 @@ class CreateAddressesTable extends Migration
             $table->string('unit')->nullable(true);
             $table->string('email')->nullable(true);
             $table->string('kebele')->nullable(true);
-            $table->integer('p_o_box')->nullable(true);
-            $table->integer('home_phone_number')->nullable(true);
-            $table->integer('work_phone_number')->nullable(true);
-            $table->integer('phone_number')->nullable(true);
+            $table->string('p_o_box')->nullable(true);
+            $table->string('home_phone_number')->nullable(true);
+            $table->string('work_phone_number')->nullable(true);
+            $table->string('phone_number')->nullable(true);
             // $table->integer('alternative_phone_number')->nullable(false);
-            $table->integer('house_number')->nullable(true);
+            $table->string('house_number')->nullable(true);
             $table->timestamps();
         });
     }
