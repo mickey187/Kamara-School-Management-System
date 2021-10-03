@@ -130,7 +130,7 @@
                                           <h6 class="mb-0">Phone</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                          {{ $employee->phone_number }}
+                                          {{ $employee->home_phone_number }}
                                         </div>
                                       </div>
                                       <hr>
@@ -139,7 +139,7 @@
                                           <h6 class="mb-0">Mobile</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                          {{ $employee->work_phone_number }}
+                                          {{ $employee->phone_number }}
                                         </div>
                                       </div>
                                       <hr>
