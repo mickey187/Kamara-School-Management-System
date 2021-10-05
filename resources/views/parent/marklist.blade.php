@@ -44,7 +44,7 @@
                     <th>Mark</th>
                     <th>Subject</th>
                     <th>Test Load</th>
-                    <th>action</th>
+                    {{-- <th>action</th> --}}
                 </tr>
             </thead>
 
@@ -59,9 +59,9 @@
                     <td>{{ $row->mark }}</td>
                     <td>{{ $row->subject_name }}</td>
                     <td>{{ $row->test_load }}</td>
-                    <td><button class="btn btn-sm btn-success"><span><i class="fa fa-eye" aria-hidden="true"></i></span></button>
+                    {{-- <td><button class="btn btn-sm btn-success"><span><i class="fa fa-eye" aria-hidden="true"></i></span></button>
                         <button class="btn btn-sm btn-info "><span><i class="fas fa-pencil-alt" aria-hidden="true"></i></span></button>
-                        <button class="btn btn-sm btn-danger"><span><i class="fa fa-trash" aria-hidden="true"></i></span></button></td>
+                        <button class="btn btn-sm btn-danger"><span><i class="fa fa-trash" aria-hidden="true"></i></span></button></td>--}}
                     </tr>
 
                 @endforeach

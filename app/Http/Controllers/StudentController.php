@@ -52,7 +52,7 @@ class StudentController extends Controller{
     }
 
     public function insert(Request $req){
-        // return $req;              
+        // return $req;
                 $validated = $req->validate([
                     // student info 1st page
                     'studentFirstName' => 'required|max:30|min:2',
@@ -78,16 +78,16 @@ class StudentController extends Controller{
                     'academicPreviousSchool' => "nullable|min:2",
                     'academicPreviousSchoolCity' => "nullable|min:2",
                     'academicPreviousSchoolState' => "nullable|min:2",
-                    'academicPreviousSchoolCountry' => "nullable|min:2",                   
+                    'academicPreviousSchoolCountry' => "nullable|min:2",
                     'academicMedicalCondtion' => "nullable|min:2",
                     'academicBloodType' => "nullable|min:1",
-                    
+
                     // parent info 3rd page
                     'parentFirstName' => 'required|max:30',
                     'parentMiddleName' => 'required|max:30',
                     'parentLastName' => 'required|max:30',
                     'parentGender' => 'required',
-                    'parentRelation' => 'required',              
+                    'parentRelation' => 'required',
                     'parentSchoolClosurePriority' => "nullable|min:1",
                     'parentEmergencyContactPriority' => "nullable|min:1",
 
@@ -388,15 +388,15 @@ class StudentController extends Controller{
                 if ($transport3['first_name'] && $transport3['middle_name'] && $transport3['last_name']) {
                     $this->insertTransport($transport3);
                 }
-            }  
+            }
 
                 $all_class = classes::all();
                 $all_stream = stream::all();
                 $all_role = Role::all();
                 return view('admin.student.add_student_form')->with('classes', $all_class)->with('streams', $all_stream)->with('role', $all_role);
-            
-            
-            
+
+
+
     }
 
     // public function retrive($id){
@@ -847,7 +847,9 @@ class StudentController extends Controller{
         $mark =  DB::table('student_mark_lists')
         ->join('students','students.id','=','student_mark_lists.student_id')
         ->join('assasment_types','assasment_types.id','=','student_mark_lists.assasment_type_id')
-        ->join('subjects','subjects.id','=','student_mark_lists.subject_id')
+
+        ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+        ->join('subjects','subject_groups.subject_id','=','subjects.id')
         ->where('student_mark_lists.student_id',$id)->get();
         //$mark = student_mark_list::where('student_id',$id)->get();
         // $student = student::where('id',$id)->first();
@@ -860,7 +862,7 @@ class StudentController extends Controller{
     }
 
     function teacherMarklist($id){
-        
+
         $count_term = 0;
         $term = '';
         $semister = 0;
