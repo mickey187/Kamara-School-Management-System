@@ -40,11 +40,13 @@ class PreStudentsCardPerSemisterExport implements FromCollection,WithTitle,WithH
         $this->stream = $stream;
         $this->section = $section;
         $this->name = $name;
-        $this->subjectSize = count( DB::table('subject_groups')
-                ->join('classes','subject_groups.class_id','=','classes.id')
-                ->join('subjects','subject_groups.subject_id','=','subjects.id')
-                ->where('subject_groups.class_id',$this->class)
-                ->get('subject_name'))+7;
+        $this->subjectSize = count(
+           DB::table('student_mark_lists')
+            ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+            ->join('subjects','subject_groups.subject_id','subjects.id')
+            ->where('student_mark_lists.class_id',$this->class)
+            ->distinct('subject_group_id')
+            ->get(['subject_name','subject_groups.id']))+7;
         $this->getTraitSize = count(StudentTraits::all())+7;
         // error_log("Size ISSS: ".$this->subjectSize);
     }

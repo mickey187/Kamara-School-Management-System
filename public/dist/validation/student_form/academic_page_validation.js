@@ -152,16 +152,16 @@ $("#academic_page_bloodtype_id").change(function (e) {
 // Accademic Background Next Button
 $("#academnicBackgroundBtn").click(function (e) {
     if(
-        // academic_page_transferreason_check &
-        // academic_page_suspension_check &
-        // academic_page_expulsion_check &
-        // academic_page_specialeducation_check &
-        // academic_page_previousschool_check &
-        // academic_page_previousschoolcity_check &
-        // academic_page_previousschoolstate_check &
-        // academic_page_previousschoolcountry_check &
-        // academic_page_medicalcondtion_check
-        true
+        academic_page_transferreason_check &
+        academic_page_suspension_check &
+        academic_page_expulsion_check &
+        academic_page_specialeducation_check &
+        academic_page_previousschool_check &
+        academic_page_previousschoolcity_check &
+        academic_page_previousschoolstate_check &
+        academic_page_previousschoolcountry_check &
+        academic_page_medicalcondtion_check
+        // true
         ){
         e.preventDefault();
         parent_page = true;

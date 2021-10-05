@@ -867,7 +867,7 @@ class SectionController extends Controller
                 ->join('assasment_types','student_mark_lists.assasment_type_id','=','assasment_types.id')
                 ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
                 ->join('subjects','subject_groups.subject_id','=','subjects.id')
-                ->where('subject_groups.class_id',$getClass->id)
+                // ->where('subject_groups.class_id',$getClass->id)
                 ->get([
                     'students.student_id',
                     'first_name',

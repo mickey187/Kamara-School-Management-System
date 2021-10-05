@@ -47,7 +47,7 @@ class EmployeeImport implements ToModel,WithHeadingRow,WithStartRow
         // $address->phone_number = $row['phone_number'];
         // $address->home_phone_number = $row['home_phone_number'];
         $address->house_number = $row['house_number'];
-        $address->save();
+        $address->save(); 
         $role = null;
         if($row['job_position'] == 'Teacher' || $row['job_position'] == 'teacher'){
             $role = Role::where('role_name',strtolower((string)$row['job_position']))->value('id');

@@ -89,11 +89,17 @@ class StudentsCardPerTermExport implements WithMultipleSheets
                 $oneStudent->push($studentItem);
 
                 // $subject = subject::all();
-                $subject = DB::table('subject_groups')
-                                ->join('classes','subject_groups.class_id','=','classes.id')
-                                ->join('subjects','subject_groups.subject_id','=','subjects.id')
-                                ->where('subject_groups.class_id',$this->class)
+                // $subject = DB::table('subject_groups')
+                //                 ->join('classes','subject_groups.class_id','=','classes.id')
+                //                 ->join('subjects','subject_groups.subject_id','=','subjects.id')
+                //                 ->where('subject_groups.class_id',$this->class)
+                //                 ->get('subject_name');
+                $subject = DB::table('student_mark_lists')
+                                ->join('subject_groups','student_mark_lists.subject_group_id','=','subject_groups.id')
+                                ->join('subjects','subject_groups.subject_id','subjects.id')
+                                ->distinct('subject_group_id')
                                 ->get('subject_name');
+                                //  dd($getAllSubject);
                     $allTermOne = 0;
                     foreach($subject as $sub){
                         $term1 = 0;

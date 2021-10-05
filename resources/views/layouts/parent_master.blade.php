@@ -273,14 +273,14 @@
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
+                            {{-- <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ url('listTeacher') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Teacher List</p>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </li>
 
                         <li class="nav-item">
