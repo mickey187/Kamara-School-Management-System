@@ -16,6 +16,15 @@
         <div class="card-body">
             <div class="tab-content text-center">
                 <button type="button" class="btn btn-primary"> <i class="fa fa-refresh" aria-hidden="true"></i> </button>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="">Choose Date</label>
+                    
+                     <input type="text" name="" autocomplete="off" id="ethio_date_inline" class="form-control mb-5" placeholder="choose date">
+                     
+                    </div>
+                </div>
+                
                 <h4 id="current_year_month" data-year_month="{{$current_year_month}}" class="text-primary text-bold">{{$current_date}}</h4>
                 <div class="tab-pane active" id="show_homeroom_attendance_tab">
                     <div class="row">

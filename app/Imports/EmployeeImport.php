@@ -37,6 +37,7 @@ class EmployeeImport implements ToModel,WithHeadingRow,WithStartRow
 {
 
     public function model(array $row){
+        error_log("heloooooooooooooooooo");
 
         $address = new Address();
         $address->city = $row['city'];
@@ -48,27 +49,29 @@ class EmployeeImport implements ToModel,WithHeadingRow,WithStartRow
         // $address->home_phone_number = $row['home_phone_number'];
         $address->house_number = $row['house_number'];
         $address->save(); 
+        error_log("heloooooooooooooooooo2");
         $role = null;
         if($row['job_position'] == 'Teacher' || $row['job_position'] == 'teacher'){
             $role = Role::where('role_name',strtolower((string)$row['job_position']))->value('id');
+            error_log("roleeeeeeeeeeeeeeee3".$role);
         }else if ($row['job_position']=='Adminster and Finance' || $row['job_position']=='adminster and finance') {
-            $role = Role::where('role_name','finance');
+            $role = Role::where('role_name','finance')->value('id');
         }else if ($row['job_position']=='Asistant teacher' || $row['job_position']=='asistant teacher') {
-            $role = Role::where('role_name','asistant teacher');
+            $role = Role::where('role_name','asistant teacher')->value('id');
         }else if ($row['job_position']=='Vice Director' || $row['job_position']=='vice director') {
-            $role = Role::where('role_name','vice director');
+            $role = Role::where('role_name','vice director')->value('id');
         }else if ($row['job_position']=='Assistance' || $row['job_position']=='assistance') {
-            $role = Role::where('role_name','assistance');
+            $role = Role::where('role_name','assistance')->value('id');
         }else if ($row['job_position']=='Supervisor' || $row['job_position']=='supervisor') {
-            $role = Role::where('role_name','supervisor');
+            $role = Role::where('role_name','supervisor')->value('id');
         }else if ($row['job_position']=='Secretary' || $row['job_position']=='secretary') {
-            $role = Role::where('role_name','secretary');
+            $role = Role::where('role_name','secretary')->value('id');
         }
         // $employee_emergency_contact = new employee_emergency_contact();
         // $employee_emergency_contact->contact_name = $row['emergency_contact'];
         // $employee_emergency_contact->relation = $row['relation'];
         // $employee_emergency_contact->save();
-
+        //error_log("roleeeeeeeeeeeeeeee".$role);
         $employee_job_experience = new employee_job_experience();
         $employee_job_experience->past_job_position = $row['past_employement_place_experience'];
         $employee_job_experience->past_employee_place = $row['other_employement_place_experience'];
